@@ -1,0 +1,22 @@
+.venv/
+*.log
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+backend/.mypy_cache/
+backend/.ruff_cache/
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+backend/.venv/
+data/
+!.gitkeep
+.env
+.codex*
+
+# 项目排除路径
+/frontend/vite.config.d.ts
+/frontend/vite.config.js
