@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { Activity, ArrowRight, Shield, TrendingDown } from "lucide-react";
-import { diffs, overviewMetrics, priceRankings, shops, stabilityRankings } from "@/lib/mock-data";
+import { Activity, ArrowRight, ExternalLink } from "lucide-react";
+import { diffs, overviewMetrics, shops } from "@/lib/mock-data";
 
 export default function HomePage() {
+  const featuredShops = shops.filter((shop) => shop.status !== "CLOSED").slice(0, 4);
+
   return (
     <div className="space-y-5">
       <section className="float-in rounded-[28px] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(236,244,255,0.92))] p-4 shadow-[0_24px_70px_rgba(30,64,175,0.08)]">
@@ -26,12 +28,6 @@ export default function HomePage() {
             >
               查看商铺
               <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/compare"
-              className="inline-flex items-center gap-2 rounded-full border border-[#d7e6ff] bg-white/88 px-5 py-3 text-[#215edc] transition hover:border-[#b7d1ff] hover:bg-white"
-            >
-              查看比价
             </Link>
           </div>
         </div>
@@ -77,58 +73,70 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
-          <RankingCard title="最低价榜" icon={<TrendingDown className="h-4 w-4 text-[#2867e8]" />} entries={priceRankings} suffix="元" />
-          <RankingCard title="稳定度榜" icon={<Shield className="h-4 w-4 text-[#2867e8]" />} entries={stabilityRankings} suffix="分" />
+        <div className="float-in rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_18px_52px_rgba(15,23,42,0.05)]">
+          <div className="flex items-center justify-between">
+            <h2 className="font-serif text-[1.8rem]">重点商铺</h2>
+            <Link href="/shops" className="text-sm text-[#2567eb]">
+              查看全部
+            </Link>
+          </div>
+
+          <div className="mt-4 grid gap-3">
+            {featuredShops.map((shop) => (
+              <article
+                key={shop.shopId}
+                className="rounded-[22px] border border-[#dde7f7] bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-4 transition duration-200 hover:border-[#c6d8ff] hover:shadow-[0_16px_34px_rgba(59,130,246,0.08)]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-ink">{shop.name}</h3>
+                    <div className="mt-1 text-xs text-slate-500">{shop.lastCrawledAt.slice(0, 10)}</div>
+                  </div>
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs ${
+                      shop.status === "OPEN"
+                        ? "bg-[#e8f6ef] text-[#21714c]"
+                        : shop.status === "RISK"
+                          ? "bg-[#fff4dc] text-[#8d5a09]"
+                          : "bg-[#fdecec] text-[#9f2e2e]"
+                    }`}
+                  >
+                    {shop.status}
+                  </span>
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <MetricCell label="商品数" value={`${shop.productCount}`} />
+                  <MetricCell label="最低价" value={`¥${shop.lowestPrice || "--"}`} />
+                  <MetricCell label="稳定度" value={`${shop.stabilityScore}`} />
+                </div>
+
+                <div className="mt-4 flex items-center justify-between">
+                  <div className="text-xs text-slate-500">{shop.healthNote}</div>
+                  <a
+                    href={shop.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 rounded-full border border-[#d7e6ff] bg-white px-3 py-1.5 text-xs text-[#215edc]"
+                  >
+                    打开
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </div>
   );
 }
 
-function RankingCard({
-  title,
-  icon,
-  entries,
-  suffix
-}: {
-  title: string;
-  icon: React.ReactNode;
-  entries: typeof priceRankings;
-  suffix: string;
-}) {
+function MetricCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="float-in rounded-[26px] border border-white/70 bg-white/90 p-5 shadow-[0_18px_46px_rgba(15,23,42,0.05)]">
-      <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[1.7rem]">{title}</h2>
-        <div className="rounded-full bg-[#edf4ff] p-2">{icon}</div>
-      </div>
-
-      <div className="mt-4 space-y-3">
-        {entries.map((entry) => (
-          <div
-            key={`${title}-${entry.rank}`}
-            className={`flex items-start gap-3 rounded-[20px] border p-3.5 transition duration-200 hover:border-[#c6d8ff] ${
-              entry.rank === 1
-                ? "border-[#bed5ff] bg-[linear-gradient(135deg,#eef5ff,#e5f0ff)] shadow-[0_16px_30px_rgba(59,130,246,0.1)]"
-                : "border-[#dde7f7] bg-[linear-gradient(180deg,#ffffff,#f8fbff)]"
-            }`}
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#1d65ff,#7bb6ff)] text-sm font-semibold text-white">
-              {entry.rank}
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center justify-between gap-3">
-                <div className="font-medium">{entry.shopName}</div>
-                <div className="text-lg font-semibold text-[#2567eb]">
-                  {entry.value}
-                  {suffix}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="rounded-[16px] border border-[#e1e9f7] bg-[#fbfdff] p-3">
+      <div className="text-[11px] text-slate-400">{label}</div>
+      <div className="mt-1 text-base font-semibold text-ink">{value}</div>
     </div>
   );
 }

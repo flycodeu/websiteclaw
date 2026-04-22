@@ -4,13 +4,11 @@ import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType } from "react";
-import { BarChart3, Database, PanelsTopLeft, Radar, ShieldCheck } from "lucide-react";
+import { Database, PanelsTopLeft, Radar } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "总览", icon: PanelsTopLeft },
-  { href: "/shops", label: "商铺", icon: Radar },
-  { href: "/compare", label: "比价", icon: BarChart3 },
-  { href: "/stability", label: "稳定度", icon: ShieldCheck }
+  { href: "/shops", label: "商铺", icon: Radar }
 ] satisfies Array<{ href: Route; label: string; icon: ComponentType<{ className?: string }> }>;
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
