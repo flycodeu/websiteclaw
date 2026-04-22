@@ -7,17 +7,8 @@ export default function ComparePage() {
 
   return (
     <div className="space-y-5">
-      <section className="float-in rounded-[30px] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(236,244,255,0.92))] p-6 shadow-[0_24px_70px_rgba(30,64,175,0.08)]">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#d5e5ff] bg-white/82 px-3 py-1.5 text-xs text-[#3a6ada]">
-              <Layers3 className="h-3.5 w-3.5" />
-              标准品类对比
-            </div>
-            <h1 className="mt-4 font-serif text-[2.7rem] leading-[1.08] text-ink">同类商品，直接横向比较。</h1>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+      <section className="float-in rounded-[28px] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(236,244,255,0.92))] p-4 shadow-[0_24px_70px_rgba(30,64,175,0.08)]">
+        <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
             <CompareMetric
               icon={<TrendingDown className="h-4 w-4 text-[#2e67ea]" />}
               label="全站最低价"
@@ -33,7 +24,9 @@ export default function ComparePage() {
               label="可比报价"
               value={`${totalOffers}`}
             />
-          </div>
+            <CompareMetric icon={<Layers3 className="h-4 w-4 text-[#2e67ea]" />} label="品类" value={`${compareGroups.length}`} />
+            <CompareMetric icon={<BadgeCheck className="h-4 w-4 text-[#2e67ea]" />} label="库存正常" value={`${compareGroups.flatMap((group) => group.offers).filter((offer) => offer.stockStatus === "IN_STOCK").length}`} />
+            <CompareMetric icon={<ArrowDownRight className="h-4 w-4 text-[#2e67ea]" />} label="最低价商铺" value={`${new Set(compareGroups.map((group) => group.offers[0]?.shopName).filter(Boolean)).size}`} />
         </div>
       </section>
 
@@ -43,15 +36,12 @@ export default function ComparePage() {
             key={group.normalizedType}
             className="float-in rounded-[26px] border border-white/70 bg-white/90 p-5 shadow-[0_18px_46px_rgba(15,23,42,0.05)]"
           >
-            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-              <div className="space-y-2">
-                <h2 className="font-serif text-[2rem]">{group.normalizedType}</h2>
-                <div className="inline-flex items-center gap-2 rounded-full bg-[#edf4ff] px-3 py-1.5 text-xs text-[#406dba]">
-                  <ArrowDownRight className="h-3.5 w-3.5" />
-                  {group.offers[0] ? `${group.offers[0].shopName} 当前最低` : "暂无报价"}
-                </div>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="font-serif text-[1.8rem]">{group.normalizedType}</h2>
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#edf4ff] px-3 py-1.5 text-xs text-[#406dba]">
+                <ArrowDownRight className="h-3.5 w-3.5" />
+                {group.offers[0] ? group.offers[0].shopName : "暂无报价"}
               </div>
-              <p className="max-w-xl text-sm leading-7 text-slate-500">{group.trend}</p>
             </div>
 
             <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -113,12 +103,12 @@ function CompareMetric({
   value: string;
 }) {
   return (
-    <div className="rounded-[22px] border border-[#dce8fb] bg-white/84 p-4 shadow-[0_14px_34px_rgba(15,23,42,0.04)]">
+    <div className="rounded-[20px] border border-[#dce8fb] bg-white/84 p-4 shadow-[0_14px_34px_rgba(15,23,42,0.04)]">
       <div className="flex items-center justify-between">
-        <div className="text-sm text-slate-500">{label}</div>
+        <div className="text-xs text-slate-500">{label}</div>
         <div className="rounded-full bg-[#edf4ff] p-2">{icon}</div>
       </div>
-      <div className="mt-3 text-[1.8rem] font-semibold leading-none text-ink">{value}</div>
+      <div className="mt-2 text-[1.55rem] font-semibold leading-none text-ink">{value}</div>
     </div>
   );
 }
