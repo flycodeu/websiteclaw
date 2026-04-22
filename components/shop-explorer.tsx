@@ -49,14 +49,13 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
   return (
     <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
       <section className="space-y-6">
-        <div className="rounded-[28px] border border-white/70 bg-white p-5 shadow-panel">
+        <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-panel">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Shop Signals</p>
               <h2 className="mt-2 font-serif text-3xl">商铺监控面板</h2>
             </div>
             <div className="flex flex-col gap-3 md:flex-row">
-              <label className="flex items-center gap-2 rounded-full border border-slate-200 bg-shell px-4 py-3 text-sm text-slate-500">
+              <label className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
                 <Search className="h-4 w-4" />
                 <input
                   value={keyword}
@@ -65,7 +64,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
                   className="w-44 bg-transparent outline-none"
                 />
               </label>
-              <label className="flex items-center gap-2 rounded-full border border-slate-200 bg-shell px-4 py-3 text-sm text-slate-500">
+              <label className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
                 <SlidersHorizontal className="h-4 w-4" />
                 <select
                   value={status}
@@ -81,7 +80,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
               <select
                 value={sortBy}
                 onChange={(event) => setSortBy(event.target.value as "stability" | "price" | "updated")}
-                className="rounded-full border border-slate-200 bg-shell px-4 py-3 text-sm text-slate-500 outline-none"
+                className="rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500 outline-none"
               >
                 <option value="stability">按稳定度</option>
                 <option value="price">按最低价</option>
@@ -99,13 +98,12 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
               onClick={() => setActiveId(shop.shopId)}
               className={`rounded-[28px] border p-5 text-left transition ${
                 activeId === shop.shopId
-                  ? "border-signal bg-ink text-white shadow-glow"
-                  : "border-white/80 bg-white shadow-panel hover:-translate-y-1"
+                  ? "border-signal bg-slate-900 text-white shadow-panel"
+                  : "border-slate-200 bg-white shadow-panel hover:-translate-y-1"
               }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">shop card</p>
                   <h3 className={`mt-2 text-xl font-semibold ${activeId === shop.shopId ? "text-white" : "text-ink"}`}>
                     {shop.name}
                   </h3>
@@ -130,7 +128,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
                   <span
                     key={tag}
                     className={`rounded-full px-3 py-1 text-xs ${
-                      activeId === shop.shopId ? "bg-white/10 text-white" : "bg-mist text-slate-600"
+                      activeId === shop.shopId ? "bg-white/10 text-white" : "bg-slate-100 text-slate-600"
                     }`}
                   >
                     {tag}
@@ -142,33 +140,32 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
         </div>
       </section>
 
-      <aside className="sticky top-24 h-fit rounded-[30px] border border-ink/10 bg-white p-6 shadow-panel">
+      <aside className="sticky top-24 h-fit rounded-[30px] border border-slate-200 bg-white p-6 shadow-panel">
         {activeShop && activeSnapshot ? (
           <>
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">detail drawer</p>
                 <h3 className="mt-2 font-serif text-3xl">{activeShop.name}</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveId(null)}
-                className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:bg-shell"
+                className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-100"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
-            <div className="mt-5 flex items-center justify-between rounded-[22px] bg-ink p-4 text-white">
+            <div className="mt-5 flex items-center justify-between rounded-[22px] border border-slate-200 bg-slate-50 p-4">
               <div>
-                <div className="text-xs uppercase tracking-[0.28em] text-slate-300">最近抓取</div>
-                <div className="mt-1 text-sm">{activeSnapshot.snapshotDate}</div>
+                <div className="text-sm text-slate-500">最近抓取</div>
+                <div className="mt-1 text-sm text-ink">{activeSnapshot.snapshotDate}</div>
               </div>
               <a
                 href={activeShop.url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink"
+                className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white"
               >
                 访问站点
                 <ArrowUpRight className="h-4 w-4" />
@@ -176,9 +173,9 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
             </div>
 
             <div className="mt-6 space-y-3">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">商品列表</h4>
+              <h4 className="text-sm font-semibold text-slate-500">商品列表</h4>
               {activeSnapshot.products.map((product) => (
-                <div key={`${product.normalizedType}-${product.updatedAt}`} className="rounded-[22px] border border-slate-100 bg-shell p-4">
+                <div key={`${product.normalizedType}-${product.updatedAt}`} className="rounded-[22px] border border-slate-200 bg-slate-50 p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="text-sm text-slate-500">{product.normalizedType}</div>
@@ -194,11 +191,11 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
             </div>
 
             <div className="mt-6 rounded-[22px] border border-dashed border-slate-200 p-4">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">变化分析</h4>
+              <h4 className="text-sm font-semibold text-slate-500">变化分析</h4>
               <p className="mt-3 text-sm text-slate-600">{activeDiff?.summary ?? "暂无变化数据。"}</p>
               <div className="mt-4 space-y-3">
                 {(activeDiff?.changes ?? []).map((change) => (
-                  <div key={`${change.type}-${change.productType ?? change.note}`} className="rounded-2xl bg-mist p-3 text-sm text-slate-600">
+                  <div key={`${change.type}-${change.productType ?? change.note}`} className="rounded-2xl bg-slate-100 p-3 text-sm text-slate-600">
                     <div className="font-medium text-ink">{change.type}</div>
                     <div className="mt-1">{change.note}</div>
                   </div>
@@ -207,7 +204,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
             </div>
           </>
         ) : (
-          <div className="rounded-[26px] border border-dashed border-slate-300 bg-shell p-6 text-center text-slate-500">
+          <div className="rounded-[26px] border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-500">
             选择一张商铺卡片查看完整分析。
           </div>
         )}
@@ -218,8 +215,8 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
 
 function MetricCard({ label, value, inverse }: { label: string; value: string; inverse?: boolean }) {
   return (
-    <div className={`rounded-[20px] p-4 ${inverse ? "bg-white/10" : "bg-shell"}`}>
-      <div className={`text-xs uppercase tracking-[0.2em] ${inverse ? "text-slate-300" : "text-slate-400"}`}>{label}</div>
+    <div className={`rounded-[20px] p-4 ${inverse ? "bg-white/10" : "bg-slate-50"}`}>
+      <div className={`text-xs ${inverse ? "text-slate-300" : "text-slate-400"}`}>{label}</div>
       <div className={`mt-2 text-xl font-semibold ${inverse ? "text-white" : "text-ink"}`}>{value}</div>
     </div>
   );
