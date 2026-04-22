@@ -1,82 +1,87 @@
 import Link from "next/link";
-import { Activity, ArrowRight, Shield } from "lucide-react";
+import { Activity, ArrowRight, Shield, Sparkles, TrendingDown } from "lucide-react";
 import { diffs, overviewMetrics, priceRankings, shops, stabilityRankings } from "@/lib/mock-data";
 
 export default function HomePage() {
   return (
-    <div className="space-y-8">
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_0.9fr]">
-        <div className="rounded-[36px] border border-slate-200 bg-white p-8 shadow-panel">
-          <h1 className="mt-6 max-w-3xl font-serif text-5xl leading-tight text-ink">
-            一个聚焦抓取审核闭环的商铺商品监控与分析平台。
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-            当前前台只展示用户侧数据能力，包括商铺追踪、比价和稳定度分析。管理端已调整为独立后台入口，不在用户界面显式暴露。
-          </p>
+    <div className="space-y-5">
+      <section className="float-in rounded-[32px] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(236,244,255,0.92))] p-6 shadow-[0_24px_70px_rgba(30,64,175,0.08)]">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#cfe0ff] bg-white/78 px-3 py-1.5 text-xs text-[#3f6fd9]">
+              <Sparkles className="h-3.5 w-3.5" />
+              实时总览
+            </div>
+            <h1 className="mt-4 font-serif text-[2.9rem] leading-[1.08] text-ink">
+              商铺追踪、比价与稳定度，
+              <br />
+              直接看结果。
+            </h1>
+          </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/shops" className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-white transition hover:bg-signal">
-              查看商铺列表
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/shops"
+              className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#1b63ff,#5ca8ff)] px-5 py-3 text-white shadow-[0_16px_32px_rgba(27,99,255,0.22)] transition hover:-translate-y-0.5"
+            >
+              查看商铺
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/compare" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-slate-700">
+            <Link
+              href="/compare"
+              className="inline-flex items-center gap-2 rounded-full border border-[#d7e6ff] bg-white/88 px-5 py-3 text-[#215edc] transition hover:border-[#b7d1ff] hover:bg-white"
+            >
               查看比价
             </Link>
           </div>
         </div>
-
-        <div className="rounded-[36px] border border-slate-200 bg-white p-8 shadow-panel">
-          <h2 className="font-serif text-3xl text-ink">当前能力</h2>
-          <div className="mt-6 space-y-4">
-            {[
-              "商铺列表与详情抽屉",
-              "跨店商品比价面板",
-              "稳定度排行榜与评分说明",
-              "最近变化与关键指标总览",
-              "标准 API 结构与后续后端接入位"
-            ].map((item) => (
-              <div key={item} className="rounded-[24px] border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {overviewMetrics.map((metric) => (
-          <div key={metric.label} className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-panel">
+          <div
+            key={metric.label}
+            className="float-in rounded-[24px] border border-white/70 bg-white/88 p-5 shadow-[0_14px_40px_rgba(15,23,42,0.05)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_48px_rgba(27,99,255,0.1)]"
+          >
             <div className="text-sm text-slate-500">{metric.label}</div>
-            <div className="mt-3 text-4xl font-semibold text-ink">{metric.value}</div>
-            <div className="mt-2 text-sm text-slate-500">{metric.detail}</div>
+            <div className="mt-2 text-[2rem] font-semibold leading-none text-ink">{metric.value}</div>
           </div>
         ))}
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
-        <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-panel">
+      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="float-in rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_18px_52px_rgba(15,23,42,0.05)]">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="mt-2 font-serif text-3xl">最近变动</h2>
+            <h2 className="font-serif text-[2rem]">最近变动</h2>
+            <div className="flex items-center gap-2 rounded-full bg-[#edf4ff] px-3 py-1.5 text-xs text-[#3168dc]">
+              <Activity className="h-3.5 w-3.5" />
+              今日更新
             </div>
-            <Activity className="h-5 w-5 text-signal" />
           </div>
 
-          <div className="mt-6 grid gap-4">
+          <div className="mt-4 grid gap-3">
             {diffs.map((item) => {
               const shop = shops.find((shopEntry) => shopEntry.shopId === item.shopId);
               return (
-                <div key={item.shopId} className="rounded-[24px] border border-slate-200 bg-slate-50 p-5">
+                <div
+                  key={item.shopId}
+                  className="group rounded-[22px] border border-[#dde7f7] bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-4 transition duration-200 hover:border-[#c6d8ff] hover:shadow-[0_16px_34px_rgba(59,130,246,0.08)]"
+                >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <h3 className="text-lg font-semibold">{shop?.name ?? item.shopId}</h3>
-                      <p className="mt-1 text-sm text-slate-500">{item.summary}</p>
+                      <p className="mt-1 text-sm leading-6 text-slate-500">{item.summary}</p>
                     </div>
-                    <div className="rounded-full bg-white px-3 py-2 text-xs text-slate-500">{item.snapshotDate}</div>
+                    <div className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-500">
+                      {item.snapshotDate}
+                    </div>
                   </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {item.changes.map((change) => (
-                      <span key={`${change.type}-${change.productType ?? change.note}`} className="rounded-full bg-white px-3 py-2 text-xs text-slate-600">
+                      <span
+                        key={`${change.type}-${change.productType ?? change.note}`}
+                        className="rounded-full border border-[#dce7fb] bg-[#f4f8ff] px-3 py-1.5 text-xs text-[#4469b3]"
+                      >
                         {change.type}
                       </span>
                     ))}
@@ -87,9 +92,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="space-y-6">
-          <RankingCard title="最低价榜" icon={<Shield className="h-5 w-5 text-signal" />} entries={priceRankings} suffix="元" />
-          <RankingCard title="稳定度榜" icon={<Shield className="h-5 w-5 text-signal" />} entries={stabilityRankings} suffix="分" />
+        <div className="space-y-4">
+          <RankingCard title="最低价榜" icon={<TrendingDown className="h-4 w-4 text-[#2867e8]" />} entries={priceRankings} suffix="元" />
+          <RankingCard title="稳定度榜" icon={<Shield className="h-4 w-4 text-[#2867e8]" />} entries={stabilityRankings} suffix="分" />
         </div>
       </section>
     </div>
@@ -108,29 +113,34 @@ function RankingCard({
   suffix: string;
 }) {
   return (
-    <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-panel">
+    <div className="float-in rounded-[26px] border border-white/70 bg-white/90 p-5 shadow-[0_18px_46px_rgba(15,23,42,0.05)]">
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="mt-2 font-serif text-2xl">{title}</h2>
-        </div>
-        {icon}
+        <h2 className="font-serif text-[1.7rem]">{title}</h2>
+        <div className="rounded-full bg-[#edf4ff] p-2">{icon}</div>
       </div>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-4 space-y-3">
         {entries.map((entry) => (
-          <div key={`${title}-${entry.rank}`} className="flex items-start gap-4 rounded-[22px] border border-slate-200 bg-slate-50 p-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-ink text-sm font-semibold text-white">
+          <div
+            key={`${title}-${entry.rank}`}
+            className={`flex items-start gap-3 rounded-[20px] border p-3.5 transition duration-200 hover:border-[#c6d8ff] ${
+              entry.rank === 1
+                ? "border-[#bed5ff] bg-[linear-gradient(135deg,#eef5ff,#e5f0ff)] shadow-[0_16px_30px_rgba(59,130,246,0.1)]"
+                : "border-[#dde7f7] bg-[linear-gradient(180deg,#ffffff,#f8fbff)]"
+            }`}
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#1d65ff,#7bb6ff)] text-sm font-semibold text-white">
               {entry.rank}
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between gap-3">
                 <div className="font-medium">{entry.shopName}</div>
-                <div className="text-lg font-semibold text-signal">
+                <div className="text-lg font-semibold text-[#2567eb]">
                   {entry.value}
                   {suffix}
                 </div>
               </div>
-              <div className="mt-1 text-sm text-slate-500">{entry.description}</div>
+              <div className="mt-1 text-xs leading-5 text-slate-500">{entry.description}</div>
             </div>
           </div>
         ))}

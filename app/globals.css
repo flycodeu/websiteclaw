@@ -13,7 +13,10 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f5f7fa;
+  background:
+    radial-gradient(circle at top left, rgba(76, 132, 255, 0.1), transparent 24%),
+    radial-gradient(circle at top right, rgba(139, 201, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #f7f9fc 0%, #f3f6fb 100%);
 }
 
 * {
@@ -27,4 +30,20 @@ a {
 
 ::selection {
   background: rgba(23, 104, 255, 0.18);
+}
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.float-in {
+  animation: float-in 0.45s ease-out both;
 }
