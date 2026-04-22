@@ -1,18 +1,21 @@
 {
-  "name": "shop-platform",
+  "name": "shop-platform-workspace",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "lucide-react": "^0.511.0",
-    "next": "16.2.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "dev": "npm run dev:web",
+    "dev:web": "npm run dev --workspace @shop-claw/web",
+    "dev:admin": "npm run dev --workspace @shop-claw/admin",
+    "build": "npm run build:web && npm run build:admin",
+    "build:web": "npm run build --workspace @shop-claw/web",
+    "build:admin": "npm run build --workspace @shop-claw/admin",
+    "start:web": "npm run start --workspace @shop-claw/web",
+    "start:admin": "npm run start --workspace @shop-claw/admin",
+    "typecheck": "npm run typecheck --workspaces --if-present"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
