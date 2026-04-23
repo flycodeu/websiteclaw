@@ -1,4 +1,8 @@
 import { withTraceId } from "@shop-claw/shared/response";
+import { publishReview } from "@shop-claw/shared/workflow";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 async function readParams(context: { params: Promise<{ id: string }> | { id: string } }) {
   const params = await context.params;
@@ -7,5 +11,13 @@ async function readParams(context: { params: Promise<{ id: string }> | { id: str
 
 export async function POST(_request: Request, context: { params: Promise<{ id: string }> | { id: string } }) {
   const id = await readParams(context);
-  return Response.json(withTraceId({ id, status: "PUBLISHED" }, "published to mock repository"));
+  try {
+    const result = await publishReview(id);
+    return Response.json(withTraceId(result, "已写入静态数据"));
+  } catch (error) {
+    return Response.json(
+      withTraceId(null, error instanceof Error ? error.message : "发布失败"),
+      { status: 400 }
+    );
+  }
 }

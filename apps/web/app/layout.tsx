@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Serif_Display, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
+import { getPublishedData } from "@shop-claw/shared/store";
 
 const serif = DM_Serif_Display({
   subsets: ["latin"],
@@ -16,11 +17,15 @@ const sans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Shop Claw | 商铺商品监控平台",
-  description: "基于 Next.js 构建的商铺商品监控与变化追踪前台。"
+  title: "商铺情报台",
+  description: "价格、库存和店铺稳定度的同步追踪前台。"
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export const dynamic = "force-dynamic";
+
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const published = await getPublishedData();
+
   return (
     <html lang="zh-CN" className={`${serif.variable} ${sans.variable}`}>
       <body className="font-sans">
@@ -32,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           .font-serif { font-family: var(--font-serif); }
           .font-sans { font-family: var(--font-sans); }
         `}</style>
-        <SiteShell>{children}</SiteShell>
+        <SiteShell latestSyncAt={published.publishedAt}>{children}</SiteShell>
       </body>
     </html>
   );

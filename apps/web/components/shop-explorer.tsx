@@ -2,6 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
+import {
+  changeTypeLabels,
+  shopStatusLabels,
+  stockStatusLabels
+} from "@shop-claw/shared/labels";
 import { ShopDiff, ShopSnapshot, ShopSummary } from "@shop-claw/shared/types";
 
 interface ShopExplorerProps {
@@ -70,9 +75,9 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
                   className="bg-transparent outline-none"
                 >
                   <option value="ALL">全部状态</option>
-                  <option value="OPEN">OPEN</option>
-                  <option value="RISK">RISK</option>
-                  <option value="CLOSED">CLOSED</option>
+                  <option value="OPEN">营业中</option>
+                  <option value="RISK">存在风险</option>
+                  <option value="CLOSED">已关闭</option>
                 </select>
               </label>
               <select
@@ -110,7 +115,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
                   </p>
                 </div>
                 <span className={`rounded-full px-3 py-1 text-[11px] font-medium ${statusTone[shop.status]}`}>
-                  {shop.status}
+                  {shopStatusLabels[shop.status]}
                 </span>
               </div>
 
@@ -184,7 +189,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
                     </div>
                     <div className="text-right">
                       <div className="text-lg font-semibold text-ink">¥{product.price}</div>
-                      <div className="text-xs text-slate-500">{product.stockStatus}</div>
+                      <div className="text-xs text-slate-500">{stockStatusLabels[product.stockStatus]}</div>
                     </div>
                   </div>
                 </div>
@@ -200,7 +205,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
                     key={`${change.type}-${change.productType ?? change.note}`}
                     className="rounded-2xl border border-[#dde7f8] bg-[#f3f8ff] p-3 text-sm text-slate-600"
                   >
-                    <div className="font-medium text-[#3568c3]">{change.type}</div>
+                    <div className="font-medium text-[#3568c3]">{changeTypeLabels[change.type]}</div>
                     <div className="mt-1">{change.note}</div>
                   </div>
                 ))}

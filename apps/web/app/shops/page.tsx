@@ -1,6 +1,10 @@
 import { ShopExplorer } from "@/components/shop-explorer";
-import { diffs, snapshots, shops } from "@shop-claw/shared/mock-data";
+import { getPublishedData } from "@shop-claw/shared/store";
 
-export default function ShopsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ShopsPage() {
+  const { diffs, snapshots, shops } = await getPublishedData();
+
   return <ShopExplorer shops={shops} snapshots={snapshots} diffs={diffs} />;
 }

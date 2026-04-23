@@ -7,3 +7,5 @@ coverage
 *.local
 *.tsbuildinfo
 .idea
+data/admin-secrets.json
+data/runtime

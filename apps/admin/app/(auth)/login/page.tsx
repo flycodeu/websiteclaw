@@ -1,3 +1,4 @@
+import { adminConfig } from "@/lib/admin-config";
 import { getAllowedEmails, sanitizeNextPath } from "@/lib/auth";
 
 interface LoginPageProps {
@@ -12,7 +13,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
   const nextPath = sanitizeNextPath(params.next);
   const presetEmail = params.email ?? "";
-  const hasWhitelist = getAllowedEmails().length > 0;
+  const hasWhitelist = adminConfig.hasEmailWhitelist;
+  const fallbackEmail = !hasWhitelist ? getAllowedEmails()[0] ?? "" : "";
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-12">
@@ -40,7 +42,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               type="email"
               name="email"
               required
-              defaultValue={presetEmail}
+              defaultValue={presetEmail || fallbackEmail}
               className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-[#8ab6ff] focus:bg-white"
               placeholder="admin@example.com"
             />

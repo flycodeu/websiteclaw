@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { adminConfig } from "@/lib/admin-config";
 import { ADMIN_SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 
 function isPublicPath(pathname: string) {
@@ -7,7 +8,7 @@ function isPublicPath(pathname: string) {
 }
 
 export function proxy(request: NextRequest) {
-  if (process.env.DEV_BYPASS_AUTH === "true") {
+  if (adminConfig.bypassAuth) {
     return NextResponse.next();
   }
 

@@ -1,6 +1,6 @@
 import { ApiResponse } from "./types";
 
-export function withTraceId<T>(data: T, message = "ok"): ApiResponse<T> {
+export function withTraceId<T>(data: T, message = "成功"): ApiResponse<T> {
   return {
     code: 0,
     message,

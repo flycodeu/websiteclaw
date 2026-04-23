@@ -1,24 +1,16 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { adminConfig } from "@/lib/admin-config";
 
 export const ADMIN_SESSION_COOKIE = "shop_claw_admin_session";
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
-function getSessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || "local-admin-secret";
-}
-
 export function getAllowedEmails() {
-  const configured = (process.env.ADMIN_ALLOWED_EMAILS ?? "")
-    .split(",")
-    .map((value) => value.trim().toLowerCase())
-    .filter(Boolean);
-
-  if (configured.length > 0) {
-    return configured;
+  if (adminConfig.hasEmailWhitelist) {
+    return adminConfig.allowedEmails;
   }
 
-  if (process.env.NODE_ENV !== "production") {
-    return ["admin@example.com"];
+  if (adminConfig.fallbackEmail) {
+    return [adminConfig.fallbackEmail];
   }
 
   return [];
@@ -29,7 +21,7 @@ export function isAllowedEmail(email: string) {
 }
 
 function sign(payload: string) {
-  return createHmac("sha256", getSessionSecret()).update(payload).digest("hex");
+  return createHmac("sha256", adminConfig.sessionSecret).update(payload).digest("hex");
 }
 
 export function createSessionToken(email: string) {

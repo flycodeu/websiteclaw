@@ -15,8 +15,8 @@ const sans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Shop Claw Admin",
-  description: "独立管理后台，用于数据源、任务和审核发布。"
+  title: "商铺监控管理台",
+  description: "用于数据源维护、抓取任务、人工验证、AI 分析和静态发布。"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { Activity, ArrowRight, ExternalLink } from "lucide-react";
-import { diffs, overviewMetrics, shops } from "@shop-claw/shared/mock-data";
+import { changeTypeLabels, formatDateOnlyLabel, shopStatusLabels } from "@shop-claw/shared/labels";
+import { getPublishedData } from "@shop-claw/shared/store";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const { diffs, overviewMetrics, shops } = await getPublishedData();
   const featuredShops = shops.filter((shop) => shop.status !== "CLOSED").slice(0, 4);
 
   return (
@@ -48,13 +52,13 @@ export default function HomePage() {
               const shop = shops.find((shopEntry) => shopEntry.shopId === item.shopId);
               return (
                 <div
-                  key={item.shopId}
+                  key={`${item.shopId}-${item.snapshotDate}`}
                   className="group rounded-[22px] border border-[#dde7f7] bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-4 transition duration-200 hover:border-[#c6d8ff] hover:shadow-[0_16px_34px_rgba(59,130,246,0.08)]"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <h3 className="text-lg font-semibold">{shop?.name ?? item.shopId}</h3>
                     <div className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-500">
-                      {item.snapshotDate}
+                      {formatDateOnlyLabel(item.snapshotDate)}
                     </div>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -63,7 +67,7 @@ export default function HomePage() {
                         key={`${change.type}-${change.productType ?? change.note}`}
                         className="rounded-full border border-[#dce7fb] bg-[#f4f8ff] px-3 py-1.5 text-xs text-[#4469b3]"
                       >
-                        {change.type}
+                        {changeTypeLabels[change.type]}
                       </span>
                     ))}
                   </div>
@@ -90,7 +94,7 @@ export default function HomePage() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h3 className="text-lg font-semibold text-ink">{shop.name}</h3>
-                    <div className="mt-1 text-xs text-slate-500">{shop.lastCrawledAt.slice(0, 10)}</div>
+                    <div className="mt-1 text-xs text-slate-500">{formatDateOnlyLabel(shop.lastCrawledAt)}</div>
                   </div>
                   <span
                     className={`rounded-full px-3 py-1 text-xs ${
@@ -101,7 +105,7 @@ export default function HomePage() {
                           : "bg-[#fdecec] text-[#9f2e2e]"
                     }`}
                   >
-                    {shop.status}
+                    {shopStatusLabels[shop.status]}
                   </span>
                 </div>
 

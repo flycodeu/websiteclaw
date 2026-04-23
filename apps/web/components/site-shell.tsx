@@ -5,13 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType } from "react";
 import { PanelsTopLeft, Radar } from "lucide-react";
+import { formatDateLabel } from "@shop-claw/shared/labels";
 
 const navItems = [
   { href: "/", label: "总览", icon: PanelsTopLeft },
   { href: "/shops", label: "商铺", icon: Radar }
 ] satisfies Array<{ href: Route; label: string; icon: ComponentType<{ className?: string }> }>;
 
-export function SiteShell({ children }: { children: React.ReactNode }) {
+export function SiteShell({ children, latestSyncAt }: { children: React.ReactNode; latestSyncAt: string }) {
   const pathname = usePathname();
 
   return (
@@ -20,11 +21,11 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3.5">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#1b63ff,#6ab6ff)] text-sm font-semibold text-white shadow-[0_12px_30px_rgba(27,99,255,0.24)]">
-              SC
+              价
             </div>
             <div>
-              <p className="font-serif text-xl tracking-tight">Shop Claw</p>
-              <p className="text-sm text-slate-500">商铺商品监控</p>
+              <p className="font-serif text-xl tracking-tight">商铺情报台</p>
+              <p className="text-sm text-slate-500">价格、库存、稳定度同步追踪</p>
             </div>
           </Link>
 
@@ -51,7 +52,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
           <div className="rounded-full border border-white/70 bg-white/78 px-4 py-2 text-right shadow-[0_10px_24px_rgba(15,23,42,0.04)]">
             <div className="text-xs text-slate-400">最近同步</div>
-            <div className="text-sm font-medium">2026-04-22 19:40</div>
+            <div className="text-sm font-medium">{formatDateLabel(latestSyncAt)}</div>
           </div>
         </div>
       </header>

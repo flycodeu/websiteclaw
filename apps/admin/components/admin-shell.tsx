@@ -3,13 +3,12 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Database, FileClock, LayoutDashboard, ListTodo, LogOut } from "lucide-react";
+import { Database, LayoutDashboard, ListTodo, LogOut } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "仪表盘", icon: LayoutDashboard },
   { href: "/sources", label: "数据源", icon: Database },
-  { href: "/tasks", label: "任务中心", icon: ListTodo },
-  { href: "/review/review_001", label: "审核页", icon: FileClock }
+  { href: "/tasks", label: "任务中心", icon: ListTodo }
 ] satisfies Array<{ href: Route; label: string; icon: React.ComponentType<{ className?: string }> }>;
 
 export function AdminShell({ email, children }: { email: string; children: React.ReactNode }) {
@@ -24,7 +23,7 @@ export function AdminShell({ email, children }: { email: string; children: React
               <Database className="h-5 w-5" />
             </div>
             <div>
-              <p className="font-serif text-xl tracking-tight">Shop Claw Admin</p>
+              <p className="font-serif text-xl tracking-tight">商铺监控管理台</p>
               <p className="text-sm text-slate-500">{email}</p>
             </div>
           </div>
@@ -32,7 +31,10 @@ export function AdminShell({ email, children }: { email: string; children: React
           <div className="flex items-center gap-3">
             <nav className="hidden items-center gap-2 md:flex">
               {navItems.map((item) => {
-                const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                const active =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname === item.href || pathname.startsWith(`${item.href}/`);
                 const Icon = item.icon;
 
                 return (

@@ -7,8 +7,10 @@
   "exports": {
     ".": "./src/index.ts",
     "./types": "./src/lib/types.ts",
-    "./mock-data": "./src/lib/mock-data.ts",
-    "./response": "./src/lib/response.ts"
+    "./labels": "./src/lib/labels.ts",
+    "./response": "./src/lib/response.ts",
+    "./store": "./src/lib/store.ts",
+    "./workflow": "./src/lib/workflow.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json"
