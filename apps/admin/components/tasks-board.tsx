@@ -13,7 +13,6 @@ interface TasksBoardProps {
 interface ContinueFormState {
   verificationToken: string;
   storageState: string;
-  verificationNote: string;
   manualContent: string;
 }
 
@@ -27,7 +26,6 @@ const columns = [
 const defaultForm: ContinueFormState = {
   verificationToken: "",
   storageState: "",
-  verificationNote: "",
   manualContent: ""
 };
 
@@ -113,9 +111,11 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-[28px] border border-white/80 bg-white px-5 py-4 text-sm text-slate-500 shadow-panel">
-        {statusText || "人工验证支持粘贴 Cookie、storageState JSON，或直接贴入通过验证后的页面文本。"}
-      </div>
+      {statusText ? (
+        <div className="rounded-[28px] border border-white/80 bg-white px-5 py-4 text-sm text-slate-500 shadow-panel">
+          {statusText}
+        </div>
+      ) : null}
 
       <div className="grid gap-5 xl:grid-cols-4">
         {columns.map((column) => (
@@ -168,12 +168,6 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                           onChange={(event) => updateForm(task.id, { storageState: event.target.value })}
                           className="min-h-24 w-full rounded-[18px] border border-slate-200 bg-white px-3 py-2 text-sm outline-none"
                           placeholder="如已导出浏览器 storageState，可粘贴 JSON"
-                        />
-                        <textarea
-                          value={getForm(task.id).verificationNote}
-                          onChange={(event) => updateForm(task.id, { verificationNote: event.target.value })}
-                          className="min-h-20 w-full rounded-[18px] border border-slate-200 bg-white px-3 py-2 text-sm outline-none"
-                          placeholder={task.verificationPrompt || "记录验证步骤或注意事项"}
                         />
                         <textarea
                           value={getForm(task.id).manualContent}

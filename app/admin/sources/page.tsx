@@ -21,7 +21,6 @@ export default function SourcesPage() {
               <th className="px-5 py-4 font-medium">链接</th>
               <th className="px-5 py-4 font-medium">模式</th>
               <th className="px-5 py-4 font-medium">启用</th>
-              <th className="px-5 py-4 font-medium">备注</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 bg-white">
@@ -31,7 +30,6 @@ export default function SourcesPage() {
                 <td className="px-5 py-4 text-slate-500">{source.sourceUrl}</td>
                 <td className="px-5 py-4 text-slate-500">{source.crawlMode}</td>
                 <td className="px-5 py-4 text-slate-500">{source.enabled ? "true" : "false"}</td>
-                <td className="px-5 py-4 text-slate-500">{source.remark}</td>
               </tr>
             ))}
           </tbody>

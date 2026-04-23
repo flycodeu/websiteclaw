@@ -21,9 +21,6 @@ interface SourceFormState {
   crawlMode: CrawlMode;
   verificationMethod: VerificationMethod;
   waitSelector: string;
-  remark: string;
-  parserHint: string;
-  verificationPrompt: string;
   headless: boolean;
   blockAssets: boolean;
 }
@@ -35,9 +32,6 @@ const emptySourceForm: SourceFormState = {
   crawlMode: "AUTO",
   verificationMethod: "NONE",
   waitSelector: "body",
-  remark: "",
-  parserHint: "",
-  verificationPrompt: "",
   headless: true,
   blockAssets: true
 };
@@ -104,7 +98,6 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="font-serif text-3xl">新增数据源</h2>
-            <p className="mt-2 text-sm text-slate-500">配置浏览器抓取入口、验证方式和解析提示。</p>
           </div>
           <div className="rounded-full border border-slate-200 bg-shell px-4 py-2 text-sm text-slate-500">
             已有 {sources.length} 个数据源
@@ -207,40 +200,8 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
             </label>
           </div>
 
-          <label className="grid gap-2 text-sm text-slate-600 md:col-span-2">
-            站点说明
-            <input
-              value={sourceForm.remark}
-              onChange={(event) => setSourceForm((current) => ({ ...current, remark: event.target.value }))}
-              className="rounded-2xl border border-slate-200 bg-shell px-4 py-3 outline-none"
-              placeholder="用于记录站点特征"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm text-slate-600 md:col-span-2">
-            解析提示
-            <textarea
-              value={sourceForm.parserHint}
-              onChange={(event) => setSourceForm((current) => ({ ...current, parserHint: event.target.value }))}
-              className="min-h-28 rounded-[24px] border border-slate-200 bg-shell px-4 py-3 outline-none"
-              placeholder="告诉 AI 重点识别哪些商品名称、价格或库存字段"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm text-slate-600 md:col-span-2">
-            验证说明
-            <textarea
-              value={sourceForm.verificationPrompt}
-              onChange={(event) =>
-                setSourceForm((current) => ({ ...current, verificationPrompt: event.target.value }))
-              }
-              className="min-h-24 rounded-[24px] border border-slate-200 bg-shell px-4 py-3 outline-none"
-              placeholder="例如：请先登录，再将 Cookie 或 storageState 粘贴到任务继续输入框"
-            />
-          </label>
-
-          <div className="md:col-span-2 flex items-center justify-between gap-3">
-            <div className="text-sm text-slate-500">{statusText || "保存后可直接发起首轮浏览器抓取。"}</div>
+          <div className="md:col-span-2 flex items-center justify-end gap-3">
+            {statusText ? <div className="text-sm text-slate-500">{statusText}</div> : null}
             <button
               type="submit"
               disabled={pending}
@@ -256,7 +217,6 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="font-serif text-3xl">已接入数据源</h2>
-            <p className="mt-2 text-sm text-slate-500">从这里发起真实浏览器抓取，任务会自动流转到验证或审核。</p>
           </div>
         </div>
 
@@ -292,17 +252,6 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
                   <div>资源拦截：{source.blockAssets ? "已启用" : "未启用"}</div>
                   <div>最近执行：{source.lastRunAt ? formatDateLabel(source.lastRunAt) : "尚未执行"}</div>
                 </div>
-
-                {(source.remark || source.parserHint || source.verificationPrompt) && (
-                  <div className="mt-4 rounded-[20px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600">
-                    <div>{source.remark || "未填写站点说明"}</div>
-                    {source.parserHint ? <div className="mt-2 text-slate-500">解析提示：{source.parserHint}</div> : null}
-                    {source.verificationPrompt ? (
-                      <div className="mt-2 text-slate-500">验证说明：{source.verificationPrompt}</div>
-                    ) : null}
-                  </div>
-                )}
-
                 <div className="mt-5 flex items-center justify-between gap-3">
                   <div className="text-xs text-slate-400">{source.sourceId}</div>
                   <button

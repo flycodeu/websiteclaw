@@ -131,9 +131,11 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-[28px] border border-white/80 bg-white px-5 py-4 text-sm text-slate-500 shadow-panel">
-        {statusText || "先保存草稿，再发布到静态数据。发布后用户端会读取同一份数据。"}
-      </div>
+      {statusText ? (
+        <div className="rounded-[28px] border border-white/80 bg-white px-5 py-4 text-sm text-slate-500 shadow-panel">
+          {statusText}
+        </div>
+      ) : null}
 
       <div className="grid gap-6 xl:grid-cols-[1fr_1.15fr_0.95fr]">
         <section className="rounded-[30px] border border-white/80 bg-white p-6 shadow-panel">
@@ -162,7 +164,6 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
           <div className="flex items-center justify-between gap-3">
             <div>
               <h2 className="font-serif text-3xl">AI 提取结果</h2>
-              <p className="mt-2 text-sm text-slate-500">可直接修改商品、结论和风险提示。</p>
             </div>
             <button
               type="button"
@@ -317,7 +318,7 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
               review.previousDiff.map((change) => (
                 <div key={`${change.type}-${change.note}`} className="rounded-[22px] bg-shell p-4">
                   <div className="font-medium text-ink">{changeTypeLabels[change.type]}</div>
-                  <div className="mt-2 text-sm text-slate-500">{change.note}</div>
+                  {change.productType ? <div className="mt-2 text-sm text-slate-500">{change.productType}</div> : null}
                 </div>
               ))
             ) : (

@@ -115,8 +115,7 @@ export default async function HomePage() {
                   <MetricCell label="稳定度" value={`${shop.stabilityScore}`} />
                 </div>
 
-                <div className="mt-4 flex items-center justify-between">
-                  <div className="text-xs text-slate-500">{shop.healthNote}</div>
+                <div className="mt-4 flex justify-end">
                   <a
                     href={shop.url}
                     target="_blank"

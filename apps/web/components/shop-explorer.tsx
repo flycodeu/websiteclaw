@@ -107,12 +107,7 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-[1.15rem] font-semibold text-ink">
-                    {shop.name}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-6 text-slate-500">
-                    {shop.healthNote}
-                  </p>
+                  <h3 className="text-[1.15rem] font-semibold text-ink">{shop.name}</h3>
                 </div>
                 <span className={`rounded-full px-3 py-1 text-[11px] font-medium ${statusTone[shop.status]}`}>
                   {shopStatusLabels[shop.status]}
@@ -198,17 +193,22 @@ export function ShopExplorer({ shops, snapshots, diffs }: ShopExplorerProps) {
 
             <div className="mt-5 rounded-[22px] border border-dashed border-[#d3e0f3] bg-[#fbfdff] p-4">
               <h4 className="text-sm font-semibold text-slate-500">变化分析</h4>
-              <p className="mt-3 text-sm text-slate-600">{activeDiff?.summary ?? "暂无变化数据。"}</p>
               <div className="mt-3 space-y-2.5">
-                {(activeDiff?.changes ?? []).map((change) => (
-                  <div
-                    key={`${change.type}-${change.productType ?? change.note}`}
-                    className="rounded-2xl border border-[#dde7f8] bg-[#f3f8ff] p-3 text-sm text-slate-600"
-                  >
-                    <div className="font-medium text-[#3568c3]">{changeTypeLabels[change.type]}</div>
-                    <div className="mt-1">{change.note}</div>
+                {(activeDiff?.changes.length ?? 0) > 0 ? (
+                  activeDiff?.changes.map((change) => (
+                    <div
+                      key={`${change.type}-${change.productType ?? change.note}`}
+                      className="rounded-2xl border border-[#dde7f8] bg-[#f3f8ff] p-3 text-sm text-slate-600"
+                    >
+                      <div className="font-medium text-[#3568c3]">{changeTypeLabels[change.type]}</div>
+                      {change.productType ? <div className="mt-1">{change.productType}</div> : null}
+                    </div>
+                  ))
+                ) : (
+                  <div className="rounded-2xl border border-[#dde7f8] bg-[#f3f8ff] p-3 text-sm text-slate-600">
+                    暂无变化数据。
                   </div>
-                ))}
+                )}
               </div>
             </div>
           </>

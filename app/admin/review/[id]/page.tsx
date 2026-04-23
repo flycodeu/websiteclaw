@@ -51,7 +51,6 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
           {review.previousDiff.map((change) => (
             <div key={`${change.type}-${change.note}`} className="rounded-[22px] bg-shell p-4">
               <div className="font-medium text-ink">{change.type}</div>
-              <div className="mt-2 text-sm text-slate-500">{change.note}</div>
             </div>
           ))}
         </div>
