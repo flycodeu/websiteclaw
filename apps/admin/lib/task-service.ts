@@ -8,11 +8,11 @@ import {
   CrawlTask,
   DataSource,
   PlatformState,
+  ProductCategory,
   ProductItem,
   ProductStatus,
   ReviewRecord,
   ShopChange,
-  ShopStatus,
   StockStatus
 } from "@shop-claw/shared/types";
 import { readAiSettingsFromEnv } from "@/lib/ai-config";
@@ -28,6 +28,18 @@ function createId(prefix: string) {
 
 function normalizeText(input: string) {
   return input.replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function normalizeToken(input: string) {
+  return input
+    .toUpperCase()
+    .replace(/[^A-Z0-9\u4E00-\u9FFF]+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^_|_$/g, "");
+}
+
+function buildProductKey(category: ProductCategory, specLabel: string) {
+  return `${category}__${normalizeToken(specLabel || "DEFAULT") || "DEFAULT"}`;
 }
 
 function decodeHtmlEntities(input: string) {
@@ -53,17 +65,420 @@ function stripHtml(raw: string) {
 }
 
 function extractRawFragments(raw: string) {
-  return [...new Set(
-    stripHtml(raw)
-      .split(/\n+/)
-      .map(normalizeText)
-      .filter((line) => line.length >= 4)
-      .filter((line) => /\d/.test(line) || /(claude|gpt|gemini|perplexity|pro|plus|会员|月卡|年卡)/i.test(line))
-  )].slice(0, 12);
+  return [
+    ...new Set(
+      stripHtml(raw)
+        .split(/\n+/)
+        .map(normalizeText)
+        .filter((line) => line.length >= 4)
+        .filter((line) => /\d/.test(line) || /(claude|gpt|chatgpt|gemini|perplexity|会员|月卡|年卡|pro|plus)/i.test(line))
+    )
+  ].slice(0, 16);
+}
+
+const MAX_FULL_PAGE_TEXT_LENGTH = 18_000;
+const MAX_FULL_PAGE_HTML_LENGTH = 12_000;
+const MAX_SEGMENT_TEXT_LENGTH = 6_000;
+const MAX_SEGMENT_COUNT = 6;
+const MIN_SEGMENT_BREAKPOINT = 3_200;
+const PRODUCT_SCHEMA_PROMPT =
+  '{"summary":"","conclusion":"","flags":[""],"products":[{"rawName":"","category":"CHATGPT","specLabel":"","price":0,"currency":"CNY","stockStatus":"IN_STOCK","status":"ON_SALE","inventoryText":"","warrantySupported":null,"confidence":0.9,"sourceLine":""}]}';
+const NOISE_PRODUCT_NAMES = new Set([
+  "商品名称",
+  "分类",
+  "规格标识",
+  "价格",
+  "库存状态",
+  "商品状态",
+  "库存文本",
+  "质保",
+  "来源片段",
+  "日期",
+  "商品数",
+  "状态",
+  "有货",
+  "无货",
+  "在售",
+  "待确认",
+  "其他",
+  "异常项"
+]);
+
+interface StructuredAiResponse {
+  summary?: string;
+  conclusion?: string;
+  flags?: string[];
+  products?: Array<Record<string, unknown>>;
+}
+
+interface AiAnalysisResult {
+  modelLabel: string;
+  summary: string;
+  conclusion: string;
+  flags: string[];
+  products: ProductItem[];
+  isReliable: boolean;
+}
+
+type StructuredProductCandidate =
+  | {
+      product: ProductItem;
+      reason?: never;
+    }
+  | {
+      product?: never;
+      reason: string;
+    };
+
+function uniqueTexts(items: string[]) {
+  return [...new Set(items.map((item) => item.trim()).filter(Boolean))];
+}
+
+function sanitizeVisibleTextForAnalysis(raw: string) {
+  return raw
+    .split(/\n+/)
+    .map(normalizeText)
+    .filter(Boolean)
+    .join("\n")
+    .slice(0, MAX_FULL_PAGE_TEXT_LENGTH * MAX_SEGMENT_COUNT);
+}
+
+function sanitizeHtmlForAnalysis(raw: string) {
+  return decodeHtmlEntities(
+    raw
+      .replace(/<script[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style[\s\S]*?<\/style>/gi, " ")
+      .replace(/<!--[\s\S]*?-->/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
+}
+
+function splitTextIntoSegments(raw: string) {
+  const normalized = raw.trim();
+
+  if (!normalized) {
+    return [];
+  }
+
+  if (normalized.length <= MAX_FULL_PAGE_TEXT_LENGTH) {
+    return [normalized];
+  }
+
+  const segments: string[] = [];
+  let remaining = normalized;
+
+  while (remaining && segments.length < MAX_SEGMENT_COUNT) {
+    if (remaining.length <= MAX_SEGMENT_TEXT_LENGTH) {
+      segments.push(remaining);
+      remaining = "";
+      break;
+    }
+
+    let splitAt = remaining.lastIndexOf("\n", MAX_SEGMENT_TEXT_LENGTH);
+
+    if (splitAt < MIN_SEGMENT_BREAKPOINT) {
+      splitAt = remaining.indexOf("\n", MAX_SEGMENT_TEXT_LENGTH);
+    }
+
+    if (splitAt === -1 || splitAt < MIN_SEGMENT_BREAKPOINT) {
+      splitAt = MAX_SEGMENT_TEXT_LENGTH;
+    }
+
+    segments.push(remaining.slice(0, splitAt).trim());
+    remaining = remaining.slice(splitAt).trim();
+  }
+
+  if (remaining && segments.length > 0) {
+    const tail = remaining.slice(0, MAX_SEGMENT_TEXT_LENGTH);
+    const lastIndex = segments.length - 1;
+    const mergedTail = `${segments[lastIndex]}\n${tail}`.trim();
+    segments[lastIndex] = mergedTail.slice(0, MAX_FULL_PAGE_TEXT_LENGTH);
+  }
+
+  return segments.filter(Boolean);
+}
+
+function buildAnalysisPrompt(
+  source: DataSource,
+  pageTitle: string,
+  textSegment: string,
+  htmlSummary: string,
+  segmentIndex?: number,
+  segmentCount?: number
+) {
+  const segmentInstruction =
+    segmentCount && segmentCount > 1
+      ? `这是整页内容的第 ${segmentIndex! + 1}/${segmentCount} 段，只输出本段明确出现的商品。`
+      : "请基于整页上下文输出当前页面中的全部商品。";
+
+  return [
+    "请把商品售卖网页整理成 JSON。",
+    segmentInstruction,
+    "识别目标：页面中所有明确在售、展示价格或明确展示套餐信息的商品、套餐、订阅项。",
+    "不要把纯数字、年份、时长片段、栏目标题、分类标签、按钮文案、库存词、说明文本、导航文本当作商品。",
+    "商品名称必须是页面中的完整售卖项名称；如果信息不足以构成完整商品，请不要输出。",
+    "如果字段无法确认，可使用 null 或空字符串，但不要编造商品。",
+    `只返回 JSON，不要附加解释。字段格式：${PRODUCT_SCHEMA_PROMPT}`,
+    `站点名称：${source.sourceName}`,
+    `抓取入口：${source.entryUrl}`,
+    `页面标题：${pageTitle || source.sourceName}`,
+    `完整可见文本：\n${textSegment}`,
+    `HTML 摘要：\n${htmlSummary}`
+  ].join("\n\n");
+}
+
+function extractMessageContent(payload: {
+  choices?: Array<{
+    message?: {
+      content?: string | Array<{ text?: string }>;
+    };
+  }>;
+}) {
+  const content = payload.choices?.[0]?.message?.content;
+
+  if (typeof content === "string") {
+    return content;
+  }
+
+  if (Array.isArray(content)) {
+    return content
+      .map((item) => (typeof item?.text === "string" ? item.text : ""))
+      .join("\n")
+      .trim();
+  }
+
+  return "";
+}
+
+function getNoiseProductReason(rawName: string) {
+  const plain = normalizeText(rawName);
+  const lower = plain.toLowerCase();
+
+  if (!plain) {
+    return "商品名称为空";
+  }
+
+  if (plain.length < 2) {
+    return "商品名称过短";
+  }
+
+  if (/^(¥|￥)?\d+(?:\.\d+)?$/.test(plain)) {
+    return "商品名称是纯数字或价格";
+  }
+
+  if (/^\d{1,4}(?:[-/]\d{1,4})+(?:年|个月|月|天)?$/.test(plain) || /^\d{2,4}(?:年|个月|月|天)$/.test(plain)) {
+    return "商品名称看起来是年份或时长片段";
+  }
+
+  if (!/[A-Za-z\u4E00-\u9FFF]/.test(plain)) {
+    return "商品名称缺少可读文本";
+  }
+
+  if (NOISE_PRODUCT_NAMES.has(plain)) {
+    return "商品名称看起来是页面标签";
+  }
+
+  if (/^(google gemini|openai gpt|chatgpt|gemini|claude|perplexity|openai|google)$/i.test(lower)) {
+    return "商品名称看起来是栏目标题";
+  }
+
+  return null;
+}
+
+function scoreProductCandidate(item: ProductItem) {
+  return (
+    item.rawName.length +
+    (item.sourceLine?.length ?? 0) +
+    (item.confidence ?? 0) * 10 +
+    (item.warrantySupported === null ? 0 : 4)
+  );
+}
+
+function mergeProductCandidates(items: ProductItem[]) {
+  const merged = new Map<string, ProductItem>();
+
+  items.forEach((item) => {
+    const existing = merged.get(item.productKey);
+
+    if (!existing || scoreProductCandidate(item) >= scoreProductCandidate(existing)) {
+      merged.set(item.productKey, item);
+    }
+  });
+
+  return [...merged.values()];
+}
+
+function coerceStructuredProduct(item: Record<string, unknown>): StructuredProductCandidate {
+  const rawName = typeof item.rawName === "string" ? normalizeText(item.rawName) : "";
+  const price = Number(item.price ?? 0);
+
+  if (!rawName) {
+    return { reason: "缺少商品名称" };
+  }
+
+  if (Number.isNaN(price) || price <= 0) {
+    return { reason: `${rawName} 缺少有效价格` };
+  }
+
+  const noiseReason = getNoiseProductReason(rawName);
+
+  if (noiseReason) {
+    return { reason: `${rawName}：${noiseReason}` };
+  }
+
+  const line =
+    typeof item.sourceLine === "string" && item.sourceLine.trim() ? normalizeText(item.sourceLine) : rawName;
+  const category = coerceCategory(item.category, rawName, line);
+  const specLabel =
+    typeof item.specLabel === "string" && item.specLabel.trim()
+      ? normalizeToken(item.specLabel.trim())
+      : inferSpecLabel(rawName, category);
+  const stockStatus = coerceStockStatus(item.stockStatus);
+
+  return {
+    product: {
+      productKey: buildProductKey(category, specLabel),
+      rawName,
+      category,
+      specLabel,
+      price,
+      currency: typeof item.currency === "string" && item.currency.trim() ? item.currency.trim() : "CNY",
+      stockStatus,
+      status: coerceProductStatus(item.status, stockStatus),
+      inventoryText:
+        typeof item.inventoryText === "string" && item.inventoryText.trim()
+          ? item.inventoryText.trim()
+          : inferInventoryText(rawName, line, stockStatus),
+      warrantySupported: coerceWarranty(item.warrantySupported, rawName, line),
+      isDetected: true,
+      confidence: typeof item.confidence === "number" ? item.confidence : 0.88,
+      sourceLine: line,
+      updatedAt: nowIso()
+    } satisfies ProductItem
+  };
+}
+
+function buildAnalysisFailure(
+  settings: AiSettings,
+  reason: string,
+  flags: string[],
+  rawFragments: string[]
+): AiAnalysisResult {
+  const debugCandidates = heuristicParseProducts(rawFragments);
+
+  return {
+    modelLabel: settings.enabled ? settings.model : "AI 未启用",
+    summary: reason,
+    conclusion: "请在校对页手动补充商品，或检查 AI 配置后重新抓取。",
+    flags: uniqueTexts([
+      ...flags,
+      debugCandidates.length > 0 ? `规则片段中发现 ${debugCandidates.length} 个可疑候选，但已禁用自动兜底。` : ""
+    ]),
+    products: [],
+    isReliable: false
+  };
+}
+
+async function requestStructuredAnalysis(
+  settings: AiSettings,
+  prompt: string
+): Promise<StructuredAiResponse> {
+  const endpoint = `${settings.baseUrl.replace(/\/$/, "")}/chat/completions`;
+  const body: Record<string, unknown> = {
+    model: settings.model,
+    temperature: settings.temperature,
+    stream: false,
+    messages: [
+      {
+        role: "system",
+        content: settings.systemPrompt
+      },
+      {
+        role: "user",
+        content: prompt
+      }
+    ]
+  };
+
+  if (settings.provider === "deepseek-compatible") {
+    if (settings.thinkingEnabled) {
+      body.thinking = { type: "enabled" };
+    }
+
+    if (settings.reasoningEffort) {
+      body.reasoning_effort = settings.reasoningEffort;
+    }
+  }
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${settings.apiKey}`
+    },
+    body: JSON.stringify(body),
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => "");
+    throw new Error(`AI 接口返回 ${response.status}${errorText ? `：${errorText.slice(0, 240)}` : ""}`);
+  }
+
+  const payload = (await response.json()) as {
+    choices?: Array<{
+      message?: {
+        content?: string | Array<{ text?: string }>;
+      };
+    }>;
+  };
+  const content = extractMessageContent(payload);
+
+  if (!content) {
+    throw new Error("AI 返回为空");
+  }
+
+  return JSON.parse(extractJsonObject(content)) as StructuredAiResponse;
+}
+
+function inferCategory(rawName: string, line: string): ProductCategory {
+  const marker = `${rawName} ${line}`.toLowerCase();
+
+  if (marker.includes("gpt")) {
+    return "CHATGPT";
+  }
+
+  if (marker.includes("claude")) {
+    return "CLAUDE";
+  }
+
+  if (marker.includes("gemini")) {
+    return "GEMINI";
+  }
+
+  if (marker.includes("perplexity")) {
+    return "PERPLEXITY";
+  }
+
+  return "OTHER";
+}
+
+function inferSpecLabel(rawName: string, category: ProductCategory) {
+  const categoryTokens = {
+    CHATGPT: /(chatgpt|gpt)/gi,
+    CLAUDE: /(claude)/gi,
+    GEMINI: /(gemini)/gi,
+    PERPLEXITY: /(perplexity)/gi,
+    OTHER: /$^/g
+  };
+
+  const stripped = normalizeText(rawName.replace(categoryTokens[category], " "));
+  return normalizeToken(stripped || rawName || "DEFAULT") || "DEFAULT";
 }
 
 function inferStockStatus(line: string): StockStatus {
-  if (/(out of stock|sold out|无货|售罄|缺货)/i.test(line)) {
+  if (/(out of stock|sold out|无货|售罄|缺货|无库存)/i.test(line)) {
     return "OUT_OF_STOCK";
   }
 
@@ -86,18 +501,57 @@ function inferProductStatus(stockStatus: StockStatus): ProductStatus {
   return "ON_SALE";
 }
 
-function normalizeProductType(name: string) {
-  const base = name
-    .toUpperCase()
-    .replace(/[^A-Z0-9\u4E00-\u9FFF]+/g, "_")
-    .replace(/_+/g, "_")
-    .replace(/^_|_$/g, "");
+function inferWarranty(line: string): boolean | null {
+  if (/(no warranty|without warranty|不支持质保|无质保|不保修)/i.test(line)) {
+    return false;
+  }
 
-  return base || "UNSPECIFIED";
+  if (/(warranty|guarantee|质保|保修|售后)/i.test(line)) {
+    return true;
+  }
+
+  return null;
+}
+
+function inferInventoryText(rawName: string, tail: string, stockStatus: StockStatus) {
+  const merged = normalizeText(`${rawName} ${tail}`);
+
+  if (stockStatus === "OUT_OF_STOCK") {
+    return /(?:out of stock|sold out|无货|售罄|缺货|无库存)/i.exec(merged)?.[0] || "无货";
+  }
+
+  if (stockStatus === "LOW_STOCK") {
+    return /(?:low stock|only \d+ left|紧张|少量|仅剩|库存低)/i.exec(merged)?.[0] || "库存紧张";
+  }
+
+  return "有货";
+}
+
+function buildProduct(rawName: string, price: number, line: string, tail = "", confidence = 0.72): ProductItem {
+  const category = inferCategory(rawName, line);
+  const specLabel = inferSpecLabel(rawName, category);
+  const stockStatus = inferStockStatus(`${rawName} ${tail}`);
+  const updatedAt = nowIso();
+
+  return {
+    productKey: buildProductKey(category, specLabel),
+    rawName,
+    category,
+    specLabel,
+    price,
+    currency: "CNY",
+    stockStatus,
+    status: inferProductStatus(stockStatus),
+    inventoryText: inferInventoryText(rawName, tail, stockStatus),
+    warrantySupported: inferWarranty(`${rawName} ${tail}`),
+    isDetected: true,
+    confidence,
+    sourceLine: line,
+    updatedAt
+  };
 }
 
 function heuristicParseProducts(lines: string[]) {
-  const timestamp = nowIso();
   const matcher =
     /^(.+?)(?:\s*[-:：丨|]\s*|\s+)(?:¥|￥|cny|CNY|rmb|RMB)?\s*(\d+(?:\.\d{1,2})?)(?:\s*(?:元|cny|CNY|rmb|RMB))?(.*)$/;
   const parsed: ProductItem[] = [];
@@ -112,27 +566,15 @@ function heuristicParseProducts(lines: string[]) {
     const rawName = normalizeText(match[1] ?? "");
     const price = Number.parseFloat(match[2] ?? "");
 
-    if (!rawName || Number.isNaN(price)) {
+    if (!rawName || Number.isNaN(price) || price <= 0) {
       return;
     }
 
     const tail = normalizeText(match[3] ?? line);
-    const stockStatus = inferStockStatus(`${rawName} ${tail}`);
-
-    parsed.push({
-      rawName,
-      normalizedType: normalizeProductType(rawName),
-      price,
-      currency: "CNY",
-      stockStatus,
-      status: inferProductStatus(stockStatus),
-      confidence: 0.72,
-      updatedAt: timestamp,
-      sourceLine: line
-    });
+    parsed.push(buildProduct(rawName, price, line, tail, 0.72));
   });
 
-  return [...new Set(parsed.map((item) => JSON.stringify(item)))].map((item) => JSON.parse(item) as ProductItem);
+  return [...new Map(parsed.map((item) => [item.productKey, item])).values()];
 }
 
 function coerceStockStatus(value: unknown): StockStatus {
@@ -148,7 +590,7 @@ function coerceStockStatus(value: unknown): StockStatus {
 }
 
 function coerceProductStatus(value: unknown, stockStatus: StockStatus): ProductStatus {
-  if (value === "OFFLINE" || value === "已下架") {
+  if (value === "OFFLINE" || value === "已下架" || value === "未上架") {
     return "OFFLINE";
   }
 
@@ -159,16 +601,20 @@ function coerceProductStatus(value: unknown, stockStatus: StockStatus): ProductS
   return inferProductStatus(stockStatus);
 }
 
-function coerceShopStatus(value: unknown, productCount: number): ShopStatus {
-  if (value === "CLOSED" || value === "已关闭") {
-    return "CLOSED";
+function coerceCategory(value: unknown, rawName: string, line: string): ProductCategory {
+  if (value === "CHATGPT" || value === "CLAUDE" || value === "GEMINI" || value === "PERPLEXITY" || value === "OTHER") {
+    return value;
   }
 
-  if (value === "RISK" || value === "存在风险") {
-    return "RISK";
+  return inferCategory(rawName, line);
+}
+
+function coerceWarranty(value: unknown, rawName: string, line: string): boolean | null {
+  if (value === true || value === false) {
+    return value;
   }
 
-  return productCount > 0 ? "OPEN" : "RISK";
+  return inferWarranty(`${rawName} ${line}`);
 }
 
 function extractJsonObject(content: string) {
@@ -185,145 +631,115 @@ function extractJsonObject(content: string) {
 async function analyzeWithAi(
   settings: AiSettings,
   source: DataSource,
-  rawContent: string,
+  pageTitle: string,
+  visibleText: string,
+  html: string,
   rawFragments: string[]
-) {
-  const fallbackProducts = heuristicParseProducts(rawFragments);
-
-  const fallback = {
-    aiModel: settings.enabled ? settings.model : "本地规则",
-    extractedSummary:
-      fallbackProducts.length > 0
-        ? `解析到 ${fallbackProducts.length} 条商品信息，建议人工确认价格和库存。`
-        : "未识别到稳定商品结构，建议补充人工抓取内容。",
-    aiConclusion:
-      fallbackProducts.length > 0
-        ? "已使用本地规则完成首轮结构化，适合作为 AI 纠偏前的草稿。"
-        : "当前内容不足以直接发布，建议先完成人工验证后重试。",
-    riskNotes:
-      fallbackProducts.length > 0
-        ? ["商品解析使用本地规则，复杂站点可能遗漏规格。", "建议人工核对低库存与异常低价。"]
-        : ["站点文本有效信息不足。", "建议提供通过验证后的页面文本、Cookie 或 storageState。"],
-    products: fallbackProducts,
-    shopStatus: coerceShopStatus(undefined, fallbackProducts.length)
-  };
+) : Promise<AiAnalysisResult> {
+  const normalizedText = sanitizeVisibleTextForAnalysis(visibleText);
+  const normalizedHtml = sanitizeHtmlForAnalysis(html).slice(0, MAX_FULL_PAGE_HTML_LENGTH);
 
   if (!settings.enabled || !settings.baseUrl.trim() || !settings.model.trim() || !settings.apiKey.trim()) {
-    return fallback;
+    return buildAnalysisFailure(settings, "AI 未启用，未生成商品草稿。", ["请先配置可用的 AI 接口。"], rawFragments);
   }
 
-  try {
-    const endpoint = `${settings.baseUrl.replace(/\/$/, "")}/chat/completions`;
-    const prompt = [
-      "请把下面的抓取文本整理成 JSON。",
-      '只返回 JSON，不要附加解释。字段格式：{"summary":"","conclusion":"","riskNotes":[""],"shopStatus":"OPEN","products":[{"rawName":"","normalizedType":"","price":0,"currency":"CNY","stockStatus":"IN_STOCK","status":"ON_SALE","confidence":0.9,"sourceLine":""}]}',
-      `站点名称：${source.sourceName}`,
-      `站点说明：${source.parserHint || source.remark || "无"}`,
-      `抓取文本：\n${rawFragments.join("\n")}\n\n原始内容摘要：\n${rawContent.slice(0, 6000)}`
-    ].join("\n\n");
+  if (normalizedText.length < 40 && rawFragments.length === 0) {
+    return buildAnalysisFailure(
+      settings,
+      "当前页面有效文本不足，未生成商品草稿。",
+      ["页面有效文本不足", "建议提供 Cookie、storageState 或人工整理页面文本"],
+      rawFragments
+    );
+  }
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${settings.apiKey}`
-      },
-      body: JSON.stringify({
-        model: settings.model,
-        temperature: settings.temperature,
-        messages: [
-          {
-            role: "system",
-            content: settings.systemPrompt
-          },
-          {
-            role: "user",
-            content: prompt
-          }
-        ]
-      }),
-      cache: "no-store"
-    });
+  const segments = splitTextIntoSegments(normalizedText);
 
-    if (!response.ok) {
-      throw new Error(`AI 接口返回 ${response.status}`);
-    }
+  if (segments.length === 0) {
+    return buildAnalysisFailure(settings, "当前页面缺少可分析内容。", ["未提取到可分析文本"], rawFragments);
+  }
 
-    const result = (await response.json()) as {
-      choices?: Array<{ message?: { content?: string } }>;
-    };
+  const allProducts: ProductItem[] = [];
+  const flags: string[] = [];
+  let summary = "";
+  let conclusion = "";
 
-    const content = result.choices?.[0]?.message?.content;
+  for (const [index, segment] of segments.entries()) {
+    try {
+      const parsed = await requestStructuredAnalysis(
+        settings,
+        buildAnalysisPrompt(source, pageTitle, segment, normalizedHtml, index, segments.length)
+      );
 
-    if (!content) {
-      throw new Error("AI 返回为空");
-    }
+      summary = summary || parsed.summary?.trim() || "";
+      conclusion = conclusion || parsed.conclusion?.trim() || "";
+      flags.push(...(parsed.flags ?? []));
 
-    const parsed = JSON.parse(extractJsonObject(content)) as {
-      summary?: string;
-      conclusion?: string;
-      riskNotes?: string[];
-      shopStatus?: string;
-      products?: Array<Record<string, unknown>>;
-    };
+      const rejected: string[] = [];
 
-    const products: ProductItem[] = [];
+      (parsed.products ?? []).forEach((item) => {
+        const candidate = coerceStructuredProduct(item);
 
-    (parsed.products ?? []).forEach((item) => {
-      const stockStatus = coerceStockStatus(item.stockStatus);
-      const rawName = typeof item.rawName === "string" ? item.rawName.trim() : "";
-      const price = Number(item.price ?? 0);
+        if (candidate.product) {
+          allProducts.push(candidate.product);
+          return;
+        }
 
-      if (!rawName || Number.isNaN(price) || price <= 0) {
-        return;
-      }
-
-      products.push({
-        rawName,
-        normalizedType:
-          typeof item.normalizedType === "string" && item.normalizedType.trim()
-            ? item.normalizedType.trim()
-            : normalizeProductType(rawName),
-        price,
-        currency: typeof item.currency === "string" && item.currency.trim() ? item.currency.trim() : "CNY",
-        stockStatus,
-        status: coerceProductStatus(item.status, stockStatus),
-        confidence: typeof item.confidence === "number" ? item.confidence : 0.88,
-        updatedAt: nowIso(),
-        sourceLine: typeof item.sourceLine === "string" ? item.sourceLine : rawName
+        rejected.push(candidate.reason ?? "候选商品无效");
       });
-    });
 
-    if (products.length === 0) {
-      return fallback;
+      if (rejected.length > 0) {
+        flags.push(`第 ${index + 1} 段过滤了 ${rejected.length} 条无效候选：${rejected.slice(0, 3).join("；")}`);
+      }
+    } catch (error) {
+      flags.push(`第 ${index + 1} 段 AI 解析失败：${error instanceof Error ? error.message : "未知异常"}`);
     }
-
-    return {
-      aiModel: settings.model,
-      extractedSummary: parsed.summary?.trim() || fallback.extractedSummary,
-      aiConclusion: parsed.conclusion?.trim() || fallback.aiConclusion,
-      riskNotes: parsed.riskNotes?.filter(Boolean) ?? fallback.riskNotes,
-      products,
-      shopStatus: coerceShopStatus(parsed.shopStatus, products.length)
-    };
-  } catch {
-    return fallback;
   }
+
+  const products = mergeProductCandidates(allProducts);
+
+  if (products.length === 0) {
+    return buildAnalysisFailure(
+      settings,
+      "已抓取页面内容，但未识别到可信商品。",
+      [
+        segments.length > 1 ? `整页内容已分 ${segments.length} 段分析，但未得到可信商品。` : "",
+        ...flags
+      ],
+      rawFragments
+    );
+  }
+
+  return {
+    modelLabel: settings.model,
+    summary: summary || `已基于整页上下文识别 ${products.length} 个商品。`,
+    conclusion: conclusion || `已生成 ${products.length} 个可信商品候选，请校对后发布。`,
+    flags: uniqueTexts([
+      segments.length > 1 ? `已按整页分 ${segments.length} 段分析并汇总结果。` : "",
+      ...flags
+    ]),
+    products,
+    isReliable: true
+  };
 }
 
 function buildChanges(previousProducts: ProductItem[], nextProducts: ProductItem[]) {
-  const previousMap = new Map(previousProducts.map((item) => [item.normalizedType, item]));
-  const nextMap = new Map(nextProducts.map((item) => [item.normalizedType, item]));
+  const previousMap = new Map(
+    previousProducts.filter((item) => item.isDetected).map((item) => [item.productKey, item] as const)
+  );
+  const nextMap = new Map(
+    nextProducts.filter((item) => item.isDetected).map((item) => [item.productKey, item] as const)
+  );
   const changes: ShopChange[] = [];
 
-  nextProducts.forEach((product) => {
-    const previous = previousMap.get(product.normalizedType);
+  nextMap.forEach((product, productKey) => {
+    const previous = previousMap.get(productKey);
 
     if (!previous) {
       changes.push({
         type: "PRODUCT_ADDED",
-        productType: product.normalizedType,
-        note: `${product.rawName} 首次出现在本次抓取结果中。`
+        productKey,
+        productLabel: product.rawName,
+        note: `${product.rawName} 已进入当前商品列表。`
       });
       return;
     }
@@ -331,7 +747,8 @@ function buildChanges(previousProducts: ProductItem[], nextProducts: ProductItem
     if (previous.price !== product.price) {
       changes.push({
         type: previous.price < product.price ? "PRICE_INCREASED" : "PRICE_DECREASED",
-        productType: product.normalizedType,
+        productKey,
+        productLabel: product.rawName,
         oldPrice: previous.price,
         newPrice: product.price,
         note: `${product.rawName} 价格从 ¥${previous.price} 变为 ¥${product.price}。`
@@ -341,18 +758,33 @@ function buildChanges(previousProducts: ProductItem[], nextProducts: ProductItem
     if (previous.stockStatus !== product.stockStatus || previous.status !== product.status) {
       changes.push({
         type: "STOCK_CHANGED",
-        productType: product.normalizedType,
+        productKey,
+        productLabel: product.rawName,
+        oldStockStatus: previous.stockStatus,
+        newStockStatus: product.stockStatus,
         note: `${product.rawName} 库存状态由 ${stockStatusLabels[previous.stockStatus]} 变更为 ${stockStatusLabels[product.stockStatus]}。`
+      });
+    }
+
+    if (previous.warrantySupported !== product.warrantySupported) {
+      changes.push({
+        type: "WARRANTY_CHANGED",
+        productKey,
+        productLabel: product.rawName,
+        previousWarrantySupported: previous.warrantySupported,
+        nextWarrantySupported: product.warrantySupported,
+        note: `${product.rawName} 质保判定发生变化。`
       });
     }
   });
 
-  previousProducts.forEach((product) => {
-    if (!nextMap.has(product.normalizedType)) {
+  previousMap.forEach((product, productKey) => {
+    if (!nextMap.has(productKey)) {
       changes.push({
         type: "PRODUCT_REMOVED",
-        productType: product.normalizedType,
-        note: `${product.rawName} 在本次抓取中未再出现。`
+        productKey,
+        productLabel: product.rawName,
+        note: `${product.rawName} 本次未再检测到。`
       });
     }
   });
@@ -407,12 +839,12 @@ async function runTaskPipeline(
         verificationNote: payload?.verificationNote?.trim() || workingTask.verificationNote,
         pageState: "WAITING_VERIFICATION",
         artifacts: capture.artifacts,
-        logSummary: capture.verificationReason || "页面需要人工验证后才能继续。",
-        nextAction: "请补充 Cookie、storageState 或人工整理后的页面文本，然后继续抓取。",
+        logSummary: capture.verificationReason || "页面需要人工补充验证后继续。",
+        nextAction: "补充 Cookie、storageState 或整理后的页面文本，然后继续抓取。",
         timeline: buildTimeline(
           workingTask.timeline,
-          "等待人工验证",
-          capture.verificationReason || source.verificationPrompt || "站点要求先完成人工验证。"
+          "等待补充验证",
+          capture.verificationReason || source.verificationPrompt || "站点要求先完成验证。"
         )
       };
 
@@ -425,11 +857,18 @@ async function runTaskPipeline(
       };
     }
 
-    const analysis = await analyzeWithAi(aiSettings, source, rawContent, rawFragments);
+    const analysis = await analyzeWithAi(
+      aiSettings,
+      source,
+      capture.title,
+      capture.visibleText,
+      capture.html,
+      rawFragments
+    );
     const existingShop = state.published.shops.find((item) => item.sourceId === source.sourceId);
-    const previousSnapshot = existingShop
-      ? [...state.published.snapshots].reverse().find((item) => item.shopId === existingShop.shopId)
-      : undefined;
+    const previousProducts = existingShop
+      ? state.published.shopProducts.filter((item) => item.shopId === existingShop.shopId).map((item) => item.current)
+      : [];
     const review: ReviewRecord = {
       id: createId("review"),
       taskId: task.id,
@@ -437,14 +876,15 @@ async function runTaskPipeline(
       sourceName: source.sourceName,
       status: "REVIEWING",
       snapshotDate: nowIso().slice(0, 10),
-      extractedSummary: analysis.extractedSummary,
+      summary: analysis.summary,
       rawFragments,
       products: analysis.products,
-      previousDiff: buildChanges(previousSnapshot?.products ?? [], analysis.products),
-      aiModel: analysis.aiModel,
-      aiConclusion: analysis.aiConclusion,
-      riskNotes: analysis.riskNotes
+      previousDiff: buildChanges(previousProducts, analysis.products),
+      modelLabel: analysis.modelLabel,
+      conclusion: analysis.conclusion,
+      flags: analysis.flags
     };
+    const requiresManualProductFill = !analysis.isReliable || analysis.products.length === 0;
 
     const reviewingTask: CrawlTask = {
       ...workingTask,
@@ -459,13 +899,19 @@ async function runTaskPipeline(
       pageState: payload ? "RESUMED" : "COLLECTED",
       artifacts: capture.artifacts,
       logSummary: payload?.manualContent?.trim()
-        ? "已接收人工补充内容，生成结构化结果，等待审核。"
-        : "浏览器抓取完成，已生成结构化结果，等待审核。",
-      nextAction: "进入审核页确认价格、库存和差异。",
+        ? requiresManualProductFill
+          ? "已接收人工补充内容，但 AI 未识别到可信商品，请人工补充。"
+          : "已接收人工补充内容，生成商品结构，等待校对。"
+        : requiresManualProductFill
+          ? "浏览器抓取完成，但 AI 未识别到可信商品，请人工补充。"
+          : "浏览器抓取完成，已生成商品结构，等待校对。",
+      nextAction: requiresManualProductFill
+        ? "进入校对页手动补充商品，或调整 AI 配置后重新抓取。"
+        : "进入校对页确认分类、规格、价格、库存和质保。",
       timeline: buildTimeline(
         workingTask.timeline,
-        "进入审核",
-        `识别 ${review.products.length} 个商品，等待人工确认。`
+        "进入校对",
+        requiresManualProductFill ? "未识别到可信商品，等待人工补充。" : `识别 ${review.products.length} 个商品，等待人工确认。`
       )
     };
 
@@ -486,11 +932,7 @@ async function runTaskPipeline(
       errorMessage: error instanceof Error ? error.message : "未知异常",
       logSummary: "抓取流程失败。",
       nextAction: "检查站点地址、浏览器依赖和验证信息后重试。",
-      timeline: buildTimeline(
-        workingTask.timeline,
-        "任务失败",
-        error instanceof Error ? error.message : "未知异常"
-      )
+      timeline: buildTimeline(workingTask.timeline, "任务失败", error instanceof Error ? error.message : "未知异常")
     };
 
     return {

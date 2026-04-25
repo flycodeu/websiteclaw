@@ -4,7 +4,7 @@ import { getPublishedData } from "@shop-claw/shared/store";
 export const dynamic = "force-dynamic";
 
 export default async function ShopsPage() {
-  const { diffs, snapshots, shops } = await getPublishedData();
+  const { shopProducts, shops } = await getPublishedData();
 
-  return <ShopExplorer shops={shops} snapshots={snapshots} diffs={diffs} />;
+  return <ShopExplorer shops={shops} products={shopProducts} />;
 }

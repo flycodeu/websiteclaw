@@ -17,20 +17,59 @@ export type ChangeType =
   | "PRICE_INCREASED"
   | "PRICE_DECREASED"
   | "STOCK_CHANGED"
+  | "WARRANTY_CHANGED"
   | "SHOP_STATUS_CHANGED";
 export type ReviewStatus = "REVIEWING" | "READY_TO_PUBLISH" | "PUBLISHED";
 export type CrawlPageState = "COLLECTED" | "WAITING_VERIFICATION" | "RESUMED";
+export type ProductCategory = "CHATGPT" | "CLAUDE" | "GEMINI" | "PERPLEXITY" | "OTHER";
+export type AiProvider = "openai-compatible" | "deepseek-compatible";
 
 export interface ProductItem {
+  productKey: string;
   rawName: string;
-  normalizedType: string;
+  category: ProductCategory;
+  specLabel: string;
   price: number;
   currency: string;
   stockStatus: StockStatus;
   status: ProductStatus;
+  inventoryText: string;
+  warrantySupported: boolean | null;
+  isDetected: boolean;
   confidence?: number;
-  updatedAt: string;
   sourceLine?: string;
+  updatedAt: string;
+}
+
+export interface ProductObservation {
+  shopId: string;
+  sourceId: string;
+  productKey: string;
+  rawName: string;
+  category: ProductCategory;
+  specLabel: string;
+  price: number;
+  currency: string;
+  stockStatus: StockStatus;
+  status: ProductStatus;
+  inventoryText: string;
+  warrantySupported: boolean | null;
+  isDetected: boolean;
+  capturedAt: string;
+  snapshotDate: string;
+  crawlTaskId?: string;
+  reviewId?: string;
+  sourceLine?: string;
+}
+
+export interface PublishedShopProduct {
+  shopId: string;
+  sourceId: string;
+  productKey: string;
+  category: ProductCategory;
+  specLabel: string;
+  current: ProductItem;
+  history: ProductObservation[];
 }
 
 export interface ShopSummary {
@@ -40,57 +79,53 @@ export interface ShopSummary {
   url: string;
   status: ShopStatus;
   lastCrawledAt: string;
-  stabilityScore: number;
   productCount: number;
+  inStockCount: number;
+  lowStockCount: number;
+  outOfStockCount: number;
   lowestPrice: number;
-  averagePrice: number;
-  tags: string[];
-  healthNote: string;
+  categories: ProductCategory[];
+  recentChangeCount: number;
+  runCount: number;
 }
 
 export interface ShopSnapshot {
   shopId: string;
   crawlTaskId?: string;
   snapshotDate: string;
+  capturedAt: string;
   summary: string;
-  products: ProductItem[];
+  conclusion: string;
+  productCount: number;
+  productKeys: string[];
 }
 
 export interface ShopChange {
   type: ChangeType;
-  productType?: string;
+  productKey?: string;
+  productLabel?: string;
   oldPrice?: number;
   newPrice?: number;
+  oldStockStatus?: StockStatus;
+  newStockStatus?: StockStatus;
+  previousWarrantySupported?: boolean | null;
+  nextWarrantySupported?: boolean | null;
   note: string;
 }
 
 export interface ShopDiff {
   shopId: string;
   snapshotDate: string;
+  capturedAt: string;
   changes: ShopChange[];
   summary: string;
 }
 
-export interface RankingEntry {
-  rank: number;
-  shopId: string;
-  shopName: string;
-  metricLabel: string;
-  value: number;
-  description: string;
-}
-
-export interface CompareGroup {
-  normalizedType: string;
-  trend: string;
-  offers: Array<{
-    shopId: string;
-    shopName: string;
-    price: number;
-    currency: string;
-    stockStatus: StockStatus;
-    stabilityScore: number;
-  }>;
+export interface PublishedShopDetail {
+  shop: ShopSummary;
+  products: PublishedShopProduct[];
+  recentSnapshots: ShopSnapshot[];
+  recentDiffs: ShopDiff[];
 }
 
 export interface SourceRequestHeader {
@@ -105,8 +140,6 @@ export interface DataSource {
   entryUrl: string;
   crawlMode: CrawlMode;
   enabled: boolean;
-  remark: string;
-  parserHint: string;
   lastRunAt: string;
   createdAt: string;
   updatedAt: string;
@@ -163,29 +196,20 @@ export interface ReviewRecord {
   sourceName: string;
   status: ReviewStatus;
   snapshotDate: string;
-  extractedSummary: string;
+  summary: string;
   rawFragments: string[];
   products: ProductItem[];
   previousDiff: ShopChange[];
-  aiModel?: string;
-  aiConclusion: string;
-  riskNotes: string[];
-}
-
-export interface OverviewMetric {
-  label: string;
-  value: string;
-  detail: string;
+  modelLabel?: string;
+  conclusion: string;
+  flags: string[];
 }
 
 export interface PublishedData {
   shops: ShopSummary[];
-  snapshots: ShopSnapshot[];
-  diffs: ShopDiff[];
-  priceRankings: RankingEntry[];
-  stabilityRankings: RankingEntry[];
-  compareGroups: CompareGroup[];
-  overviewMetrics: OverviewMetric[];
+  shopProducts: PublishedShopProduct[];
+  shopSnapshots: ShopSnapshot[];
+  shopDiffs: ShopDiff[];
   publishedAt: string;
 }
 
@@ -201,10 +225,13 @@ export interface PlatformState {
 export interface AiSettings {
   enabled: boolean;
   providerLabel: string;
+  provider: AiProvider;
   baseUrl: string;
   apiKey: string;
   model: string;
   temperature: number;
+  thinkingEnabled: boolean;
+  reasoningEffort?: string;
   systemPrompt: string;
   updatedAt: string;
 }
@@ -215,8 +242,6 @@ export interface NewSourcePayload {
   entryUrl?: string;
   crawlMode?: CrawlMode;
   enabled?: boolean;
-  remark?: string;
-  parserHint?: string;
   verificationMethod?: VerificationMethod;
   verificationPrompt?: string;
   waitSelector?: string;
@@ -237,9 +262,9 @@ export interface ContinueTaskPayload {
 }
 
 export interface SaveReviewPayload {
-  extractedSummary?: string;
-  aiConclusion?: string;
-  riskNotes?: string[];
+  summary?: string;
+  conclusion?: string;
+  flags?: string[];
   products?: ProductItem[];
 }
 

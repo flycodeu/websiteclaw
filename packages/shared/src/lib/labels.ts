@@ -1,6 +1,7 @@
 import {
   ChangeType,
   CrawlMode,
+  ProductCategory,
   ProductStatus,
   ReviewStatus,
   ShopStatus,
@@ -10,9 +11,9 @@ import {
 } from "./types";
 
 export const shopStatusLabels: Record<ShopStatus, string> = {
-  OPEN: "营业中",
-  RISK: "存在风险",
-  CLOSED: "已关闭"
+  OPEN: "正常",
+  RISK: "异常",
+  CLOSED: "关闭"
 };
 
 export const stockStatusLabels: Record<StockStatus, string> = {
@@ -24,7 +25,7 @@ export const stockStatusLabels: Record<StockStatus, string> = {
 export const productStatusLabels: Record<ProductStatus, string> = {
   ON_SALE: "在售",
   LOW_STOCK: "低库存",
-  OFFLINE: "已下架"
+  OFFLINE: "未上架"
 };
 
 export const crawlModeLabels: Record<CrawlMode, string> = {
@@ -35,15 +36,15 @@ export const crawlModeLabels: Record<CrawlMode, string> = {
 export const taskStatusLabels: Record<TaskStatus, string> = {
   PENDING: "待开始",
   CRAWLING: "抓取中",
-  WAITING_HUMAN: "待人工验证",
-  AI_PARSING: "AI 分析中",
-  REVIEWING: "待审核",
+  WAITING_HUMAN: "待补充验证",
+  AI_PARSING: "结构化处理中",
+  REVIEWING: "待校对",
   PUBLISHED: "已发布",
   FAILED: "失败"
 };
 
 export const reviewStatusLabels: Record<ReviewStatus, string> = {
-  REVIEWING: "待审核",
+  REVIEWING: "待校对",
   READY_TO_PUBLISH: "可发布",
   PUBLISHED: "已发布"
 };
@@ -56,16 +57,37 @@ export const verificationMethodLabels: Record<VerificationMethod, string> = {
 };
 
 export const changeTypeLabels: Record<ChangeType, string> = {
-  PRODUCT_REMOVED: "商品下架",
-  PRODUCT_ADDED: "新增商品",
+  PRODUCT_REMOVED: "商品移除",
+  PRODUCT_ADDED: "商品新增",
   PRICE_INCREASED: "价格上涨",
   PRICE_DECREASED: "价格下降",
   STOCK_CHANGED: "库存变化",
-  SHOP_STATUS_CHANGED: "店铺状态变化"
+  WARRANTY_CHANGED: "质保变化",
+  SHOP_STATUS_CHANGED: "站点状态变化"
+};
+
+export const productCategoryLabels: Record<ProductCategory, string> = {
+  CHATGPT: "ChatGPT",
+  CLAUDE: "Claude",
+  GEMINI: "Gemini",
+  PERPLEXITY: "Perplexity",
+  OTHER: "其他"
 };
 
 export function formatBooleanLabel(value: boolean) {
   return value ? "启用" : "停用";
+}
+
+export function formatWarrantyLabel(value: boolean | null) {
+  if (value === true) {
+    return "支持质保";
+  }
+
+  if (value === false) {
+    return "不支持质保";
+  }
+
+  return "待确认";
 }
 
 export function formatDateLabel(value: string) {

@@ -13,7 +13,7 @@ export async function POST(_request: Request, context: { params: Promise<{ id: s
   const id = await readParams(context);
   try {
     const result = await publishReview(id);
-    return Response.json(withTraceId(result, "已写入静态数据"));
+    return Response.json(withTraceId(result, "已写入公开数据"));
   } catch (error) {
     return Response.json(
       withTraceId(null, error instanceof Error ? error.message : "发布失败"),

@@ -15,15 +15,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <AdminShell email={email ?? "本地模式"}>
       <div className="space-y-6">
-        <section className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-panel">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <section className="overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(135deg,#faf3e8_0%,#f2eadc_56%,#eef4e8_100%)] shadow-[0_20px_44px_rgba(102,88,64,0.08)]">
+          <div className="flex flex-col gap-4 p-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h1 className="font-serif text-4xl">抓取、验证、分析、发布</h1>
-              <p className="mt-2 text-sm text-slate-500">管理端用于维护数据源、执行浏览器抓取、处理验证并审核结果。</p>
+              <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/85 px-4 py-2 text-sm text-[#566271]">
+                管理后台
+              </div>
+              <h1 className="mt-4 font-serif text-4xl text-[#18222c]">采集与发布控制台</h1>
             </div>
-            <div className="grid gap-2 rounded-[24px] border border-slate-200 bg-shell px-5 py-4 text-sm text-slate-600">
-              <div>浏览器抓取支持登录、验证码和人工续跑</div>
-              <div>审核后会更新商铺、商品和差异结果</div>
+            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/72 px-4 py-3 text-sm text-[#566271]">
+              站点、任务与发布数据统一管理
             </div>
           </div>
         </section>

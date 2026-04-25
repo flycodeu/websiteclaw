@@ -16,18 +16,28 @@ export async function GET(request: Request) {
       const keywordMatched =
         !keyword ||
         shop.name.toLowerCase().includes(keyword) ||
-        shop.tags.some((tag) => tag.toLowerCase().includes(keyword));
+        shop.categories.some((category) => category.toLowerCase().includes(keyword));
       const statusMatched = !status || status === "ALL" || shop.status === status;
       return keywordMatched && statusMatched;
     })
     .sort((a, b) => {
       if (sort === "price") {
+        if (a.lowestPrice === 0) {
+          return 1;
+        }
+
+        if (b.lowestPrice === 0) {
+          return -1;
+        }
+
         return a.lowestPrice - b.lowestPrice;
       }
-      if (sort === "updated") {
-        return Date.parse(b.lastCrawledAt) - Date.parse(a.lastCrawledAt);
+
+      if (sort === "changes") {
+        return b.recentChangeCount - a.recentChangeCount;
       }
-      return b.stabilityScore - a.stabilityScore;
+
+      return Date.parse(b.lastCrawledAt) - Date.parse(a.lastCrawledAt);
     });
 
   return Response.json(withTraceId(result));

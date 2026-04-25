@@ -11,15 +11,19 @@ async function readParams(context: { params: Promise<{ shopId: string }> | { sho
 
 export async function GET(_request: Request, context: { params: Promise<{ shopId: string }> | { shopId: string } }) {
   const shopId = await readParams(context);
-  const { shops, snapshots, diffs } = await getPublishedData();
+  const { shops, shopProducts, shopSnapshots, shopDiffs } = await getPublishedData();
   const shop = shops.find((item) => item.shopId === shopId);
-  const snapshot = snapshots.find((item) => item.shopId === shopId);
-  const diff = diffs.find((item) => item.shopId === shopId);
-  const result = shop && snapshot ? { shop, snapshot, diff } : null;
 
-  if (!result) {
-    return Response.json(withTraceId(null, "商铺不存在"), { status: 404 });
+  if (!shop) {
+    return Response.json(withTraceId(null, "店铺不存在"), { status: 404 });
   }
+
+  const result = {
+    shop,
+    products: shopProducts.filter((item) => item.shopId === shopId),
+    recentSnapshots: shopSnapshots.filter((item) => item.shopId === shopId).slice(0, 10),
+    recentDiffs: shopDiffs.filter((item) => item.shopId === shopId).slice(0, 10)
+  };
 
   return Response.json(withTraceId(result));
 }

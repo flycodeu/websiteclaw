@@ -5,11 +5,19 @@ import { useState, useTransition } from "react";
 import {
   changeTypeLabels,
   formatDateOnlyLabel,
+  formatWarrantyLabel,
+  productCategoryLabels,
   productStatusLabels,
   reviewStatusLabels,
   stockStatusLabels
 } from "@shop-claw/shared/labels";
-import { ProductItem, ProductStatus, ReviewRecord, StockStatus } from "@shop-claw/shared/types";
+import {
+  ProductCategory,
+  ProductItem,
+  ProductStatus,
+  ReviewRecord,
+  StockStatus
+} from "@shop-claw/shared/types";
 
 interface ReviewWorkbenchProps {
   review: ReviewRecord;
@@ -24,15 +32,31 @@ async function readMessage(response: Response) {
   return payload.message || "成功";
 }
 
+function normalizeToken(input: string) {
+  return input
+    .toUpperCase()
+    .replace(/[^A-Z0-9\u4E00-\u9FFF]+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^_|_$/g, "");
+}
+
+function buildProductKey(category: ProductCategory, specLabel: string) {
+  return `${category}__${normalizeToken(specLabel || "DEFAULT") || "DEFAULT"}`;
+}
+
 function createEmptyProduct(): ProductItem {
   return {
+    productKey: "OTHER__DEFAULT",
     rawName: "",
-    normalizedType: "",
+    category: "OTHER",
+    specLabel: "DEFAULT",
     price: 0,
     currency: "CNY",
     stockStatus: "IN_STOCK",
     status: "ON_SALE",
-    confidence: 0.8,
+    inventoryText: "",
+    warrantySupported: null,
+    isDetected: true,
     updatedAt: new Date().toISOString(),
     sourceLine: ""
   };
@@ -40,23 +64,31 @@ function createEmptyProduct(): ProductItem {
 
 export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
   const router = useRouter();
-  const [summary, setSummary] = useState(review.extractedSummary);
-  const [conclusion, setConclusion] = useState(review.aiConclusion);
-  const [riskNotesText, setRiskNotesText] = useState(review.riskNotes.join("\n"));
+  const [summary, setSummary] = useState(review.summary);
+  const [conclusion, setConclusion] = useState(review.conclusion);
+  const [flagsText, setFlagsText] = useState(review.flags.join("\n"));
   const [products, setProducts] = useState<ProductItem[]>(review.products);
   const [statusText, setStatusText] = useState("");
   const [pending, startTransition] = useTransition();
 
   function updateProduct(index: number, patch: Partial<ProductItem>) {
     setProducts((current) =>
-      current.map((item, itemIndex) =>
-        itemIndex === index
-          ? {
-              ...item,
-              ...patch
-            }
-          : item
-      )
+      current.map((item, itemIndex) => {
+        if (itemIndex !== index) {
+          return item;
+        }
+
+        const next = {
+          ...item,
+          ...patch
+        };
+
+        if (patch.category || patch.specLabel) {
+          next.productKey = buildProductKey(next.category, next.specLabel);
+        }
+
+        return next;
+      })
     );
   }
 
@@ -70,16 +102,16 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
 
   function buildPayload() {
     return {
-      extractedSummary: summary,
-      aiConclusion: conclusion,
-      riskNotes: riskNotesText
+      summary,
+      conclusion,
+      flags: flagsText
         .split("\n")
         .map((item) => item.trim())
         .filter(Boolean),
       products: products.map((item) => ({
         ...item,
+        productKey: buildProductKey(item.category, item.specLabel),
         price: Number(item.price),
-        confidence: item.confidence ? Number(item.confidence) : undefined,
         updatedAt: new Date().toISOString()
       }))
     };
@@ -132,125 +164,132 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
   return (
     <div className="space-y-6">
       {statusText ? (
-        <div className="rounded-[28px] border border-white/80 bg-white px-5 py-4 text-sm text-slate-500 shadow-panel">
+        <div className="rounded-[24px] border border-[#d8cfbf] bg-[linear-gradient(135deg,#faf4ea_0%,#eef4e8_100%)] px-5 py-4 text-sm text-slate-700 shadow-[0_14px_32px_rgba(102,88,64,0.08)]">
           {statusText}
         </div>
       ) : null}
 
-      <div className="grid gap-6 xl:grid-cols-[1fr_1.15fr_0.95fr]">
-        <section className="rounded-[30px] border border-white/80 bg-white p-6 shadow-panel">
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] 2xl:grid-cols-[minmax(280px,0.9fr)_minmax(420px,1.18fr)_minmax(300px,0.82fr)]">
+        <section className="min-w-0 rounded-[30px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#faf5ec_0%,#f7f1e6_100%)] p-6 shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <h2 className="font-serif text-3xl">原始抓取片段</h2>
-              <p className="mt-2 text-sm text-slate-500">
-                {review.sourceName} · {formatDateOnlyLabel(review.snapshotDate)}
-              </p>
+              <div className="text-sm uppercase tracking-[0.18em] text-slate-500">抓取片段</div>
+              <h2 className="mt-2 font-serif text-3xl text-[#18222c]">{review.sourceName}</h2>
+              <p className="mt-2 text-sm text-slate-600">{formatDateOnlyLabel(review.snapshotDate)}</p>
             </div>
-            <div className="rounded-full border border-slate-200 bg-shell px-4 py-2 text-sm text-slate-600">
+            <div className="rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-2 text-sm text-slate-600">
               {reviewStatusLabels[review.status]}
             </div>
           </div>
 
+          <div className="mt-5 rounded-[24px] border border-[#d8cfbf] bg-white/88 p-4">
+            <div className="text-xs uppercase tracking-[0.16em] text-slate-500">本次摘要</div>
+            <div className="mt-2 text-sm leading-6 text-slate-600">{summary || "暂无摘要"}</div>
+          </div>
+
           <div className="mt-5 space-y-4">
             {review.rawFragments.map((fragment) => (
-              <pre key={fragment} className="overflow-x-auto rounded-[22px] bg-ink p-4 text-sm text-slate-200">
+              <pre
+                key={fragment}
+                className="overflow-x-auto whitespace-pre-wrap break-words rounded-[22px] border border-[#d8cfbf] bg-[#fbf8f1] p-4 text-sm text-[#42505c] shadow-[inset_0_0_0_1px_rgba(216,207,191,0.22)]"
+              >
                 {fragment}
               </pre>
             ))}
           </div>
         </section>
 
-        <section className="rounded-[30px] border border-white/80 bg-white p-6 shadow-panel">
-          <div className="flex items-center justify-between gap-3">
+        <section className="min-w-0 rounded-[30px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#faf4ea_0%,#f7f1e6_100%)] p-6 shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h2 className="font-serif text-3xl">AI 提取结果</h2>
+              <div className="text-sm uppercase tracking-[0.18em] text-slate-500">商品结构校对</div>
+              <h2 className="mt-2 font-serif text-3xl text-[#18222c]">修正分类、规格、价格、库存和质保</h2>
             </div>
             <button
               type="button"
               onClick={addProduct}
-              className="rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-600"
+              className="rounded-full bg-[#355344] px-4 py-2 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)]"
             >
               新增商品
             </button>
           </div>
 
           <div className="mt-5 grid gap-4">
-            <label className="grid gap-2 text-sm text-slate-600">
-              抽取摘要
+            <label className="grid gap-2 text-sm text-slate-700">
+              本次摘要
               <textarea
                 value={summary}
                 onChange={(event) => setSummary(event.target.value)}
-                className="min-h-24 rounded-[22px] border border-slate-200 bg-shell px-4 py-3 outline-none"
+                className="min-h-24 w-full rounded-[22px] border border-[#d8cfbf] bg-white px-4 py-3 outline-none"
               />
             </label>
 
-            <label className="grid gap-2 text-sm text-slate-600">
-              分析结论
+            <label className="grid gap-2 text-sm text-slate-700">
+              本次结论
               <textarea
                 value={conclusion}
                 onChange={(event) => setConclusion(event.target.value)}
-                className="min-h-24 rounded-[22px] border border-slate-200 bg-shell px-4 py-3 outline-none"
-              />
-            </label>
-
-            <label className="grid gap-2 text-sm text-slate-600">
-              风险提示
-              <textarea
-                value={riskNotesText}
-                onChange={(event) => setRiskNotesText(event.target.value)}
-                className="min-h-28 rounded-[22px] border border-slate-200 bg-shell px-4 py-3 outline-none"
+                className="min-h-24 w-full rounded-[22px] border border-[#d8cfbf] bg-white px-4 py-3 outline-none"
               />
             </label>
           </div>
 
           <div className="mt-6 space-y-4">
+            {products.length === 0 ? (
+              <div className="rounded-[24px] border border-dashed border-[#d8cfbf] bg-white/88 px-4 py-8 text-sm text-slate-500">
+                当前未生成可信商品，请根据左侧抓取片段手动新增并补全商品。
+              </div>
+            ) : null}
+
             {products.map((product, index) => (
-              <div key={`${product.normalizedType}-${index}`} className="rounded-[24px] border border-slate-200 bg-shell p-4">
+              <article key={`${product.productKey}-${index}`} className="min-w-0 rounded-[24px] border border-[#d8cfbf] bg-white/92 p-4">
                 <div className="grid gap-4 md:grid-cols-2">
-                  <label className="grid gap-2 text-sm text-slate-600">
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
                     商品名称
                     <input
                       value={product.rawName}
                       onChange={(event) => updateProduct(index, { rawName: event.target.value })}
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none"
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
                     />
                   </label>
 
-                  <label className="grid gap-2 text-sm text-slate-600">
-                    标准类型
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
+                    分类
+                    <select
+                      value={product.category}
+                      onChange={(event) =>
+                        updateProduct(index, { category: event.target.value as ProductCategory })
+                      }
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
+                    >
+                      {Object.entries(productCategoryLabels).map(([value, label]) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
+                    规格标识
                     <input
-                      value={product.normalizedType}
-                      onChange={(event) => updateProduct(index, { normalizedType: event.target.value })}
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none"
+                      value={product.specLabel}
+                      onChange={(event) => updateProduct(index, { specLabel: event.target.value })}
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
                     />
                   </label>
 
-                  <label className="grid gap-2 text-sm text-slate-600">
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
                     价格
                     <input
                       type="number"
                       value={product.price}
                       onChange={(event) => updateProduct(index, { price: Number(event.target.value) })}
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none"
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
                     />
                   </label>
 
-                  <label className="grid gap-2 text-sm text-slate-600">
-                    置信度
-                    <input
-                      type="number"
-                      step="0.01"
-                      value={product.confidence ?? ""}
-                      onChange={(event) =>
-                        updateProduct(index, {
-                          confidence: event.target.value ? Number(event.target.value) : undefined
-                        })
-                      }
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none"
-                    />
-                  </label>
-
-                  <label className="grid gap-2 text-sm text-slate-600">
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
                     库存状态
                     <select
                       value={product.stockStatus}
@@ -259,7 +298,7 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
                           stockStatus: event.target.value as StockStatus
                         })
                       }
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none"
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
                     >
                       <option value="IN_STOCK">有货</option>
                       <option value="LOW_STOCK">库存紧张</option>
@@ -267,7 +306,7 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
                     </select>
                   </label>
 
-                  <label className="grid gap-2 text-sm text-slate-600">
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
                     商品状态
                     <select
                       value={product.status}
@@ -276,71 +315,108 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
                           status: event.target.value as ProductStatus
                         })
                       }
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none"
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
                     >
                       <option value="ON_SALE">在售</option>
                       <option value="LOW_STOCK">低库存</option>
-                      <option value="OFFLINE">已下架</option>
+                      <option value="OFFLINE">未上架</option>
+                    </select>
+                  </label>
+
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
+                    库存文本
+                    <input
+                      value={product.inventoryText}
+                      onChange={(event) => updateProduct(index, { inventoryText: event.target.value })}
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
+                    />
+                  </label>
+
+                  <label className="min-w-0 grid gap-2 text-sm text-slate-700">
+                    质保
+                    <select
+                      value={
+                        product.warrantySupported === null ? "unknown" : product.warrantySupported ? "yes" : "no"
+                      }
+                      onChange={(event) =>
+                        updateProduct(index, {
+                          warrantySupported:
+                            event.target.value === "unknown" ? null : event.target.value === "yes"
+                        })
+                      }
+                      className="w-full min-w-0 rounded-2xl border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
+                    >
+                      <option value="unknown">待确认</option>
+                      <option value="yes">支持质保</option>
+                      <option value="no">不支持质保</option>
                     </select>
                   </label>
                 </div>
 
-                <label className="mt-4 grid gap-2 text-sm text-slate-600">
+                <label className="mt-4 grid gap-2 text-sm text-slate-700">
                   来源片段
                   <textarea
                     value={product.sourceLine ?? ""}
                     onChange={(event) => updateProduct(index, { sourceLine: event.target.value })}
-                    className="min-h-20 rounded-[20px] border border-slate-200 bg-white px-4 py-3 outline-none"
+                    className="min-h-20 w-full rounded-[20px] border border-[#d8cfbf] bg-[#faf8f2] px-4 py-3 outline-none"
                   />
                 </label>
 
-                <div className="mt-4 flex items-center justify-between gap-3 text-xs text-slate-500">
-                  <div>
-                    库存：{stockStatusLabels[product.stockStatus]} · 状态：{productStatusLabels[product.status]}
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+                  <div className="min-w-0 break-words">
+                    分类：{productCategoryLabels[product.category]} · 库存：{stockStatusLabels[product.stockStatus]} · 状态：
+                    {productStatusLabels[product.status]} · 质保：{formatWarrantyLabel(product.warrantySupported)}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => removeProduct(index)}
-                    className="rounded-full border border-slate-200 px-3 py-2 text-xs text-slate-600"
-                  >
-                    删除商品
-                  </button>
+                  <div className="flex max-w-full flex-wrap items-center gap-3">
+                    <span className="max-w-full break-all rounded-full border border-[#d8cfbf] bg-[#faf8f2] px-3 py-1">
+                      {buildProductKey(product.category, product.specLabel)}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => removeProduct(index)}
+                      className="rounded-full border border-[#d8cfbf] px-3 py-2 text-xs text-slate-600"
+                    >
+                      删除商品
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </section>
 
-        <section className="rounded-[30px] border border-white/80 bg-white p-6 shadow-panel">
-          <h2 className="font-serif text-3xl">发布对比</h2>
+        <section className="min-w-0 xl:col-span-2 2xl:col-span-1 rounded-[30px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#faf5ec_0%,#eef4e8_100%)] p-6 text-[#18222c] shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
+          <div className="text-sm uppercase tracking-[0.18em] text-[#566271]">发布预览</div>
+          <h2 className="mt-2 font-serif text-3xl text-[#18222c]">差异预览与异常项</h2>
+
           <div className="mt-5 space-y-4">
             {review.previousDiff.length > 0 ? (
               review.previousDiff.map((change) => (
-                <div key={`${change.type}-${change.note}`} className="rounded-[22px] bg-shell p-4">
-                  <div className="font-medium text-ink">{changeTypeLabels[change.type]}</div>
-                  {change.productType ? <div className="mt-2 text-sm text-slate-500">{change.productType}</div> : null}
-                </div>
+                <article key={`${change.type}-${change.note}`} className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
+                  <div className="text-sm font-medium text-[#355344]">{changeTypeLabels[change.type]}</div>
+                  <div className="mt-2 text-sm text-slate-600">{change.note}</div>
+                </article>
               ))
             ) : (
-              <div className="rounded-[22px] border border-dashed border-slate-300 bg-shell px-4 py-8 text-center text-sm text-slate-500">
-                当前没有历史差异，可直接发布首版快照。
+              <div className="rounded-[22px] border border-dashed border-[#d8cfbf] bg-white/88 px-4 py-8 text-center text-sm text-slate-500">
+                暂无上一版差异
               </div>
             )}
           </div>
 
-          <div className="mt-6 rounded-[24px] border border-slate-200 bg-shell p-4">
-            <div className="text-sm font-medium text-ink">风险提示</div>
-            <div className="mt-3 space-y-2 text-sm text-slate-600">
-              {riskNotesText
-                .split("\n")
-                .map((item) => item.trim())
-                .filter(Boolean)
-                .map((item) => (
-                  <div key={item} className="rounded-2xl bg-white px-3 py-2">
-                    {item}
-                  </div>
-                ))}
-            </div>
+          <div className="mt-6 rounded-[24px] border border-[#d8cfbf] bg-white/88 p-4">
+            <div className="text-sm font-medium text-[#18222c]">异常项</div>
+            <textarea
+              value={flagsText}
+              onChange={(event) => setFlagsText(event.target.value)}
+              className="mt-3 min-h-32 w-full rounded-[20px] border border-[#d8cfbf] bg-white px-4 py-3 text-sm text-[#18222c] outline-none"
+            />
+          </div>
+
+          <div className="mt-6 rounded-[24px] border border-[#d8cfbf] bg-white/88 p-4 text-sm text-slate-600">
+            <div>日期：{formatDateOnlyLabel(review.snapshotDate)}</div>
+            <div className="mt-2">商品数：{products.length}</div>
+            <div className="mt-2">状态：{reviewStatusLabels[review.status]}</div>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -348,17 +424,17 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
               type="button"
               onClick={handleSave}
               disabled={pending}
-              className="rounded-full border border-slate-200 px-4 py-3 text-sm text-slate-700 disabled:opacity-60"
+              className="rounded-full border border-[#355344]/15 bg-white/92 px-4 py-3 text-sm text-[#355344] disabled:opacity-60"
             >
-              {pending ? "处理中..." : "保存草稿"}
+              {pending ? "处理中..." : "保存校对"}
             </button>
             <button
               type="button"
               onClick={handlePublish}
               disabled={pending}
-              className="rounded-full bg-ink px-4 py-3 text-sm text-white disabled:opacity-60"
+              className="rounded-full bg-[#355344] px-4 py-3 text-sm font-medium text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
             >
-              {pending ? "发布中..." : "发布到静态数据"}
+              {pending ? "发布中..." : "发布公开数据"}
             </button>
           </div>
         </section>

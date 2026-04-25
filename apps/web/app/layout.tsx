@@ -17,8 +17,8 @@ const sans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "商铺情报台",
-  description: "价格、库存和店铺稳定度的同步追踪前台。"
+  title: "商铺监控面板",
+  description: "店铺网页状态、商品价格、库存和历史变化的公开监控界面。"
 };
 
 export const dynamic = "force-dynamic";

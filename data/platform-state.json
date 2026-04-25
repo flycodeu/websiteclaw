@@ -1,675 +1,2343 @@
 {
-  "version": 1,
-  "updatedAt": "2026-04-23T12:00:00.000Z",
+  "version": 16,
+  "updatedAt": "2026-04-25T06:43:43.535Z",
   "sources": [
     {
-      "sourceId": "src_001",
-      "sourceName": "Claude Hub CN",
-      "sourceUrl": "https://example.com/claude-hub",
+      "sourceId": "src_74a11226",
+      "sourceName": "创富俱乐部",
+      "sourceUrl": "https://makerich.club/",
+      "entryUrl": "https://makerich.club/",
       "crawlMode": "AUTO",
       "enabled": true,
-      "remark": "标准订阅页，结构稳定。",
-      "parserHint": "优先识别 Claude、GPT、Gemini 订阅商品的价格和库存。",
-      "lastRunAt": "2026-04-22T10:00:00.000Z",
-      "createdAt": "2026-04-20T08:00:00.000Z",
-      "updatedAt": "2026-04-22T10:00:00.000Z",
+      "lastRunAt": "2026-04-25T06:42:37.034Z",
+      "createdAt": "2026-04-25T06:42:33.550Z",
+      "updatedAt": "2026-04-25T06:42:37.034Z",
       "verificationMethod": "NONE",
       "verificationPrompt": "",
+      "waitSelector": "body",
+      "headless": true,
+      "blockAssets": true,
       "requestHeaders": []
     },
     {
-      "sourceId": "src_002",
-      "sourceName": "Gemini Vault",
-      "sourceUrl": "https://example.com/gemini-vault",
-      "crawlMode": "MANUAL_ASSIST",
-      "enabled": true,
-      "remark": "首次访问需要登录验证。",
-      "parserHint": "重点抓取 Gemini、GPT Pro 商品，并关注登录后显示的库存状态。",
-      "lastRunAt": "2026-04-22T09:40:00.000Z",
-      "createdAt": "2026-04-20T09:00:00.000Z",
-      "updatedAt": "2026-04-22T09:40:00.000Z",
-      "verificationMethod": "LOGIN",
-      "verificationPrompt": "请先登录目标站点，再贴入 Cookie 或通过验证后的页面文本。",
-      "requestHeaders": []
-    },
-    {
-      "sourceId": "src_003",
-      "sourceName": "Account Delta",
-      "sourceUrl": "https://example.com/account-delta",
+      "sourceId": "src_7ba51843",
+      "sourceName": "猫咔",
+      "sourceUrl": "https://catcard.uk/",
+      "entryUrl": "https://catcard.uk/",
       "crawlMode": "AUTO",
-      "enabled": false,
-      "remark": "连续超时，临时停用。",
-      "parserHint": "站点波动大，优先检查超时和页面结构变化。",
-      "lastRunAt": "2026-04-21T22:10:00.000Z",
-      "createdAt": "2026-04-20T10:00:00.000Z",
-      "updatedAt": "2026-04-21T22:10:00.000Z",
-      "verificationMethod": "CAPTCHA",
-      "verificationPrompt": "通过验证码后，可直接粘贴页面文本继续抓取。",
+      "enabled": true,
+      "lastRunAt": "2026-04-25T06:34:45.042Z",
+      "createdAt": "2026-04-25T06:34:43.363Z",
+      "updatedAt": "2026-04-25T06:34:45.042Z",
+      "verificationMethod": "NONE",
+      "verificationPrompt": "",
+      "waitSelector": "body",
+      "headless": true,
+      "blockAssets": true,
       "requestHeaders": []
     }
   ],
   "tasks": [
     {
-      "id": "task_101",
-      "sourceId": "src_001",
-      "sourceName": "Claude Hub CN",
+      "id": "task_6b7a016e",
+      "sourceId": "src_74a11226",
+      "sourceName": "创富俱乐部",
       "status": "PUBLISHED",
-      "startedAt": "2026-04-22T09:52:00.000Z",
-      "updatedAt": "2026-04-22T10:07:00.000Z",
-      "finishedAt": "2026-04-22T10:07:00.000Z",
-      "logSummary": "抓取完成，AI 结构化通过，审核后已发布。",
-      "nextAction": "等待下一次定时抓取。",
-      "rawUrl": "https://example.com/claude-hub",
+      "startedAt": "2026-04-25T06:42:37.034Z",
+      "updatedAt": "2026-04-25T06:43:43.532Z",
+      "finishedAt": "2026-04-25T06:43:43.532Z",
+      "logSummary": "结果已写入公开数据。",
+      "nextAction": "等待下一次抓取。",
+      "rawUrl": "https://makerich.club/",
+      "currentUrl": "https://makerich.club/",
       "rawFragments": [
-        "Claude Pro 30 天 - 178 CNY",
-        "GPT Plus 30 天 - 145 CNY in stock",
-        "Claude Max 20x - 298 CNY only 2 left"
+        "✍️分站大掌柜议事厅（QQ群）：1042595228",
+        "¥21.85",
+        "ChatGPT Plus 代充｜自助充值｜24小时充值",
+        "库存：0",
+        "销量：11050",
+        "¥138",
+        "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+        "库存：97",
+        "销量：2694",
+        "¥230",
+        "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+        "库存：15",
+        "销量：1041",
+        "ChatGPT Plus独享账号 全功能独享",
+        "销量：3052",
+        "SuperGrok 独享账号 | 30美金订阅成品号"
       ],
       "timeline": [
         {
-          "at": "2026-04-22T09:52:00.000Z",
+          "at": "2026-04-25T06:42:37.034Z",
           "title": "任务创建",
           "detail": "已加入抓取队列。"
         },
         {
-          "at": "2026-04-22T09:58:00.000Z",
-          "title": "内容已获取",
-          "detail": "提取到 3 条有效片段。"
+          "at": "2026-04-25T06:42:37.040Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
         },
         {
-          "at": "2026-04-22T10:07:00.000Z",
+          "at": "2026-04-25T06:43:26.275Z",
+          "title": "进入校对",
+          "detail": "识别 10 个商品，等待人工确认。"
+        },
+        {
+          "at": "2026-04-25T06:43:43.498Z",
+          "title": "保存校对草稿",
+          "detail": "商品结构已更新。"
+        },
+        {
+          "at": "2026-04-25T06:43:43.533Z",
           "title": "发布完成",
-          "detail": "结果已写入静态数据文件。"
+          "detail": "公开数据已更新。"
         }
       ],
-      "reviewId": "review_001",
+      "reviewId": "review_84767f98",
       "requiresVerification": false,
       "verificationMethod": "NONE",
-      "verificationPrompt": ""
+      "verificationPrompt": "",
+      "sessionId": "session_bdb65a19",
+      "pageState": "COLLECTED",
+      "artifacts": {
+        "htmlPath": "data/runtime/tasks/task_6b7a016e/page.html",
+        "textPath": "data/runtime/tasks/task_6b7a016e/visible.txt",
+        "screenshotPath": "data/runtime/tasks/task_6b7a016e/page.png",
+        "storageStatePath": "data/runtime/tasks/task_6b7a016e/storage-state.json"
+      }
     },
     {
-      "id": "task_102",
-      "sourceId": "src_002",
-      "sourceName": "Gemini Vault",
-      "status": "WAITING_HUMAN",
-      "startedAt": "2026-04-22T09:32:00.000Z",
-      "updatedAt": "2026-04-22T09:43:00.000Z",
-      "logSummary": "站点返回登录验证页，等待管理员补充 Cookie 或页面文本。",
-      "nextAction": "完成人工验证后继续抓取。",
-      "rawUrl": "https://example.com/gemini-vault",
+      "id": "task_ee1ac48b",
+      "sourceId": "src_7ba51843",
+      "sourceName": "猫咔",
+      "status": "PUBLISHED",
+      "startedAt": "2026-04-25T06:34:45.042Z",
+      "updatedAt": "2026-04-25T06:36:40.206Z",
+      "finishedAt": "2026-04-25T06:36:40.206Z",
+      "logSummary": "结果已写入公开数据。",
+      "nextAction": "等待下一次抓取。",
+      "rawUrl": "https://catcard.uk/",
+      "currentUrl": "https://catcard.uk/",
       "rawFragments": [
-        "Please sign in to continue",
-        "安全验证",
-        "Gemini Vault"
+        "猫咔-24小时自动发货",
+        "Pixel 订阅均为自研技术方案，非越南软件版本，安全稳定性更强，单台设备日产 300+ 🛡️",
+        "clover0095",
+        "Google Gemini",
+        "OpenAI GPT",
+        "4 件商品",
+        "【Ultra】Gemini Ultra 个人号母号满积分",
+        "¥288.00",
+        "【特价】Pixel - Gemini Pro一年成品号",
+        "22-25年",
+        "¥13.00",
+        "1040",
+        "【美区】Pixel - Gemini Pro一年成品号",
+        "22-24年",
+        "目前最后部分库存了，仅保首登，24小时内",
+        "¥18.00"
       ],
       "timeline": [
         {
-          "at": "2026-04-22T09:32:00.000Z",
+          "at": "2026-04-25T06:34:45.042Z",
           "title": "任务创建",
           "detail": "已加入抓取队列。"
         },
         {
-          "at": "2026-04-22T09:43:00.000Z",
-          "title": "等待人工验证",
-          "detail": "站点要求登录后才能继续抓取。"
-        }
-      ],
-      "requiresVerification": true,
-      "verificationMethod": "LOGIN",
-      "verificationPrompt": "请先登录目标站点，再贴入 Cookie 或通过验证后的页面文本。"
-    },
-    {
-      "id": "task_103",
-      "sourceId": "src_003",
-      "sourceName": "Account Delta",
-      "status": "FAILED",
-      "startedAt": "2026-04-22T08:51:00.000Z",
-      "updatedAt": "2026-04-22T08:57:00.000Z",
-      "finishedAt": "2026-04-22T08:57:00.000Z",
-      "logSummary": "页面脚本长时间阻塞，未提取到有效内容。",
-      "nextAction": "检查目标站点是否更换结构，必要时改成人工辅助模式。",
-      "rawUrl": "https://example.com/account-delta",
-      "rawFragments": [],
-      "timeline": [
-        {
-          "at": "2026-04-22T08:51:00.000Z",
-          "title": "任务创建",
-          "detail": "已加入抓取队列。"
+          "at": "2026-04-25T06:34:45.047Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
         },
         {
-          "at": "2026-04-22T08:57:00.000Z",
-          "title": "任务失败",
-          "detail": "页面脚本长时间阻塞。"
-        }
-      ],
-      "requiresVerification": true,
-      "verificationMethod": "CAPTCHA",
-      "verificationPrompt": "通过验证码后，可直接粘贴页面文本继续抓取。",
-      "errorMessage": "页面脚本长时间阻塞"
-    },
-    {
-      "id": "task_104",
-      "sourceId": "src_001",
-      "sourceName": "Claude Hub CN",
-      "status": "REVIEWING",
-      "startedAt": "2026-04-22T11:10:00.000Z",
-      "updatedAt": "2026-04-22T11:16:00.000Z",
-      "finishedAt": "2026-04-22T11:16:00.000Z",
-      "logSummary": "AI 输出已生成，等待人工确认价格异常。",
-      "nextAction": "进入审核页修正字段后发布。",
-      "rawUrl": "https://example.com/claude-hub",
-      "rawFragments": [
-        "claude pro 30 days - 178 cny",
-        "gpt plus monthly - 145 cny in stock",
-        "claude max 20x - 298 cny only 2 left"
-      ],
-      "timeline": [
-        {
-          "at": "2026-04-22T11:10:00.000Z",
-          "title": "任务创建",
-          "detail": "已加入抓取队列。"
+          "at": "2026-04-25T06:36:21.068Z",
+          "title": "进入校对",
+          "detail": "识别 17 个商品，等待人工确认。"
         },
         {
-          "at": "2026-04-22T11:16:00.000Z",
-          "title": "进入审核",
-          "detail": "AI 识别 3 个商品。"
+          "at": "2026-04-25T06:36:39.614Z",
+          "title": "保存校对草稿",
+          "detail": "商品结构已更新。"
+        },
+        {
+          "at": "2026-04-25T06:36:40.216Z",
+          "title": "发布完成",
+          "detail": "公开数据已更新。"
         }
       ],
-      "reviewId": "review_002",
+      "reviewId": "review_7d12e154",
       "requiresVerification": false,
       "verificationMethod": "NONE",
-      "verificationPrompt": ""
+      "verificationPrompt": "",
+      "sessionId": "session_73e07921",
+      "pageState": "COLLECTED",
+      "artifacts": {
+        "htmlPath": "data/runtime/tasks/task_ee1ac48b/page.html",
+        "textPath": "data/runtime/tasks/task_ee1ac48b/visible.txt",
+        "screenshotPath": "data/runtime/tasks/task_ee1ac48b/page.png",
+        "storageStatePath": "data/runtime/tasks/task_ee1ac48b/storage-state.json"
+      }
     }
   ],
   "reviews": [
     {
-      "id": "review_001",
-      "taskId": "task_101",
-      "sourceId": "src_001",
-      "sourceName": "Claude Hub CN",
+      "id": "review_84767f98",
+      "taskId": "task_6b7a016e",
+      "sourceId": "src_74a11226",
+      "sourceName": "创富俱乐部",
       "status": "PUBLISHED",
-      "snapshotDate": "2026-04-22",
-      "extractedSummary": "AI 识别到 3 个主要商品，推断 Claude Max 20x 库存偏低。",
+      "snapshotDate": "2026-04-25",
+      "summary": "页面包含10个在售AI账号/充值商品，部分商品无库存。",
       "rawFragments": [
-        "claude pro 30 days - 178 cny",
-        "gpt plus monthly - 145 cny in stock",
-        "claude max 20x - 298 cny only 2 left"
+        "✍️分站大掌柜议事厅（QQ群）：1042595228",
+        "¥21.85",
+        "ChatGPT Plus 代充｜自助充值｜24小时充值",
+        "库存：0",
+        "销量：11050",
+        "¥138",
+        "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+        "库存：97",
+        "销量：2694",
+        "¥230",
+        "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+        "库存：15",
+        "销量：1041",
+        "ChatGPT Plus独享账号 全功能独享",
+        "销量：3052",
+        "SuperGrok 独享账号 | 30美金订阅成品号"
       ],
       "products": [
         {
-          "rawName": "Claude Pro 30 天",
-          "normalizedType": "CLAUDE_PRO",
-          "price": 178,
+          "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "rawName": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_代充_自助充值_24小时充值",
+          "price": 21.85,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥21.85 ChatGPT Plus 代充｜自助充值｜24小时充值 库存：0 销量：11050",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        {
+          "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "rawName": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+          "category": "CHATGPT",
+          "specLabel": "PRO_5X_充值_100美元_PRO代充",
+          "price": 138,
           "currency": "CNY",
           "stockStatus": "IN_STOCK",
           "status": "ON_SALE",
-          "confidence": 0.97,
-          "updatedAt": "2026-04-22T10:00:00.000Z",
-          "sourceLine": "claude pro 30 days - 178 cny"
+          "inventoryText": "库存：97",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥138 ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 库存：97 销量：2694",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
         },
         {
-          "rawName": "GPT Plus 30 天",
-          "normalizedType": "GPT_PLUS",
-          "price": 145,
+          "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "rawName": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+          "category": "CHATGPT",
+          "specLabel": "PRO_20X充值_200美元_PRO代充",
+          "price": 230,
           "currency": "CNY",
           "stockStatus": "IN_STOCK",
           "status": "ON_SALE",
-          "confidence": 0.95,
-          "updatedAt": "2026-04-22T10:00:00.000Z",
-          "sourceLine": "gpt plus monthly - 145 cny in stock"
+          "inventoryText": "库存：15",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥230 ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 库存：15 销量：1041",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
         },
         {
-          "rawName": "Claude Max 20x",
-          "normalizedType": "CLAUDE_MAX_20X",
-          "price": 298,
+          "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+          "rawName": "ChatGPT Plus独享账号 全功能独享",
+          "category": "CHATGPT",
+          "specLabel": "PLUS独享账号_全功能独享",
+          "price": 23,
           "currency": "CNY",
-          "stockStatus": "LOW_STOCK",
-          "status": "LOW_STOCK",
-          "confidence": 0.88,
-          "updatedAt": "2026-04-22T10:00:00.000Z",
-          "sourceLine": "claude max 20x - 298 cny only 2 left"
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥23 ChatGPT Plus独享账号 全功能独享 库存：0 销量：3052",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        {
+          "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "rawName": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "category": "OTHER",
+          "specLabel": "SUPERGROK_独享账号_30美金订阅成品号",
+          "price": 46,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：8",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥46 SuperGrok 独享账号 | 30美金订阅成品号 库存：8 销量：239",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        {
+          "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "rawName": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "category": "OTHER",
+          "specLabel": "GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "price": 1.15,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：16",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥1.15 Grok AI 账号 | Grok稳定普号 | 长效邮箱 库存：16 销量：199",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        {
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "rawName": "【稳定老号】Google 普号｜美区老号",
+          "category": "OTHER",
+          "specLabel": "稳定老号_GOOGLE_普号_美区老号",
+          "price": 6.9,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥6.9 【稳定老号】Google 普号｜美区老号 库存：0 销量：597",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        {
+          "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+          "rawName": "【美区高质量老号】Gemini Pro 年卡",
+          "category": "GEMINI",
+          "specLabel": "美区高质量老号_PRO_年卡",
+          "price": 20.7,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：20",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥20.7 【美区高质量老号】Gemini Pro 年卡 库存：20 销量：870",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        {
+          "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+          "rawName": "Google AI Ultra 250美元订阅",
+          "category": "OTHER",
+          "specLabel": "GOOGLE_AI_ULTRA_250美元订阅",
+          "price": 40,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：38",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥40 Google AI Ultra 250美元订阅 库存：38 销量：355",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        {
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "rawName": "[普号] ChatGPT > 长效微软邮箱",
+          "category": "CHATGPT",
+          "specLabel": "普号_长效微软邮箱",
+          "price": 0.57,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：752",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥0.57 [普号] ChatGPT > 长效微软邮箱 库存：752 销量：3030",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
         }
       ],
       "previousDiff": [
         {
-          "type": "PRICE_DECREASED",
-          "productType": "CLAUDE_PRO",
-          "oldPrice": 185,
-          "newPrice": 178,
-          "note": "日常主力商品价格回落。"
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "productLabel": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+          "note": "ChatGPT Plus 代充｜自助充值｜24小时充值 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "productLabel": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+          "note": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "productLabel": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+          "note": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+          "productLabel": "ChatGPT Plus独享账号 全功能独享",
+          "note": "ChatGPT Plus独享账号 全功能独享 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "productLabel": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "note": "SuperGrok 独享账号 | 30美金订阅成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "productLabel": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "note": "Grok AI 账号 | Grok稳定普号 | 长效邮箱 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "productLabel": "【稳定老号】Google 普号｜美区老号",
+          "note": "【稳定老号】Google 普号｜美区老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+          "productLabel": "【美区高质量老号】Gemini Pro 年卡",
+          "note": "【美区高质量老号】Gemini Pro 年卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+          "productLabel": "Google AI Ultra 250美元订阅",
+          "note": "Google AI Ultra 250美元订阅 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "productLabel": "[普号] ChatGPT > 长效微软邮箱",
+          "note": "[普号] ChatGPT > 长效微软邮箱 已进入当前商品列表。"
         }
       ],
-      "aiModel": "gpt-4.1-mini",
-      "aiConclusion": "该站点仍然稳定，主要风险集中在高阶套餐库存偏低。",
-      "riskNotes": [
-        "低库存商品需要重点观察。",
-        "建议人工核对异常低价商品。"
-      ]
+      "modelLabel": "deepseek-v4-flash",
+      "conclusion": "已识别商品10个，其中库存为0的商品3个，其余有库存。所有商品均不提供后续质保。",
+      "flags": []
     },
     {
-      "id": "review_002",
-      "taskId": "task_104",
-      "sourceId": "src_001",
-      "sourceName": "Claude Hub CN",
-      "status": "REVIEWING",
-      "snapshotDate": "2026-04-22",
-      "extractedSummary": "识别到 3 个商品，和上次相比 Claude Pro 降价、Claude Max 20x 库存偏紧。",
+      "id": "review_7d12e154",
+      "taskId": "task_ee1ac48b",
+      "sourceId": "src_7ba51843",
+      "sourceName": "猫咔",
+      "status": "PUBLISHED",
+      "snapshotDate": "2026-04-25",
+      "summary": "猫咔-24小时自动发货平台，提供Google Gemini、OpenAI GPT、短信服务、API中转站、Grok、抽奖专用等多种数字商品。",
       "rawFragments": [
-        "claude pro 30 days - 178 cny",
-        "gpt plus monthly - 145 cny in stock",
-        "claude max 20x - 298 cny only 2 left"
+        "猫咔-24小时自动发货",
+        "Pixel 订阅均为自研技术方案，非越南软件版本，安全稳定性更强，单台设备日产 300+ 🛡️",
+        "clover0095",
+        "Google Gemini",
+        "OpenAI GPT",
+        "4 件商品",
+        "【Ultra】Gemini Ultra 个人号母号满积分",
+        "¥288.00",
+        "【特价】Pixel - Gemini Pro一年成品号",
+        "22-25年",
+        "¥13.00",
+        "1040",
+        "【美区】Pixel - Gemini Pro一年成品号",
+        "22-24年",
+        "目前最后部分库存了，仅保首登，24小时内",
+        "¥18.00"
       ],
       "products": [
         {
-          "rawName": "Claude Pro 30 天",
-          "normalizedType": "CLAUDE_PRO",
-          "price": 178,
+          "productKey": "GEMINI__ULTRA",
+          "rawName": "【Ultra】Gemini Ultra 个人号母号满积分",
+          "category": "GEMINI",
+          "specLabel": "ULTRA",
+          "price": 288,
           "currency": "CNY",
           "stockStatus": "IN_STOCK",
           "status": "ON_SALE",
-          "confidence": 0.96,
-          "updatedAt": "2026-04-22T11:16:00.000Z",
-          "sourceLine": "claude pro 30 days - 178 cny"
-        },
-        {
-          "rawName": "GPT Plus 30 天",
-          "normalizedType": "GPT_PLUS",
-          "price": 145,
-          "currency": "CNY",
-          "stockStatus": "IN_STOCK",
-          "status": "ON_SALE",
-          "confidence": 0.95,
-          "updatedAt": "2026-04-22T11:16:00.000Z",
-          "sourceLine": "gpt plus monthly - 145 cny in stock"
-        },
-        {
-          "rawName": "Claude Max 20x",
-          "normalizedType": "CLAUDE_MAX_20X",
-          "price": 298,
-          "currency": "CNY",
-          "stockStatus": "LOW_STOCK",
-          "status": "LOW_STOCK",
+          "inventoryText": "库存 3",
+          "warrantySupported": true,
+          "isDetected": true,
           "confidence": 0.9,
-          "updatedAt": "2026-04-22T11:16:00.000Z",
-          "sourceLine": "claude max 20x - 298 cny only 2 left"
+          "sourceLine": "【Ultra】Gemini Ultra 个人号母号满积分",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "GEMINI__特价",
+          "rawName": "【特价】Pixel - Gemini Pro一年成品号",
+          "category": "GEMINI",
+          "specLabel": "特价",
+          "price": 13,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 3",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【特价】Pixel - Gemini Pro一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "GEMINI__美区",
+          "rawName": "【美区】Pixel - Gemini Pro一年成品号",
+          "category": "GEMINI",
+          "specLabel": "美区",
+          "price": 18,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 2",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【美区】Pixel - Gemini Pro一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+          "rawName": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+          "category": "GEMINI",
+          "specLabel": "获取一年订阅链接_一年PRO_PIXEL机器人",
+          "price": 7,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 16",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__PLUS",
+          "rawName": "【GPT渠道二】Plus 一个月直充",
+          "category": "CHATGPT",
+          "specLabel": "PLUS",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT渠道二】Plus 一个月直充",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__质保版",
+          "rawName": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+          "category": "CHATGPT",
+          "specLabel": "质保版",
+          "price": 45,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__渠道三_一个月直充_无质保",
+          "rawName": "【GPT渠道三】一个月直充（无质保）",
+          "category": "CHATGPT",
+          "specLabel": "渠道三_一个月直充_无质保",
+          "price": 45,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 18",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT渠道三】一个月直充（无质保）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__PRO5X",
+          "rawName": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+          "category": "CHATGPT",
+          "specLabel": "PRO5X",
+          "price": 180,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 4",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__5X_PRO_100刀",
+          "rawName": "【GPT Pro 5x】一个月直充",
+          "category": "CHATGPT",
+          "specLabel": "5X_PRO_100刀",
+          "price": 300,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT Pro 5x】一个月直充（质保一个月）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__20X_PRO_200刀",
+          "rawName": "【GPT Pro 20x】一个月直充",
+          "category": "CHATGPT",
+          "specLabel": "20X_PRO_200刀",
+          "price": 230,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT Pro 20x】一个月直充",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "OTHER__接码服务",
+          "rawName": "【短效手机号接码】支持OpenAI/反重力接码",
+          "category": "OTHER",
+          "specLabel": "接码服务",
+          "price": 1,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 541",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【短效手机号接码】支持OpenAI/反重力接码",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__中转站",
+          "rawName": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+          "category": "CHATGPT",
+          "specLabel": "中转站",
+          "price": 10,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 1",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CLAUDE__中转站",
+          "rawName": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+          "category": "CLAUDE",
+          "specLabel": "中转站",
+          "price": 50,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 5",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "OTHER__SUPERGROK",
+          "rawName": "【Grok】一年成品号",
+          "category": "OTHER",
+          "specLabel": "SUPERGROK",
+          "price": 128,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【Grok】一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "CHATGPT__抽奖专用",
+          "rawName": "【抽奖专用】GPT Plus一个月直充兑换券",
+          "category": "CHATGPT",
+          "specLabel": "抽奖专用",
+          "price": 99,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 1",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【抽奖专用】GPT Plus一个月直充兑换券",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "GEMINI__抽奖专用",
+          "rawName": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+          "category": "GEMINI",
+          "specLabel": "抽奖专用",
+          "price": 99,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 3",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        {
+          "productKey": "OTHER__测试商品2",
+          "rawName": "测试商品2",
+          "category": "OTHER",
+          "specLabel": "测试商品2",
+          "price": 0.02,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 79",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "测试商品2",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
         }
       ],
       "previousDiff": [
         {
-          "type": "PRICE_DECREASED",
-          "productType": "CLAUDE_PRO",
-          "oldPrice": 185,
-          "newPrice": 178,
-          "note": "日常主力商品价格回落。"
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__ULTRA",
+          "productLabel": "【Ultra】Gemini Ultra 个人号母号满积分",
+          "note": "【Ultra】Gemini Ultra 个人号母号满积分 已进入当前商品列表。"
         },
         {
-          "type": "STOCK_CHANGED",
-          "productType": "CLAUDE_MAX_20X",
-          "note": "Claude Max 20x 库存从充足切换为低库存。"
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__特价",
+          "productLabel": "【特价】Pixel - Gemini Pro一年成品号",
+          "note": "【特价】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__美区",
+          "productLabel": "【美区】Pixel - Gemini Pro一年成品号",
+          "note": "【美区】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+          "productLabel": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+          "note": "获取一年订阅链接，Gemini 一年Pro Pixel机器人 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS",
+          "productLabel": "【GPT渠道二】Plus 一个月直充",
+          "note": "【GPT渠道二】Plus 一个月直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__质保版",
+          "productLabel": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+          "note": "【GPT渠道二】Plus 一个月直充（质保十五天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__渠道三_一个月直充_无质保",
+          "productLabel": "【GPT渠道三】一个月直充（无质保）",
+          "note": "【GPT渠道三】一个月直充（无质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO5X",
+          "productLabel": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+          "note": "【GPT Pro5x】Chong渠道，一个月直充（质保7天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__5X_PRO_100刀",
+          "productLabel": "【GPT Pro 5x】一个月直充",
+          "note": "【GPT Pro 5x】一个月直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__20X_PRO_200刀",
+          "productLabel": "【GPT Pro 20x】一个月直充",
+          "note": "【GPT Pro 20x】一个月直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__接码服务",
+          "productLabel": "【短效手机号接码】支持OpenAI/反重力接码",
+          "note": "【短效手机号接码】支持OpenAI/反重力接码 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__中转站",
+          "productLabel": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+          "note": "【GPT中转站】 50刀额度兑换券（30天订阅） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__中转站",
+          "productLabel": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+          "note": "【中转站】Claude 50刀额度兑换券（30天订阅） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__SUPERGROK",
+          "productLabel": "【Grok】一年成品号",
+          "note": "【Grok】一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__抽奖专用",
+          "productLabel": "【抽奖专用】GPT Plus一个月直充兑换券",
+          "note": "【抽奖专用】GPT Plus一个月直充兑换券 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__抽奖专用",
+          "productLabel": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+          "note": "【抽奖专用】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__测试商品2",
+          "productLabel": "测试商品2",
+          "note": "测试商品2 已进入当前商品列表。"
         }
       ],
-      "aiModel": "gpt-4.1-mini",
-      "aiConclusion": "建议继续观察 Claude Max 20x 库存，其他核心商品维持稳定。",
-      "riskNotes": [
-        "Claude Max 20x 库存偏低。",
-        "建议确认 GPT Plus 当前价格是否存在临时活动。"
+      "modelLabel": "deepseek-v4-flash",
+      "conclusion": "页面共展示19个商品，部分商品已售罄，大部分商品有库存，部分商品提供批量价格。",
+      "flags": [
+        "部分商品售罄",
+        "部分商品明确无质保"
       ]
     }
   ],
   "published": {
     "shops": [
       {
-        "shopId": "shop_001",
-        "sourceId": "src_001",
-        "name": "Claude Hub CN",
-        "url": "https://example.com/claude-hub",
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "name": "创富俱乐部",
+        "url": "https://makerich.club/",
         "status": "OPEN",
-        "lastCrawledAt": "2026-04-22T10:00:00.000Z",
-        "stabilityScore": 91,
-        "productCount": 3,
-        "lowestPrice": 145,
-        "averagePrice": 207,
-        "tags": [
-          "自动抓取",
-          "AI 已分析",
-          "低库存"
+        "lastCrawledAt": "2026-04-25T06:43:43.533Z",
+        "productCount": 10,
+        "inStockCount": 7,
+        "lowStockCount": 0,
+        "outOfStockCount": 3,
+        "lowestPrice": 0.57,
+        "categories": [
+          "CHATGPT",
+          "GEMINI",
+          "OTHER"
         ],
-        "healthNote": "连续 18 天稳定上架，核心品类库存整体健康。"
+        "recentChangeCount": 10,
+        "runCount": 1
       },
       {
-        "shopId": "shop_002",
-        "sourceId": "src_002",
-        "name": "Gemini Vault",
-        "url": "https://example.com/gemini-vault",
-        "status": "RISK",
-        "lastCrawledAt": "2026-04-22T09:40:00.000Z",
-        "stabilityScore": 73,
-        "productCount": 2,
-        "lowestPrice": 156,
-        "averagePrice": 222.5,
-        "tags": [
-          "人工辅助",
-          "需要验证",
-          "AI 已分析"
-        ],
-        "healthNote": "近 7 天出现两次价格跳变，建议持续观察。"
-      },
-      {
-        "shopId": "shop_003",
-        "sourceId": "src_003",
-        "name": "Prompt Supply",
-        "url": "https://example.com/prompt-supply",
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "name": "猫咔",
+        "url": "https://catcard.uk/",
         "status": "OPEN",
-        "lastCrawledAt": "2026-04-22T08:50:00.000Z",
-        "stabilityScore": 84,
-        "productCount": 3,
-        "lowestPrice": 99,
-        "averagePrice": 133.33,
-        "tags": [
-          "自动抓取",
-          "AI 已分析"
+        "lastCrawledAt": "2026-04-25T06:36:40.216Z",
+        "productCount": 17,
+        "inStockCount": 12,
+        "lowStockCount": 0,
+        "outOfStockCount": 5,
+        "lowestPrice": 0.02,
+        "categories": [
+          "CHATGPT",
+          "CLAUDE",
+          "GEMINI",
+          "OTHER"
         ],
-        "healthNote": "价格优势明显，但账号类商品库存变化较多。"
+        "recentChangeCount": 17,
+        "runCount": 1
       }
     ],
-    "snapshots": [
+    "shopProducts": [
       {
-        "shopId": "shop_001",
-        "crawlTaskId": "task_101",
-        "snapshotDate": "2026-04-22",
-        "summary": "Claude / GPT 核心订阅稳定，价格相较昨日略降。",
-        "products": [
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "CHATGPT__普号_长效微软邮箱",
+        "category": "CHATGPT",
+        "specLabel": "普号_长效微软邮箱",
+        "current": {
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "rawName": "[普号] ChatGPT > 长效微软邮箱",
+          "category": "CHATGPT",
+          "specLabel": "普号_长效微软邮箱",
+          "price": 0.57,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：752",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥0.57 [普号] ChatGPT > 长效微软邮箱 库存：752 销量：3030",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
           {
-            "rawName": "Claude Pro 30 天",
-            "normalizedType": "CLAUDE_PRO",
-            "price": 178,
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "CHATGPT__普号_长效微软邮箱",
+            "rawName": "[普号] ChatGPT > 长效微软邮箱",
+            "category": "CHATGPT",
+            "specLabel": "普号_长效微软邮箱",
+            "price": 0.57,
             "currency": "CNY",
             "stockStatus": "IN_STOCK",
             "status": "ON_SALE",
-            "confidence": 0.97,
-            "updatedAt": "2026-04-22T10:00:00.000Z",
-            "sourceLine": "claude pro 30 days - 178 cny"
-          },
-          {
-            "rawName": "GPT Plus 30 天",
-            "normalizedType": "GPT_PLUS",
-            "price": 145,
-            "currency": "CNY",
-            "stockStatus": "IN_STOCK",
-            "status": "ON_SALE",
-            "confidence": 0.95,
-            "updatedAt": "2026-04-22T10:00:00.000Z",
-            "sourceLine": "gpt plus monthly - 145 cny in stock"
-          },
-          {
-            "rawName": "Claude Max 20x",
-            "normalizedType": "CLAUDE_MAX_20X",
-            "price": 298,
-            "currency": "CNY",
-            "stockStatus": "LOW_STOCK",
-            "status": "LOW_STOCK",
-            "confidence": 0.88,
-            "updatedAt": "2026-04-22T10:00:00.000Z",
-            "sourceLine": "claude max 20x - 298 cny only 2 left"
+            "inventoryText": "库存：752",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥0.57 [普号] ChatGPT > 长效微软邮箱 库存：752 销量：3030"
           }
         ]
       },
       {
-        "shopId": "shop_002",
-        "snapshotDate": "2026-04-22",
-        "summary": "Gemini 系列库存恢复，但 GPT Pro 涨价明显。",
-        "products": [
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_代充_自助充值_24小时充值",
+        "current": {
+          "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "rawName": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_代充_自助充值_24小时充值",
+          "price": 21.85,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥21.85 ChatGPT Plus 代充｜自助充值｜24小时充值 库存：0 销量：11050",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
           {
-            "rawName": "Gemini Advanced 30 天",
-            "normalizedType": "GEMINI_ADVANCED",
-            "price": 156,
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+            "rawName": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+            "category": "CHATGPT",
+            "specLabel": "PLUS_代充_自助充值_24小时充值",
+            "price": 21.85,
             "currency": "CNY",
-            "stockStatus": "IN_STOCK",
-            "status": "ON_SALE",
-            "confidence": 0.92,
-            "updatedAt": "2026-04-22T09:40:00.000Z",
-            "sourceLine": "gemini advanced 30 days - 156 cny"
-          },
-          {
-            "rawName": "GPT Pro 30 天",
-            "normalizedType": "GPT_PRO",
-            "price": 289,
-            "currency": "CNY",
-            "stockStatus": "LOW_STOCK",
-            "status": "LOW_STOCK",
-            "confidence": 0.9,
-            "updatedAt": "2026-04-22T09:40:00.000Z",
-            "sourceLine": "gpt pro 30 days - 289 cny low stock"
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "库存：0",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥21.85 ChatGPT Plus 代充｜自助充值｜24小时充值 库存：0 销量：11050"
           }
         ]
       },
       {
-        "shopId": "shop_003",
-        "snapshotDate": "2026-04-22",
-        "summary": "价格竞争力最强，账号类商品库存变化较多。",
-        "products": [
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+        "category": "CHATGPT",
+        "specLabel": "PLUS独享账号_全功能独享",
+        "current": {
+          "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+          "rawName": "ChatGPT Plus独享账号 全功能独享",
+          "category": "CHATGPT",
+          "specLabel": "PLUS独享账号_全功能独享",
+          "price": 23,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥23 ChatGPT Plus独享账号 全功能独享 库存：0 销量：3052",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
           {
-            "rawName": "Claude Pro 30 天",
-            "normalizedType": "CLAUDE_PRO",
-            "price": 169,
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+            "rawName": "ChatGPT Plus独享账号 全功能独享",
+            "category": "CHATGPT",
+            "specLabel": "PLUS独享账号_全功能独享",
+            "price": 23,
+            "currency": "CNY",
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "库存：0",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥23 ChatGPT Plus独享账号 全功能独享 库存：0 销量：3052"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+        "category": "CHATGPT",
+        "specLabel": "PRO_20X充值_200美元_PRO代充",
+        "current": {
+          "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "rawName": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+          "category": "CHATGPT",
+          "specLabel": "PRO_20X充值_200美元_PRO代充",
+          "price": 230,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：15",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥230 ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 库存：15 销量：1041",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+            "rawName": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+            "category": "CHATGPT",
+            "specLabel": "PRO_20X充值_200美元_PRO代充",
+            "price": 230,
             "currency": "CNY",
             "stockStatus": "IN_STOCK",
             "status": "ON_SALE",
-            "confidence": 0.94,
-            "updatedAt": "2026-04-22T08:50:00.000Z",
-            "sourceLine": "claude pro 30 days - 169 cny"
-          },
+            "inventoryText": "库存：15",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥230 ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 库存：15 销量：1041"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+        "category": "CHATGPT",
+        "specLabel": "PRO_5X_充值_100美元_PRO代充",
+        "current": {
+          "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "rawName": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+          "category": "CHATGPT",
+          "specLabel": "PRO_5X_充值_100美元_PRO代充",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：97",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥138 ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 库存：97 销量：2694",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
           {
-            "rawName": "GPT Plus 30 天",
-            "normalizedType": "GPT_PLUS",
-            "price": 132,
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+            "rawName": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+            "category": "CHATGPT",
+            "specLabel": "PRO_5X_充值_100美元_PRO代充",
+            "price": 138,
             "currency": "CNY",
-            "stockStatus": "LOW_STOCK",
-            "status": "LOW_STOCK",
-            "confidence": 0.93,
-            "updatedAt": "2026-04-22T08:50:00.000Z",
-            "sourceLine": "gpt plus 30 days - 132 cny low stock"
-          },
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存：97",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥138 ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 库存：97 销量：2694"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+        "category": "GEMINI",
+        "specLabel": "美区高质量老号_PRO_年卡",
+        "current": {
+          "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+          "rawName": "【美区高质量老号】Gemini Pro 年卡",
+          "category": "GEMINI",
+          "specLabel": "美区高质量老号_PRO_年卡",
+          "price": 20.7,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：20",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥20.7 【美区高质量老号】Gemini Pro 年卡 库存：20 销量：870",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
           {
-            "rawName": "Perplexity Pro 30 天",
-            "normalizedType": "PERPLEXITY_PRO",
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+            "rawName": "【美区高质量老号】Gemini Pro 年卡",
+            "category": "GEMINI",
+            "specLabel": "美区高质量老号_PRO_年卡",
+            "price": 20.7,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存：20",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥20.7 【美区高质量老号】Gemini Pro 年卡 库存：20 销量：870"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+        "category": "OTHER",
+        "specLabel": "稳定老号_GOOGLE_普号_美区老号",
+        "current": {
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "rawName": "【稳定老号】Google 普号｜美区老号",
+          "category": "OTHER",
+          "specLabel": "稳定老号_GOOGLE_普号_美区老号",
+          "price": 6.9,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥6.9 【稳定老号】Google 普号｜美区老号 库存：0 销量：597",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+            "rawName": "【稳定老号】Google 普号｜美区老号",
+            "category": "OTHER",
+            "specLabel": "稳定老号_GOOGLE_普号_美区老号",
+            "price": 6.9,
+            "currency": "CNY",
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "库存：0",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥6.9 【稳定老号】Google 普号｜美区老号 库存：0 销量：597"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+        "category": "OTHER",
+        "specLabel": "GOOGLE_AI_ULTRA_250美元订阅",
+        "current": {
+          "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+          "rawName": "Google AI Ultra 250美元订阅",
+          "category": "OTHER",
+          "specLabel": "GOOGLE_AI_ULTRA_250美元订阅",
+          "price": 40,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：38",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥40 Google AI Ultra 250美元订阅 库存：38 销量：355",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+            "rawName": "Google AI Ultra 250美元订阅",
+            "category": "OTHER",
+            "specLabel": "GOOGLE_AI_ULTRA_250美元订阅",
+            "price": 40,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存：38",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥40 Google AI Ultra 250美元订阅 库存：38 销量：355"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+        "category": "OTHER",
+        "specLabel": "GROK_AI_账号_GROK稳定普号_长效邮箱",
+        "current": {
+          "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "rawName": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "category": "OTHER",
+          "specLabel": "GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "price": 1.15,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：16",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥1.15 Grok AI 账号 | Grok稳定普号 | 长效邮箱 库存：16 销量：199",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+            "rawName": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+            "category": "OTHER",
+            "specLabel": "GROK_AI_账号_GROK稳定普号_长效邮箱",
+            "price": 1.15,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存：16",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥1.15 Grok AI 账号 | Grok稳定普号 | 长效邮箱 库存：16 销量：199"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_74a11226",
+        "sourceId": "src_74a11226",
+        "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+        "category": "OTHER",
+        "specLabel": "SUPERGROK_独享账号_30美金订阅成品号",
+        "current": {
+          "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "rawName": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "category": "OTHER",
+          "specLabel": "SUPERGROK_独享账号_30美金订阅成品号",
+          "price": 46,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：8",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "¥46 SuperGrok 独享账号 | 30美金订阅成品号 库存：8 销量：239",
+          "updatedAt": "2026-04-25T06:43:43.469Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_74a11226",
+            "sourceId": "src_74a11226",
+            "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+            "rawName": "SuperGrok 独享账号 | 30美金订阅成品号",
+            "category": "OTHER",
+            "specLabel": "SUPERGROK_独享账号_30美金订阅成品号",
+            "price": 46,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存：8",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:43:43.469Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_6b7a016e",
+            "reviewId": "review_84767f98",
+            "sourceLine": "¥46 SuperGrok 独享账号 | 30美金订阅成品号 库存：8 销量：239"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__抽奖专用",
+        "category": "CHATGPT",
+        "specLabel": "抽奖专用",
+        "current": {
+          "productKey": "CHATGPT__抽奖专用",
+          "rawName": "【抽奖专用】GPT Plus一个月直充兑换券",
+          "category": "CHATGPT",
+          "specLabel": "抽奖专用",
+          "price": 99,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 1",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【抽奖专用】GPT Plus一个月直充兑换券",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__抽奖专用",
+            "rawName": "【抽奖专用】GPT Plus一个月直充兑换券",
+            "category": "CHATGPT",
+            "specLabel": "抽奖专用",
             "price": 99,
             "currency": "CNY",
             "stockStatus": "IN_STOCK",
             "status": "ON_SALE",
-            "confidence": 0.84,
-            "updatedAt": "2026-04-22T08:50:00.000Z",
-            "sourceLine": "perplexity pro 30 days - 99 cny"
+            "inventoryText": "库存 1",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【抽奖专用】GPT Plus一个月直充兑换券"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__20X_PRO_200刀",
+        "category": "CHATGPT",
+        "specLabel": "20X_PRO_200刀",
+        "current": {
+          "productKey": "CHATGPT__20X_PRO_200刀",
+          "rawName": "【GPT Pro 20x】一个月直充",
+          "category": "CHATGPT",
+          "specLabel": "20X_PRO_200刀",
+          "price": 230,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT Pro 20x】一个月直充",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__20X_PRO_200刀",
+            "rawName": "【GPT Pro 20x】一个月直充",
+            "category": "CHATGPT",
+            "specLabel": "20X_PRO_200刀",
+            "price": 230,
+            "currency": "CNY",
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "售罄",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【GPT Pro 20x】一个月直充"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__5X_PRO_100刀",
+        "category": "CHATGPT",
+        "specLabel": "5X_PRO_100刀",
+        "current": {
+          "productKey": "CHATGPT__5X_PRO_100刀",
+          "rawName": "【GPT Pro 5x】一个月直充",
+          "category": "CHATGPT",
+          "specLabel": "5X_PRO_100刀",
+          "price": 300,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT Pro 5x】一个月直充（质保一个月）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__5X_PRO_100刀",
+            "rawName": "【GPT Pro 5x】一个月直充",
+            "category": "CHATGPT",
+            "specLabel": "5X_PRO_100刀",
+            "price": 300,
+            "currency": "CNY",
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "售罄",
+            "warrantySupported": true,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【GPT Pro 5x】一个月直充（质保一个月）"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__PRO5X",
+        "category": "CHATGPT",
+        "specLabel": "PRO5X",
+        "current": {
+          "productKey": "CHATGPT__PRO5X",
+          "rawName": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+          "category": "CHATGPT",
+          "specLabel": "PRO5X",
+          "price": 180,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 4",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__PRO5X",
+            "rawName": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+            "category": "CHATGPT",
+            "specLabel": "PRO5X",
+            "price": 180,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 4",
+            "warrantySupported": true,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__PLUS",
+        "category": "CHATGPT",
+        "specLabel": "PLUS",
+        "current": {
+          "productKey": "CHATGPT__PLUS",
+          "rawName": "【GPT渠道二】Plus 一个月直充",
+          "category": "CHATGPT",
+          "specLabel": "PLUS",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT渠道二】Plus 一个月直充",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__PLUS",
+            "rawName": "【GPT渠道二】Plus 一个月直充",
+            "category": "CHATGPT",
+            "specLabel": "PLUS",
+            "price": 35,
+            "currency": "CNY",
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "售罄",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【GPT渠道二】Plus 一个月直充"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__质保版",
+        "category": "CHATGPT",
+        "specLabel": "质保版",
+        "current": {
+          "productKey": "CHATGPT__质保版",
+          "rawName": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+          "category": "CHATGPT",
+          "specLabel": "质保版",
+          "price": 45,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__质保版",
+            "rawName": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+            "category": "CHATGPT",
+            "specLabel": "质保版",
+            "price": 45,
+            "currency": "CNY",
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "售罄",
+            "warrantySupported": true,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【GPT渠道二】Plus 一个月直充（质保十五天）"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__渠道三_一个月直充_无质保",
+        "category": "CHATGPT",
+        "specLabel": "渠道三_一个月直充_无质保",
+        "current": {
+          "productKey": "CHATGPT__渠道三_一个月直充_无质保",
+          "rawName": "【GPT渠道三】一个月直充（无质保）",
+          "category": "CHATGPT",
+          "specLabel": "渠道三_一个月直充_无质保",
+          "price": 45,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 18",
+          "warrantySupported": false,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT渠道三】一个月直充（无质保）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__渠道三_一个月直充_无质保",
+            "rawName": "【GPT渠道三】一个月直充（无质保）",
+            "category": "CHATGPT",
+            "specLabel": "渠道三_一个月直充_无质保",
+            "price": 45,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 18",
+            "warrantySupported": false,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【GPT渠道三】一个月直充（无质保）"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CHATGPT__中转站",
+        "category": "CHATGPT",
+        "specLabel": "中转站",
+        "current": {
+          "productKey": "CHATGPT__中转站",
+          "rawName": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+          "category": "CHATGPT",
+          "specLabel": "中转站",
+          "price": 10,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 1",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CHATGPT__中转站",
+            "rawName": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+            "category": "CHATGPT",
+            "specLabel": "中转站",
+            "price": 10,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 1",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【GPT中转站】 50刀额度兑换券（30天订阅）"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "CLAUDE__中转站",
+        "category": "CLAUDE",
+        "specLabel": "中转站",
+        "current": {
+          "productKey": "CLAUDE__中转站",
+          "rawName": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+          "category": "CLAUDE",
+          "specLabel": "中转站",
+          "price": 50,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 5",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "CLAUDE__中转站",
+            "rawName": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+            "category": "CLAUDE",
+            "specLabel": "中转站",
+            "price": 50,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 5",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【中转站】Claude 50刀额度兑换券（30天订阅）"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "GEMINI__抽奖专用",
+        "category": "GEMINI",
+        "specLabel": "抽奖专用",
+        "current": {
+          "productKey": "GEMINI__抽奖专用",
+          "rawName": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+          "category": "GEMINI",
+          "specLabel": "抽奖专用",
+          "price": 99,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 3",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "GEMINI__抽奖专用",
+            "rawName": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+            "category": "GEMINI",
+            "specLabel": "抽奖专用",
+            "price": 99,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 3",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【抽奖专用】Pixel - Gemini Pro一年成品号"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "GEMINI__美区",
+        "category": "GEMINI",
+        "specLabel": "美区",
+        "current": {
+          "productKey": "GEMINI__美区",
+          "rawName": "【美区】Pixel - Gemini Pro一年成品号",
+          "category": "GEMINI",
+          "specLabel": "美区",
+          "price": 18,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 2",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【美区】Pixel - Gemini Pro一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "GEMINI__美区",
+            "rawName": "【美区】Pixel - Gemini Pro一年成品号",
+            "category": "GEMINI",
+            "specLabel": "美区",
+            "price": 18,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 2",
+            "warrantySupported": true,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【美区】Pixel - Gemini Pro一年成品号"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "GEMINI__特价",
+        "category": "GEMINI",
+        "specLabel": "特价",
+        "current": {
+          "productKey": "GEMINI__特价",
+          "rawName": "【特价】Pixel - Gemini Pro一年成品号",
+          "category": "GEMINI",
+          "specLabel": "特价",
+          "price": 13,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 3",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【特价】Pixel - Gemini Pro一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "GEMINI__特价",
+            "rawName": "【特价】Pixel - Gemini Pro一年成品号",
+            "category": "GEMINI",
+            "specLabel": "特价",
+            "price": 13,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 3",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【特价】Pixel - Gemini Pro一年成品号"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "GEMINI__ULTRA",
+        "category": "GEMINI",
+        "specLabel": "ULTRA",
+        "current": {
+          "productKey": "GEMINI__ULTRA",
+          "rawName": "【Ultra】Gemini Ultra 个人号母号满积分",
+          "category": "GEMINI",
+          "specLabel": "ULTRA",
+          "price": 288,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 3",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【Ultra】Gemini Ultra 个人号母号满积分",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "GEMINI__ULTRA",
+            "rawName": "【Ultra】Gemini Ultra 个人号母号满积分",
+            "category": "GEMINI",
+            "specLabel": "ULTRA",
+            "price": 288,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 3",
+            "warrantySupported": true,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【Ultra】Gemini Ultra 个人号母号满积分"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+        "category": "GEMINI",
+        "specLabel": "获取一年订阅链接_一年PRO_PIXEL机器人",
+        "current": {
+          "productKey": "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+          "rawName": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+          "category": "GEMINI",
+          "specLabel": "获取一年订阅链接_一年PRO_PIXEL机器人",
+          "price": 7,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 16",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+            "rawName": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+            "category": "GEMINI",
+            "specLabel": "获取一年订阅链接_一年PRO_PIXEL机器人",
+            "price": 7,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 16",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "获取一年订阅链接，Gemini 一年Pro Pixel机器人"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "OTHER__接码服务",
+        "category": "OTHER",
+        "specLabel": "接码服务",
+        "current": {
+          "productKey": "OTHER__接码服务",
+          "rawName": "【短效手机号接码】支持OpenAI/反重力接码",
+          "category": "OTHER",
+          "specLabel": "接码服务",
+          "price": 1,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 541",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【短效手机号接码】支持OpenAI/反重力接码",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "OTHER__接码服务",
+            "rawName": "【短效手机号接码】支持OpenAI/反重力接码",
+            "category": "OTHER",
+            "specLabel": "接码服务",
+            "price": 1,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 541",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【短效手机号接码】支持OpenAI/反重力接码"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "OTHER__SUPERGROK",
+        "category": "OTHER",
+        "specLabel": "SUPERGROK",
+        "current": {
+          "productKey": "OTHER__SUPERGROK",
+          "rawName": "【Grok】一年成品号",
+          "category": "OTHER",
+          "specLabel": "SUPERGROK",
+          "price": 128,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": true,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "【Grok】一年成品号",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "OTHER__SUPERGROK",
+            "rawName": "【Grok】一年成品号",
+            "category": "OTHER",
+            "specLabel": "SUPERGROK",
+            "price": 128,
+            "currency": "CNY",
+            "stockStatus": "OUT_OF_STOCK",
+            "status": "OFFLINE",
+            "inventoryText": "售罄",
+            "warrantySupported": true,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "【Grok】一年成品号"
+          }
+        ]
+      },
+      {
+        "shopId": "shop_src_7ba51843",
+        "sourceId": "src_7ba51843",
+        "productKey": "OTHER__测试商品2",
+        "category": "OTHER",
+        "specLabel": "测试商品2",
+        "current": {
+          "productKey": "OTHER__测试商品2",
+          "rawName": "测试商品2",
+          "category": "OTHER",
+          "specLabel": "测试商品2",
+          "price": 0.02,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 79",
+          "warrantySupported": null,
+          "isDetected": true,
+          "confidence": 0.9,
+          "sourceLine": "测试商品2",
+          "updatedAt": "2026-04-25T06:36:38.984Z"
+        },
+        "history": [
+          {
+            "shopId": "shop_src_7ba51843",
+            "sourceId": "src_7ba51843",
+            "productKey": "OTHER__测试商品2",
+            "rawName": "测试商品2",
+            "category": "OTHER",
+            "specLabel": "测试商品2",
+            "price": 0.02,
+            "currency": "CNY",
+            "stockStatus": "IN_STOCK",
+            "status": "ON_SALE",
+            "inventoryText": "库存 79",
+            "warrantySupported": null,
+            "isDetected": true,
+            "capturedAt": "2026-04-25T06:36:38.984Z",
+            "snapshotDate": "2026-04-25",
+            "crawlTaskId": "task_ee1ac48b",
+            "reviewId": "review_7d12e154",
+            "sourceLine": "测试商品2"
           }
         ]
       }
     ],
-    "diffs": [
+    "shopSnapshots": [
       {
-        "shopId": "shop_001",
-        "snapshotDate": "2026-04-22",
-        "changes": [
-          {
-            "type": "PRICE_DECREASED",
-            "productType": "CLAUDE_PRO",
-            "oldPrice": 185,
-            "newPrice": 178,
-            "note": "Claude Pro 价格较昨日下降。"
-          },
-          {
-            "type": "STOCK_CHANGED",
-            "productType": "CLAUDE_MAX_20X",
-            "note": "Claude Max 20x 库存从充足切换为低库存。"
-          }
-        ],
-        "summary": "降价 1 项，库存变化 1 项"
+        "shopId": "shop_src_74a11226",
+        "crawlTaskId": "task_6b7a016e",
+        "snapshotDate": "2026-04-25",
+        "capturedAt": "2026-04-25T06:43:43.532Z",
+        "summary": "页面包含10个在售AI账号/充值商品，部分商品无库存。",
+        "conclusion": "已识别商品10个，其中库存为0的商品3个，其余有库存。所有商品均不提供后续质保。",
+        "productCount": 10,
+        "productKeys": [
+          "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "CHATGPT__PLUS独享账号_全功能独享",
+          "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "GEMINI__美区高质量老号_PRO_年卡",
+          "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+          "CHATGPT__普号_长效微软邮箱"
+        ]
       },
       {
-        "shopId": "shop_002",
-        "snapshotDate": "2026-04-22",
+        "shopId": "shop_src_7ba51843",
+        "crawlTaskId": "task_ee1ac48b",
+        "snapshotDate": "2026-04-25",
+        "capturedAt": "2026-04-25T06:36:40.206Z",
+        "summary": "猫咔-24小时自动发货平台，提供Google Gemini、OpenAI GPT、短信服务、API中转站、Grok、抽奖专用等多种数字商品。",
+        "conclusion": "页面共展示19个商品，部分商品已售罄，大部分商品有库存，部分商品提供批量价格。",
+        "productCount": 17,
+        "productKeys": [
+          "GEMINI__ULTRA",
+          "GEMINI__特价",
+          "GEMINI__美区",
+          "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+          "CHATGPT__PLUS",
+          "CHATGPT__质保版",
+          "CHATGPT__渠道三_一个月直充_无质保",
+          "CHATGPT__PRO5X",
+          "CHATGPT__5X_PRO_100刀",
+          "CHATGPT__20X_PRO_200刀",
+          "OTHER__接码服务",
+          "CHATGPT__中转站",
+          "CLAUDE__中转站",
+          "OTHER__SUPERGROK",
+          "CHATGPT__抽奖专用",
+          "GEMINI__抽奖专用",
+          "OTHER__测试商品2"
+        ]
+      }
+    ],
+    "shopDiffs": [
+      {
+        "shopId": "shop_src_74a11226",
+        "snapshotDate": "2026-04-25",
+        "capturedAt": "2026-04-25T06:43:43.532Z",
         "changes": [
           {
-            "type": "PRICE_INCREASED",
-            "productType": "GPT_PRO",
-            "oldPrice": 268,
-            "newPrice": 289,
-            "note": "GPT Pro 涨价明显。"
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+            "productLabel": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+            "note": "ChatGPT Plus 代充｜自助充值｜24小时充值 已进入当前商品列表。"
           },
           {
             "type": "PRODUCT_ADDED",
-            "productType": "GEMINI_ADVANCED",
-            "note": "Gemini Advanced 昨日缺货，今日重新上架。"
+            "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+            "productLabel": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+            "note": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+            "productLabel": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+            "note": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+            "productLabel": "ChatGPT Plus独享账号 全功能独享",
+            "note": "ChatGPT Plus独享账号 全功能独享 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+            "productLabel": "SuperGrok 独享账号 | 30美金订阅成品号",
+            "note": "SuperGrok 独享账号 | 30美金订阅成品号 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+            "productLabel": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+            "note": "Grok AI 账号 | Grok稳定普号 | 长效邮箱 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+            "productLabel": "【稳定老号】Google 普号｜美区老号",
+            "note": "【稳定老号】Google 普号｜美区老号 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+            "productLabel": "【美区高质量老号】Gemini Pro 年卡",
+            "note": "【美区高质量老号】Gemini Pro 年卡 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+            "productLabel": "Google AI Ultra 250美元订阅",
+            "note": "Google AI Ultra 250美元订阅 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__普号_长效微软邮箱",
+            "productLabel": "[普号] ChatGPT > 长效微软邮箱",
+            "note": "[普号] ChatGPT > 长效微软邮箱 已进入当前商品列表。"
           }
         ],
-        "summary": "新增 1 项，涨价 1 项"
+        "summary": "新增 10 项"
       },
       {
-        "shopId": "shop_003",
-        "snapshotDate": "2026-04-22",
+        "shopId": "shop_src_7ba51843",
+        "snapshotDate": "2026-04-25",
+        "capturedAt": "2026-04-25T06:36:40.206Z",
         "changes": [
           {
             "type": "PRODUCT_ADDED",
-            "productType": "PERPLEXITY_PRO",
-            "note": "Perplexity Pro 首次出现在本次抓取中。"
+            "productKey": "GEMINI__ULTRA",
+            "productLabel": "【Ultra】Gemini Ultra 个人号母号满积分",
+            "note": "【Ultra】Gemini Ultra 个人号母号满积分 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "GEMINI__特价",
+            "productLabel": "【特价】Pixel - Gemini Pro一年成品号",
+            "note": "【特价】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "GEMINI__美区",
+            "productLabel": "【美区】Pixel - Gemini Pro一年成品号",
+            "note": "【美区】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+            "productLabel": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+            "note": "获取一年订阅链接，Gemini 一年Pro Pixel机器人 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__PLUS",
+            "productLabel": "【GPT渠道二】Plus 一个月直充",
+            "note": "【GPT渠道二】Plus 一个月直充 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__质保版",
+            "productLabel": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+            "note": "【GPT渠道二】Plus 一个月直充（质保十五天） 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__渠道三_一个月直充_无质保",
+            "productLabel": "【GPT渠道三】一个月直充（无质保）",
+            "note": "【GPT渠道三】一个月直充（无质保） 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__PRO5X",
+            "productLabel": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+            "note": "【GPT Pro5x】Chong渠道，一个月直充（质保7天） 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__5X_PRO_100刀",
+            "productLabel": "【GPT Pro 5x】一个月直充",
+            "note": "【GPT Pro 5x】一个月直充 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__20X_PRO_200刀",
+            "productLabel": "【GPT Pro 20x】一个月直充",
+            "note": "【GPT Pro 20x】一个月直充 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "OTHER__接码服务",
+            "productLabel": "【短效手机号接码】支持OpenAI/反重力接码",
+            "note": "【短效手机号接码】支持OpenAI/反重力接码 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__中转站",
+            "productLabel": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+            "note": "【GPT中转站】 50刀额度兑换券（30天订阅） 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CLAUDE__中转站",
+            "productLabel": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+            "note": "【中转站】Claude 50刀额度兑换券（30天订阅） 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "OTHER__SUPERGROK",
+            "productLabel": "【Grok】一年成品号",
+            "note": "【Grok】一年成品号 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "CHATGPT__抽奖专用",
+            "productLabel": "【抽奖专用】GPT Plus一个月直充兑换券",
+            "note": "【抽奖专用】GPT Plus一个月直充兑换券 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "GEMINI__抽奖专用",
+            "productLabel": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+            "note": "【抽奖专用】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+          },
+          {
+            "type": "PRODUCT_ADDED",
+            "productKey": "OTHER__测试商品2",
+            "productLabel": "测试商品2",
+            "note": "测试商品2 已进入当前商品列表。"
           }
         ],
-        "summary": "新增 1 项"
+        "summary": "新增 17 项"
       }
     ],
-    "priceRankings": [
-      {
-        "rank": 1,
-        "shopId": "shop_003",
-        "shopName": "Prompt Supply",
-        "metricLabel": "最低报价",
-        "value": 99,
-        "description": "Perplexity Pro 当前报价最低。"
-      },
-      {
-        "rank": 2,
-        "shopId": "shop_002",
-        "shopName": "Gemini Vault",
-        "metricLabel": "最低报价",
-        "value": 156,
-        "description": "Gemini Advanced 重新上架。"
-      },
-      {
-        "rank": 3,
-        "shopId": "shop_001",
-        "shopName": "Claude Hub CN",
-        "metricLabel": "最低报价",
-        "value": 145,
-        "description": "主力商品价格稳定。"
-      }
-    ],
-    "stabilityRankings": [
-      {
-        "rank": 1,
-        "shopId": "shop_001",
-        "shopName": "Claude Hub CN",
-        "metricLabel": "稳定度",
-        "value": 91,
-        "description": "连续抓取成功，核心商品波动可控。"
-      },
-      {
-        "rank": 2,
-        "shopId": "shop_003",
-        "shopName": "Prompt Supply",
-        "metricLabel": "稳定度",
-        "value": 84,
-        "description": "价格稳定，但库存波动存在。"
-      },
-      {
-        "rank": 3,
-        "shopId": "shop_002",
-        "shopName": "Gemini Vault",
-        "metricLabel": "稳定度",
-        "value": 73,
-        "description": "存在登录和价格跳变风险。"
-      }
-    ],
-    "compareGroups": [
-      {
-        "normalizedType": "CLAUDE_PRO",
-        "trend": "共发现 2 家店铺可比价，最低价 ¥169。",
-        "offers": [
-          {
-            "shopId": "shop_003",
-            "shopName": "Prompt Supply",
-            "price": 169,
-            "currency": "CNY",
-            "stockStatus": "IN_STOCK",
-            "stabilityScore": 84
-          },
-          {
-            "shopId": "shop_001",
-            "shopName": "Claude Hub CN",
-            "price": 178,
-            "currency": "CNY",
-            "stockStatus": "IN_STOCK",
-            "stabilityScore": 91
-          }
-        ]
-      },
-      {
-        "normalizedType": "GPT_PLUS",
-        "trend": "共发现 2 家店铺可比价，最低价 ¥132。",
-        "offers": [
-          {
-            "shopId": "shop_003",
-            "shopName": "Prompt Supply",
-            "price": 132,
-            "currency": "CNY",
-            "stockStatus": "LOW_STOCK",
-            "stabilityScore": 84
-          },
-          {
-            "shopId": "shop_001",
-            "shopName": "Claude Hub CN",
-            "price": 145,
-            "currency": "CNY",
-            "stockStatus": "IN_STOCK",
-            "stabilityScore": 91
-          }
-        ]
-      },
-      {
-        "normalizedType": "GEMINI_ADVANCED",
-        "trend": "当前仅有单一来源，建议继续补充样本。",
-        "offers": [
-          {
-            "shopId": "shop_002",
-            "shopName": "Gemini Vault",
-            "price": 156,
-            "currency": "CNY",
-            "stockStatus": "IN_STOCK",
-            "stabilityScore": 73
-          }
-        ]
-      }
-    ],
-    "overviewMetrics": [
-      {
-        "label": "已监控商铺",
-        "value": "03",
-        "detail": "3 个数据源已产出可发布数据"
-      },
-      {
-        "label": "今日有效商品",
-        "value": "08",
-        "detail": "已发布快照共有 8 个有效商品"
-      },
-      {
-        "label": "待处理任务",
-        "value": "02",
-        "detail": "1 条待人工验证，1 条待审核"
-      },
-      {
-        "label": "发布成功率",
-        "value": "25%",
-        "detail": "4 条任务中已有 1 条完成发布"
-      }
-    ],
-    "publishedAt": "2026-04-22T10:07:00.000Z"
+    "publishedAt": "2026-04-25T06:43:43.532Z"
   }
 }

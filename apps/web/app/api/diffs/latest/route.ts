@@ -5,6 +5,6 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const { diffs } = await getPublishedData();
-  return Response.json(withTraceId(diffs));
+  const { shopDiffs } = await getPublishedData();
+  return Response.json(withTraceId(shopDiffs.slice(0, 10)));
 }
