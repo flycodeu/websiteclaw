@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { formatWarrantyLabel, productCategoryLabels, stockStatusLabels } from "@shop-claw/shared/labels";
 import { ProductCategory } from "@shop-claw/shared/types";
 import { ProductFeedItem, ProductFeedPage } from "@/lib/product-feed";
@@ -104,9 +105,6 @@ export function InStockProductsBoard({ initialPage, categories }: InStockProduct
       <section className="rise-in overflow-hidden rounded-[32px] border border-[#d8cfbf] bg-[linear-gradient(135deg,#fbf7f0_0%,#f3ebdd_48%,#edf4e7_100%)] p-6 shadow-panel">
         <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
           <div>
-            <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/84 px-4 py-2 text-sm text-slate-600 shadow-[0_10px_24px_rgba(102,88,64,0.06)]">
-              按分类持续加载有货商品
-            </div>
             <h1 className="font-serif text-4xl text-[#18222c]">有货商品</h1>
           </div>
           <div className="rounded-full border border-[#d8cfbf] bg-white/84 px-4 py-2 text-sm text-slate-600 shadow-[0_10px_24px_rgba(102,88,64,0.06)]">
@@ -139,7 +137,7 @@ export function InStockProductsBoard({ initialPage, categories }: InStockProduct
         </div>
       ) : null}
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {items.map((item) => (
           <article
             key={item.id}
@@ -152,9 +150,9 @@ export function InStockProductsBoard({ initialPage, categories }: InStockProduct
                     {productCategoryLabels[item.category]}
                   </span>
                   <span className={`rounded-full px-3 py-1 text-xs ${getStockBadgeTone(item.stockStatus)}`}>
-                  {stockStatusLabels[item.stockStatus]}
-                </span>
-              </div>
+                    {stockStatusLabels[item.stockStatus]}
+                  </span>
+                </div>
                 <h2 className="mt-3 break-words text-base font-semibold leading-6 text-[#18222c] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
                   {item.rawName}
                 </h2>
@@ -185,6 +183,25 @@ export function InStockProductsBoard({ initialPage, categories }: InStockProduct
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <ProductChip label={formatWarrantyLabel(item.warrantySupported)} />
               <ProductChip label={item.stockStatus === "LOW_STOCK" ? "尽快下单" : "稳定展示"} />
+            </div>
+
+            <div className="mt-4 flex items-end justify-between gap-3 border-t border-white/60 pt-4">
+              <div className="min-w-0">
+                <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">商家</div>
+                <div className="mt-1 truncate text-sm font-medium text-[#18222c]">{item.shopName}</div>
+              </div>
+
+              {item.shopUrl ? (
+                <a
+                  href={item.shopUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#d8cfbf] bg-white/88 px-3 py-2 text-xs text-[#355344] shadow-[0_10px_20px_rgba(102,88,64,0.06)] transition hover:border-[#cdbca0] hover:bg-white"
+                >
+                  跳转商家
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              ) : null}
             </div>
           </article>
         ))}

@@ -17,7 +17,14 @@ import {
   StockStatus
 } from "@shop-claw/shared/types";
 import { readAiSettingsFromEnv } from "@/lib/ai-config";
-import { runPlaywrightCapture, saveManualCapture } from "@/lib/playwright-crawler";
+import {
+  completeManualVerificationSession,
+  closeManualVerificationSession,
+  runPlaywrightCapture,
+  saveManualCapture,
+  startManualVerificationSession,
+  type BrowserCrawlResult
+} from "@/lib/playwright-crawler";
 
 function nowIso() {
   return new Date().toISOString();
@@ -801,7 +808,7 @@ async function analyzeWithAi(
     return buildAnalysisFailure(
       settings,
       "当前页面有效文本不足，未生成商品草稿。",
-      ["页面有效文本不足", "建议提供 Cookie、storageState 或人工整理页面文本"],
+      ["页面有效文本不足", "建议启动人工验证工作区，验证完成后自动继续，或补充人工整理页面文本"],
       rawFragments,
       aiUsage
     );
@@ -967,6 +974,133 @@ function buildTimeline(items: CrawlTask["timeline"], title: string, detail: stri
   ];
 }
 
+function replaceTaskInState(state: PlatformState, nextTask: CrawlTask) {
+  return {
+    ...state,
+    tasks: state.tasks.map((item) => (item.id === nextTask.id ? nextTask : item))
+  };
+}
+
+interface CaptureProcessingOptions {
+  payload?: ContinueTaskPayload;
+  fromManualVerification?: boolean;
+}
+
+async function processCaptureResult(
+  state: PlatformState,
+  workingTask: CrawlTask,
+  source: DataSource,
+  capture: BrowserCrawlResult,
+  aiSettings: AiSettings,
+  options: CaptureProcessingOptions = {}
+) {
+  const rawContent = `${capture.title}\n${capture.visibleText}\n${capture.html}`;
+  const rawFragments = extractRawFragments(rawContent);
+  const verificationNote = options.payload?.verificationNote?.trim() || workingTask.verificationNote;
+
+  if (capture.requiresVerification) {
+    const waitingTask: CrawlTask = {
+      ...workingTask,
+      status: "WAITING_HUMAN",
+      updatedAt: nowIso(),
+      currentUrl: capture.finalUrl || workingTask.currentUrl,
+      rawFragments,
+      requiresVerification: true,
+      verificationMethod: source.verificationMethod,
+      verificationPrompt: source.verificationPrompt || capture.verificationReason,
+      verificationNote,
+      pageState: options.fromManualVerification ? "VERIFYING" : "WAITING_VERIFICATION",
+      artifacts: capture.artifacts,
+      logSummary: capture.verificationReason || (options.fromManualVerification ? "人工验证尚未完成，请继续处理。" : "页面需要人工验证后继续。"),
+      nextAction: options.fromManualVerification
+        ? "继续在人工验证窗口完成验证码或登录，然后回到任务工作台点击“完成验证并继续抓取”。"
+        : "进入人工验证工作区，完成验证码或登录后直接继续抓取。",
+      timeline: buildTimeline(
+        workingTask.timeline,
+        options.fromManualVerification ? "继续人工验证" : "等待人工验证",
+        capture.verificationReason || source.verificationPrompt || "站点要求先完成验证。"
+      )
+    };
+
+    return {
+      state: replaceTaskInState(state, waitingTask),
+      task: waitingTask
+    };
+  }
+
+  const analysis = await analyzeWithAi(
+    aiSettings,
+    source,
+    capture.title,
+    capture.visibleText,
+    capture.html,
+    rawFragments
+  );
+  const existingShop = state.published.shops.find((item) => item.sourceId === source.sourceId);
+  const previousProducts = existingShop
+    ? state.published.shopProducts.filter((item) => item.shopId === existingShop.shopId).map((item) => item.current)
+    : [];
+  const review: ReviewRecord = {
+    id: createId("review"),
+    taskId: workingTask.id,
+    sourceId: source.sourceId,
+    sourceName: source.sourceName,
+    status: "REVIEWING",
+    snapshotDate: nowIso().slice(0, 10),
+    summary: analysis.summary,
+    rawFragments,
+    products: analysis.products,
+    previousDiff: buildChanges(previousProducts, analysis.products),
+    modelLabel: analysis.modelLabel,
+    conclusion: analysis.conclusion,
+    flags: analysis.flags
+  };
+  const requiresManualProductFill = !analysis.isReliable || analysis.products.length === 0;
+  const usedManualContent = Boolean(options.payload?.manualContent?.trim());
+
+  const reviewingTask: CrawlTask = {
+    ...workingTask,
+    status: "REVIEWING",
+    updatedAt: nowIso(),
+    finishedAt: nowIso(),
+    currentUrl: capture.finalUrl || workingTask.currentUrl,
+    rawFragments,
+    reviewId: review.id,
+    requiresVerification: false,
+    verificationNote,
+    pageState: options.fromManualVerification || options.payload ? "RESUMED" : "COLLECTED",
+    artifacts: capture.artifacts,
+    aiUsage: analysis.aiUsage,
+    logSummary: usedManualContent
+      ? requiresManualProductFill
+        ? "已接收人工补充内容，但 AI 未识别到可信商品，请人工补充。"
+        : "已接收人工补充内容，生成商品结构，等待校对。"
+      : options.fromManualVerification
+        ? requiresManualProductFill
+          ? "人工验证完成，已获取页面内容，但 AI 未识别到可信商品，请人工补充。"
+          : "人工验证完成，已获取页面内容并生成商品结构，等待校对。"
+        : requiresManualProductFill
+          ? "浏览器抓取完成，但 AI 未识别到可信商品，请人工补充。"
+          : "浏览器抓取完成，已生成商品结构，等待校对。",
+    nextAction: requiresManualProductFill
+      ? "进入校对页手动补充商品，或调整 AI 配置后重新抓取。"
+      : "进入校对页确认分类、规格、价格、库存和质保。",
+    timeline: buildTimeline(
+      workingTask.timeline,
+      "进入校对",
+      requiresManualProductFill ? "未识别到可信商品，等待人工补充。" : `识别 ${review.products.length} 个商品，等待人工确认。`
+    )
+  };
+
+  return {
+    state: {
+      ...replaceTaskInState(state, reviewingTask),
+      reviews: [review, ...state.reviews]
+    },
+    task: reviewingTask
+  };
+}
+
 async function runTaskPipeline(
   state: PlatformState,
   task: CrawlTask,
@@ -986,108 +1120,9 @@ async function runTaskPipeline(
   try {
     const capture = payload?.manualContent?.trim()
       ? await saveManualCapture(task.id, payload.manualContent.trim())
-      : await runPlaywrightCapture(source, task.id, payload);
-    const rawContent = `${capture.title}\n${capture.visibleText}\n${capture.html}`;
-    const rawFragments = extractRawFragments(rawContent);
+      : await runPlaywrightCapture(source, task.id, payload, task);
 
-    if (capture.requiresVerification) {
-      const waitingTask: CrawlTask = {
-        ...workingTask,
-        status: "WAITING_HUMAN",
-        updatedAt: nowIso(),
-        currentUrl: capture.finalUrl || workingTask.currentUrl,
-        rawFragments,
-        requiresVerification: true,
-        verificationMethod: source.verificationMethod,
-        verificationPrompt: source.verificationPrompt || capture.verificationReason,
-        verificationNote: payload?.verificationNote?.trim() || workingTask.verificationNote,
-        pageState: "WAITING_VERIFICATION",
-        artifacts: capture.artifacts,
-        logSummary: capture.verificationReason || "页面需要人工补充验证后继续。",
-        nextAction: "补充 Cookie、storageState 或整理后的页面文本，然后继续抓取。",
-        timeline: buildTimeline(
-          workingTask.timeline,
-          "等待补充验证",
-          capture.verificationReason || source.verificationPrompt || "站点要求先完成验证。"
-        )
-      };
-
-      return {
-        state: {
-          ...state,
-          tasks: state.tasks.map((item) => (item.id === waitingTask.id ? waitingTask : item))
-        },
-        task: waitingTask
-      };
-    }
-
-    const analysis = await analyzeWithAi(
-      aiSettings,
-      source,
-      capture.title,
-      capture.visibleText,
-      capture.html,
-      rawFragments
-    );
-    const existingShop = state.published.shops.find((item) => item.sourceId === source.sourceId);
-    const previousProducts = existingShop
-      ? state.published.shopProducts.filter((item) => item.shopId === existingShop.shopId).map((item) => item.current)
-      : [];
-    const review: ReviewRecord = {
-      id: createId("review"),
-      taskId: task.id,
-      sourceId: source.sourceId,
-      sourceName: source.sourceName,
-      status: "REVIEWING",
-      snapshotDate: nowIso().slice(0, 10),
-      summary: analysis.summary,
-      rawFragments,
-      products: analysis.products,
-      previousDiff: buildChanges(previousProducts, analysis.products),
-      modelLabel: analysis.modelLabel,
-      conclusion: analysis.conclusion,
-      flags: analysis.flags
-    };
-    const requiresManualProductFill = !analysis.isReliable || analysis.products.length === 0;
-
-    const reviewingTask: CrawlTask = {
-      ...workingTask,
-      status: "REVIEWING",
-      updatedAt: nowIso(),
-      finishedAt: nowIso(),
-      currentUrl: capture.finalUrl || workingTask.currentUrl,
-      rawFragments,
-      reviewId: review.id,
-      requiresVerification: false,
-      verificationNote: payload?.verificationNote?.trim() || workingTask.verificationNote,
-      pageState: payload ? "RESUMED" : "COLLECTED",
-      artifacts: capture.artifacts,
-      aiUsage: analysis.aiUsage,
-      logSummary: payload?.manualContent?.trim()
-        ? requiresManualProductFill
-          ? "已接收人工补充内容，但 AI 未识别到可信商品，请人工补充。"
-          : "已接收人工补充内容，生成商品结构，等待校对。"
-        : requiresManualProductFill
-          ? "浏览器抓取完成，但 AI 未识别到可信商品，请人工补充。"
-          : "浏览器抓取完成，已生成商品结构，等待校对。",
-      nextAction: requiresManualProductFill
-        ? "进入校对页手动补充商品，或调整 AI 配置后重新抓取。"
-        : "进入校对页确认分类、规格、价格、库存和质保。",
-      timeline: buildTimeline(
-        workingTask.timeline,
-        "进入校对",
-        requiresManualProductFill ? "未识别到可信商品，等待人工补充。" : `识别 ${review.products.length} 个商品，等待人工确认。`
-      )
-    };
-
-    return {
-      state: {
-        ...state,
-        tasks: state.tasks.map((item) => (item.id === reviewingTask.id ? reviewingTask : item)),
-        reviews: [review, ...state.reviews]
-      },
-      task: reviewingTask
-    };
+    return processCaptureResult(state, workingTask, source, capture, aiSettings, { payload });
   } catch (error) {
     const failedTask: CrawlTask = {
       ...workingTask,
@@ -1163,6 +1198,83 @@ export async function createAndRunTask(payload: CrawlRequestPayload) {
   return pipelineResult.task;
 }
 
+export async function startTaskVerification(taskId: string) {
+  const state = await getPlatformState();
+  const task = state.tasks.find((item) => item.id === taskId);
+
+  if (!task) {
+    throw new Error("任务不存在");
+  }
+
+  if (task.status !== "WAITING_HUMAN") {
+    throw new Error("当前任务无需人工验证。");
+  }
+
+  const source = state.sources.find((item) => item.sourceId === task.sourceId);
+
+  if (!source) {
+    throw new Error("数据源不存在");
+  }
+
+  const session = await startManualVerificationSession(source, task);
+  const capture = session.capture;
+  const nextTask: CrawlTask = {
+    ...task,
+    updatedAt: nowIso(),
+    currentUrl: session.finalUrl || capture?.finalUrl || task.currentUrl,
+    rawFragments: capture ? extractRawFragments(`${capture.title}\n${capture.visibleText}\n${capture.html}`) : task.rawFragments,
+    requiresVerification: true,
+    pageState: "VERIFYING",
+    artifacts: capture?.artifacts ?? task.artifacts,
+    logSummary: "已打开人工验证窗口，等待人工完成站点验证。",
+    nextAction: "在浏览器中完成验证码或登录，然后回到任务工作台点击“完成验证并继续抓取”。",
+    timeline: buildTimeline(
+      task.timeline,
+      task.pageState === "VERIFYING" ? "重新聚焦验证窗口" : "启动人工验证",
+      "已打开可交互的浏览器验证窗口，验证完成后将自动继续抓取。"
+    )
+  };
+
+  await savePlatformState(replaceTaskInState(state, nextTask));
+  return nextTask;
+}
+
+export async function completeTaskVerification(taskId: string) {
+  const state = await getPlatformState();
+  const task = state.tasks.find((item) => item.id === taskId);
+
+  if (!task) {
+    throw new Error("任务不存在");
+  }
+
+  if (task.status !== "WAITING_HUMAN") {
+    throw new Error("当前任务不在等待验证状态。");
+  }
+
+  const source = state.sources.find((item) => item.sourceId === task.sourceId);
+
+  if (!source) {
+    throw new Error("数据源不存在");
+  }
+
+  const aiSettings = readAiSettingsFromEnv();
+  const workingTask: CrawlTask = {
+    ...task,
+    status: "CRAWLING",
+    updatedAt: nowIso(),
+    nextAction: "正在读取人工验证后的页面内容",
+    logSummary: "正在提取人工验证后的页面内容。",
+    timeline: buildTimeline(task.timeline, "读取验证结果", "正在从人工验证会话提取页面内容。")
+  };
+  const capture = await completeManualVerificationSession(source, task);
+  const pipelineResult = await processCaptureResult(state, workingTask, source, capture, aiSettings, {
+    fromManualVerification: true
+  });
+
+  await savePlatformState(pipelineResult.state);
+  return pipelineResult.task;
+}
+
 export async function continueTask(taskId: string, payload: ContinueTaskPayload) {
   const state = await getPlatformState();
   const task = state.tasks.find((item) => item.id === taskId);
@@ -1176,6 +1288,8 @@ export async function continueTask(taskId: string, payload: ContinueTaskPayload)
   if (!source) {
     throw new Error("数据源不存在");
   }
+
+  await closeManualVerificationSession(task.id);
 
   const updatedTask: CrawlTask = {
     ...task,

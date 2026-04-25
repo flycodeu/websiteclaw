@@ -20,7 +20,7 @@ export type ChangeType =
   | "WARRANTY_CHANGED"
   | "SHOP_STATUS_CHANGED";
 export type ReviewStatus = "REVIEWING" | "READY_TO_PUBLISH" | "PUBLISHED";
-export type CrawlPageState = "COLLECTED" | "WAITING_VERIFICATION" | "RESUMED";
+export type CrawlPageState = "COLLECTED" | "WAITING_VERIFICATION" | "VERIFYING" | "RESUMED";
 export type ProductCategory =
   | "CHATGPT"
   | "CLAUDE"

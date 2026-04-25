@@ -1,14 +1,20 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { chromium, type BrowserContextOptions } from "playwright";
-import { getTaskRuntimeDirectory, toWorkspaceRelativePath } from "@shop-claw/shared/store";
-import { ContinueTaskPayload, DataSource } from "@shop-claw/shared/types";
+import { chromium, type Browser, type BrowserContext, type BrowserContextOptions, type Page } from "playwright";
+import { getTaskRuntimeDirectory, resolveWorkspaceRoot, toWorkspaceRelativePath } from "@shop-claw/shared/store";
+import { ContinueTaskPayload, CrawlTask, DataSource } from "@shop-claw/shared/types";
 
 interface CrawlCaptureArtifacts {
   htmlPath: string;
   textPath: string;
   screenshotPath?: string;
   storageStatePath: string;
+}
+
+interface ManualVerificationSession {
+  browser: Browser;
+  context: BrowserContext;
+  page: Page;
 }
 
 export interface BrowserCrawlResult {
@@ -20,6 +26,13 @@ export interface BrowserCrawlResult {
   verificationReason?: string;
   artifacts: CrawlCaptureArtifacts;
 }
+
+interface ManualVerificationStartResult {
+  capture?: BrowserCrawlResult;
+  finalUrl: string;
+}
+
+const manualVerificationSessions = new Map<string, ManualVerificationSession>();
 
 function parseStorageState(input: string | undefined) {
   const raw = input?.trim();
@@ -112,53 +125,159 @@ async function writeCaptureArtifacts(taskId: string, html: string, visibleText: 
   };
 }
 
+async function readStoredStorageState(storageStatePath: string | undefined) {
+  const relativePath = storageStatePath?.trim();
+
+  if (!relativePath) {
+    return undefined;
+  }
+
+  try {
+    const workspaceRoot = await resolveWorkspaceRoot();
+    const raw = await fs.readFile(path.join(workspaceRoot, relativePath), "utf8");
+    return parseStorageState(raw);
+  } catch {
+    return undefined;
+  }
+}
+
+function buildExtraHeaders(source: DataSource) {
+  return source.requestHeaders.reduce<Record<string, string>>(
+    (accumulator, header) =>
+      header.key.trim()
+        ? {
+            ...accumulator,
+            [header.key.trim()]: header.value
+          }
+        : accumulator,
+    {}
+  );
+}
+
+async function createBrowserSession(
+  source: DataSource,
+  task: Pick<CrawlTask, "artifacts"> | undefined,
+  payload: ContinueTaskPayload | undefined,
+  options: { interactive: boolean }
+) {
+  const storageStateInput =
+    parseStorageState(payload?.storageState) ??
+    parseStorageState(payload?.verificationToken) ??
+    (await readStoredStorageState(task?.artifacts?.storageStatePath));
+
+  const browser = await chromium.launch({
+    headless: options.interactive ? false : source.headless
+  });
+
+  const context = await browser.newContext({
+    storageState: storageStateInput,
+    extraHTTPHeaders: buildExtraHeaders(source)
+  });
+
+  if (!options.interactive && source.blockAssets) {
+    await context.route("**/*", (route) => {
+      const resourceType = route.request().resourceType();
+
+      if (["image", "font", "media"].includes(resourceType)) {
+        return route.abort();
+      }
+
+      return route.continue();
+    });
+  }
+
+  const rawCookie = payload?.verificationToken?.trim();
+
+  if (rawCookie && !storageStateInput && rawCookie.includes("=")) {
+    const cookies = parseCookieHeader(rawCookie, source.entryUrl || source.sourceUrl);
+
+    if (cookies.length > 0) {
+      await context.addCookies(cookies);
+    }
+  }
+
+  return { browser, context };
+}
+
+async function capturePageState(
+  source: DataSource,
+  taskId: string,
+  context: BrowserContext,
+  page: Page
+): Promise<BrowserCrawlResult> {
+  if (source.waitSelector.trim()) {
+    await page.waitForSelector(source.waitSelector, { timeout: 12_000 }).catch(() => undefined);
+  }
+
+  await page.waitForLoadState("networkidle", { timeout: 5_000 }).catch(() => undefined);
+
+  const html = await page.content();
+  const visibleText =
+    (await page.locator("body").innerText().catch(() => undefined)) ||
+    (await page.evaluate(() => document.body?.innerText ?? ""));
+  const title = await page.title().catch(() => "");
+  const screenshot = await page.screenshot({ fullPage: true }).catch(() => undefined);
+  const artifacts = await writeCaptureArtifacts(taskId, html, visibleText, screenshot);
+
+  await context.storageState({
+    path: path.join(await getTaskRuntimeDirectory(taskId), "storage-state.json")
+  });
+
+  const verificationReason = detectVerificationReason(source, title, visibleText, html);
+
+  return {
+    html,
+    visibleText,
+    title,
+    finalUrl: page.url(),
+    requiresVerification: Boolean(verificationReason),
+    verificationReason,
+    artifacts
+  };
+}
+
+async function releaseManualVerificationSession(taskId: string) {
+  const session = manualVerificationSessions.get(taskId);
+
+  if (!session) {
+    return;
+  }
+
+  manualVerificationSessions.delete(taskId);
+
+  await session.page.close().catch(() => undefined);
+  await session.context.close().catch(() => undefined);
+  await session.browser.close().catch(() => undefined);
+}
+
+async function getActiveManualVerificationSession(taskId: string) {
+  const session = manualVerificationSessions.get(taskId);
+
+  if (!session) {
+    return null;
+  }
+
+  if (session.page.isClosed() || !session.browser.isConnected()) {
+    await releaseManualVerificationSession(taskId);
+    return null;
+  }
+
+  return session;
+}
+
+export async function closeManualVerificationSession(taskId: string) {
+  await releaseManualVerificationSession(taskId);
+}
+
 export async function runPlaywrightCapture(
   source: DataSource,
   taskId: string,
-  payload?: ContinueTaskPayload
+  payload?: ContinueTaskPayload,
+  task?: Pick<CrawlTask, "artifacts">
 ): Promise<BrowserCrawlResult> {
-  const storageStateInput = parseStorageState(payload?.storageState) ?? parseStorageState(payload?.verificationToken);
-  const browser = await chromium.launch({
-    headless: payload?.manualContent ? true : source.headless
-  });
+  const { browser, context } = await createBrowserSession(source, task, payload, { interactive: false });
 
   try {
-    const context = await browser.newContext({
-      storageState: storageStateInput,
-      extraHTTPHeaders: source.requestHeaders.reduce<Record<string, string>>(
-        (accumulator, header) =>
-          header.key.trim()
-            ? {
-                ...accumulator,
-                [header.key.trim()]: header.value
-              }
-            : accumulator,
-        {}
-      )
-    });
-
-    if (source.blockAssets) {
-      await context.route("**/*", (route) => {
-        const resourceType = route.request().resourceType();
-
-        if (["image", "font", "media"].includes(resourceType)) {
-          return route.abort();
-        }
-
-        return route.continue();
-      });
-    }
-
-    const rawCookie = payload?.verificationToken?.trim();
-
-    if (rawCookie && !storageStateInput && rawCookie.includes("=")) {
-      const cookies = parseCookieHeader(rawCookie, source.entryUrl || source.sourceUrl);
-
-      if (cookies.length > 0) {
-        await context.addCookies(cookies);
-      }
-    }
-
     const page = await context.newPage();
     const targetUrl = source.entryUrl || source.sourceUrl;
 
@@ -167,38 +286,78 @@ export async function runPlaywrightCapture(
       timeout: 45_000
     });
 
-    if (source.waitSelector.trim()) {
-      await page.waitForSelector(source.waitSelector, { timeout: 12_000 }).catch(() => undefined);
-    }
+    return capturePageState(source, taskId, context, page);
+  } finally {
+    await context.close().catch(() => undefined);
+    await browser.close().catch(() => undefined);
+  }
+}
 
-    await page.waitForLoadState("networkidle", { timeout: 5_000 }).catch(() => undefined);
+export async function startManualVerificationSession(
+  source: DataSource,
+  task: Pick<CrawlTask, "id" | "currentUrl" | "artifacts">
+): Promise<ManualVerificationStartResult> {
+  const existingSession = await getActiveManualVerificationSession(task.id);
 
-    const html = await page.content();
-    const visibleText =
-      (await page.locator("body").innerText().catch(() => undefined)) ||
-      (await page.evaluate(() => document.body?.innerText ?? ""));
-    const title = await page.title().catch(() => "");
-    const screenshot = await page.screenshot({ fullPage: true }).catch(() => undefined);
-    const artifacts = await writeCaptureArtifacts(taskId, html, visibleText, screenshot);
+  if (existingSession) {
+    await existingSession.page.bringToFront().catch(() => undefined);
+    return {
+      capture: await capturePageState(source, task.id, existingSession.context, existingSession.page).catch(() => undefined),
+      finalUrl: existingSession.page.url()
+    };
+  }
 
-    await context.storageState({
-      path: path.join(await getTaskRuntimeDirectory(taskId), "storage-state.json")
+  const { browser, context } = await createBrowserSession(source, task, undefined, { interactive: true });
+
+  try {
+    const page = await context.newPage();
+    const targetUrl = task.currentUrl || source.entryUrl || source.sourceUrl;
+
+    await page.goto(targetUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 45_000
     });
 
-    const verificationReason = detectVerificationReason(source, title, visibleText, html);
+    await page.bringToFront().catch(() => undefined);
+
+    const session: ManualVerificationSession = {
+      browser,
+      context,
+      page
+    };
+
+    manualVerificationSessions.set(task.id, session);
 
     return {
-      html,
-      visibleText,
-      title,
-      finalUrl: page.url(),
-      requiresVerification: Boolean(verificationReason),
-      verificationReason,
-      artifacts
+      capture: await capturePageState(source, task.id, context, page).catch(() => undefined),
+      finalUrl: page.url()
     };
-  } finally {
-    await browser.close();
+  } catch (error) {
+    await context.close().catch(() => undefined);
+    await browser.close().catch(() => undefined);
+    throw error;
   }
+}
+
+export async function completeManualVerificationSession(
+  source: DataSource,
+  task: Pick<CrawlTask, "id">
+): Promise<BrowserCrawlResult> {
+  const session = await getActiveManualVerificationSession(task.id);
+
+  if (!session) {
+    throw new Error("人工验证会话不存在，请先启动人工验证。");
+  }
+
+  const capture = await capturePageState(source, task.id, session.context, session.page);
+
+  if (!capture.requiresVerification) {
+    await releaseManualVerificationSession(task.id);
+    return capture;
+  }
+
+  await session.page.bringToFront().catch(() => undefined);
+  return capture;
 }
 
 export async function saveManualCapture(taskId: string, content: string) {

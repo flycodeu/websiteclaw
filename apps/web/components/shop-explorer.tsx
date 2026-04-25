@@ -225,135 +225,130 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
       </section>
 
       {activeShop ? (
-        <>
-          <button
-            type="button"
-            aria-label="关闭店铺详情"
-            onClick={() => setActiveId(null)}
-            className="fixed inset-0 z-40 bg-[#18222c]/14 backdrop-blur-[2px]"
-          />
-
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-            <section
-              role="dialog"
-              aria-modal="true"
-              className="flex max-h-[90vh] w-full max-w-[1480px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
-            >
-              <div className="border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
-                <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className={`rounded-full px-3 py-1 text-xs ${getShopStatusTone(activeShop.status)}`}>
-                        {shopStatusLabels[activeShop.status]}
-                      </span>
-                      <span className="rounded-full border border-[#d8cfbf] bg-white/86 px-3 py-1 text-xs text-slate-500">
-                        {formatDateLabel(activeShop.lastCrawledAt)}
-                      </span>
-                    </div>
-                    <h2 className="mt-3 break-words font-serif text-[2rem] leading-tight text-[#18222c]">{activeShop.name}</h2>
-                  </div>
-
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#18222c]/14 p-4 backdrop-blur-[2px] sm:p-6"
+          onClick={() => setActiveId(null)}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            onClick={(event) => event.stopPropagation()}
+            className="flex max-h-[90vh] w-full max-w-[1480px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
+          >
+            <div className="border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
+              <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+                <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <a
-                      href={activeShop.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
-                    >
-                      打开原站点
-                      <ArrowUpRight className="h-4 w-4" />
-                    </a>
-                    <button
-                      type="button"
-                      onClick={() => setActiveId(null)}
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
-                    >
-                      <X className="h-5 w-5" />
-                    </button>
+                    <span className={`rounded-full px-3 py-1 text-xs ${getShopStatusTone(activeShop.status)}`}>
+                      {shopStatusLabels[activeShop.status]}
+                    </span>
+                    <span className="rounded-full border border-[#d8cfbf] bg-white/86 px-3 py-1 text-xs text-slate-500">
+                      {formatDateLabel(activeShop.lastCrawledAt)}
+                    </span>
                   </div>
+                  <h2 className="mt-3 break-words font-serif text-[2rem] leading-tight text-[#18222c]">{activeShop.name}</h2>
                 </div>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                  <ShopMetricPill label="商品总数" value={`${activeShop.productCount}`} />
-                  <ShopMetricPill label="当前有货" value={`${activeShop.inStockCount}`} tone="success" />
-                  <ShopMetricPill label="库存紧张" value={`${activeShop.lowStockCount}`} tone="warn" />
-                  <ShopMetricPill label="当前无货" value={`${activeShop.outOfStockCount}`} tone="danger" />
+                <div className="flex flex-wrap items-center gap-2">
+                  <a
+                    href={activeShop.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
+                  >
+                    打开原站点
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setActiveId(null)}
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
                 </div>
+              </div>
 
-                <div className="mt-5 flex flex-wrap gap-2">
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                <ShopMetricPill label="商品总数" value={`${activeShop.productCount}`} />
+                <ShopMetricPill label="当前有货" value={`${activeShop.inStockCount}`} tone="success" />
+                <ShopMetricPill label="库存紧张" value={`${activeShop.lowStockCount}`} tone="warn" />
+                <ShopMetricPill label="当前无货" value={`${activeShop.outOfStockCount}`} tone="danger" />
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                <FilterChip
+                  active={activeCategory === "ALL"}
+                  label={`全部 ${activeProducts.length}`}
+                  onClick={() => setActiveCategory("ALL")}
+                />
+                {activeCategories.map((category) => (
                   <FilterChip
-                    active={activeCategory === "ALL"}
-                    label={`全部 ${activeProducts.length}`}
-                    onClick={() => setActiveCategory("ALL")}
+                    key={category}
+                    active={activeCategory === category}
+                    label={productCategoryLabels[category]}
+                    onClick={() => setActiveCategory(category)}
                   />
-                  {activeCategories.map((category) => (
-                    <FilterChip
-                      key={category}
-                      active={activeCategory === category}
-                      label={productCategoryLabels[category]}
-                      onClick={() => setActiveCategory(category)}
-                    />
-                  ))}
+                ))}
+              </div>
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6">
+              {visibleProducts.length > 0 ? (
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                  {visibleProducts.map((product) => {
+                    const tone = getProductTone(product);
+
+                    return (
+                      <article
+                        key={product.productKey}
+                        className={`min-w-0 rounded-[24px] border p-4 shadow-[0_12px_28px_rgba(102,88,64,0.08)] ${tone.card}`}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap gap-2">
+                              <span className="rounded-full border border-[#d8cfbf] bg-white/80 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-slate-500">
+                                {productCategoryLabels[product.category]}
+                              </span>
+                              <span className={`rounded-full px-3 py-1 text-xs ${tone.stockBadge}`}>
+                                {product.current.isDetected ? stockStatusLabels[product.current.stockStatus] : "本次未检测到"}
+                              </span>
+                            </div>
+                            <h3 className="mt-3 break-words text-lg font-semibold text-[#18222c]">{product.current.rawName}</h3>
+                            <div className="mt-1 text-sm text-slate-500">{product.specLabel || "未标注规格"}</div>
+                          </div>
+
+                          <div className="shrink-0 text-right">
+                            <div className="text-xl font-semibold text-[#18222c]">
+                              {product.current.price > 0 ? `¥${product.current.price}` : "--"}
+                            </div>
+                            <div className="mt-1 text-xs text-slate-500">{formatDateLabel(product.current.updatedAt)}</div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          <ProductChip label={productStatusLabels[product.current.status]} />
+                          <ProductChip label={formatWarrantyLabel(product.current.warrantySupported)} />
+                        </div>
+
+                        <div className="mt-4 rounded-[18px] border border-white/60 bg-white/72 p-3">
+                          <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">库存说明</div>
+                          <div className="mt-1 text-sm leading-6 text-slate-700">
+                            {product.current.inventoryText || "未提供库存说明"}
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
-              </div>
-
-              <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6">
-                {visibleProducts.length > 0 ? (
-                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    {visibleProducts.map((product) => {
-                      const tone = getProductTone(product);
-
-                      return (
-                        <article
-                          key={product.productKey}
-                          className={`min-w-0 rounded-[24px] border p-4 shadow-[0_12px_28px_rgba(102,88,64,0.08)] ${tone.card}`}
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="min-w-0">
-                              <div className="flex flex-wrap gap-2">
-                                <span className="rounded-full border border-[#d8cfbf] bg-white/80 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-slate-500">
-                                  {productCategoryLabels[product.category]}
-                                </span>
-                                <span className={`rounded-full px-3 py-1 text-xs ${tone.stockBadge}`}>
-                                  {product.current.isDetected ? stockStatusLabels[product.current.stockStatus] : "本次未检测到"}
-                                </span>
-                              </div>
-                              <h3 className="mt-3 break-words text-lg font-semibold text-[#18222c]">{product.current.rawName}</h3>
-                              <div className="mt-1 text-sm text-slate-500">{product.specLabel || "未标注规格"}</div>
-                            </div>
-
-                            <div className="shrink-0 text-right">
-                              <div className="text-xl font-semibold text-[#18222c]">
-                                {product.current.price > 0 ? `¥${product.current.price}` : "--"}
-                              </div>
-                              <div className="mt-1 text-xs text-slate-500">{formatDateLabel(product.current.updatedAt)}</div>
-                            </div>
-                          </div>
-
-                          <div className="mt-4 flex flex-wrap gap-2">
-                            <ProductChip label={productStatusLabels[product.current.status]} />
-                            <ProductChip label={formatWarrantyLabel(product.current.warrantySupported)} />
-                          </div>
-
-                          <div className="mt-4 rounded-[18px] border border-white/60 bg-white/72 p-3">
-                            <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">库存说明</div>
-                            <div className="mt-1 text-sm leading-6 text-slate-700">
-                              {product.current.inventoryText || "未提供库存说明"}
-                            </div>
-                          </div>
-                        </article>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="rounded-[24px] border border-dashed border-[#d8cfbf] bg-white/78 px-4 py-12 text-center text-slate-500">
-                    当前筛选条件下没有商品记录。
-                  </div>
-                )}
-              </div>
-            </section>
-          </div>
-        </>
+              ) : (
+                <div className="rounded-[24px] border border-dashed border-[#d8cfbf] bg-white/78 px-4 py-12 text-center text-slate-500">
+                  当前筛选条件下没有商品记录。
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
       ) : null}
     </div>
   );

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { CheckCircle2, FileSearch2, Search, ShieldAlert, Sparkles, XCircle } from "lucide-react";
+import { CheckCircle2, FileSearch2, Search, ShieldAlert, XCircle } from "lucide-react";
 import { formatDateLabel, taskStatusLabels, verificationMethodLabels } from "@shop-claw/shared/labels";
 import { CrawlTask, VerificationMethod } from "@shop-claw/shared/types";
 
@@ -12,8 +12,6 @@ interface TasksBoardProps {
 }
 
 interface ContinueFormState {
-  verificationToken: string;
-  storageState: string;
   manualContent: string;
 }
 
@@ -49,18 +47,20 @@ const columns = [
 ] as const;
 
 const defaultForm: ContinueFormState = {
-  verificationToken: "",
-  storageState: "",
   manualContent: ""
 };
 
-async function readMessage(response: Response) {
-  const payload = (await response.json()) as { message?: string };
+async function readResponse<T>(response: Response) {
+  const payload = (await response.json()) as { message?: string; data?: T };
+
   if (!response.ok) {
     throw new Error(payload.message || "请求失败");
   }
 
-  return payload.message || "成功";
+  return {
+    data: payload.data,
+    message: payload.message || "成功"
+  };
 }
 
 function verificationLabel(method?: VerificationMethod) {
@@ -69,6 +69,30 @@ function verificationLabel(method?: VerificationMethod) {
   }
 
   return verificationMethodLabels[method];
+}
+
+function verificationWorkspaceLabel(pageState?: CrawlTask["pageState"]) {
+  if (pageState === "VERIFYING") {
+    return "验证窗口已开启";
+  }
+
+  if (pageState === "RESUMED") {
+    return "已恢复抓取";
+  }
+
+  return "等待启动验证";
+}
+
+function verificationWorkspaceTone(pageState?: CrawlTask["pageState"]) {
+  if (pageState === "VERIFYING") {
+    return "border-[#d4e3c4] bg-[#edf6e2] text-[#355535]";
+  }
+
+  if (pageState === "RESUMED") {
+    return "border-[#d8cfbf] bg-white/88 text-[#355344]";
+  }
+
+  return "border-[#efddad] bg-[#fff7e0] text-[#8b6510]";
 }
 
 export function TasksBoard({ tasks }: TasksBoardProps) {
@@ -133,8 +157,37 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
     }));
   }
 
+  function handleVerificationAction(taskId: string, action: "start" | "complete") {
+    setStatusText("");
+
+    startTransition(async () => {
+      try {
+        const response = await fetch(`/api/tasks/${taskId}/verification/${action}`, {
+          method: "POST"
+        });
+        const result = await readResponse<CrawlTask>(response);
+
+        setStatusText(result.message);
+
+        if (action === "complete" && result.data?.status && result.data.status !== "WAITING_HUMAN") {
+          setActiveTaskId(null);
+        }
+
+        router.refresh();
+      } catch (error) {
+        setStatusText(error instanceof Error ? error.message : "人工验证处理失败");
+      }
+    });
+  }
+
   function handleContinue(taskId: string) {
     const payload = getForm(taskId);
+
+    if (!payload.manualContent.trim()) {
+      setStatusText("请先补充整理后的页面文本。");
+      return;
+    }
+
     setStatusText("");
 
     startTransition(async () => {
@@ -144,8 +197,9 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
+        const result = await readResponse<CrawlTask>(response);
 
-        setStatusText(await readMessage(response));
+        setStatusText(result.message);
         setContinueForms((current) => ({
           ...current,
           [taskId]: defaultForm
@@ -168,8 +222,9 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sourceId })
         });
+        const result = await readResponse<CrawlTask>(response);
 
-        setStatusText(await readMessage(response));
+        setStatusText(result.message);
         router.refresh();
       } catch (error) {
         setStatusText(error instanceof Error ? error.message : "重新抓取失败");
@@ -279,7 +334,7 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                             onClick={() => setActiveTaskId(task.id)}
                             className="rounded-full bg-[#355344] px-4 py-2.5 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
                           >
-                            补充验证
+                            进入验证工作区
                           </button>
                         ) : null}
 
@@ -319,124 +374,174 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
       </div>
 
       {activeTask ? (
-        <>
-          <button
-            type="button"
-            aria-label="关闭任务弹窗"
-            onClick={() => setActiveTaskId(null)}
-            className="fixed inset-0 z-40 bg-[#18222c]/14 backdrop-blur-[2px]"
-          />
-
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-            <section
-              role="dialog"
-              aria-modal="true"
-              className="flex max-h-[90vh] w-full max-w-[1180px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
-            >
-              <div className="flex items-start justify-between gap-4 border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
-                <div className="min-w-0">
-                  <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/84 px-3 py-1 text-xs text-slate-500">
-                    {verificationLabel(activeTask.verificationMethod)}
-                  </div>
-                  <h2 className="mt-3 break-words font-serif text-[2rem] leading-tight text-[#18222c]">{activeTask.sourceName}</h2>
-                  <div className="mt-2 text-sm text-slate-500">{formatDateLabel(activeTask.updatedAt)}</div>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#18222c]/14 p-4 backdrop-blur-[2px] sm:p-6"
+          onClick={() => setActiveTaskId(null)}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            onClick={(event) => event.stopPropagation()}
+            className="flex max-h-[90vh] w-full max-w-[1280px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
+          >
+            <div className="flex items-start justify-between gap-4 border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
+              <div className="min-w-0">
+                <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/84 px-3 py-1 text-xs text-slate-500">
+                  {verificationLabel(activeTask.verificationMethod)}
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveTaskId(null)}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
-                >
-                  ×
-                </button>
+                <h2 className="mt-3 break-words font-serif text-[2rem] leading-tight text-[#18222c]">{activeTask.sourceName}</h2>
+                <div className="mt-2 text-sm text-slate-500">{formatDateLabel(activeTask.updatedAt)}</div>
               </div>
 
-              <div className="grid min-h-0 flex-1 gap-0 xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
-                <aside className="min-h-0 overflow-y-auto border-b border-[#e2d8c9] px-5 py-5 xl:border-r xl:border-b-0 sm:px-6">
-                  <div className="rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
-                    <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">当前地址</div>
-                    <div className="mt-2 break-all text-sm leading-6 text-slate-700">{activeTask.currentUrl || activeTask.rawUrl}</div>
-                  </div>
+              <button
+                type="button"
+                onClick={() => setActiveTaskId(null)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
+              >
+                ×
+              </button>
+            </div>
 
-                  <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
-                    <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">任务摘要</div>
-                    <div className="mt-2 text-sm leading-6 text-slate-700">{activeTask.logSummary}</div>
-                    <div className="mt-3 text-sm text-[#355344]">{activeTask.nextAction}</div>
-                  </div>
+            <div className="grid min-h-0 flex-1 gap-0 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
+              <aside className="min-h-0 overflow-y-auto border-b border-[#e2d8c9] px-5 py-5 xl:border-r xl:border-b-0 sm:px-6">
+                <div className="rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
+                  <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">当前地址</div>
+                  <div className="mt-2 break-all text-sm leading-6 text-slate-700">{activeTask.currentUrl || activeTask.rawUrl}</div>
+                </div>
 
-                  <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
-                    <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">抓取片段</div>
-                    <div className="mt-3 space-y-3">
-                      {activeTask.rawFragments.length > 0 ? (
-                        activeTask.rawFragments.slice(0, 8).map((fragment) => (
-                          <div key={fragment} className="rounded-[18px] border border-[#e2d8c9] bg-[#faf7f1] px-3 py-3 text-sm text-slate-600">
-                            {fragment}
-                          </div>
-                        ))
-                      ) : (
-                        <div className="rounded-[18px] border border-dashed border-[#e2d8c9] bg-[#faf7f1] px-4 py-6 text-sm text-slate-500">
-                          暂无抓取片段
-                        </div>
-                      )}
+                <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
+                  <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">任务摘要</div>
+                  <div className="mt-2 text-sm leading-6 text-slate-700">{activeTask.logSummary}</div>
+                  <div className="mt-3 text-sm text-[#355344]">{activeTask.nextAction}</div>
+                  {activeTask.verificationPrompt ? (
+                    <div className="mt-3 rounded-[18px] border border-[#efddad] bg-[#fff7e0] px-3 py-3 text-sm leading-6 text-[#7a5f14]">
+                      {activeTask.verificationPrompt}
+                    </div>
+                  ) : null}
+                </div>
+
+                <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">页面快照</div>
+                    <div className={`rounded-full border px-3 py-1 text-xs ${verificationWorkspaceTone(activeTask.pageState)}`}>
+                      {verificationWorkspaceLabel(activeTask.pageState)}
                     </div>
                   </div>
-                </aside>
 
-                <div className="min-h-0 overflow-y-auto px-5 py-5 sm:px-6">
-                  <div className="space-y-4">
-                    <label className="grid gap-2 text-sm text-slate-700">
-                      Cookie / 验证令牌
-                      <textarea
-                        value={getForm(activeTask.id).verificationToken}
-                        onChange={(event) => updateForm(activeTask.id, { verificationToken: event.target.value })}
-                        className="min-h-24 w-full rounded-[20px] border border-[#d8cfbf] bg-white px-4 py-3 outline-none"
-                        placeholder="粘贴 Cookie 或验证令牌"
+                  <div className="mt-3 overflow-hidden rounded-[20px] border border-[#e2d8c9] bg-[#faf7f1]">
+                    {activeTask.artifacts?.screenshotPath ? (
+                      <img
+                        src={`/api/tasks/${activeTask.id}/screenshot?ts=${encodeURIComponent(activeTask.updatedAt)}`}
+                        alt={`${activeTask.sourceName} 页面快照`}
+                        className="h-auto w-full"
                       />
-                    </label>
+                    ) : (
+                      <div className="px-4 py-12 text-center text-sm text-slate-500">当前暂无页面截图。</div>
+                    )}
+                  </div>
+                </div>
 
-                    <label className="grid gap-2 text-sm text-slate-700">
-                      storageState JSON
-                      <textarea
-                        value={getForm(activeTask.id).storageState}
-                        onChange={(event) => updateForm(activeTask.id, { storageState: event.target.value })}
-                        className="min-h-32 w-full rounded-[20px] border border-[#d8cfbf] bg-white px-4 py-3 outline-none"
-                        placeholder="如已导出浏览器 storageState，可粘贴 JSON"
-                      />
-                    </label>
+                <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
+                  <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">抓取片段</div>
+                  <div className="mt-3 space-y-3">
+                    {activeTask.rawFragments.length > 0 ? (
+                      activeTask.rawFragments.slice(0, 8).map((fragment) => (
+                        <div key={fragment} className="rounded-[18px] border border-[#e2d8c9] bg-[#faf7f1] px-3 py-3 text-sm text-slate-600">
+                          {fragment}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="rounded-[18px] border border-dashed border-[#e2d8c9] bg-[#faf7f1] px-4 py-6 text-sm text-slate-500">
+                        暂无抓取片段
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </aside>
 
-                    <label className="grid gap-2 text-sm text-slate-700">
-                      人工补充文本
-                      <textarea
-                        value={getForm(activeTask.id).manualContent}
-                        onChange={(event) => updateForm(activeTask.id, { manualContent: event.target.value })}
-                        className="min-h-40 w-full rounded-[20px] border border-[#d8cfbf] bg-white px-4 py-3 outline-none"
-                        placeholder="如果站点无法自动访问，可直接贴入通过验证后的页面文本"
-                      />
-                    </label>
+              <div className="min-h-0 overflow-y-auto px-5 py-5 sm:px-6">
+                <div className="rounded-[24px] border border-[#d8cfbf] bg-white/84 p-5 shadow-[0_12px_28px_rgba(102,88,64,0.06)]">
+                  <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+                    <div className="min-w-0">
+                      <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">人工验证工作区</div>
+                      <h3 className="mt-2 text-2xl font-semibold text-[#18222c]">不再要求手填 Cookie 或 storageState</h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">
+                        点击“启动人工验证”后，系统会打开同会话浏览器窗口。你在窗口里完成验证码、登录或人机校验后，回到这里点击“完成验证并继续抓取”，系统会直接从该会话提取页面内容并继续分析。
+                      </p>
+                    </div>
+
+                    <div className={`shrink-0 rounded-full border px-3 py-1.5 text-xs ${verificationWorkspaceTone(activeTask.pageState)}`}>
+                      {verificationWorkspaceLabel(activeTask.pageState)}
+                    </div>
                   </div>
 
-                  <div className="mt-6 flex flex-wrap items-center justify-end gap-3">
+                  <div className="mt-4 rounded-[20px] border border-[#e2d8c9] bg-[#faf7f1] px-4 py-4 text-sm leading-6 text-slate-600">
+                    当前流程会优先复用同一 Playwright 会话完成验证并继续抓取。只有在站点仍然无法自动读取时，才建议使用下方的人工整理文本兜底。
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
                     <button
                       type="button"
-                      onClick={() => setActiveTaskId(null)}
-                      className="rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-3 text-sm text-slate-700"
+                      disabled={pending}
+                      onClick={() => handleVerificationAction(activeTask.id, "start")}
+                      className="rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
                     >
-                      关闭
+                      {activeTask.pageState === "VERIFYING" ? "重新聚焦验证窗口" : "启动人工验证"}
                     </button>
                     <button
                       type="button"
                       disabled={pending}
-                      onClick={() => handleContinue(activeTask.id)}
-                      className="rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
+                      onClick={() => handleVerificationAction(activeTask.id, "complete")}
+                      className="rounded-full border border-[#355344]/15 bg-[#eef4e8] px-5 py-3 text-sm text-[#355344] disabled:opacity-60"
                     >
-                      {pending ? "处理中..." : "补充后继续抓取"}
+                      完成验证并继续抓取
                     </button>
                   </div>
                 </div>
+
+                <details className="mt-4 rounded-[24px] border border-[#d8cfbf] bg-white/82 p-5">
+                  <summary className="cursor-pointer list-none text-sm font-medium text-[#18222c]">
+                    无法自动抓取时，改用人工整理文本
+                  </summary>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">
+                    如果站点经过人工验证后仍无法被自动读取，可以直接贴入整理后的页面文本，系统将据此继续生成待校对商品。
+                  </p>
+
+                  <label className="mt-4 grid gap-2 text-sm text-slate-700">
+                    人工补充文本
+                    <textarea
+                      value={getForm(activeTask.id).manualContent}
+                      onChange={(event) => updateForm(activeTask.id, { manualContent: event.target.value })}
+                      className="min-h-40 w-full rounded-[20px] border border-[#d8cfbf] bg-white px-4 py-3 outline-none"
+                      placeholder="贴入通过验证后的页面文本"
+                    />
+                  </label>
+
+                  <div className="mt-4 flex justify-end">
+                    <button
+                      type="button"
+                      disabled={pending || !getForm(activeTask.id).manualContent.trim()}
+                      onClick={() => handleContinue(activeTask.id)}
+                      className="rounded-full border border-[#d8cfbf] bg-white/88 px-5 py-3 text-sm text-slate-700 disabled:opacity-60"
+                    >
+                      {pending ? "处理中..." : "使用人工整理文本继续"}
+                    </button>
+                  </div>
+                </details>
+
+                <div className="mt-6 flex flex-wrap items-center justify-end gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTaskId(null)}
+                    className="rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-3 text-sm text-slate-700"
+                  >
+                    关闭
+                  </button>
+                </div>
               </div>
-            </section>
-          </div>
-        </>
+            </div>
+          </section>
+        </div>
       ) : null}
     </div>
   );
