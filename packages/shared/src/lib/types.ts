@@ -21,8 +21,35 @@ export type ChangeType =
   | "SHOP_STATUS_CHANGED";
 export type ReviewStatus = "REVIEWING" | "READY_TO_PUBLISH" | "PUBLISHED";
 export type CrawlPageState = "COLLECTED" | "WAITING_VERIFICATION" | "RESUMED";
-export type ProductCategory = "CHATGPT" | "CLAUDE" | "GEMINI" | "PERPLEXITY" | "OTHER";
+export type ProductCategory =
+  | "CHATGPT"
+  | "CLAUDE"
+  | "GEMINI"
+  | "PERPLEXITY"
+  | "GROK"
+  | "GOOGLE_ACCOUNT"
+  | "VIRTUAL_CARD"
+  | "APPLE_ACCOUNT"
+  | "OTHER";
 export type AiProvider = "openai-compatible" | "deepseek-compatible";
+
+export interface AiUsageSummary {
+  provider: AiProvider;
+  providerLabel: string;
+  model: string;
+  callCount: number;
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  promptCacheHitTokens: number;
+  promptCacheMissTokens: number;
+  estimatedCost: number;
+  currency: string;
+  inputPricePerMillion: number;
+  outputPricePerMillion: number;
+  cacheHitInputPricePerMillion: number;
+  updatedAt: string;
+}
 
 export interface ProductItem {
   productKey: string;
@@ -187,6 +214,7 @@ export interface CrawlTask {
   sessionId?: string;
   pageState?: CrawlPageState;
   artifacts?: CrawlArtifacts;
+  aiUsage?: AiUsageSummary;
 }
 
 export interface ReviewRecord {
@@ -232,6 +260,10 @@ export interface AiSettings {
   temperature: number;
   thinkingEnabled: boolean;
   reasoningEffort?: string;
+  currency: string;
+  inputPricePerMillion: number;
+  outputPricePerMillion: number;
+  cacheHitInputPricePerMillion: number;
   systemPrompt: string;
   updatedAt: string;
 }

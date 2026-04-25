@@ -16,15 +16,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <AdminShell email={email ?? "本地模式"}>
       <div className="space-y-6">
         <section className="overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(135deg,#faf3e8_0%,#f2eadc_56%,#eef4e8_100%)] shadow-[0_20px_44px_rgba(102,88,64,0.08)]">
-          <div className="flex flex-col gap-4 p-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="p-6">
             <div>
               <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/85 px-4 py-2 text-sm text-[#566271]">
                 管理后台
               </div>
               <h1 className="mt-4 font-serif text-4xl text-[#18222c]">采集与发布控制台</h1>
-            </div>
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/72 px-4 py-3 text-sm text-[#566271]">
-              站点、任务与发布数据统一管理
             </div>
           </div>
         </section>

@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import {
+  AiUsageSummary,
   CrawlTask,
   DataSource,
   PlatformState,
@@ -50,6 +51,22 @@ function guessCategory(rawName: string, fallback?: string): ProductCategory {
 
   if (marker.includes("perplexity")) {
     return "PERPLEXITY";
+  }
+
+  if (marker.includes("grok")) {
+    return "GROK";
+  }
+
+  if (/(google account|google账号|google 帐号|谷歌账号|gmail)/i.test(marker)) {
+    return "GOOGLE_ACCOUNT";
+  }
+
+  if (/(虚拟卡|vcc|virtual card|visa card|master card|wildcard)/i.test(marker)) {
+    return "VIRTUAL_CARD";
+  }
+
+  if (/(苹果账号|apple id|apple account|icloud)/i.test(marker)) {
+    return "APPLE_ACCOUNT";
   }
 
   return "OTHER";
@@ -139,7 +156,31 @@ function normalizeTask(
     errorMessage: task.errorMessage,
     sessionId: task.sessionId,
     pageState: task.pageState,
-    artifacts: task.artifacts ?? {}
+    artifacts: task.artifacts ?? {},
+    aiUsage: task.aiUsage ? normalizeAiUsage(task.aiUsage) : undefined
+  };
+}
+
+function normalizeAiUsage(usage: Partial<AiUsageSummary>): AiUsageSummary {
+  return {
+    provider:
+      usage.provider === "deepseek-compatible" || usage.provider === "openai-compatible"
+        ? usage.provider
+        : "openai-compatible",
+    providerLabel: usage.providerLabel?.trim() || "AI",
+    model: usage.model?.trim() || "",
+    callCount: Number(usage.callCount ?? 0),
+    promptTokens: Number(usage.promptTokens ?? 0),
+    completionTokens: Number(usage.completionTokens ?? 0),
+    totalTokens: Number(usage.totalTokens ?? 0),
+    promptCacheHitTokens: Number(usage.promptCacheHitTokens ?? 0),
+    promptCacheMissTokens: Number(usage.promptCacheMissTokens ?? 0),
+    estimatedCost: Number(usage.estimatedCost ?? 0),
+    currency: usage.currency?.trim() || "CNY",
+    inputPricePerMillion: Number(usage.inputPricePerMillion ?? 0),
+    outputPricePerMillion: Number(usage.outputPricePerMillion ?? 0),
+    cacheHitInputPricePerMillion: Number(usage.cacheHitInputPricePerMillion ?? 0),
+    updatedAt: usage.updatedAt ?? nowIso()
   };
 }
 

@@ -71,6 +71,10 @@ export const productCategoryLabels: Record<ProductCategory, string> = {
   CLAUDE: "Claude",
   GEMINI: "Gemini",
   PERPLEXITY: "Perplexity",
+  GROK: "Grok",
+  GOOGLE_ACCOUNT: "Google账号",
+  VIRTUAL_CARD: "虚拟卡",
+  APPLE_ACCOUNT: "苹果账号",
   OTHER: "其他"
 };
 

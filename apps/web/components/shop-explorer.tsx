@@ -10,18 +10,21 @@ import {
   shopStatusLabels,
   stockStatusLabels
 } from "@shop-claw/shared/labels";
-import { PublishedShopProduct, ShopSummary } from "@shop-claw/shared/types";
+import { ProductCategory, PublishedShopProduct, ShopSummary } from "@shop-claw/shared/types";
 
 interface ShopExplorerProps {
   shops: ShopSummary[];
   products: PublishedShopProduct[];
 }
 
+const categoryOrder = Object.keys(productCategoryLabels) as ProductCategory[];
+
 export function ShopExplorer({ shops, products }: ShopExplorerProps) {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<"ALL" | ShopSummary["status"]>("ALL");
   const [sortBy, setSortBy] = useState<"updated" | "price" | "changes">("updated");
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<"ALL" | ProductCategory>("ALL");
 
   const filtered = useMemo(() => {
     return [...shops]
@@ -75,6 +78,19 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
     [activeShop, products]
   );
 
+  const activeCategories = useMemo(() => {
+    const currentSet = new Set(activeProducts.map((product) => product.category));
+    return categoryOrder.filter((category) => currentSet.has(category));
+  }, [activeProducts]);
+
+  const visibleProducts = useMemo(() => {
+    if (activeCategory === "ALL") {
+      return activeProducts;
+    }
+
+    return activeProducts.filter((product) => product.category === activeCategory);
+  }, [activeCategory, activeProducts]);
+
   useEffect(() => {
     if (!activeId) {
       return;
@@ -101,6 +117,10 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
       setActiveId(null);
     }
   }, [activeId, shops]);
+
+  useEffect(() => {
+    setActiveCategory("ALL");
+  }, [activeId]);
 
   return (
     <div className="space-y-6">
@@ -155,36 +175,23 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
             key={shop.shopId}
             type="button"
             onClick={() => setActiveId(shop.shopId)}
-            aria-pressed={activeShop?.shopId === shop.shopId}
-            className={`rise-in rounded-[28px] border p-5 text-left transition duration-200 ${
-              activeShop?.shopId === shop.shopId
-                ? "border-[#95b88f] bg-[linear-gradient(180deg,#f4fbe9_0%,#eef5e5_100%)] shadow-[0_18px_38px_rgba(53,83,68,0.12)]"
-                : "border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee3_100%)] shadow-panel hover:-translate-y-0.5 hover:border-[#cbbca2]"
-            }`}
+            className="rise-in rounded-[28px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee3_100%)] p-5 text-left shadow-panel transition duration-200 hover:-translate-y-0.5 hover:border-[#cbbca2]"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
                 <h2 className="break-words text-[1.25rem] font-semibold text-[#18222c]">{shop.name}</h2>
-                <div className="mt-1 text-sm text-slate-500">
-                  {formatDateLabel(shop.lastCrawledAt)}
-                </div>
+                <div className="mt-1 text-sm text-slate-500">{formatDateLabel(shop.lastCrawledAt)}</div>
               </div>
-              <span
-                className={`shrink-0 rounded-full px-3 py-1 text-xs ${getShopStatusTone(shop.status)}`}
-              >
+              <span className={`shrink-0 rounded-full px-3 py-1 text-xs ${getShopStatusTone(shop.status)}`}>
                 {shopStatusLabels[shop.status]}
               </span>
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <MetricCard label="商品数" value={`${shop.productCount}`} active={activeShop?.shopId === shop.shopId} />
-              <MetricCard label="有货" value={`${shop.inStockCount}`} active={activeShop?.shopId === shop.shopId} />
-              <MetricCard
-                label="最低价"
-                value={shop.lowestPrice > 0 ? `¥${shop.lowestPrice}` : "--"}
-                active={activeShop?.shopId === shop.shopId}
-              />
-              <MetricCard label="近次变动" value={`${shop.recentChangeCount}`} active={activeShop?.shopId === shop.shopId} />
+              <MetricCard label="商品数" value={`${shop.productCount}`} />
+              <MetricCard label="有货" value={`${shop.inStockCount}`} />
+              <MetricCard label="最低价" value={shop.lowestPrice > 0 ? `¥${shop.lowestPrice}` : "--"} />
+              <MetricCard label="近次变动" value={`${shop.recentChangeCount}`} />
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -211,7 +218,7 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
         ))}
 
         {filtered.length === 0 ? (
-          <div className="col-span-full rounded-[24px] border border-dashed border-[#273346]/15 bg-[#f7f1e6] px-4 py-12 text-center text-slate-500">
+          <div className="col-span-full rounded-[24px] border border-dashed border-[#d8cfbf] bg-[#f7f1e6] px-4 py-12 text-center text-slate-500">
             当前没有匹配的店铺。
           </div>
         ) : null}
@@ -226,68 +233,80 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
             className="fixed inset-0 z-40 bg-[#18222c]/14 backdrop-blur-[2px]"
           />
 
-          <aside className="fixed inset-x-0 bottom-0 z-50 max-h-[88vh] rounded-t-[30px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_-24px_60px_rgba(24,34,44,0.16)] sm:inset-y-4 sm:right-4 sm:left-auto sm:w-[min(560px,calc(100vw-2rem))] sm:max-h-[calc(100vh-2rem)] sm:rounded-[34px] sm:shadow-[0_24px_80px_rgba(24,34,44,0.18)]">
-            <div className="flex h-full min-h-0 flex-col overflow-hidden">
-              <div className="flex flex-col gap-4 border-b border-[#e2d8c9] px-5 py-5 sm:flex-row sm:items-start sm:justify-between sm:px-6">
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className={`rounded-full px-3 py-1 text-xs ${getShopStatusTone(activeShop.status)}`}>
-                      {shopStatusLabels[activeShop.status]}
-                    </span>
-                    <span className="rounded-full border border-[#d8cfbf] bg-white/86 px-3 py-1 text-xs text-slate-500">
-                      {formatDateLabel(activeShop.lastCrawledAt)}
-                    </span>
-                  </div>
-                  <h2 className="mt-3 break-words font-serif text-[2rem] leading-tight text-[#18222c]">{activeShop.name}</h2>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {activeShop.categories.map((category) => (
-                      <span
-                        key={category}
-                        className="rounded-full border border-[#d8cfbf] bg-white/84 px-3 py-1 text-xs text-slate-700"
-                      >
-                        {productCategoryLabels[category]}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <section
+              role="dialog"
+              aria-modal="true"
+              className="flex max-h-[90vh] w-full max-w-[1480px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
+            >
+              <div className="border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
+                <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`rounded-full px-3 py-1 text-xs ${getShopStatusTone(activeShop.status)}`}>
+                        {shopStatusLabels[activeShop.status]}
                       </span>
-                    ))}
+                      <span className="rounded-full border border-[#d8cfbf] bg-white/86 px-3 py-1 text-xs text-slate-500">
+                        {formatDateLabel(activeShop.lastCrawledAt)}
+                      </span>
+                    </div>
+                    <h2 className="mt-3 break-words font-serif text-[2rem] leading-tight text-[#18222c]">{activeShop.name}</h2>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a
+                      href={activeShop.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
+                    >
+                      打开原站点
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setActiveId(null)}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
+                    >
+                      <X className="h-5 w-5" />
+                    </button>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-2 sm:shrink-0">
-                  <a
-                    href={activeShop.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
-                  >
-                    打开原站点
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => setActiveId(null)}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                  <ShopMetricPill label="商品总数" value={`${activeShop.productCount}`} />
+                  <ShopMetricPill label="当前有货" value={`${activeShop.inStockCount}`} tone="success" />
+                  <ShopMetricPill label="库存紧张" value={`${activeShop.lowStockCount}`} tone="warn" />
+                  <ShopMetricPill label="当前无货" value={`${activeShop.outOfStockCount}`} tone="danger" />
                 </div>
-              </div>
 
-              <div className="grid gap-3 border-b border-[#e2d8c9] px-5 py-5 sm:grid-cols-2 sm:px-6">
-                <DrawerMetric label="商品总数" value={`${activeShop.productCount}`} />
-                <DrawerMetric label="当前有货" value={`${activeShop.inStockCount}`} />
-                <DrawerMetric label="库存紧张" value={`${activeShop.lowStockCount}`} tone="warn" />
-                <DrawerMetric label="当前无货" value={`${activeShop.outOfStockCount}`} tone="danger" />
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <FilterChip
+                    active={activeCategory === "ALL"}
+                    label={`全部 ${activeProducts.length}`}
+                    onClick={() => setActiveCategory("ALL")}
+                  />
+                  {activeCategories.map((category) => (
+                    <FilterChip
+                      key={category}
+                      active={activeCategory === category}
+                      label={productCategoryLabels[category]}
+                      onClick={() => setActiveCategory(category)}
+                    />
+                  ))}
+                </div>
               </div>
 
               <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6">
-                <div className="space-y-3">
-                  {activeProducts.length > 0 ? (
-                    activeProducts.map((product) => {
+                {visibleProducts.length > 0 ? (
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                    {visibleProducts.map((product) => {
                       const tone = getProductTone(product);
 
                       return (
                         <article
                           key={product.productKey}
-                          className={`rounded-[24px] border p-4 shadow-[0_12px_28px_rgba(102,88,64,0.08)] ${tone.card}`}
+                          className={`min-w-0 rounded-[24px] border p-4 shadow-[0_12px_28px_rgba(102,88,64,0.08)] ${tone.card}`}
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0">
@@ -307,7 +326,7 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
                               <div className="text-xl font-semibold text-[#18222c]">
                                 {product.current.price > 0 ? `¥${product.current.price}` : "--"}
                               </div>
-                              <div className="mt-1 text-xs text-slate-500">{product.history.length} 条记录</div>
+                              <div className="mt-1 text-xs text-slate-500">{formatDateLabel(product.current.updatedAt)}</div>
                             </div>
                           </div>
 
@@ -316,7 +335,7 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
                             <ProductChip label={formatWarrantyLabel(product.current.warrantySupported)} />
                           </div>
 
-                          <div className="mt-4 rounded-[18px] border border-white/60 bg-white/70 p-3">
+                          <div className="mt-4 rounded-[18px] border border-white/60 bg-white/72 p-3">
                             <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">库存说明</div>
                             <div className="mt-1 text-sm leading-6 text-slate-700">
                               {product.current.inventoryText || "未提供库存说明"}
@@ -324,58 +343,70 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
                           </div>
                         </article>
                       );
-                    })
-                  ) : (
-                    <div className="rounded-[24px] border border-dashed border-[#d8cfbf] bg-white/78 px-4 py-12 text-center text-slate-500">
-                      当前没有商品记录。
-                    </div>
-                  )}
-                </div>
+                    })}
+                  </div>
+                ) : (
+                  <div className="rounded-[24px] border border-dashed border-[#d8cfbf] bg-white/78 px-4 py-12 text-center text-slate-500">
+                    当前筛选条件下没有商品记录。
+                  </div>
+                )}
               </div>
-            </div>
-          </aside>
+            </section>
+          </div>
         </>
       ) : null}
     </div>
   );
 }
 
-function MetricCard({ label, value, active }: { label: string; value: string; active?: boolean }) {
+function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <div
-      className={`rounded-[18px] border p-3 ${
-        active
-          ? "border-[#b8d0b2] bg-white/92 shadow-[0_10px_24px_rgba(53,83,68,0.08)]"
-          : "border-[#e1d6c5] bg-white/82"
-      }`}
-    >
+    <div className="rounded-[18px] border border-[#e1d6c5] bg-white/82 p-3">
       <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">{label}</div>
-      <div className={`mt-1.5 text-lg font-semibold ${active ? "text-[#355344]" : "text-[#18222c]"}`}>{value}</div>
+      <div className="mt-1.5 text-lg font-semibold text-[#18222c]">{value}</div>
     </div>
   );
 }
 
-function DrawerMetric({
+function ShopMetricPill({
   label,
   value,
   tone = "neutral"
 }: {
   label: string;
   value: string;
-  tone?: "neutral" | "warn" | "danger";
+  tone?: "neutral" | "success" | "warn" | "danger";
 }) {
   const toneClass =
     tone === "danger"
       ? "border-[#efc8bb] bg-[#fff2ed] text-[#a3462c]"
       : tone === "warn"
         ? "border-[#efddad] bg-[#fff7e0] text-[#8b6510]"
-        : "border-[#d8cfbf] bg-white/84 text-[#355344]";
+        : tone === "success"
+          ? "border-[#d4e3c4] bg-[#edf6e2] text-[#355535]"
+          : "border-[#d8cfbf] bg-white/84 text-[#355344]";
 
   return (
     <div className={`rounded-[20px] border p-4 ${toneClass}`}>
       <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
     </div>
+  );
+}
+
+function FilterChip({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-full px-4 py-2 text-sm transition ${
+        active
+          ? "border border-[#b8d0b2] bg-[#edf6e2] text-[#264233]"
+          : "border border-[#d8cfbf] bg-white/82 text-slate-600 hover:border-[#cdbca0] hover:bg-white"
+      }`}
+    >
+      {label}
+    </button>
   );
 }
 

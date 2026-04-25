@@ -3,6 +3,7 @@ import { stockStatusLabels } from "@shop-claw/shared/labels";
 import { getPlatformState, savePlatformState } from "@shop-claw/shared/store";
 import {
   AiSettings,
+  AiUsageSummary,
   ContinueTaskPayload,
   CrawlRequestPayload,
   CrawlTask,
@@ -118,6 +119,15 @@ interface AiAnalysisResult {
   flags: string[];
   products: ProductItem[];
   isReliable: boolean;
+  aiUsage: AiUsageSummary;
+}
+
+interface AiResponseUsage {
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  promptCacheHitTokens: number;
+  promptCacheMissTokens: number;
 }
 
 type StructuredProductCandidate =
@@ -132,6 +142,64 @@ type StructuredProductCandidate =
 
 function uniqueTexts(items: string[]) {
   return [...new Set(items.map((item) => item.trim()).filter(Boolean))];
+}
+
+function createEmptyAiUsage(settings: AiSettings): AiUsageSummary {
+  return {
+    provider: settings.provider,
+    providerLabel: settings.providerLabel,
+    model: settings.model,
+    callCount: 0,
+    promptTokens: 0,
+    completionTokens: 0,
+    totalTokens: 0,
+    promptCacheHitTokens: 0,
+    promptCacheMissTokens: 0,
+    estimatedCost: 0,
+    currency: settings.currency,
+    inputPricePerMillion: settings.inputPricePerMillion,
+    outputPricePerMillion: settings.outputPricePerMillion,
+    cacheHitInputPricePerMillion: settings.cacheHitInputPricePerMillion,
+    updatedAt: nowIso()
+  };
+}
+
+function mergeAiUsage(settings: AiSettings, current: AiUsageSummary, delta: AiResponseUsage): AiUsageSummary {
+  const promptCacheHitTokens = Math.max(delta.promptCacheHitTokens, 0);
+  const promptCacheMissTokens =
+    delta.promptCacheMissTokens > 0 ? delta.promptCacheMissTokens : Math.max(delta.promptTokens - promptCacheHitTokens, 0);
+  const promptTokens = current.promptTokens + Math.max(delta.promptTokens, 0);
+  const completionTokens = current.completionTokens + Math.max(delta.completionTokens, 0);
+  const totalTokens = current.totalTokens + Math.max(delta.totalTokens, delta.promptTokens + delta.completionTokens, 0);
+  const cacheHitTotal = current.promptCacheHitTokens + promptCacheHitTokens;
+  const cacheMissTotal = current.promptCacheMissTokens + promptCacheMissTokens;
+  const estimatedCost = roundBillingAmount(
+    (cacheHitTotal / 1_000_000) * settings.cacheHitInputPricePerMillion +
+      (cacheMissTotal / 1_000_000) * settings.inputPricePerMillion +
+      (completionTokens / 1_000_000) * settings.outputPricePerMillion
+  );
+
+  return {
+    provider: settings.provider,
+    providerLabel: settings.providerLabel,
+    model: settings.model,
+    callCount: current.callCount + 1,
+    promptTokens,
+    completionTokens,
+    totalTokens,
+    promptCacheHitTokens: cacheHitTotal,
+    promptCacheMissTokens: cacheMissTotal,
+    estimatedCost,
+    currency: settings.currency,
+    inputPricePerMillion: settings.inputPricePerMillion,
+    outputPricePerMillion: settings.outputPricePerMillion,
+    cacheHitInputPricePerMillion: settings.cacheHitInputPricePerMillion,
+    updatedAt: nowIso()
+  };
+}
+
+function roundBillingAmount(value: number) {
+  return Math.round(value * 1_000_000) / 1_000_000;
 }
 
 function sanitizeVisibleTextForAnalysis(raw: string) {
@@ -216,6 +284,7 @@ function buildAnalysisPrompt(
     "请把商品售卖网页整理成 JSON。",
     segmentInstruction,
     "识别目标：页面中所有明确在售、展示价格或明确展示套餐信息的商品、套餐、订阅项。",
+    "分类只允许使用：CHATGPT、CLAUDE、GEMINI、PERPLEXITY、GROK、GOOGLE_ACCOUNT、VIRTUAL_CARD、APPLE_ACCOUNT、OTHER。",
     "不要把纯数字、年份、时长片段、栏目标题、分类标签、按钮文案、库存词、说明文本、导航文本当作商品。",
     "商品名称必须是页面中的完整售卖项名称；如果信息不足以构成完整商品，请不要输出。",
     "如果字段无法确认，可使用 null 或空字符串，但不要编造商品。",
@@ -249,6 +318,34 @@ function extractMessageContent(payload: {
   }
 
   return "";
+}
+
+function extractUsage(payload: {
+  usage?: {
+    prompt_tokens?: number;
+    completion_tokens?: number;
+    total_tokens?: number;
+    prompt_cache_hit_tokens?: number;
+    prompt_cache_miss_tokens?: number;
+    prompt_tokens_details?: {
+      cached_tokens?: number;
+    };
+  };
+}) {
+  const promptTokens = Number(payload.usage?.prompt_tokens ?? 0);
+  const completionTokens = Number(payload.usage?.completion_tokens ?? 0);
+  const cachedTokens = Number(
+    payload.usage?.prompt_cache_hit_tokens ?? payload.usage?.prompt_tokens_details?.cached_tokens ?? 0
+  );
+  const uncachedTokens = Number(payload.usage?.prompt_cache_miss_tokens ?? Math.max(promptTokens - cachedTokens, 0));
+
+  return {
+    promptTokens,
+    completionTokens,
+    totalTokens: Number(payload.usage?.total_tokens ?? promptTokens + completionTokens),
+    promptCacheHitTokens: cachedTokens,
+    promptCacheMissTokens: uncachedTokens
+  } satisfies AiResponseUsage;
 }
 
 function getNoiseProductReason(rawName: string) {
@@ -363,7 +460,8 @@ function buildAnalysisFailure(
   settings: AiSettings,
   reason: string,
   flags: string[],
-  rawFragments: string[]
+  rawFragments: string[],
+  aiUsage = createEmptyAiUsage(settings)
 ): AiAnalysisResult {
   const debugCandidates = heuristicParseProducts(rawFragments);
 
@@ -376,14 +474,15 @@ function buildAnalysisFailure(
       debugCandidates.length > 0 ? `规则片段中发现 ${debugCandidates.length} 个可疑候选，但已禁用自动兜底。` : ""
     ]),
     products: [],
-    isReliable: false
+    isReliable: false,
+    aiUsage
   };
 }
 
 async function requestStructuredAnalysis(
   settings: AiSettings,
   prompt: string
-): Promise<StructuredAiResponse> {
+): Promise<{ parsed?: StructuredAiResponse; usage: AiResponseUsage; error?: string }> {
   const endpoint = `${settings.baseUrl.replace(/\/$/, "")}/chat/completions`;
   const body: Record<string, unknown> = {
     model: settings.model,
@@ -432,14 +531,38 @@ async function requestStructuredAnalysis(
         content?: string | Array<{ text?: string }>;
       };
     }>;
+    usage?: {
+      prompt_tokens?: number;
+      completion_tokens?: number;
+      total_tokens?: number;
+      prompt_cache_hit_tokens?: number;
+      prompt_cache_miss_tokens?: number;
+      prompt_tokens_details?: {
+        cached_tokens?: number;
+      };
+    };
   };
   const content = extractMessageContent(payload);
+  const usage = extractUsage(payload);
 
   if (!content) {
-    throw new Error("AI 返回为空");
+    return {
+      usage,
+      error: "AI 返回为空"
+    };
   }
 
-  return JSON.parse(extractJsonObject(content)) as StructuredAiResponse;
+  try {
+    return {
+      parsed: JSON.parse(extractJsonObject(content)) as StructuredAiResponse,
+      usage
+    };
+  } catch (error) {
+    return {
+      usage,
+      error: error instanceof Error ? `AI 返回不是合法 JSON：${error.message}` : "AI 返回不是合法 JSON"
+    };
+  }
 }
 
 function inferCategory(rawName: string, line: string): ProductCategory {
@@ -461,6 +584,22 @@ function inferCategory(rawName: string, line: string): ProductCategory {
     return "PERPLEXITY";
   }
 
+  if (marker.includes("grok")) {
+    return "GROK";
+  }
+
+  if (/(google account|google账号|google 帐号|谷歌账号|gmail)/i.test(marker)) {
+    return "GOOGLE_ACCOUNT";
+  }
+
+  if (/(虚拟卡|vcc|virtual card|visa card|master card|wildcard)/i.test(marker)) {
+    return "VIRTUAL_CARD";
+  }
+
+  if (/(苹果账号|apple id|apple account|icloud)/i.test(marker)) {
+    return "APPLE_ACCOUNT";
+  }
+
   return "OTHER";
 }
 
@@ -470,6 +609,10 @@ function inferSpecLabel(rawName: string, category: ProductCategory) {
     CLAUDE: /(claude)/gi,
     GEMINI: /(gemini)/gi,
     PERPLEXITY: /(perplexity)/gi,
+    GROK: /(grok)/gi,
+    GOOGLE_ACCOUNT: /(google account|google账号|google 帐号|谷歌账号|gmail)/gi,
+    VIRTUAL_CARD: /(虚拟卡|vcc|virtual card|visa card|master card|wildcard)/gi,
+    APPLE_ACCOUNT: /(苹果账号|apple id|apple account|icloud)/gi,
     OTHER: /$^/g
   };
 
@@ -602,7 +745,17 @@ function coerceProductStatus(value: unknown, stockStatus: StockStatus): ProductS
 }
 
 function coerceCategory(value: unknown, rawName: string, line: string): ProductCategory {
-  if (value === "CHATGPT" || value === "CLAUDE" || value === "GEMINI" || value === "PERPLEXITY" || value === "OTHER") {
+  if (
+    value === "CHATGPT" ||
+    value === "CLAUDE" ||
+    value === "GEMINI" ||
+    value === "PERPLEXITY" ||
+    value === "GROK" ||
+    value === "GOOGLE_ACCOUNT" ||
+    value === "VIRTUAL_CARD" ||
+    value === "APPLE_ACCOUNT" ||
+    value === "OTHER"
+  ) {
     return value;
   }
 
@@ -638,9 +791,10 @@ async function analyzeWithAi(
 ) : Promise<AiAnalysisResult> {
   const normalizedText = sanitizeVisibleTextForAnalysis(visibleText);
   const normalizedHtml = sanitizeHtmlForAnalysis(html).slice(0, MAX_FULL_PAGE_HTML_LENGTH);
+  let aiUsage = createEmptyAiUsage(settings);
 
   if (!settings.enabled || !settings.baseUrl.trim() || !settings.model.trim() || !settings.apiKey.trim()) {
-    return buildAnalysisFailure(settings, "AI 未启用，未生成商品草稿。", ["请先配置可用的 AI 接口。"], rawFragments);
+    return buildAnalysisFailure(settings, "AI 未启用，未生成商品草稿。", ["请先配置可用的 AI 接口。"], rawFragments, aiUsage);
   }
 
   if (normalizedText.length < 40 && rawFragments.length === 0) {
@@ -648,14 +802,15 @@ async function analyzeWithAi(
       settings,
       "当前页面有效文本不足，未生成商品草稿。",
       ["页面有效文本不足", "建议提供 Cookie、storageState 或人工整理页面文本"],
-      rawFragments
+      rawFragments,
+      aiUsage
     );
   }
 
   const segments = splitTextIntoSegments(normalizedText);
 
   if (segments.length === 0) {
-    return buildAnalysisFailure(settings, "当前页面缺少可分析内容。", ["未提取到可分析文本"], rawFragments);
+    return buildAnalysisFailure(settings, "当前页面缺少可分析内容。", ["未提取到可分析文本"], rawFragments, aiUsage);
   }
 
   const allProducts: ProductItem[] = [];
@@ -665,18 +820,25 @@ async function analyzeWithAi(
 
   for (const [index, segment] of segments.entries()) {
     try {
-      const parsed = await requestStructuredAnalysis(
+      const attempt = await requestStructuredAnalysis(
         settings,
         buildAnalysisPrompt(source, pageTitle, segment, normalizedHtml, index, segments.length)
       );
 
-      summary = summary || parsed.summary?.trim() || "";
-      conclusion = conclusion || parsed.conclusion?.trim() || "";
-      flags.push(...(parsed.flags ?? []));
+      aiUsage = mergeAiUsage(settings, aiUsage, attempt.usage);
+
+      if (!attempt.parsed) {
+        flags.push(`第 ${index + 1} 段 AI 解析失败：${attempt.error || "未知异常"}`);
+        continue;
+      }
+
+      summary = summary || attempt.parsed.summary?.trim() || "";
+      conclusion = conclusion || attempt.parsed.conclusion?.trim() || "";
+      flags.push(...(attempt.parsed.flags ?? []));
 
       const rejected: string[] = [];
 
-      (parsed.products ?? []).forEach((item) => {
+      (attempt.parsed.products ?? []).forEach((item) => {
         const candidate = coerceStructuredProduct(item);
 
         if (candidate.product) {
@@ -705,7 +867,8 @@ async function analyzeWithAi(
         segments.length > 1 ? `整页内容已分 ${segments.length} 段分析，但未得到可信商品。` : "",
         ...flags
       ],
-      rawFragments
+      rawFragments,
+      aiUsage
     );
   }
 
@@ -718,7 +881,8 @@ async function analyzeWithAi(
       ...flags
     ]),
     products,
-    isReliable: true
+    isReliable: true,
+    aiUsage
   };
 }
 
@@ -898,6 +1062,7 @@ async function runTaskPipeline(
       verificationNote: payload?.verificationNote?.trim() || workingTask.verificationNote,
       pageState: payload ? "RESUMED" : "COLLECTED",
       artifacts: capture.artifacts,
+      aiUsage: analysis.aiUsage,
       logSummary: payload?.manualContent?.trim()
         ? requiresManualProductFill
           ? "已接收人工补充内容，但 AI 未识别到可信商品，请人工补充。"

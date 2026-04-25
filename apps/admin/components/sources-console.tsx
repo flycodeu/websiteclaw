@@ -1,14 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Globe2, Play, Plus, Search, ShieldCheck, Sparkles, Trash2, X } from "lucide-react";
 import { CrawlMode, DataSource, VerificationMethod } from "@shop-claw/shared/types";
-import {
-  crawlModeLabels,
-  formatBooleanLabel,
-  formatDateLabel,
-  verificationMethodLabels
-} from "@shop-claw/shared/labels";
+import { crawlModeLabels, formatDateLabel, verificationMethodLabels } from "@shop-claw/shared/labels";
 
 interface SourcesConsoleProps {
   sources: DataSource[];
@@ -49,7 +45,56 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
   const router = useRouter();
   const [sourceForm, setSourceForm] = useState<SourceFormState>(emptySourceForm);
   const [statusText, setStatusText] = useState("");
+  const [keyword, setKeyword] = useState("");
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [pending, startTransition] = useTransition();
+
+  const filteredSources = useMemo(() => {
+    const normalizedKeyword = keyword.trim().toLowerCase();
+
+    return [...sources]
+      .filter((source) => {
+        if (!normalizedKeyword) {
+          return true;
+        }
+
+        return (
+          source.sourceName.toLowerCase().includes(normalizedKeyword) ||
+          source.sourceUrl.toLowerCase().includes(normalizedKeyword) ||
+          source.entryUrl.toLowerCase().includes(normalizedKeyword)
+        );
+      })
+      .sort((left, right) => {
+        const leftStamp = Date.parse(left.lastRunAt || left.updatedAt || left.createdAt);
+        const rightStamp = Date.parse(right.lastRunAt || right.updatedAt || right.createdAt);
+        return rightStamp - leftStamp;
+      });
+  }, [keyword, sources]);
+
+  const enabledCount = sources.filter((source) => source.enabled).length;
+  const verificationCount = sources.filter((source) => source.verificationMethod !== "NONE").length;
+  const crawledCount = sources.filter((source) => Boolean(source.lastRunAt)).length;
+
+  useEffect(() => {
+    if (!isCreateOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsCreateOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isCreateOpen]);
 
   function handleCreateSource(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -65,6 +110,7 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
 
         setStatusText(await readMessage(response));
         setSourceForm(emptySourceForm);
+        setIsCreateOpen(false);
         router.refresh();
       } catch (error) {
         setStatusText(error instanceof Error ? error.message : "创建失败");
@@ -115,195 +161,302 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
 
   return (
     <div className="space-y-6">
+      {statusText ? (
+        <div className="rounded-[24px] border border-[#d8cfbf] bg-white/88 px-5 py-4 text-sm text-slate-700 shadow-[0_14px_32px_rgba(102,88,64,0.08)]">
+          {statusText}
+        </div>
+      ) : null}
+
       <section className="rounded-[30px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#faf4ea_0%,#f7f1e6_100%)] p-6 shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
           <div>
             <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white px-4 py-2 text-sm text-slate-600">
-              新站点录入
+              站点工作台
             </div>
-            <h2 className="mt-4 font-serif text-3xl text-[#18222c]">配置抓取入口和验证方式</h2>
+            <h2 className="mt-4 font-serif text-3xl text-[#18222c]">采集与发布站点</h2>
           </div>
-          <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 px-4 py-3 text-sm text-slate-600">
-            当前共接入 {sources.length} 个站点
-          </div>
-        </div>
 
-        <form onSubmit={handleCreateSource} className="mt-6 grid gap-4 md:grid-cols-2">
-          <label className="grid gap-2 text-sm text-slate-700">
-            站点名称
-            <input
-              value={sourceForm.sourceName}
-              onChange={(event) => setSourceForm((current) => ({ ...current, sourceName: event.target.value }))}
-              className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
-              placeholder="例如：Claude Hub CN"
-              required
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm text-slate-700">
-            站点链接
-            <input
-              value={sourceForm.sourceUrl}
-              onChange={(event) => setSourceForm((current) => ({ ...current, sourceUrl: event.target.value }))}
-              className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
-              placeholder="https://example.com"
-              required
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm text-slate-700">
-            抓取入口
-            <input
-              value={sourceForm.entryUrl}
-              onChange={(event) => setSourceForm((current) => ({ ...current, entryUrl: event.target.value }))}
-              className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
-              placeholder="留空则默认使用站点链接"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm text-slate-700">
-            等待元素
-            <input
-              value={sourceForm.waitSelector}
-              onChange={(event) => setSourceForm((current) => ({ ...current, waitSelector: event.target.value }))}
-              className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
-              placeholder="body"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm text-slate-700">
-            抓取模式
-            <select
-              value={sourceForm.crawlMode}
-              onChange={(event) =>
-                setSourceForm((current) => ({ ...current, crawlMode: event.target.value as CrawlMode }))
-              }
-              className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
-            >
-              <option value="AUTO">自动抓取</option>
-              <option value="MANUAL_ASSIST">人工辅助</option>
-            </select>
-          </label>
-
-          <label className="grid gap-2 text-sm text-slate-700">
-            验证方式
-            <select
-              value={sourceForm.verificationMethod}
-              onChange={(event) =>
-                setSourceForm((current) => ({
-                  ...current,
-                  verificationMethod: event.target.value as VerificationMethod
-                }))
-              }
-              className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
-            >
-              <option value="NONE">无需验证</option>
-              <option value="CAPTCHA">验证码</option>
-              <option value="LOGIN">登录态</option>
-              <option value="MANUAL">人工确认</option>
-            </select>
-          </label>
-
-          <div className="grid gap-3 md:col-span-2 md:grid-cols-2">
-            <label className="inline-flex items-center gap-3 rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 text-sm text-slate-700">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <label className="flex min-w-0 items-center gap-2 rounded-[20px] border border-[#d8cfbf] bg-white/88 px-4 py-3 text-sm text-slate-500 shadow-[0_10px_24px_rgba(102,88,64,0.06)] sm:w-[320px]">
+              <Search className="h-4 w-4" />
               <input
-                checked={sourceForm.headless}
-                onChange={(event) => setSourceForm((current) => ({ ...current, headless: event.target.checked }))}
-                type="checkbox"
+                value={keyword}
+                onChange={(event) => setKeyword(event.target.value)}
+                placeholder="搜索站点名称或链接"
+                className="w-full min-w-0 bg-transparent text-[#18222c] outline-none placeholder:text-slate-400"
               />
-              使用无头模式
             </label>
 
-            <label className="inline-flex items-center gap-3 rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 text-sm text-slate-700">
-              <input
-                checked={sourceForm.blockAssets}
-                onChange={(event) => setSourceForm((current) => ({ ...current, blockAssets: event.target.checked }))}
-                type="checkbox"
-              />
-              阻止图片和媒体资源
-            </label>
-          </div>
-
-          <div className="flex items-center justify-end gap-3 md:col-span-2">
-            {statusText ? <div className="text-sm text-slate-600">{statusText}</div> : null}
             <button
-              type="submit"
-              disabled={pending}
-              className="rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
+              type="button"
+              onClick={() => setIsCreateOpen(true)}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)]"
             >
-              {pending ? "处理中..." : "创建站点"}
+              <Plus className="h-4 w-4" />
+              新增站点
             </button>
           </div>
-        </form>
+        </div>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <ConsoleStat icon={<Globe2 className="h-4 w-4" />} label="全部站点" value={`${sources.length}`} />
+          <ConsoleStat icon={<ShieldCheck className="h-4 w-4" />} label="启用中" value={`${enabledCount}`} />
+          <ConsoleStat icon={<Sparkles className="h-4 w-4" />} label="需验证" value={`${verificationCount}`} />
+          <ConsoleStat icon={<Play className="h-4 w-4" />} label="已执行" value={`${crawledCount}`} />
+        </div>
       </section>
 
-      <section className="rounded-[30px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#faf4ea_0%,#f7f1e6_100%)] p-6 shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <h2 className="font-serif text-3xl text-[#18222c]">已接入站点</h2>
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {filteredSources.length > 0 ? (
+          filteredSources.map((source) => (
+            <article
+              key={source.sourceId}
+              className="flex h-full flex-col rounded-[28px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#ffffff_0%,#faf4ea_100%)] p-5 shadow-[0_18px_36px_rgba(102,88,64,0.07)]"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap gap-2">
+                    <InfoTag label={crawlModeLabels[source.crawlMode]} />
+                    <InfoTag label={verificationMethodLabels[source.verificationMethod]} />
+                  </div>
+                  <h3 className="mt-4 break-words text-xl font-semibold text-[#18222c]">{source.sourceName}</h3>
+                  <div className="mt-2 text-sm leading-6 text-slate-500 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                    {source.sourceUrl}
+                  </div>
+                  {source.entryUrl !== source.sourceUrl ? (
+                    <div className="mt-2 text-xs leading-5 text-slate-500 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                      入口：{source.entryUrl}
+                    </div>
+                  ) : null}
+                </div>
+                <span
+                  className={`shrink-0 rounded-full px-3 py-1 text-xs ${
+                    source.enabled
+                      ? "border border-[#d4e3c4] bg-[#edf6e2] text-[#355535]"
+                      : "border border-[#d8cfbf] bg-[#f4efe6] text-slate-500"
+                  }`}
+                >
+                  {source.enabled ? "启用中" : "已停用"}
+                </span>
+              </div>
+
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <MetaTile label="等待元素" value={source.waitSelector} />
+                <MetaTile label="最近执行" value={source.lastRunAt ? formatDateLabel(source.lastRunAt) : "尚未执行"} />
+                <MetaTile label="浏览模式" value={source.headless ? "无头浏览器" : "可见窗口"} />
+                <MetaTile label="资源策略" value={source.blockAssets ? "已拦截图片媒体" : "保留完整资源"} />
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                <InfoTag label={source.enabled ? "正在监控" : "暂停采集"} />
+                <InfoTag label={source.lastRunAt ? "已建历史记录" : "待首次抓取"} />
+              </div>
+
+              <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                <button
+                  type="button"
+                  disabled={pending}
+                  onClick={() => removeSource(source)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#c98d78]/40 bg-[#fff3ee] px-4 py-2.5 text-sm text-[#9a4b33] disabled:opacity-50"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  删除
+                </button>
+                <button
+                  type="button"
+                  disabled={pending || !source.enabled}
+                  onClick={() => triggerCrawl(source.sourceId)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#355344] px-4 py-2.5 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-50"
+                >
+                  <Play className="h-4 w-4" />
+                  立即抓取
+                </button>
+              </div>
+            </article>
+          ))
+        ) : (
+          <div className="col-span-full rounded-[24px] border border-dashed border-[#d8cfbf] bg-white p-8 text-center text-slate-500">
+            当前没有匹配的站点。
           </div>
-        </div>
-
-        <div className="mt-6 grid gap-4 xl:grid-cols-2">
-          {sources.length > 0 ? (
-            sources.map((source) => (
-              <article key={source.sourceId} className="rounded-[24px] border border-[#d8cfbf] bg-white/92 p-5">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h3 className="text-xl font-semibold text-[#18222c]">{source.sourceName}</h3>
-                    <div className="mt-2 break-all text-sm text-slate-500">{source.sourceUrl}</div>
-                    {source.entryUrl !== source.sourceUrl ? (
-                      <div className="mt-1 break-all text-xs text-slate-500">入口：{source.entryUrl}</div>
-                    ) : null}
-                  </div>
-                  <span
-                    className={`rounded-full px-3 py-1 text-xs ${
-                      source.enabled ? "bg-[#e7f3dc] text-[#375536]" : "bg-[#ece9e2] text-slate-500"
-                    }`}
-                  >
-                    {formatBooleanLabel(source.enabled)}
-                  </span>
-                </div>
-
-                <div className="mt-5 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
-                  <div>抓取模式：{crawlModeLabels[source.crawlMode]}</div>
-                  <div>验证方式：{verificationMethodLabels[source.verificationMethod]}</div>
-                  <div>等待元素：{source.waitSelector}</div>
-                  <div>浏览器模式：{source.headless ? "无头" : "可见窗口"}</div>
-                  <div>资源拦截：{source.blockAssets ? "已启用" : "未启用"}</div>
-                  <div>最近执行：{source.lastRunAt ? formatDateLabel(source.lastRunAt) : "尚未执行"}</div>
-                </div>
-
-                <div className="mt-5 flex items-center justify-between gap-3">
-                  <div className="text-xs text-slate-500">{source.sourceId}</div>
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      disabled={pending}
-                      onClick={() => removeSource(source)}
-                      className="rounded-full border border-[#c98d78]/40 bg-[#fff3ee] px-4 py-3 text-sm text-[#9a4b33] disabled:opacity-50"
-                    >
-                      删除站点
-                    </button>
-                    <button
-                      type="button"
-                      disabled={pending || !source.enabled}
-                      onClick={() => triggerCrawl(source.sourceId)}
-                      className="rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-50"
-                    >
-                      立即抓取
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))
-          ) : (
-            <div className="rounded-[24px] border border-dashed border-[#273346]/15 bg-white p-8 text-center text-slate-500">
-              还没有站点，请先在上方创建。
-            </div>
-          )}
-        </div>
+        )}
       </section>
+
+      {isCreateOpen ? (
+        <>
+          <button
+            type="button"
+            aria-label="关闭新增站点弹窗"
+            onClick={() => setIsCreateOpen(false)}
+            className="fixed inset-0 z-40 bg-[#18222c]/14 backdrop-blur-[2px]"
+          />
+
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <section
+              role="dialog"
+              aria-modal="true"
+              className="flex max-h-[90vh] w-full max-w-[1040px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
+                <div>
+                  <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/84 px-3 py-1 text-xs text-slate-500">
+                    新站点录入
+                  </div>
+                  <h2 className="mt-3 font-serif text-[2rem] leading-tight text-[#18222c]">新增抓取站点</h2>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsCreateOpen(false)}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="min-h-0 overflow-y-auto px-5 py-5 sm:px-6">
+                <form onSubmit={handleCreateSource} className="grid gap-4 md:grid-cols-2">
+                  <label className="grid gap-2 text-sm text-slate-700">
+                    站点名称
+                    <input
+                      value={sourceForm.sourceName}
+                      onChange={(event) => setSourceForm((current) => ({ ...current, sourceName: event.target.value }))}
+                      className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
+                      placeholder="例如：Claude Hub CN"
+                      required
+                    />
+                  </label>
+
+                  <label className="grid gap-2 text-sm text-slate-700">
+                    站点链接
+                    <input
+                      value={sourceForm.sourceUrl}
+                      onChange={(event) => setSourceForm((current) => ({ ...current, sourceUrl: event.target.value }))}
+                      className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
+                      placeholder="https://example.com"
+                      required
+                    />
+                  </label>
+
+                  <label className="grid gap-2 text-sm text-slate-700">
+                    抓取入口
+                    <input
+                      value={sourceForm.entryUrl}
+                      onChange={(event) => setSourceForm((current) => ({ ...current, entryUrl: event.target.value }))}
+                      className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
+                      placeholder="留空则默认使用站点链接"
+                    />
+                  </label>
+
+                  <label className="grid gap-2 text-sm text-slate-700">
+                    等待元素
+                    <input
+                      value={sourceForm.waitSelector}
+                      onChange={(event) => setSourceForm((current) => ({ ...current, waitSelector: event.target.value }))}
+                      className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
+                      placeholder="body"
+                    />
+                  </label>
+
+                  <label className="grid gap-2 text-sm text-slate-700">
+                    抓取模式
+                    <select
+                      value={sourceForm.crawlMode}
+                      onChange={(event) =>
+                        setSourceForm((current) => ({ ...current, crawlMode: event.target.value as CrawlMode }))
+                      }
+                      className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
+                    >
+                      <option value="AUTO">自动抓取</option>
+                      <option value="MANUAL_ASSIST">人工辅助</option>
+                    </select>
+                  </label>
+
+                  <label className="grid gap-2 text-sm text-slate-700">
+                    验证方式
+                    <select
+                      value={sourceForm.verificationMethod}
+                      onChange={(event) =>
+                        setSourceForm((current) => ({
+                          ...current,
+                          verificationMethod: event.target.value as VerificationMethod
+                        }))
+                      }
+                      className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
+                    >
+                      <option value="NONE">无需验证</option>
+                      <option value="CAPTCHA">验证码</option>
+                      <option value="LOGIN">登录态</option>
+                      <option value="MANUAL">人工确认</option>
+                    </select>
+                  </label>
+
+                  <div className="grid gap-3 md:col-span-2 md:grid-cols-2">
+                    <label className="inline-flex items-center gap-3 rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 text-sm text-slate-700">
+                      <input
+                        checked={sourceForm.headless}
+                        onChange={(event) => setSourceForm((current) => ({ ...current, headless: event.target.checked }))}
+                        type="checkbox"
+                      />
+                      使用无头模式
+                    </label>
+
+                    <label className="inline-flex items-center gap-3 rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 text-sm text-slate-700">
+                      <input
+                        checked={sourceForm.blockAssets}
+                        onChange={(event) => setSourceForm((current) => ({ ...current, blockAssets: event.target.checked }))}
+                        type="checkbox"
+                      />
+                      阻止图片和媒体资源
+                    </label>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-3 md:col-span-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsCreateOpen(false)}
+                      className="rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-3 text-sm text-slate-700"
+                    >
+                      取消
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={pending}
+                      className="rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
+                    >
+                      {pending ? "处理中..." : "创建站点"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function ConsoleStat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <div className="rounded-[22px] border border-[#d8cfbf] bg-white/84 p-4 shadow-[0_10px_24px_rgba(102,88,64,0.05)]">
+      <div className="flex items-center gap-2 text-sm text-slate-500">
+        <span className="text-[#355344]">{icon}</span>
+        {label}
+      </div>
+      <div className="mt-2 text-2xl font-semibold text-[#18222c]">{value}</div>
+    </div>
+  );
+}
+
+function InfoTag({ label }: { label: string }) {
+  return <span className="rounded-full border border-[#d8cfbf] bg-[#faf5eb] px-3 py-1.5 text-xs text-slate-600">{label}</span>;
+}
+
+function MetaTile({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[20px] border border-[#e4dacb] bg-[#faf5eb] p-3">
+      <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">{label}</div>
+      <div className="mt-1 break-words text-sm text-[#18222c]">{value}</div>
     </div>
   );
 }

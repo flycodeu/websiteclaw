@@ -26,9 +26,7 @@ export default async function HomePage() {
             <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/84 px-4 py-2 text-sm text-slate-600 shadow-[0_10px_24px_rgba(102,88,64,0.06)]">
               公开数据最后更新于 {formatDateLabel(published.publishedAt)}
             </div>
-            <h1 className="mt-6 max-w-3xl font-serif text-5xl leading-tight text-[#18222c]">
-              统一查看商铺网页状态、当前商品价格和库存结果
-            </h1>
+            <h1 className="mt-6 max-w-3xl font-serif text-5xl leading-tight text-[#18222c]">公开商铺与商品总览</h1>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
