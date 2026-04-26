@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { chromium, type Browser, type BrowserContext, type BrowserContextOptions, type Page } from "playwright";
 import { getTaskRuntimeDirectory, resolveWorkspaceRoot, toWorkspaceRelativePath } from "@shop-claw/shared/store";
-import { ContinueTaskPayload, CrawlTask, DataSource } from "@shop-claw/shared/types";
+import { ContinueTaskPayload, CrawlTask, DataSource, StockStatus } from "@shop-claw/shared/types";
 
 interface CrawlCaptureArtifacts {
   htmlPath: string;
@@ -17,6 +17,15 @@ interface ManualVerificationSession {
   page: Page;
 }
 
+export interface CapturedProductCard {
+  rawName: string;
+  price: number;
+  currency: string;
+  inventoryText: string;
+  stockStatus: StockStatus;
+  sourceLine: string;
+}
+
 export interface BrowserCrawlResult {
   html: string;
   visibleText: string;
@@ -25,6 +34,7 @@ export interface BrowserCrawlResult {
   requiresVerification: boolean;
   verificationReason?: string;
   artifacts: CrawlCaptureArtifacts;
+  productCards: CapturedProductCard[];
 }
 
 interface ManualVerificationStartResult {
@@ -33,6 +43,28 @@ interface ManualVerificationStartResult {
 }
 
 const manualVerificationSessions = new Map<string, ManualVerificationSession>();
+
+function normalizeInlineText(input: string | null | undefined) {
+  return (input ?? "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function isPageUnavailableError(error: unknown) {
+  return error instanceof Error && /Target page, context or browser has been closed/i.test(error.message);
+}
+
+function inferStockStatusFromText(input: string) {
+  const marker = input.toLowerCase();
+
+  if (/(out of stock|sold out|无货|售罄|缺货|无库存)/i.test(marker)) {
+    return "OUT_OF_STOCK" satisfies StockStatus;
+  }
+
+  if (/(low stock|only \d+ left|紧张|少量|仅剩|库存低|库存一般)/i.test(marker)) {
+    return "LOW_STOCK" satisfies StockStatus;
+  }
+
+  return "IN_STOCK" satisfies StockStatus;
+}
 
 function parseStorageState(input: string | undefined) {
   const raw = input?.trim();
@@ -84,7 +116,7 @@ function parseCookieHeader(cookieHeader: string, targetUrl: string) {
 function detectVerificationReason(source: DataSource, title: string, visibleText: string, html: string) {
   const marker = `${title}\n${visibleText}\n${html}`.toLowerCase();
 
-  if (/(captcha|verify you are human|robot check|请完成验证|验证码|安全验证)/i.test(marker)) {
+  if (/(captcha|verify you are human|robot check|请完成验证|验证码|安全验证|滑动验证|真人验证)/i.test(marker)) {
     return "页面触发了验证码或人机验证。";
   }
 
@@ -154,6 +186,181 @@ function buildExtraHeaders(source: DataSource) {
   );
 }
 
+async function findVisibleLoadMoreControl(page: Page) {
+  const candidates = [
+    page.getByText("加载更多", { exact: false }),
+    page.getByText("查看更多", { exact: false }),
+    page.getByText("更多商品", { exact: false }),
+    page.getByText("Load More", { exact: false }),
+    page.getByText("Show More", { exact: false }),
+    page.locator(".footer-extra span")
+  ];
+
+  for (const candidate of candidates) {
+    const control = candidate.first();
+
+    if (await control.isVisible().catch(() => false)) {
+      return control;
+    }
+  }
+
+  return null;
+}
+
+async function expandPageContent(page: Page) {
+  const goodsLocator = page.locator(".goods_item");
+  let previousCount = 0;
+  let stagnantRounds = 0;
+
+  for (let round = 0; round < 24; round += 1) {
+    if (page.isClosed()) {
+      return;
+    }
+
+    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "auto" })).catch(() => undefined);
+
+    try {
+      await page.waitForTimeout(300);
+    } catch (error) {
+      if (isPageUnavailableError(error)) {
+        return;
+      }
+
+      throw error;
+    }
+
+    const beforeCount = await goodsLocator.count().catch(() => 0);
+    const loadMore = await findVisibleLoadMoreControl(page);
+
+    if (loadMore) {
+      await loadMore.scrollIntoViewIfNeeded().catch(() => undefined);
+      await loadMore.click({ timeout: 3_000 }).catch(() => undefined);
+      await page.waitForLoadState("networkidle", { timeout: 4_000 }).catch(() => undefined);
+
+      try {
+        await page.waitForTimeout(700);
+      } catch (error) {
+        if (isPageUnavailableError(error)) {
+          return;
+        }
+
+        throw error;
+      }
+    }
+
+    const afterCount = await goodsLocator.count().catch(() => 0);
+
+    if (afterCount > previousCount || afterCount > beforeCount) {
+      previousCount = Math.max(afterCount, beforeCount);
+      stagnantRounds = 0;
+      continue;
+    }
+
+    stagnantRounds += 1;
+
+    if (!loadMore || stagnantRounds >= 2) {
+      break;
+    }
+  }
+
+  if (page.isClosed()) {
+    return;
+  }
+
+  await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "auto" })).catch(() => undefined);
+  await page.waitForTimeout(300).catch(() => undefined);
+}
+
+async function extractProductCards(page: Page): Promise<CapturedProductCard[]> {
+  const cards = await page.evaluate(() => {
+    const normalize = (input: string | null | undefined) => (input ?? "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+    const parsePrice = (input: string) => {
+      const matched = normalize(input).match(/\d+(?:\.\d{1,2})?/);
+      return matched ? Number.parseFloat(matched[0]) : Number.NaN;
+    };
+    const inferStock = (input: string) => {
+      const marker = normalize(input).toLowerCase();
+
+      if (/(out of stock|sold out|无货|售罄|缺货|无库存)/i.test(marker)) {
+        return "OUT_OF_STOCK";
+      }
+
+      if (/(low stock|only \d+ left|紧张|少量|仅剩|库存低|库存一般)/i.test(marker)) {
+        return "LOW_STOCK";
+      }
+
+      return "IN_STOCK";
+    };
+    const readText = (container: Element, selectors: string[]) => {
+      for (const selector of selectors) {
+        const text = normalize(container.querySelector(selector)?.textContent);
+
+        if (text) {
+          return text;
+        }
+      }
+
+      return "";
+    };
+
+    return Array.from(document.querySelectorAll(".goods_item"))
+      .map((card) => {
+        const rawName = readText(card, [".name", ".title", ".goods-name"]);
+        const price = parsePrice(readText(card, [".nowPrice", ".goods-price", ".price"]));
+        const currency = readText(card, [".currency"]) || "CNY";
+        const inventoryText = readText(card, [".stock", ".inventory", ".discounts"]);
+
+        if (!rawName || !Number.isFinite(price) || price <= 0) {
+          return null;
+        }
+
+        const normalizedCurrency = /¥|￥/.test(currency) ? "CNY" : normalize(currency || "CNY");
+        const normalizedInventory = inventoryText || "有货";
+
+        return {
+          rawName,
+          price,
+          currency: normalizedCurrency,
+          inventoryText: normalizedInventory,
+          stockStatus: inferStock(normalizedInventory),
+          sourceLine: normalize(`${rawName} ¥${price} ${normalizedInventory}`)
+        };
+      })
+      .filter((item): item is NonNullable<typeof item> => Boolean(item));
+  });
+
+  const deduped = new Map<string, CapturedProductCard>();
+
+  cards.forEach((card) => {
+    deduped.set(`${card.rawName}__${card.price}__${card.inventoryText}`, {
+      ...card,
+      stockStatus: inferStockStatusFromText(card.inventoryText)
+    });
+  });
+
+  return [...deduped.values()];
+}
+
+async function readVisibleText(page: Page): Promise<string> {
+  const fromBodyInnerText = await page.locator("body").innerText().catch(() => "");
+
+  if (normalizeInlineText(fromBodyInnerText)) {
+    return fromBodyInnerText;
+  }
+
+  const fromBodyTextContent = await page.locator("body").textContent().catch(() => "");
+
+  if (normalizeInlineText(fromBodyTextContent)) {
+    return fromBodyTextContent ?? "";
+  }
+
+  const fromDocument = await page
+    .evaluate(() => document.body?.innerText || document.documentElement?.innerText || document.body?.textContent || "")
+    .catch(() => "");
+
+  return fromDocument ?? "";
+}
+
 async function createBrowserSession(
   source: DataSource,
   task: Pick<CrawlTask, "artifacts"> | undefined,
@@ -205,16 +412,21 @@ async function capturePageState(
   context: BrowserContext,
   page: Page
 ): Promise<BrowserCrawlResult> {
+  await page.waitForLoadState("domcontentloaded", { timeout: 5_000 }).catch(() => undefined);
+
+  if (!page.isClosed()) {
+    await expandPageContent(page);
+  }
+
   if (source.waitSelector.trim()) {
     await page.waitForSelector(source.waitSelector, { timeout: 12_000 }).catch(() => undefined);
   }
 
   await page.waitForLoadState("networkidle", { timeout: 5_000 }).catch(() => undefined);
+  const productCards = await extractProductCards(page);
 
   const html = await page.content();
-  const visibleText =
-    (await page.locator("body").innerText().catch(() => undefined)) ||
-    (await page.evaluate(() => document.body?.innerText ?? ""));
+  const visibleText = await readVisibleText(page);
   const title = await page.title().catch(() => "");
   const screenshot = await page.screenshot({ fullPage: true }).catch(() => undefined);
   const artifacts = await writeCaptureArtifacts(taskId, html, visibleText, screenshot);
@@ -232,7 +444,8 @@ async function capturePageState(
     finalUrl: page.url(),
     requiresVerification: Boolean(verificationReason),
     verificationReason,
-    artifacts
+    artifacts,
+    productCards
   };
 }
 
@@ -371,6 +584,7 @@ export async function saveManualCapture(taskId: string, content: string) {
     title: "人工补充内容",
     finalUrl: "",
     requiresVerification: false,
-    artifacts
+    artifacts,
+    productCards: []
   } satisfies BrowserCrawlResult;
 }

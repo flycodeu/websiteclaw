@@ -23,7 +23,8 @@ import {
   runPlaywrightCapture,
   saveManualCapture,
   startManualVerificationSession,
-  type BrowserCrawlResult
+  type BrowserCrawlResult,
+  type CapturedProductCard
 } from "@/lib/playwright-crawler";
 
 function nowIso() {
@@ -974,6 +975,29 @@ function buildTimeline(items: CrawlTask["timeline"], title: string, detail: stri
   ];
 }
 
+function buildProductFromCapturedCard(card: CapturedProductCard): ProductItem {
+  const category = inferCategory(card.rawName, card.sourceLine);
+  const specLabel = inferSpecLabel(card.rawName, category);
+  const stockStatus = coerceStockStatus(card.stockStatus);
+
+  return {
+    productKey: buildProductKey(category, specLabel),
+    rawName: card.rawName,
+    category,
+    specLabel,
+    price: card.price,
+    currency: card.currency || "CNY",
+    stockStatus,
+    status: inferProductStatus(stockStatus),
+    inventoryText: card.inventoryText || inferInventoryText(card.rawName, card.sourceLine, stockStatus),
+    warrantySupported: inferWarranty(card.sourceLine),
+    isDetected: true,
+    confidence: 0.98,
+    sourceLine: card.sourceLine,
+    updatedAt: nowIso()
+  };
+}
+
 function replaceTaskInState(state: PlatformState, nextTask: CrawlTask) {
   return {
     ...state,
@@ -1036,6 +1060,8 @@ async function processCaptureResult(
     capture.html,
     rawFragments
   );
+  const capturedProducts = capture.productCards.map((item) => buildProductFromCapturedCard(item));
+  const mergedProducts = mergeProductCandidates([...capturedProducts, ...analysis.products]);
   const existingShop = state.published.shops.find((item) => item.sourceId === source.sourceId);
   const previousProducts = existingShop
     ? state.published.shopProducts.filter((item) => item.shopId === existingShop.shopId).map((item) => item.current)
@@ -1049,13 +1075,18 @@ async function processCaptureResult(
     snapshotDate: nowIso().slice(0, 10),
     summary: analysis.summary,
     rawFragments,
-    products: analysis.products,
-    previousDiff: buildChanges(previousProducts, analysis.products),
+    products: mergedProducts,
+    previousDiff: buildChanges(previousProducts, mergedProducts),
     modelLabel: analysis.modelLabel,
     conclusion: analysis.conclusion,
-    flags: analysis.flags
+    flags: uniqueTexts([
+      ...analysis.flags,
+      capture.productCards.length > analysis.products.length
+        ? `页面结构化抓取识别 ${capture.productCards.length} 个商品卡，已补全 AI 漏掉的商品。`
+        : ""
+    ])
   };
-  const requiresManualProductFill = !analysis.isReliable || analysis.products.length === 0;
+  const requiresManualProductFill = mergedProducts.length === 0;
   const usedManualContent = Boolean(options.payload?.manualContent?.trim());
 
   const reviewingTask: CrawlTask = {
@@ -1124,15 +1155,19 @@ async function runTaskPipeline(
 
     return processCaptureResult(state, workingTask, source, capture, aiSettings, { payload });
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "未知异常";
+    const suggestsVerification = /验证码|人机验证|滑动验证|login|sign in|verify/i.test(errorMessage);
     const failedTask: CrawlTask = {
       ...workingTask,
       status: "FAILED",
       updatedAt: nowIso(),
       finishedAt: nowIso(),
-      errorMessage: error instanceof Error ? error.message : "未知异常",
+      errorMessage,
       logSummary: "抓取流程失败。",
-      nextAction: "检查站点地址、浏览器依赖和验证信息后重试。",
-      timeline: buildTimeline(workingTask.timeline, "任务失败", error instanceof Error ? error.message : "未知异常")
+      nextAction: suggestsVerification
+        ? "页面疑似被验证拦截，请启动人工验证后继续抓取。"
+        : "请重试抓取；如果仍失败，需要继续检查页面加载和站点兼容逻辑。",
+      timeline: buildTimeline(workingTask.timeline, "任务失败", errorMessage)
     };
 
     return {
