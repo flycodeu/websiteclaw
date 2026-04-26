@@ -3,12 +3,13 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Database, LayoutDashboard, ListTodo, LogOut } from "lucide-react";
+import { Banknote, Database, LayoutDashboard, ListTodo, LogOut } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "概览", icon: LayoutDashboard },
   { href: "/sources", label: "站点", icon: Database },
-  { href: "/tasks", label: "任务", icon: ListTodo }
+  { href: "/tasks", label: "任务", icon: ListTodo },
+  { href: "/billing", label: "计费", icon: Banknote }
 ] satisfies Array<{ href: Route; label: string; icon: React.ComponentType<{ className?: string }> }>;
 
 export function AdminShell({ email, children }: { email: string; children: React.ReactNode }) {

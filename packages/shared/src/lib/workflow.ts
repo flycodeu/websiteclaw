@@ -405,23 +405,33 @@ export async function deleteSource(sourceId: string) {
 }
 
 export async function clearTasksByStatus(status: TaskStatus) {
-  if (status !== "WAITING_HUMAN" && status !== "FAILED") {
-    throw new Error("仅支持清空待补充验证和失败任务");
+  if (status !== "WAITING_HUMAN" && status !== "REVIEWING" && status !== "FAILED") {
+    throw new Error("仅支持清空待补充验证、待校对和失败任务");
   }
 
   const state = await getPlatformState();
-  const taskIds = state.tasks.filter((task) => task.status === status).map((task) => task.id);
+  const tasksToClear = state.tasks.filter((task) => task.status === status);
+  const taskIds = tasksToClear.map((task) => task.id);
 
   if (taskIds.length === 0) {
     return {
       status,
-      clearedCount: 0
+      clearedCount: 0,
+      clearedTaskIds: [] as string[],
+      clearedReviewCount: 0
     };
   }
 
+  const reviewIdsToClear = new Set(tasksToClear.map((task) => task.reviewId).filter((reviewId): reviewId is string => Boolean(reviewId)));
+  const nextReviews =
+    status === "REVIEWING"
+      ? state.reviews.filter((review) => !reviewIdsToClear.has(review.id) && !taskIds.includes(review.taskId))
+      : state.reviews;
+
   const nextState: PlatformState = {
     ...state,
-    tasks: state.tasks.filter((task) => task.status !== status)
+    tasks: state.tasks.filter((task) => task.status !== status),
+    reviews: nextReviews
   };
 
   await savePlatformState(nextState);
@@ -429,7 +439,9 @@ export async function clearTasksByStatus(status: TaskStatus) {
 
   return {
     status,
-    clearedCount: taskIds.length
+    clearedCount: taskIds.length,
+    clearedTaskIds: taskIds,
+    clearedReviewCount: state.reviews.length - nextReviews.length
   };
 }
 

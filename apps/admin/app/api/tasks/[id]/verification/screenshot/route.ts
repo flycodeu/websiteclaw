@@ -15,7 +15,7 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
     const screenshot = await getManualVerificationSessionScreenshot(id);
 
     if (!screenshot) {
-      return new Response("人工验证会话不存在，请先启动验证工作台。", {
+      return new Response("人工验证会话不存在，请先启动人工验证。", {
         status: 404,
         headers: {
           "Cache-Control": "no-store",

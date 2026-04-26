@@ -308,10 +308,6 @@ function copyResponseHeaders(upstreamHeaders: Headers, options: { rewritten: boo
       return;
     }
 
-    if (normalizedKey === "content-length" && options.rewritten) {
-      return;
-    }
-
     if (
       normalizedKey === "content-security-policy" ||
       normalizedKey === "content-security-policy-report-only" ||
@@ -325,7 +321,11 @@ function copyResponseHeaders(upstreamHeaders: Headers, options: { rewritten: boo
       return;
     }
 
-    if (normalizedKey === "content-encoding" && options.rewritten) {
+    if (
+      normalizedKey === "content-length" ||
+      normalizedKey === "content-encoding" ||
+      normalizedKey === "transfer-encoding"
+    ) {
       return;
     }
 
@@ -391,15 +391,91 @@ function rewriteCssForProxy(css: string, taskId: string, baseUrl: string) {
     });
 }
 
+function isJavaScriptResponse(contentType: string, targetUrl: string) {
+  if (/javascript|ecmascript|module/i.test(contentType)) {
+    return true;
+  }
+
+  try {
+    return /\.m?js$/i.test(new URL(targetUrl).pathname);
+  } catch {
+    return false;
+  }
+}
+
+function rewriteJavaScriptForProxy(script: string, taskId: string, baseUrl: string) {
+  const rewriteSpecifier = (value: string) => rewriteUrlValue(taskId, baseUrl, value);
+
+  return script
+    .replace(/(\bfrom\s*)(['"])([^'"]+)\2/g, (match, prefix: string, quote: string, specifier: string) => {
+      const rewritten = rewriteSpecifier(specifier);
+      return rewritten === specifier ? match : `${prefix}${quote}${rewritten}${quote}`;
+    })
+    .replace(/(\bimport\s*)(?!\()(['"])([^'"]+)\2/g, (match, prefix: string, quote: string, specifier: string) => {
+      const rewritten = rewriteSpecifier(specifier);
+      return rewritten === specifier ? match : `${prefix}${quote}${rewritten}${quote}`;
+    })
+    .replace(/(\bimport\s*\(\s*)(['"])([^'"]+)\2(\s*\))/g, (
+      match,
+      prefix: string,
+      quote: string,
+      specifier: string,
+      suffix: string
+    ) => {
+      const rewritten = rewriteSpecifier(specifier);
+      return rewritten === specifier ? match : `${prefix}${quote}${rewritten}${quote}${suffix}`;
+    })
+    .replace(/(\bnew\s+URL\s*\(\s*)(['"])([^'"]+)\2(\s*,\s*import\.meta\.url\s*\))/g, (
+      match,
+      prefix: string,
+      quote: string,
+      specifier: string,
+      suffix: string
+    ) => {
+      const rewritten = rewriteSpecifier(specifier);
+      return rewritten === specifier ? match : `${prefix}${quote}${rewritten}${quote}${suffix}`;
+    });
+}
+
 function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
   const proxyBase = `/api/tasks/${taskId}/verification/web`;
+  const sessionBase = `/api/tasks/${taskId}/verification/session`;
 
   return `
 <script>
 (() => {
   const proxyBase = ${JSON.stringify(proxyBase)};
+  const sessionBase = ${JSON.stringify(sessionBase)};
   let targetBase = ${JSON.stringify(targetUrl)};
+  const originalFetch = window.fetch.bind(window);
   const skip = (value) => !value || /^(#|javascript:|data:|mailto:|tel:|about:blank)/i.test(String(value).trim());
+  const reportCurrentUrl = (value) => {
+    if (skip(value)) return;
+    try {
+      targetBase = new URL(String(value), targetBase).toString();
+      originalFetch(sessionBase, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentUrl: targetBase }),
+        keepalive: true
+      }).catch(() => {});
+    } catch {}
+  };
+  const syncFromLocation = () => {
+    try {
+      const current = new URL(window.location.href);
+      const nextTarget = current.searchParams.get("target");
+      if (nextTarget && /^https?:\\/\\//i.test(nextTarget)) {
+        const nextUrl = new URL(nextTarget);
+        nextUrl.hash = current.hash;
+        reportCurrentUrl(nextUrl.toString());
+        return;
+      }
+      const nextUrl = new URL(targetBase);
+      nextUrl.hash = current.hash;
+      reportCurrentUrl(nextUrl.toString());
+    } catch {}
+  };
   const toProxy = (value) => {
     if (skip(value)) return value;
     try {
@@ -452,7 +528,7 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
     attributes: true,
     attributeFilter: ["href", "src", "action", "poster", "srcset"]
   });
-  const originalFetch = window.fetch.bind(window);
+  reportCurrentUrl(targetBase);
   window.fetch = (input, init) => {
     try {
       if (typeof input === "string") {
@@ -475,16 +551,20 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
   history.pushState = function(state, title, url) {
     if (url) {
       targetBase = new URL(String(url), targetBase).toString();
+      reportCurrentUrl(targetBase);
       return originalPushState(state, title, toProxy(targetBase));
     }
+    reportCurrentUrl(targetBase);
     return originalPushState(state, title, url);
   };
   const originalReplaceState = history.replaceState.bind(history);
   history.replaceState = function(state, title, url) {
     if (url) {
       targetBase = new URL(String(url), targetBase).toString();
+      reportCurrentUrl(targetBase);
       return originalReplaceState(state, title, toProxy(targetBase));
     }
+    reportCurrentUrl(targetBase);
     return originalReplaceState(state, title, url);
   };
   const originalSubmit = HTMLFormElement.prototype.submit;
@@ -502,6 +582,8 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
       }
     }
   }, true);
+  window.addEventListener("popstate", syncFromLocation);
+  window.addEventListener("hashchange", syncFromLocation);
 })();
 </script>`;
 }
@@ -593,6 +675,7 @@ function buildForwardHeaders(
     headers.set(key, value);
   });
 
+  headers.set("Accept-Encoding", "identity");
   headers.set("Origin", target.origin);
   headers.set("Referer", session.currentUrl || targetUrl);
 
@@ -665,6 +748,19 @@ export async function getEmbeddedVerificationWorkspace(taskId: string) {
     return null;
   }
 
+  session.updatedAt = nowIso();
+  return buildWorkspace(session);
+}
+
+export function updateEmbeddedVerificationCurrentUrl(taskId: string, rawTargetUrl: string) {
+  const session = verificationProxySessions.get(taskId);
+  const currentUrl = clampUrlInput(rawTargetUrl);
+
+  if (!session || !currentUrl) {
+    return null;
+  }
+
+  session.currentUrl = currentUrl;
   session.updatedAt = nowIso();
   return buildWorkspace(session);
 }
@@ -779,6 +875,18 @@ export async function handleEmbeddedVerificationProxyRequest(taskId: string, req
     return new Response(rewrittenCss, {
       status: upstreamResponse.status,
       headers: headersForCss
+    });
+  }
+
+  if (isJavaScriptResponse(contentType, targetUrl)) {
+    const script = await upstreamResponse.text();
+    const rewrittenScript = rewriteJavaScriptForProxy(script, taskId, targetUrl);
+    const headersForScript = copyResponseHeaders(upstreamResponse.headers, { rewritten: true });
+    headersForScript.set("Content-Type", "text/javascript; charset=utf-8");
+
+    return new Response(rewrittenScript, {
+      status: upstreamResponse.status,
+      headers: headersForScript
     });
   }
 

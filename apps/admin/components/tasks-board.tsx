@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type MouseEvent as ReactMouseEvent, useEffect, useMemo, useState, useTransition } from "react";
-import { CheckCircle2, ExternalLink, FileSearch2, RefreshCcw, Search, ShieldAlert, XCircle } from "lucide-react";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import { CheckCircle2, FileSearch2, Search, ShieldAlert, XCircle } from "lucide-react";
 import { formatDateLabel, taskStatusLabels, verificationMethodLabels } from "@shop-claw/shared/labels";
+import {
+  MANUAL_VERIFICATION_CHROME_COMMAND,
+  buildManualVerificationChromeSetupHint
+} from "@shop-claw/shared/manual-verification";
 import { CrawlTask, TaskStatus, VerificationMethod } from "@shop-claw/shared/types";
 
 interface TasksBoardProps {
@@ -57,6 +61,7 @@ const columns = [
 const defaultForm: ContinueFormState = {
   manualContent: ""
 };
+const manualVerificationSetupHint = buildManualVerificationChromeSetupHint();
 
 async function readResponse<T>(response: Response) {
   const payload = (await response.json()) as { message?: string; data?: T };
@@ -81,7 +86,7 @@ function verificationLabel(method?: VerificationMethod) {
 
 function verificationWorkspaceLabel(pageState?: CrawlTask["pageState"]) {
   if (pageState === "VERIFYING") {
-    return "验证会话进行中";
+    return "人工验证进行中";
   }
 
   if (pageState === "RESUMED") {
@@ -104,7 +109,7 @@ function verificationWorkspaceTone(pageState?: CrawlTask["pageState"]) {
 }
 
 function isClearableStatus(status: TaskStatus) {
-  return status === "WAITING_HUMAN" || status === "FAILED";
+  return status === "WAITING_HUMAN" || status === "REVIEWING" || status === "FAILED";
 }
 
 export function TasksBoard({ tasks }: TasksBoardProps) {
@@ -116,10 +121,6 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
   const [workspace, setWorkspace] = useState<VerificationWorkspaceState | null>(null);
   const [previewNonce, setPreviewNonce] = useState(0);
-  const [pointerMode, setPointerMode] = useState<"click" | "drag">("click");
-  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
-  const [manualInput, setManualInput] = useState("");
-  const [manualKey, setManualKey] = useState("Enter");
   const [pending, startTransition] = useTransition();
 
   const filteredTasks = useMemo(() => {
@@ -139,7 +140,8 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
     });
   }, [keyword, tasks]);
 
-  const activeTask = filteredTasks.find((task) => task.id === activeTaskId) ?? tasks.find((task) => task.id === activeTaskId) ?? null;
+  const activeTask =
+    filteredTasks.find((task) => task.id === activeTaskId) ?? tasks.find((task) => task.id === activeTaskId) ?? null;
 
   useEffect(() => {
     if (!activeTaskId) {
@@ -166,10 +168,6 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
     setWorkspace(null);
     setWorkspaceMessage("");
     setPreviewNonce(0);
-    setPointerMode("click");
-    setDragStart(null);
-    setManualInput("");
-    setManualKey("Enter");
 
     if (!activeTask || activeTask.status !== "WAITING_HUMAN") {
       return;
@@ -194,7 +192,7 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
         }
       } catch (error) {
         if (!cancelled && !silent) {
-          setWorkspaceMessage(error instanceof Error ? error.message : "读取验证工作台失败");
+          setWorkspaceMessage(error instanceof Error ? error.message : "读取人工验证状态失败");
         }
       }
     }
@@ -273,79 +271,12 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
 
         router.refresh();
       } catch (error) {
-        setStatusText(error instanceof Error ? error.message : "人工验证处理失败");
-      }
-    });
-  }
+        const message = error instanceof Error ? error.message : "人工验证处理失败";
+        setStatusText(message);
 
-  function readPointerPosition(event: ReactMouseEvent<HTMLImageElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-
-    return {
-      x: clampValue((event.clientX - rect.left) / rect.width, 0, 1),
-      y: clampValue((event.clientY - rect.top) / rect.height, 0, 1)
-    };
-  }
-
-  function handlePreviewClick(event: ReactMouseEvent<HTMLImageElement>) {
-    if (!activeTask || !workspace?.active || pointerMode !== "click") {
-      return;
-    }
-
-    const point = readPointerPosition(event);
-    void handleManualInteraction(activeTask.id, { type: "click", ...point });
-  }
-
-  function handlePreviewMouseDown(event: ReactMouseEvent<HTMLImageElement>) {
-    if (pointerMode !== "drag") {
-      return;
-    }
-
-    setDragStart(readPointerPosition(event));
-  }
-
-  function handlePreviewMouseUp(event: ReactMouseEvent<HTMLImageElement>) {
-    if (!activeTask || !workspace?.active || pointerMode !== "drag" || !dragStart) {
-      return;
-    }
-
-    const point = readPointerPosition(event);
-    setDragStart(null);
-    void handleManualInteraction(activeTask.id, {
-      type: "drag",
-      fromX: dragStart.x,
-      fromY: dragStart.y,
-      toX: point.x,
-      toY: point.y
-    });
-  }
-
-  async function handleManualInteraction(
-    taskId: string,
-    payload:
-      | { type: "back" | "forward" | "reload" | "wait"; timeoutMs?: number }
-      | { type: "scroll"; deltaY: number }
-      | { type: "click"; x: number; y: number }
-      | { type: "drag"; fromX: number; fromY: number; toX: number; toY: number }
-      | { type: "type"; text: string }
-      | { type: "press"; key: string }
-  ) {
-    setStatusText("");
-    setWorkspaceMessage("");
-
-    startTransition(async () => {
-      try {
-        const response = await fetch(`/api/tasks/${taskId}/verification/action`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        const result = await readResponse(response);
-        setStatusText(result.message);
-        setPreviewNonce((current) => current + 1);
-        await refreshWorkspace(taskId, true).catch(() => undefined);
-      } catch (error) {
-        setStatusText(error instanceof Error ? error.message : "人工验证操作失败");
+        if (action === "start") {
+          setWorkspaceMessage(message);
+        }
       }
     });
   }
@@ -402,7 +333,7 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
     });
   }
 
-  function clearTasks(status: Extract<TaskStatus, "WAITING_HUMAN" | "FAILED">, title: string) {
+  function clearTasks(status: Extract<TaskStatus, "WAITING_HUMAN" | "REVIEWING" | "FAILED">, title: string) {
     if (!window.confirm(`确认清空“${title}”中的全部任务吗？`)) {
       return;
     }
@@ -430,11 +361,11 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
     });
   }
 
+  const currentUrl = workspace?.currentUrl || activeTask?.currentUrl || activeTask?.rawUrl || "";
   const screenshotUrl =
-    activeTask && workspace?.active
+    activeTask && workspace?.active && !workspace?.embedUrl
       ? `/api/tasks/${activeTask.id}/verification/screenshot?ts=${encodeURIComponent(String(previewNonce))}`
       : null;
-  const currentUrl = workspace?.currentUrl || activeTask?.currentUrl || activeTask?.rawUrl || "";
 
   return (
     <div className="space-y-6">
@@ -506,7 +437,9 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                     <button
                       type="button"
                       disabled={pending || columnTasks.length === 0}
-                      onClick={() => clearTasks(column.status as Extract<TaskStatus, "WAITING_HUMAN" | "FAILED">, column.title)}
+                      onClick={() =>
+                        clearTasks(column.status as Extract<TaskStatus, "WAITING_HUMAN" | "REVIEWING" | "FAILED">, column.title)
+                      }
                       className="rounded-full border border-[#d8cfbf] bg-white/92 px-3 py-1.5 text-xs text-slate-600 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       清空
@@ -550,7 +483,7 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                             onClick={() => setActiveTaskId(task.id)}
                             className="rounded-full bg-[#355344] px-4 py-2.5 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
                           >
-                            进入验证工作台
+                            进入人工验证
                           </button>
                         ) : null}
 
@@ -598,7 +531,7 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
             role="dialog"
             aria-modal="true"
             onClick={(event) => event.stopPropagation()}
-            className="flex max-h-[94vh] w-full max-w-[1420px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
+            className="flex max-h-[94vh] w-full max-w-[1180px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
           >
             <div className="flex items-start justify-between gap-4 border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
               <div className="min-w-0">
@@ -618,26 +551,11 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
               </button>
             </div>
 
-            <div className="grid min-h-0 flex-1 gap-0 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+            <div className="grid min-h-0 flex-1 gap-0 xl:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
               <aside className="min-h-0 overflow-y-auto border-b border-[#e2d8c9] px-5 py-5 xl:border-r xl:border-b-0 sm:px-6">
                 <div className="rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">当前地址</div>
-                      <div className="mt-2 break-all text-sm leading-6 text-slate-700">{currentUrl}</div>
-                    </div>
-                    {currentUrl ? (
-                      <a
-                        href={currentUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#d8cfbf] bg-white px-3 py-2 text-xs text-[#355344]"
-                      >
-                        打开页面
-                        <ExternalLink className="h-3.5 w-3.5" />
-                      </a>
-                    ) : null}
-                  </div>
+                  <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">当前地址</div>
+                  <div className="mt-2 break-all text-sm leading-6 text-slate-700">{currentUrl}</div>
                 </div>
 
                 <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
@@ -653,228 +571,132 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
 
                 <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
                   <div className="flex items-center justify-between gap-3">
-                    <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">工作台状态</div>
+                    <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">验证状态</div>
                     <div className={`rounded-full border px-3 py-1 text-xs ${verificationWorkspaceTone(activeTask.pageState)}`}>
                       {verificationWorkspaceLabel(activeTask.pageState)}
                     </div>
                   </div>
 
-                  <div className="mt-3 rounded-[20px] border border-[#e2d8c9] bg-[#faf7f1] px-4 py-4 text-sm leading-6 text-slate-600">
-                    启动工作台后，右侧会显示真实浏览器页面的实时截图。可以直接点击截图、拖拽滑块、输入文本并发送按键。
+                  <div className="mt-3 text-sm leading-6 text-slate-600">
+                    {workspace?.embedUrl
+                      ? "当前任务已切换到内嵌人工验证工作台。请直接在右侧页面中完成验证码、登录或页面放行。"
+                      : workspace?.active
+                        ? "当前 Chrome 验证会话已连接。请直接在该 Chrome 窗口中完成验证码、登录或页面放行。"
+                      : `尚未连接可调试的 Chrome 会话。${manualVerificationSetupHint}`}
                   </div>
+
+                  {workspace?.lastUpdatedAt ? (
+                    <div className="mt-3 text-xs text-slate-500">最近状态更新：{formatDateLabel(workspace.lastUpdatedAt)}</div>
+                  ) : null}
 
                   {workspace?.stale ? (
                     <div className="mt-3 rounded-[18px] border border-[#efddad] bg-[#fff7e0] px-3 py-3 text-sm leading-6 text-[#7a5f14]">
-                      之前的验证会话已经断开。重新启动后会按当前地址恢复工作台。
+                      之前的人工验证会话已断开，请重新启动人工验证；如果验证已经完成，也可以直接点击下方“完成验证并继续抓取”，系统会尝试恢复当前会话并继续读取页面。
+                    </div>
+                  ) : null}
+
+                  {workspaceMessage ? (
+                    <div className="mt-3 rounded-[18px] border border-[#d8cfbf] bg-[#faf7f1] px-3 py-3 text-sm leading-6 text-slate-600">
+                      {workspaceMessage}
                     </div>
                   ) : null}
                 </div>
               </aside>
 
               <div className="min-h-0 overflow-y-auto px-5 py-5 sm:px-6">
-                <section className="overflow-hidden rounded-[28px] border border-[#1a3031] bg-[radial-gradient(circle_at_top,#2d4f47_0%,#18222c_68%)] shadow-[0_20px_60px_rgba(24,34,44,0.18)]">
-                  <div className="border-b border-white/10 px-5 py-4 text-white sm:px-6">
-                    <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
-                      <div className="min-w-0">
-                        <div className="text-[11px] uppercase tracking-[0.16em] text-white/56">Verification Workspace</div>
-                        <h3 className="mt-2 text-2xl font-semibold text-white">人工验证工作台</h3>
-                        <p className="mt-2 max-w-2xl text-sm leading-6 text-white/72">
-                          仅在页面真正触发验证或自动抓取异常时启用。完成验证后，任务会继续抓取并自动进入 AI 聚合与商品校对。
-                        </p>
+                <section className="rounded-[28px] border border-[#d8cfbf] bg-white/84 p-5 shadow-[0_16px_34px_rgba(102,88,64,0.08)]">
+                  <div className="inline-flex rounded-full border border-[#d8cfbf] bg-[#faf7f1] px-3 py-1 text-xs text-slate-500">
+                    Manual Verification
+                  </div>
+                  <h3 className="mt-3 text-2xl font-semibold text-[#18222c]">处理人工验证</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    {workspace?.embedUrl
+                      ? "右侧验证页可直接交互，完成验证码、登录或页面放行后，点击“完成验证并继续抓取”即可继续；当前地址会随页面跳转自动同步。"
+                      : "连接当前验证会话后，请在对应页面中完成验证码、登录或页面放行；完成后返回这里点击“完成验证并继续抓取”。"}
+                  </p>
+
+                  {workspace?.embedUrl ? (
+                    <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-[#f6f1e7] p-4 text-sm leading-6 text-slate-700">
+                      当前任务正在使用内嵌人工验证页。若页面再次跳转，左侧“当前地址”会自动更新，并作为后续继续抓取的目标地址。
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-[#f6f1e7] p-4 text-sm leading-6 text-slate-700">
+                        <div>{manualVerificationSetupHint}</div>
+                        <code className="mt-3 block rounded-[16px] bg-[#18222c] px-4 py-3 font-mono text-xs text-[#f5efe3]">
+                          {MANUAL_VERIFICATION_CHROME_COMMAND}
+                        </code>
                       </div>
 
-                      <div className="rounded-full border border-white/12 bg-white/8 px-3 py-1.5 text-xs text-white/72">
-                        {workspace?.active ? "会话已连接" : "等待启动"}
+                      <div className="mt-5 grid gap-3 rounded-[22px] border border-[#e2d8c9] bg-[#faf7f1] p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#355344] text-xs text-white">1</div>
+                          <div className="text-sm leading-6 text-slate-700">关闭现有 Chrome 窗口，并按上面的命令重新启动一个可调试的 Chrome。</div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#355344] text-xs text-white">2</div>
+                          <div className="text-sm leading-6 text-slate-700">点击“启动人工验证”，让系统附着到当前验证会话。</div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#355344] text-xs text-white">3</div>
+                          <div className="text-sm leading-6 text-slate-700">完成验证并确认页面放行后，返回后台点击“完成验证并继续抓取”。</div>
+                        </div>
                       </div>
-                    </div>
+                    </>
+                  )}
+
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => handleVerificationAction(activeTask.id, "start")}
+                      className="rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
+                    >
+                      {workspace?.embedUrl ? "刷新人工验证页面" : workspace?.active ? "重新聚焦当前 Chrome" : "启动人工验证"}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={pending || (!workspace?.active && activeTask.pageState !== "VERIFYING")}
+                      onClick={() => handleVerificationAction(activeTask.id, "complete")}
+                      className="rounded-full border border-[#355344]/15 bg-[#eef4e8] px-5 py-3 text-sm text-[#355344] disabled:opacity-50"
+                    >
+                      完成验证并继续抓取
+                    </button>
+                  </div>
+                </section>
+
+                <section className="mt-4 overflow-hidden rounded-[28px] border border-[#1a3031] bg-[radial-gradient(circle_at_top,#2d4f47_0%,#18222c_68%)] shadow-[0_20px_60px_rgba(24,34,44,0.18)]">
+                  <div className="border-b border-white/10 px-5 py-4 text-white sm:px-6">
+                    <div className="text-[11px] uppercase tracking-[0.16em] text-white/56">Live Preview</div>
+                    <h3 className="mt-2 text-xl font-semibold text-white">
+                      {workspace?.embedUrl ? "人工验证页面" : "当前验证页预览"}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-white/72">
+                      {workspace?.embedUrl
+                        ? "可以直接在下方页面中完成验证；页面跳转后左侧当前地址会自动同步。"
+                        : "这里会显示当前验证页的实时预览；如需操作，请在已连接的验证会话中完成。"}
+                    </p>
                   </div>
 
-                  <div className="space-y-5 px-5 py-5 sm:px-6">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <button
-                        type="button"
-                        disabled={pending}
-                        onClick={() => handleVerificationAction(activeTask.id, "start")}
-                        className="rounded-full bg-[#f2d48f] px-5 py-3 text-sm font-medium text-[#18222c] shadow-[0_12px_24px_rgba(242,212,143,0.18)] disabled:opacity-60"
-                      >
-                        {workspace?.active ? "恢复验证工作台" : "启动验证工作台"}
-                      </button>
-                      <button
-                        type="button"
-                        disabled={pending || !workspace?.active}
-                        onClick={() => setPreviewNonce((current) => current + 1)}
-                        className="rounded-full border border-white/12 bg-white/10 px-5 py-3 text-sm text-white disabled:opacity-50"
-                      >
-                        <span className="inline-flex items-center gap-2">
-                          <RefreshCcw className="h-4 w-4" />
-                          刷新截图
-                        </span>
-                      </button>
-                      <button
-                        type="button"
-                        disabled={pending || !workspace?.active}
-                        onClick={() => handleVerificationAction(activeTask.id, "complete")}
-                        className="rounded-full border border-white/12 bg-white/10 px-5 py-3 text-sm text-white disabled:opacity-50"
-                      >
-                        完成验证并继续抓取
-                      </button>
-                      {currentUrl ? (
-                        <a
-                          href={currentUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="rounded-full border border-white/12 bg-white/10 px-5 py-3 text-sm text-white"
-                        >
-                          <span className="inline-flex items-center gap-2">
-                            <ExternalLink className="h-4 w-4" />
-                            打开当前页面
-                          </span>
-                        </a>
-                      ) : null}
-                    </div>
-
-                    <div className="grid gap-3 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,0.38fr)]">
-                      <div className="rounded-[20px] border border-white/10 bg-white/6 p-4">
-                        <div className="text-[11px] uppercase tracking-[0.14em] text-white/56">操作方式</div>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          <button
-                            type="button"
-                            disabled={pending || !workspace?.active}
-                            onClick={() => {
-                              setPointerMode("click");
-                              setDragStart(null);
-                            }}
-                            className={`rounded-full px-4 py-2 text-sm ${
-                              pointerMode === "click"
-                                ? "border border-[#f2d48f] bg-[#f2d48f] text-[#18222c]"
-                                : "border border-white/12 bg-white/10 text-white"
-                            } disabled:opacity-50`}
-                          >
-                            点击模式
-                          </button>
-                          <button
-                            type="button"
-                            disabled={pending || !workspace?.active}
-                            onClick={() => {
-                              setPointerMode("drag");
-                              setDragStart(null);
-                            }}
-                            className={`rounded-full px-4 py-2 text-sm ${
-                              pointerMode === "drag"
-                                ? "border border-[#f2d48f] bg-[#f2d48f] text-[#18222c]"
-                                : "border border-white/12 bg-white/10 text-white"
-                            } disabled:opacity-50`}
-                          >
-                            拖拽模式
-                          </button>
-                        </div>
-                        <div className="mt-3 text-sm leading-6 text-white/70">
-                          {pointerMode === "click"
-                            ? "点击截图即可在真实页面中点击对应位置。"
-                            : dragStart
-                              ? "已记录拖拽起点，松开鼠标后会发送拖拽操作。"
-                              : "按下并拖动截图可处理滑块或拖拽验证。"}
-                        </div>
+                  <div className="bg-[#0d151d] p-4 sm:p-5">
+                    {workspace?.embedUrl ? (
+                      <iframe
+                        src={workspace.embedUrl}
+                        title="人工验证页面"
+                        className="h-[72vh] w-full rounded-[20px] border border-white/10 bg-white"
+                      />
+                    ) : screenshotUrl ? (
+                      <img
+                        key={screenshotUrl}
+                        src={screenshotUrl}
+                        alt="当前验证页预览"
+                        className="max-h-[72vh] w-full rounded-[20px] border border-white/10 bg-[#111a23] object-contain"
+                      />
+                    ) : (
+                      <div className="flex h-[58vh] items-center justify-center rounded-[20px] border border-dashed border-white/12 px-8 text-center text-sm text-white/54">
+                        点击“启动人工验证”后，这里会显示当前验证页的实时预览。
                       </div>
-
-                      <div className="rounded-[20px] border border-white/10 bg-white/6 p-4">
-                        <div className="text-[11px] uppercase tracking-[0.14em] text-white/56">快捷操作</div>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          <ControlButton disabled={pending || !workspace?.active} label="返回" onClick={() => void handleManualInteraction(activeTask.id, { type: "back" })} />
-                          <ControlButton disabled={pending || !workspace?.active} label="前进" onClick={() => void handleManualInteraction(activeTask.id, { type: "forward" })} />
-                          <ControlButton disabled={pending || !workspace?.active} label="刷新" onClick={() => void handleManualInteraction(activeTask.id, { type: "reload" })} />
-                          <ControlButton disabled={pending || !workspace?.active} label="上滚" onClick={() => void handleManualInteraction(activeTask.id, { type: "scroll", deltaY: -620 })} />
-                          <ControlButton disabled={pending || !workspace?.active} label="下滚" onClick={() => void handleManualInteraction(activeTask.id, { type: "scroll", deltaY: 620 })} />
-                          <ControlButton disabled={pending || !workspace?.active} label="等待 2 秒" onClick={() => void handleManualInteraction(activeTask.id, { type: "wait", timeoutMs: 2000 })} />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="grid gap-3 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,0.38fr)]">
-                      <div className="rounded-[20px] border border-white/10 bg-white/6 p-4">
-                        <div className="text-[11px] uppercase tracking-[0.14em] text-white/56">发送文本</div>
-                        <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                          <input
-                            value={manualInput}
-                            onChange={(event) => setManualInput(event.target.value)}
-                            placeholder="先点击输入框，再发送文本"
-                            className="min-w-0 flex-1 rounded-full border border-white/12 bg-white/10 px-4 py-3 text-sm text-white outline-none placeholder:text-white/36"
-                          />
-                          <button
-                            type="button"
-                            disabled={pending || !workspace?.active || !manualInput.trim()}
-                            onClick={() => void handleManualInteraction(activeTask.id, { type: "type", text: manualInput.trim() })}
-                            className="rounded-full border border-white/12 bg-white/10 px-5 py-3 text-sm text-white disabled:opacity-50"
-                          >
-                            发送文本
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="rounded-[20px] border border-white/10 bg-white/6 p-4">
-                        <div className="text-[11px] uppercase tracking-[0.14em] text-white/56">发送按键</div>
-                        <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                          <select
-                            value={manualKey}
-                            onChange={(event) => setManualKey(event.target.value)}
-                            className="min-w-0 flex-1 rounded-full border border-white/12 bg-white/10 px-4 py-3 text-sm text-white outline-none"
-                          >
-                            {["Enter", "Tab", "Escape", "Space", "Backspace", "ArrowUp", "ArrowDown"].map((item) => (
-                              <option key={item} value={item} className="text-[#18222c]">
-                                {item}
-                              </option>
-                            ))}
-                          </select>
-                          <button
-                            type="button"
-                            disabled={pending || !workspace?.active}
-                            onClick={() => void handleManualInteraction(activeTask.id, { type: "press", key: manualKey })}
-                            className="rounded-full border border-white/12 bg-white/10 px-5 py-3 text-sm text-white disabled:opacity-50"
-                          >
-                            发送按键
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    {workspaceMessage ? (
-                      <div className="rounded-[20px] border border-white/10 bg-white/10 px-4 py-3 text-sm text-white/78">
-                        {workspaceMessage}
-                      </div>
-                    ) : null}
-
-                    <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#0f171f]">
-                      {screenshotUrl ? (
-                        <div className="relative bg-[#0f171f]">
-                          <img
-                            src={screenshotUrl}
-                            alt={`${activeTask.sourceName} 人工验证截图`}
-                            className={`block max-h-[72vh] w-full object-contain ${
-                              pointerMode === "drag" ? "cursor-crosshair" : "cursor-pointer"
-                            }`}
-                            draggable={false}
-                            onClick={handlePreviewClick}
-                            onMouseDown={handlePreviewMouseDown}
-                            onMouseUp={handlePreviewMouseUp}
-                            onMouseLeave={() => setDragStart(null)}
-                          />
-
-                          <div className="pointer-events-none absolute right-3 top-3 rounded-full border border-white/12 bg-[#101923]/78 px-3 py-1.5 text-xs text-white/72">
-                            {pointerMode === "drag" ? "拖拽模式" : "点击模式"}
-                          </div>
-
-                          {dragStart ? (
-                            <div className="pointer-events-none absolute left-3 top-3 rounded-full border border-[#f2d48f]/60 bg-[#1c2a2d]/84 px-3 py-1.5 text-xs text-[#f7dfab]">
-                              已记录拖拽起点
-                            </div>
-                          ) : null}
-                        </div>
-                      ) : (
-                        <div className="flex h-[72vh] items-center justify-center px-8 text-center text-sm text-white/54">
-                          点击“启动验证工作台”后，这里会显示实时页面截图。
-                        </div>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </section>
 
@@ -883,7 +705,7 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                     自动读取仍失败时，改用人工整理文本兜底
                   </summary>
                   <p className="mt-3 text-sm leading-6 text-slate-600">
-                    如果站点经过嵌入验证后仍然无法被自动读取，可以直接贴入整理后的页面文本，系统将据此继续生成待校对商品。
+                    如果站点完成人工验证后仍然无法被自动读取，可以直接贴入整理后的页面文本，系统将据此继续生成待校对商品。
                   </p>
 
                   <label className="mt-4 grid gap-2 text-sm text-slate-700">
@@ -930,23 +752,6 @@ function TaskTag({ label }: { label: string }) {
   return <span className="rounded-full border border-[#d8cfbf] bg-[#faf7f1] px-3 py-1.5 text-xs text-slate-600">{label}</span>;
 }
 
-function ControlButton({ disabled, label, onClick }: { disabled: boolean; label: string; onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      disabled={disabled}
-      onClick={onClick}
-      className="rounded-full border border-white/12 bg-white/10 px-4 py-2 text-sm text-white disabled:opacity-50"
-    >
-      {label}
-    </button>
-  );
-}
-
 function formatTokenCount(value: number) {
   return new Intl.NumberFormat("zh-CN").format(value);
-}
-
-function clampValue(value: number, minimum: number, maximum: number) {
-  return Math.min(Math.max(value, minimum), maximum);
 }

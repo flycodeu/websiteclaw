@@ -8,6 +8,7 @@
     ".": "./src/index.ts",
     "./types": "./src/lib/types.ts",
     "./labels": "./src/lib/labels.ts",
+    "./manual-verification": "./src/lib/manual-verification.ts",
     "./response": "./src/lib/response.ts",
     "./store": "./src/lib/store.ts",
     "./workflow": "./src/lib/workflow.ts"

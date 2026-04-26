@@ -6,19 +6,20 @@
       "name": "创富俱乐部",
       "url": "https://makerich.club/",
       "status": "OPEN",
-      "lastCrawledAt": "2026-04-25T06:43:43.533Z",
+      "lastCrawledAt": "2026-04-26T10:26:30.992Z",
       "productCount": 10,
       "inStockCount": 7,
       "lowStockCount": 0,
       "outOfStockCount": 3,
-      "lowestPrice": 0.57,
+      "lowestPrice": 0.62,
       "categories": [
         "CHATGPT",
         "GEMINI",
+        "GROK",
         "OTHER"
       ],
-      "recentChangeCount": 10,
-      "runCount": 1
+      "recentChangeCount": 12,
+      "runCount": 2
     },
     {
       "shopId": "shop_src_7ba51843",
@@ -54,18 +55,38 @@
         "rawName": "[普号] ChatGPT > 长效微软邮箱",
         "category": "CHATGPT",
         "specLabel": "普号_长效微软邮箱",
-        "price": 0.57,
+        "price": 0.62,
         "currency": "CNY",
         "stockStatus": "IN_STOCK",
         "status": "ON_SALE",
-        "inventoryText": "库存：752",
+        "inventoryText": "库存：556",
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥0.57 [普号] ChatGPT > 长效微软邮箱 库存：752 销量：3030",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "[普号] ChatGPT > 长效微软邮箱",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "rawName": "[普号] ChatGPT > 长效微软邮箱",
+          "category": "CHATGPT",
+          "specLabel": "普号_长效微软邮箱",
+          "price": 0.62,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：556",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "[普号] ChatGPT > 长效微软邮箱"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -99,7 +120,7 @@
         "rawName": "ChatGPT Plus 代充｜自助充值｜24小时充值",
         "category": "CHATGPT",
         "specLabel": "PLUS_代充_自助充值_24小时充值",
-        "price": 21.85,
+        "price": 23.75,
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
@@ -107,10 +128,30 @@
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥21.85 ChatGPT Plus 代充｜自助充值｜24小时充值 库存：0 销量：11050",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "rawName": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_代充_自助充值_24小时充值",
+          "price": 23.75,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "ChatGPT Plus 代充｜自助充值｜24小时充值"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -144,7 +185,7 @@
         "rawName": "ChatGPT Plus独享账号 全功能独享",
         "category": "CHATGPT",
         "specLabel": "PLUS独享账号_全功能独享",
-        "price": 23,
+        "price": 25,
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
@@ -152,10 +193,30 @@
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥23 ChatGPT Plus独享账号 全功能独享 库存：0 销量：3052",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "ChatGPT Plus独享账号 全功能独享",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+          "rawName": "ChatGPT Plus独享账号 全功能独享",
+          "category": "CHATGPT",
+          "specLabel": "PLUS独享账号_全功能独享",
+          "price": 25,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "ChatGPT Plus独享账号 全功能独享"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -189,18 +250,38 @@
         "rawName": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
         "category": "CHATGPT",
         "specLabel": "PRO_20X充值_200美元_PRO代充",
-        "price": 230,
+        "price": 275,
         "currency": "CNY",
         "stockStatus": "IN_STOCK",
         "status": "ON_SALE",
-        "inventoryText": "库存：15",
+        "inventoryText": "库存：45",
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥230 ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 库存：15 销量：1041",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "rawName": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+          "category": "CHATGPT",
+          "specLabel": "PRO_20X充值_200美元_PRO代充",
+          "price": 275,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：45",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -234,18 +315,38 @@
         "rawName": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
         "category": "CHATGPT",
         "specLabel": "PRO_5X_充值_100美元_PRO代充",
-        "price": 138,
+        "price": 175,
         "currency": "CNY",
         "stockStatus": "IN_STOCK",
         "status": "ON_SALE",
-        "inventoryText": "库存：97",
+        "inventoryText": "库存：77",
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥138 ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 库存：97 销量：2694",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "rawName": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+          "category": "CHATGPT",
+          "specLabel": "PRO_5X_充值_100美元_PRO代充",
+          "price": 175,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：77",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -279,18 +380,38 @@
         "rawName": "【美区高质量老号】Gemini Pro 年卡",
         "category": "GEMINI",
         "specLabel": "美区高质量老号_PRO_年卡",
-        "price": 20.7,
+        "price": 22.5,
         "currency": "CNY",
         "stockStatus": "IN_STOCK",
         "status": "ON_SALE",
-        "inventoryText": "库存：20",
+        "inventoryText": "库存：89",
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥20.7 【美区高质量老号】Gemini Pro 年卡 库存：20 销量：870",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "【美区高质量老号】Gemini Pro 年卡",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+          "rawName": "【美区高质量老号】Gemini Pro 年卡",
+          "category": "GEMINI",
+          "specLabel": "美区高质量老号_PRO_年卡",
+          "price": 22.5,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：89",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "【美区高质量老号】Gemini Pro 年卡"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -316,6 +437,96 @@
     {
       "shopId": "shop_src_74a11226",
       "sourceId": "src_74a11226",
+      "productKey": "GROK__AI_账号_稳定普号_长效邮箱",
+      "category": "GROK",
+      "specLabel": "AI_账号_稳定普号_长效邮箱",
+      "current": {
+        "productKey": "GROK__AI_账号_稳定普号_长效邮箱",
+        "rawName": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+        "category": "GROK",
+        "specLabel": "AI_账号_稳定普号_长效邮箱",
+        "price": 1.25,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：5",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "GROK__AI_账号_稳定普号_长效邮箱",
+          "rawName": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "category": "GROK",
+          "specLabel": "AI_账号_稳定普号_长效邮箱",
+          "price": 1.25,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：5",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "Grok AI 账号 | Grok稳定普号 | 长效邮箱"
+        }
+      ]
+    },
+    {
+      "shopId": "shop_src_74a11226",
+      "sourceId": "src_74a11226",
+      "productKey": "GROK__SUPER_独享账号_30美金订阅成品号",
+      "category": "GROK",
+      "specLabel": "SUPER_独享账号_30美金订阅成品号",
+      "current": {
+        "productKey": "GROK__SUPER_独享账号_30美金订阅成品号",
+        "rawName": "SuperGrok 独享账号 | 30美金订阅成品号",
+        "category": "GROK",
+        "specLabel": "SUPER_独享账号_30美金订阅成品号",
+        "price": 50,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "SuperGrok 独享账号 | 30美金订阅成品号",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "GROK__SUPER_独享账号_30美金订阅成品号",
+          "rawName": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "category": "GROK",
+          "specLabel": "SUPER_独享账号_30美金订阅成品号",
+          "price": 50,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "SuperGrok 独享账号 | 30美金订阅成品号"
+        }
+      ]
+    },
+    {
+      "shopId": "shop_src_74a11226",
+      "sourceId": "src_74a11226",
       "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
       "category": "OTHER",
       "specLabel": "稳定老号_GOOGLE_普号_美区老号",
@@ -324,18 +535,38 @@
         "rawName": "【稳定老号】Google 普号｜美区老号",
         "category": "OTHER",
         "specLabel": "稳定老号_GOOGLE_普号_美区老号",
-        "price": 6.9,
+        "price": 7.5,
         "currency": "CNY",
-        "stockStatus": "OUT_OF_STOCK",
-        "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：190",
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥6.9 【稳定老号】Google 普号｜美区老号 库存：0 销量：597",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "【稳定老号】Google 普号｜美区老号",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "rawName": "【稳定老号】Google 普号｜美区老号",
+          "category": "OTHER",
+          "specLabel": "稳定老号_GOOGLE_普号_美区老号",
+          "price": 7.5,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：190",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "【稳定老号】Google 普号｜美区老号"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -373,14 +604,34 @@
         "currency": "CNY",
         "stockStatus": "IN_STOCK",
         "status": "ON_SALE",
-        "inventoryText": "库存：38",
+        "inventoryText": "库存：7",
         "warrantySupported": false,
         "isDetected": true,
         "confidence": 0.9,
-        "sourceLine": "¥40 Google AI Ultra 250美元订阅 库存：38 销量：355",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "sourceLine": "Google AI Ultra 250美元订阅",
+        "updatedAt": "2026-04-26T10:26:29.887Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+          "rawName": "Google AI Ultra 250美元订阅",
+          "category": "OTHER",
+          "specLabel": "GOOGLE_AI_ULTRA_250美元订阅",
+          "price": 40,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：7",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-04-26T10:26:29.887Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "Google AI Ultra 250美元订阅"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -416,16 +667,36 @@
         "specLabel": "GROK_AI_账号_GROK稳定普号_长效邮箱",
         "price": 1.15,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：16",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "¥1.15 Grok AI 账号 | Grok稳定普号 | 长效邮箱 库存：16 销量：199",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "updatedAt": "2026-04-26T10:26:30.992Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "rawName": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "category": "GROK",
+          "specLabel": "GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "price": 1.15,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-04-26T10:26:30.992Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "¥1.15 Grok AI 账号 | Grok稳定普号 | 长效邮箱 库存：16 销量：199"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -461,16 +732,36 @@
         "specLabel": "SUPERGROK_独享账号_30美金订阅成品号",
         "price": 46,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：8",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "¥46 SuperGrok 独享账号 | 30美金订阅成品号 库存：8 销量：239",
-        "updatedAt": "2026-04-25T06:43:43.469Z"
+        "updatedAt": "2026-04-26T10:26:30.992Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_74a11226",
+          "sourceId": "src_74a11226",
+          "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "rawName": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "category": "GROK",
+          "specLabel": "SUPERGROK_独享账号_30美金订阅成品号",
+          "price": 46,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-04-26T10:26:30.992Z",
+          "snapshotDate": "2026-04-26",
+          "crawlTaskId": "task_17ac6fed",
+          "reviewId": "review_d2151f12",
+          "sourceLine": "¥46 SuperGrok 独享账号 | 30美金订阅成品号 库存：8 销量：239"
+        },
         {
           "shopId": "shop_src_74a11226",
           "sourceId": "src_74a11226",
@@ -1262,6 +1553,27 @@
   "shopSnapshots": [
     {
       "shopId": "shop_src_74a11226",
+      "crawlTaskId": "task_17ac6fed",
+      "snapshotDate": "2026-04-26",
+      "capturedAt": "2026-04-26T10:26:30.991Z",
+      "summary": "抓取页面为AI创富俱乐部，展示10个商品，涵盖ChatGPT、Grok、Google、Gemini等，部分商品库存为0。",
+      "conclusion": "成功识别10个商品，其中3个库存为0，整体商品售后无质保。",
+      "productCount": 10,
+      "productKeys": [
+        "CHATGPT__PLUS_代充_自助充值_24小时充值",
+        "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+        "CHATGPT__PRO_20X充值_200美元_PRO代充",
+        "CHATGPT__PLUS独享账号_全功能独享",
+        "GROK__SUPER_独享账号_30美金订阅成品号",
+        "GROK__AI_账号_稳定普号_长效邮箱",
+        "OTHER__稳定老号_GOOGLE_普号_美区老号",
+        "GEMINI__美区高质量老号_PRO_年卡",
+        "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+        "CHATGPT__普号_长效微软邮箱"
+      ]
+    },
+    {
+      "shopId": "shop_src_74a11226",
       "crawlTaskId": "task_6b7a016e",
       "snapshotDate": "2026-04-25",
       "capturedAt": "2026-04-25T06:43:43.532Z",
@@ -1311,6 +1623,102 @@
     }
   ],
   "shopDiffs": [
+    {
+      "shopId": "shop_src_74a11226",
+      "snapshotDate": "2026-04-26",
+      "capturedAt": "2026-04-26T10:26:30.991Z",
+      "changes": [
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "productLabel": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+          "oldPrice": 21.85,
+          "newPrice": 23.75,
+          "note": "ChatGPT Plus 代充｜自助充值｜24小时充值 价格从 ¥21.85 变为 ¥23.75。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "productLabel": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+          "oldPrice": 138,
+          "newPrice": 175,
+          "note": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 价格从 ¥138 变为 ¥175。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "productLabel": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+          "oldPrice": 230,
+          "newPrice": 275,
+          "note": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 价格从 ¥230 变为 ¥275。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+          "productLabel": "ChatGPT Plus独享账号 全功能独享",
+          "oldPrice": 23,
+          "newPrice": 25,
+          "note": "ChatGPT Plus独享账号 全功能独享 价格从 ¥23 变为 ¥25。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_独享账号_30美金订阅成品号",
+          "productLabel": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "note": "SuperGrok 独享账号 | 30美金订阅成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__AI_账号_稳定普号_长效邮箱",
+          "productLabel": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "note": "Grok AI 账号 | Grok稳定普号 | 长效邮箱 已进入当前商品列表。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "productLabel": "【稳定老号】Google 普号｜美区老号",
+          "oldPrice": 6.9,
+          "newPrice": 7.5,
+          "note": "【稳定老号】Google 普号｜美区老号 价格从 ¥6.9 变为 ¥7.5。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "productLabel": "【稳定老号】Google 普号｜美区老号",
+          "oldStockStatus": "OUT_OF_STOCK",
+          "newStockStatus": "IN_STOCK",
+          "note": "【稳定老号】Google 普号｜美区老号 库存状态由 无货 变更为 有货。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+          "productLabel": "【美区高质量老号】Gemini Pro 年卡",
+          "oldPrice": 20.7,
+          "newPrice": 22.5,
+          "note": "【美区高质量老号】Gemini Pro 年卡 价格从 ¥20.7 变为 ¥22.5。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "productLabel": "[普号] ChatGPT > 长效微软邮箱",
+          "oldPrice": 0.57,
+          "newPrice": 0.62,
+          "note": "[普号] ChatGPT > 长效微软邮箱 价格从 ¥0.57 变为 ¥0.62。"
+        },
+        {
+          "type": "PRODUCT_REMOVED",
+          "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "productLabel": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "note": "Grok AI 账号 | Grok稳定普号 | 长效邮箱 本次未再检测到。"
+        },
+        {
+          "type": "PRODUCT_REMOVED",
+          "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "productLabel": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "note": "SuperGrok 独享账号 | 30美金订阅成品号 本次未再检测到。"
+        }
+      ],
+      "summary": "新增 2 项，移除 2 项，涨价 7 项，库存变化 1 项"
+    },
     {
       "shopId": "shop_src_74a11226",
       "snapshotDate": "2026-04-25",
@@ -1490,5 +1898,5 @@
       "summary": "新增 17 项"
     }
   ],
-  "publishedAt": "2026-04-25T08:12:13.883Z"
+  "publishedAt": "2026-04-26T10:26:30.991Z"
 }

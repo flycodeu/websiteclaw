@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { stockStatusLabels } from "@shop-claw/shared/labels";
+import { detectManualVerificationReason } from "@shop-claw/shared/manual-verification";
 import { getPlatformState, savePlatformState } from "@shop-claw/shared/store";
 import {
   AiSettings,
@@ -28,6 +29,12 @@ import {
   type BrowserCrawlResult,
   type CapturedProductCard
 } from "@/lib/playwright-crawler";
+import {
+  closeEmbeddedVerificationSession,
+  exportEmbeddedVerificationSession,
+  getEmbeddedVerificationWorkspace,
+  startEmbeddedVerificationSession
+} from "@/lib/verification-proxy";
 
 function nowIso() {
   return new Date().toISOString();
@@ -1093,18 +1100,20 @@ async function processCaptureResult(
   const rawContent = `${capture.title}\n${capture.visibleText}\n${capture.html}`;
   const rawFragments = extractRawFragments(rawContent);
   const verificationNote = options.payload?.verificationNote?.trim() || workingTask.verificationNote;
+  const captureVerificationReason =
+    capture.verificationReason ?? detectManualVerificationReason(`${rawContent}\n${capture.finalUrl}`);
   const normalizedVisibleText = sanitizeVisibleTextForAnalysis(capture.visibleText);
   const shouldFallbackToManualVerification =
     !options.payload?.manualContent?.trim() &&
-    !capture.requiresVerification &&
+    !captureVerificationReason &&
     capture.productCards.length === 0 &&
     normalizedVisibleText.length < 80 &&
     (source.verificationMethod !== "NONE" || source.crawlMode === "MANUAL_ASSIST");
 
-  if (capture.requiresVerification) {
+  if (captureVerificationReason) {
     const waitingTask = buildWaitingHumanTask(workingTask, source, {
       verificationNote,
-      verificationReason: capture.verificationReason,
+      verificationReason: captureVerificationReason,
       fromManualVerification: options.fromManualVerification,
       currentUrl: capture.finalUrl || workingTask.currentUrl,
       rawFragments,
@@ -1237,12 +1246,12 @@ async function runTaskPipeline(
     return processCaptureResult(state, workingTask, source, capture, aiSettings, { payload });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "未知异常";
-    const suggestsVerification = /验证码|人机验证|滑动验证|login|sign in|verify/i.test(errorMessage);
+    const verificationReason = detectManualVerificationReason(errorMessage);
 
-    if (suggestsVerification || source.verificationMethod !== "NONE" || source.crawlMode === "MANUAL_ASSIST") {
+    if (verificationReason || source.verificationMethod !== "NONE" || source.crawlMode === "MANUAL_ASSIST") {
       const waitingTask = buildWaitingHumanTask(workingTask, source, {
         verificationNote: payload?.verificationNote?.trim() || workingTask.verificationNote,
-        verificationReason: suggestsVerification ? errorMessage : source.verificationPrompt || errorMessage,
+        verificationReason: verificationReason || source.verificationPrompt || errorMessage,
         currentUrl: workingTask.currentUrl,
         rawFragments: workingTask.rawFragments,
         artifacts: workingTask.artifacts,
@@ -1350,19 +1359,35 @@ export async function startTaskVerification(taskId: string) {
     throw new Error("数据源不存在");
   }
 
-  const session = await startManualVerificationSession(source, task);
+  let currentUrl = task.currentUrl;
+  let logSummary = "已连接当前 Chrome 验证会话，等待人工完成验证码、登录或页面放行。";
+  let nextAction = "请在当前 Chrome 中完成验证，然后返回后台点击“完成验证并继续抓取”。";
+  let timelineDetail = "已连接当前 Chrome 会话供人工验证，完成后将自动继续抓取。";
+
+  try {
+    const session = await startManualVerificationSession(source, task);
+    currentUrl = session.finalUrl || task.currentUrl;
+    await closeEmbeddedVerificationSession(task.id);
+  } catch {
+    const workspace = await startEmbeddedVerificationSession(source, task);
+    currentUrl = workspace.currentUrl || task.currentUrl;
+    logSummary = "已打开内嵌人工验证工作台，请直接在后台界面中完成验证码、登录或页面放行。";
+    nextAction = "请在当前后台工作台中完成验证，完成后点击“完成验证并继续抓取”。";
+    timelineDetail = "当前 Chrome 接管不可用，已回退到内嵌人工验证工作台。";
+  }
+
   const nextTask: CrawlTask = {
     ...task,
     updatedAt: nowIso(),
-    currentUrl: session.finalUrl || task.currentUrl,
+    currentUrl,
     requiresVerification: true,
     pageState: "VERIFYING",
-    logSummary: "已启动人工验证工作台，等待人工处理验证或登录。",
-    nextAction: "在验证工作台中完成验证码、登录或页面放行后，点击“完成验证并继续抓取”。",
+    logSummary,
+    nextAction,
     timeline: buildTimeline(
       task.timeline,
       task.pageState === "VERIFYING" ? "恢复验证会话" : "启动人工验证",
-      "已创建可直接操作的人工验证会话，验证完成后将自动继续抓取。"
+      timelineDetail
     )
   };
 
@@ -1389,22 +1414,54 @@ export async function completeTaskVerification(taskId: string) {
   }
 
   const aiSettings = readAiSettingsFromEnv();
-  const workingTask: CrawlTask = {
+  const embeddedWorkspace = await getEmbeddedVerificationWorkspace(task.id);
+  const embeddedSession = embeddedWorkspace ? await exportEmbeddedVerificationSession(task.id) : null;
+  const resumedTask: CrawlTask = {
     ...task,
+    currentUrl: embeddedSession?.currentUrl || task.currentUrl
+  };
+  const workingTask: CrawlTask = {
+    ...resumedTask,
     status: "CRAWLING",
     updatedAt: nowIso(),
-    currentUrl: task.currentUrl,
+    currentUrl: resumedTask.currentUrl,
     nextAction: "正在读取人工验证后的页面内容",
     logSummary: "正在提取人工验证后的页面内容。",
     timeline: buildTimeline(task.timeline, "读取验证结果", "正在从人工验证会话提取页面内容。")
   };
-  const capture = await completeManualVerificationSession(source, task);
-  const pipelineResult = await processCaptureResult(state, workingTask, source, capture, aiSettings, {
-    fromManualVerification: true
-  });
+  let pipelineResult:
+    | {
+        state: PlatformState;
+        task: CrawlTask;
+      };
+
+  if (embeddedSession) {
+    const capture = await runPlaywrightCapture(
+      source,
+      resumedTask.id,
+      {
+        storageState: embeddedSession.storageState,
+        verificationToken: embeddedSession.cookieHeader
+      },
+      resumedTask
+    );
+    pipelineResult = await processCaptureResult(state, workingTask, source, capture, aiSettings, {
+      fromManualVerification: true,
+      payload: {
+        storageState: embeddedSession.storageState,
+        verificationToken: embeddedSession.cookieHeader
+      }
+    });
+  } else {
+    const capture = await completeManualVerificationSession(source, resumedTask);
+    pipelineResult = await processCaptureResult(state, workingTask, source, capture, aiSettings, {
+      fromManualVerification: true
+    });
+  }
 
   if (pipelineResult.task.status !== "WAITING_HUMAN") {
     await closeManualVerificationSession(task.id);
+    await closeEmbeddedVerificationSession(task.id);
   }
 
   await savePlatformState(pipelineResult.state);
@@ -1419,7 +1476,39 @@ export async function getTaskVerificationWorkspace(taskId: string) {
     throw new Error("任务不存在");
   }
 
-  const workspace = await getManualVerificationSessionSnapshot(task.id);
+  const source = state.sources.find((item) => item.sourceId === task.sourceId);
+  let workspace = await getManualVerificationSessionSnapshot(task.id);
+  const embeddedWorkspace = await getEmbeddedVerificationWorkspace(task.id);
+
+  if (!workspace && embeddedWorkspace) {
+    return {
+      active: true,
+      stale: false,
+      currentUrl: embeddedWorkspace.currentUrl || task.currentUrl || task.rawUrl,
+      embedUrl: embeddedWorkspace.embedUrl,
+      lastUpdatedAt: embeddedWorkspace.lastUpdatedAt || task.updatedAt
+    };
+  }
+
+  if (!workspace && task.status === "WAITING_HUMAN" && task.pageState === "VERIFYING" && source) {
+    try {
+      await startManualVerificationSession(source, task, { focus: false });
+      workspace = await getManualVerificationSessionSnapshot(task.id);
+    } catch {
+      try {
+        const recoveredEmbeddedWorkspace = await startEmbeddedVerificationSession(source, task);
+        return {
+          active: true,
+          stale: false,
+          currentUrl: recoveredEmbeddedWorkspace.currentUrl || task.currentUrl || task.rawUrl,
+          embedUrl: recoveredEmbeddedWorkspace.embedUrl,
+          lastUpdatedAt: recoveredEmbeddedWorkspace.lastUpdatedAt || task.updatedAt
+        };
+      } catch {
+        // Ignore reconnect failures here and let the UI show the stale state.
+      }
+    }
+  }
 
   return {
     active: Boolean(workspace),
@@ -1445,6 +1534,7 @@ export async function continueTask(taskId: string, payload: ContinueTaskPayload)
   }
 
   await closeManualVerificationSession(task.id);
+  await closeEmbeddedVerificationSession(task.id);
 
   const updatedTask: CrawlTask = {
     ...task,

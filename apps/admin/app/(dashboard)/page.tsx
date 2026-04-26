@@ -1,32 +1,17 @@
 import Link from "next/link";
 import { changeTypeLabels, formatDateLabel, taskStatusLabels, verificationMethodLabels } from "@shop-claw/shared/labels";
 import { getPlatformState } from "@shop-claw/shared/store";
-import { readAiSettingsFromEnv } from "@/lib/ai-config";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
   const state = await getPlatformState();
-  const aiSettings = readAiSettingsFromEnv();
   const visibleProducts = state.published.shopProducts.filter((item) => item.current.isDetected);
   const lowStockCount = visibleProducts.filter((item) => item.current.stockStatus === "LOW_STOCK").length;
   const pendingValidation = state.tasks.filter((task) => task.status === "WAITING_HUMAN");
   const pendingReview = state.tasks.filter((task) => task.status === "REVIEWING");
   const latestSources = state.sources.slice(0, 4);
   const latestDiffs = state.published.shopDiffs.slice(0, 4);
-  const aiUsageTasks = state.tasks.filter((task) => task.aiUsage);
-  const latestAiUsageTasks = [...aiUsageTasks]
-    .sort((left, right) => {
-      const leftTime = Date.parse(left.aiUsage?.updatedAt ?? left.updatedAt);
-      const rightTime = Date.parse(right.aiUsage?.updatedAt ?? right.updatedAt);
-      return rightTime - leftTime;
-    })
-    .slice(0, 4);
-  const totalPromptTokens = aiUsageTasks.reduce((sum, task) => sum + (task.aiUsage?.promptTokens ?? 0), 0);
-  const totalCompletionTokens = aiUsageTasks.reduce((sum, task) => sum + (task.aiUsage?.completionTokens ?? 0), 0);
-  const totalAiTokens = aiUsageTasks.reduce((sum, task) => sum + (task.aiUsage?.totalTokens ?? 0), 0);
-  const totalAiCalls = aiUsageTasks.reduce((sum, task) => sum + (task.aiUsage?.callCount ?? 0), 0);
-  const totalAiCost = aiUsageTasks.reduce((sum, task) => sum + (task.aiUsage?.estimatedCost ?? 0), 0);
   const publishedAtLabel = state.published.publishedAt ? formatDateLabel(state.published.publishedAt) : "暂无发布记录";
   const dashboardMetrics = [
     {
@@ -46,18 +31,12 @@ export default async function AdminDashboardPage() {
       value: `${pendingValidation.length + pendingReview.length}`,
       detail: `验证 ${pendingValidation.length} · 校对 ${pendingReview.length}`,
       tone: "bg-[linear-gradient(180deg,#fff5e6_0%,#ffffff_100%)]"
-    },
-    {
-      label: "AI 费用",
-      value: formatMoney(totalAiCost, aiSettings.currency),
-      detail: `${formatTokenCount(totalAiTokens)} tokens`,
-      tone: "bg-[linear-gradient(180deg,#eef2f2_0%,#ffffff_100%)]"
     }
   ];
 
   return (
     <div className="space-y-6">
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {dashboardMetrics.map((metric) => (
           <article
             key={metric.label}
@@ -68,107 +47,6 @@ export default async function AdminDashboardPage() {
             <div className="mt-2 text-sm leading-6 text-slate-600">{metric.detail}</div>
           </article>
         ))}
-      </section>
-
-      <section className="grid gap-5 xl:grid-cols-[1.04fr_0.96fr]">
-        <div className="rounded-[32px] border border-[#d8cfbf] bg-[linear-gradient(160deg,#faf4ea_0%,#eef4e8_100%)] p-6 shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
-          <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/78 px-4 py-2 text-sm text-[#566271]">
-            AI 计费
-          </div>
-          <h2 className="mt-4 font-serif text-3xl text-[#18222c]">{aiSettings.model}</h2>
-
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">输入未命中</div>
-              <div className="mt-2 text-2xl font-semibold text-[#18222c]">
-                {formatRate(aiSettings.inputPricePerMillion, aiSettings.currency)}
-              </div>
-            </div>
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">输入缓存命中</div>
-              <div className="mt-2 text-2xl font-semibold text-[#18222c]">
-                {formatRate(aiSettings.cacheHitInputPricePerMillion, aiSettings.currency)}
-              </div>
-            </div>
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">输出</div>
-              <div className="mt-2 text-2xl font-semibold text-[#18222c]">
-                {formatRate(aiSettings.outputPricePerMillion, aiSettings.currency)}
-              </div>
-            </div>
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">累计费用</div>
-              <div className="mt-2 text-2xl font-semibold text-[#18222c]">{formatMoney(totalAiCost, aiSettings.currency)}</div>
-            </div>
-          </div>
-
-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">输入 tokens</div>
-              <div className="mt-2 text-xl font-semibold text-[#18222c]">{formatTokenCount(totalPromptTokens)}</div>
-            </div>
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">输出 tokens</div>
-              <div className="mt-2 text-xl font-semibold text-[#18222c]">{formatTokenCount(totalCompletionTokens)}</div>
-            </div>
-            <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">调用次数</div>
-              <div className="mt-2 text-xl font-semibold text-[#18222c]">{totalAiCalls}</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-[32px] border border-[#d8cfbf] bg-[#f8f3ea] p-6 shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.18em] text-[#566271]">Token 用量</div>
-              <h2 className="font-serif text-3xl text-[#18222c]">最近 AI 调用</h2>
-            </div>
-          </div>
-
-          <div className="mt-5 grid gap-4">
-            {latestAiUsageTasks.length > 0 ? (
-              latestAiUsageTasks.map((task) => (
-                <article key={`${task.id}-${task.aiUsage?.updatedAt}`} className="rounded-[22px] border border-[#ded4c4] bg-white/92 p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="text-lg font-semibold text-[#18222c]">{task.sourceName}</h3>
-                      <div className="mt-2 text-sm text-slate-500">{task.aiUsage?.model}</div>
-                    </div>
-                    <div className="rounded-full border border-[#ded4c4] bg-[#faf7f1] px-3 py-1 text-xs text-slate-600">
-                      {formatDateLabel(task.aiUsage?.updatedAt ?? task.updatedAt)}
-                    </div>
-                  </div>
-
-                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                    <div className="rounded-[18px] border border-[#e5dccd] bg-[#faf7f1] p-3">
-                      <div className="text-[11px] uppercase tracking-[0.14em] text-[#566271]">总 tokens</div>
-                      <div className="mt-1 text-base font-semibold text-[#18222c]">
-                        {formatTokenCount(task.aiUsage?.totalTokens ?? 0)}
-                      </div>
-                    </div>
-                    <div className="rounded-[18px] border border-[#e5dccd] bg-[#faf7f1] p-3">
-                      <div className="text-[11px] uppercase tracking-[0.14em] text-[#566271]">缓存命中</div>
-                      <div className="mt-1 text-base font-semibold text-[#18222c]">
-                        {formatTokenCount(task.aiUsage?.promptCacheHitTokens ?? 0)}
-                      </div>
-                    </div>
-                    <div className="rounded-[18px] border border-[#e5dccd] bg-[#faf7f1] p-3">
-                      <div className="text-[11px] uppercase tracking-[0.14em] text-[#566271]">费用</div>
-                      <div className="mt-1 text-base font-semibold text-[#18222c]">
-                        {formatMoney(task.aiUsage?.estimatedCost ?? 0, task.aiUsage?.currency ?? aiSettings.currency)}
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ))
-            ) : (
-              <div className="rounded-[24px] border border-dashed border-[#ded4c4] bg-white/92 px-4 py-10 text-center text-slate-500">
-                还没有 AI token 计费记录。
-              </div>
-            )}
-          </div>
-        </div>
       </section>
 
       <section className="grid gap-5 xl:grid-cols-[1.18fr_0.82fr]">
@@ -353,18 +231,4 @@ export default async function AdminDashboardPage() {
       </section>
     </div>
   );
-}
-
-function formatTokenCount(value: number) {
-  return new Intl.NumberFormat("zh-CN").format(value);
-}
-
-function formatMoney(value: number, currency: string) {
-  const formatted = value.toFixed(4);
-  return currency.toUpperCase() === "CNY" ? `¥${formatted}` : `${currency.toUpperCase()} ${formatted}`;
-}
-
-function formatRate(value: number, currency: string) {
-  const prefix = currency.toUpperCase() === "CNY" ? "¥" : `${currency.toUpperCase()} `;
-  return `${prefix}${value} / 百万`;
 }

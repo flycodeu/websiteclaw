@@ -1,6 +1,13 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { chromium, type Browser, type BrowserContext, type BrowserContextOptions, type Page } from "playwright";
+import {
+  MANUAL_VERIFICATION_CDP_URL,
+  MANUAL_VERIFICATION_DEBUG_HOST,
+  MANUAL_VERIFICATION_DEBUG_PORT,
+  buildManualVerificationChromeSetupHint,
+  detectManualVerificationReason
+} from "@shop-claw/shared/manual-verification";
 import { getTaskRuntimeDirectory, resolveWorkspaceRoot, toWorkspaceRelativePath } from "@shop-claw/shared/store";
 import { ContinueTaskPayload, CrawlTask, DataSource, StockStatus } from "@shop-claw/shared/types";
 
@@ -80,6 +87,19 @@ export interface ManualVerificationActionPayload {
   deltaY?: number;
   timeoutMs?: number;
 }
+
+interface PersistedStorageState {
+  cookies?: Parameters<BrowserContext["addCookies"]>[0];
+  origins?: Array<{
+    origin: string;
+    localStorage?: Array<{
+      name: string;
+      value: string;
+    }>;
+  }>;
+}
+
+type SupportedStorageStateInput = PersistedStorageState | BrowserContextOptions["storageState"] | undefined;
 
 const manualVerificationSessions = new Map<string, ManualVerificationSession>();
 const DEFAULT_MANUAL_VIEWPORT = {
@@ -166,18 +186,141 @@ function parseCookieHeader(cookieHeader: string, targetUrl: string) {
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
 }
 
-function detectVerificationReason(_source: DataSource, title: string, visibleText: string, html: string) {
-  const marker = `${title}\n${visibleText}\n${html}`.toLowerCase();
-
-  if (/(captcha|verify you are human|robot check|请完成验证|验证码|安全验证|滑动验证|真人验证)/i.test(marker)) {
-    return "页面触发了验证码或人机验证。";
+function normalizePersistedStorageState(input: SupportedStorageStateInput) {
+  if (!input || typeof input === "string" || Array.isArray(input)) {
+    return undefined;
   }
 
-  if (/(sign in|log in|login to continue|请先登录|登录后查看|账户验证)/i.test(marker)) {
-    return "页面要求登录后才能查看完整内容。";
+  return input as PersistedStorageState;
+}
+
+function detectVerificationReason(_source: DataSource, title: string, visibleText: string, html: string, finalUrl: string) {
+  return detectManualVerificationReason(`${title}\n${visibleText}\n${html}\n${finalUrl}`);
+}
+
+function isReusableChromeLandingUrl(url: string) {
+  return /^(about:blank|chrome:\/\/newtab\/|chrome-search:\/\/local-ntp)/i.test(url);
+}
+
+function matchesTargetDomain(candidateUrl: string, targetUrl: string) {
+  try {
+    const candidate = new URL(candidateUrl);
+    const target = new URL(targetUrl);
+
+    return (
+      candidate.origin === target.origin ||
+      candidate.hostname === target.hostname ||
+      candidate.hostname.endsWith(`.${target.hostname}`) ||
+      target.hostname.endsWith(`.${candidate.hostname}`)
+    );
+  } catch {
+    return false;
+  }
+}
+
+function matchesCookieDomain(cookieDomain: string, hostname: string) {
+  const normalizedCookieDomain = cookieDomain.replace(/^\./, "").toLowerCase();
+  const normalizedHost = hostname.toLowerCase();
+
+  return normalizedHost === normalizedCookieDomain || normalizedHost.endsWith(`.${normalizedCookieDomain}`);
+}
+
+function matchesCookieTarget(
+  cookie: NonNullable<PersistedStorageState["cookies"]>[number],
+  targetUrl: URL
+) {
+  if (cookie.domain) {
+    return matchesCookieDomain(cookie.domain, targetUrl.hostname);
   }
 
-  return undefined;
+  if (!cookie.url) {
+    return false;
+  }
+
+  try {
+    return matchesTargetDomain(cookie.url, targetUrl.toString());
+  } catch {
+    return false;
+  }
+}
+
+function filterPersistedStorageStateForUrl(input: SupportedStorageStateInput, targetUrl: string) {
+  const persistedState = normalizePersistedStorageState(input);
+
+  if (!persistedState) {
+    return undefined;
+  }
+
+  try {
+    const url = new URL(targetUrl);
+
+    return {
+      cookies: (persistedState.cookies ?? []).filter((cookie) => matchesCookieTarget(cookie, url)),
+      origins: (persistedState.origins ?? []).filter((origin) => {
+        try {
+          return new URL(origin.origin).origin === url.origin;
+        } catch {
+          return false;
+        }
+      })
+    } satisfies PersistedStorageState;
+  } catch {
+    return persistedState;
+  }
+}
+
+async function applyPersistedStorageState(
+  context: BrowserContext,
+  storageStateInput: SupportedStorageStateInput
+) {
+  const persistedState = normalizePersistedStorageState(storageStateInput);
+
+  if (!persistedState) {
+    return;
+  }
+
+  if (persistedState.cookies?.length) {
+    await context.addCookies(persistedState.cookies).catch(() => undefined);
+  }
+
+  const originsWithLocalStorage = (persistedState.origins ?? [])
+    .map((entry) => ({
+      origin: entry.origin,
+      localStorage: (entry.localStorage ?? []).filter((item) => item.name)
+    }))
+    .filter((entry) => entry.origin && entry.localStorage.length > 0);
+
+  if (originsWithLocalStorage.length === 0) {
+    return;
+  }
+
+  await context
+    .addInitScript((entries: PersistedStorageState["origins"]) => {
+      const currentOrigin = window.location.origin;
+      const matched = entries?.find((entry) => entry.origin === currentOrigin);
+
+      if (!matched?.localStorage?.length) {
+        return;
+      }
+
+      for (const item of matched.localStorage) {
+        try {
+          window.localStorage.setItem(item.name, item.value);
+        } catch {
+          // Ignore storage write failures for locked-down origins.
+        }
+      }
+    }, originsWithLocalStorage)
+    .catch(() => undefined);
+}
+
+async function writeFilteredStorageStateArtifact(taskId: string, context: BrowserContext, targetUrl: string) {
+  const storageStateFile = path.join(await getTaskRuntimeDirectory(taskId), "storage-state.json");
+  const filteredStorageState = filterPersistedStorageStateForUrl(await context.storageState(), targetUrl) ?? {
+    cookies: [],
+    origins: []
+  };
+  await fs.writeFile(storageStateFile, `${JSON.stringify(filteredStorageState, null, 2)}\n`, "utf8");
 }
 
 async function writeCaptureArtifacts(taskId: string, html: string, visibleText: string, screenshot?: Buffer) {
@@ -420,7 +563,7 @@ async function createBrowserSession(
     (await readStoredStorageState(task?.artifacts?.storageStatePath));
 
   const browser = await chromium.launch({
-    headless: options.interactive ? true : source.headless
+    headless: options.interactive ? false : source.headless
   });
 
   const context = await browser.newContext({
@@ -452,6 +595,81 @@ async function createBrowserSession(
   }
 
   return { browser, context };
+}
+
+async function connectToManualVerificationBrowser() {
+  try {
+    return await chromium.connectOverCDP(MANUAL_VERIFICATION_CDP_URL);
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      /(econnrefused|connect econnrefused|unexpected status 404|unexpected status 403|websocket|devtools server|cannot connect)/i.test(
+        error.message
+      )
+    ) {
+      throw new Error(
+        `未检测到可调试的 Chrome（${MANUAL_VERIFICATION_DEBUG_HOST}:${MANUAL_VERIFICATION_DEBUG_PORT} 未监听）。${buildManualVerificationChromeSetupHint()}`
+      );
+    }
+
+    throw error;
+  }
+}
+
+async function attachManualVerificationSession(
+  source: DataSource,
+  task: Pick<CrawlTask, "currentUrl" | "artifacts">
+) {
+  const browser = await connectToManualVerificationBrowser();
+  const context = browser.contexts()[0];
+
+  if (!context) {
+    await browser.close().catch(() => undefined);
+    throw new Error(`当前 Chrome 未暴露可用的浏览器上下文。${buildManualVerificationChromeSetupHint()}`);
+  }
+
+  const targetUrl = task.currentUrl || source.entryUrl || source.sourceUrl;
+  const storageStateInput = filterPersistedStorageStateForUrl(
+    await readStoredStorageState(task.artifacts?.storageStatePath),
+    targetUrl
+  );
+
+  await applyPersistedStorageState(context, storageStateInput);
+
+  const matchedPage = context.pages().find((candidate) => !candidate.isClosed() && matchesTargetDomain(candidate.url(), targetUrl));
+  const reusablePage = context.pages().find((candidate) => !candidate.isClosed() && isReusableChromeLandingUrl(candidate.url()));
+  const page = matchedPage ?? reusablePage ?? (await context.newPage());
+
+  if (!matchedPage) {
+    await page.goto(targetUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 45_000
+    });
+  }
+
+  return { browser, context, page };
+}
+
+async function createAttachedManualVerificationSession(
+  source: DataSource,
+  task: Pick<CrawlTask, "id" | "currentUrl" | "artifacts">
+) {
+  const { browser, context, page } = await attachManualVerificationSession(source, task);
+
+  try {
+    const session: ManualVerificationSession = {
+      browser,
+      context,
+      page,
+      viewport: DEFAULT_MANUAL_VIEWPORT
+    };
+
+    manualVerificationSessions.set(task.id, session);
+    return session;
+  } catch (error) {
+    await browser.close().catch(() => undefined);
+    throw error;
+  }
 }
 
 async function collectManualVerificationInteractables(page: Page): Promise<ManualVerificationInteractable[]> {
@@ -602,18 +820,15 @@ async function capturePageState(
   const title = await page.title().catch(() => "");
   const screenshot = await page.screenshot({ fullPage: true }).catch(() => undefined);
   const artifacts = await writeCaptureArtifacts(taskId, html, visibleText, screenshot);
-
-  await context.storageState({
-    path: path.join(await getTaskRuntimeDirectory(taskId), "storage-state.json")
-  });
-
-  const verificationReason = detectVerificationReason(source, title, visibleText, html);
+  const finalUrl = page.url();
+  await writeFilteredStorageStateArtifact(taskId, context, finalUrl);
+  const verificationReason = detectVerificationReason(source, title, visibleText, html, finalUrl);
 
   return {
     html,
     visibleText,
     title,
-    finalUrl: page.url(),
+    finalUrl,
     requiresVerification: Boolean(verificationReason),
     verificationReason,
     artifacts,
@@ -630,8 +845,6 @@ async function releaseManualVerificationSession(taskId: string) {
 
   manualVerificationSessions.delete(taskId);
 
-  await session.page.close().catch(() => undefined);
-  await session.context.close().catch(() => undefined);
   await session.browser.close().catch(() => undefined);
 }
 
@@ -680,57 +893,27 @@ export async function runPlaywrightCapture(
 
 export async function startManualVerificationSession(
   source: DataSource,
-  task: Pick<CrawlTask, "id" | "currentUrl" | "artifacts">
+  task: Pick<CrawlTask, "id" | "currentUrl" | "artifacts">,
+  options: { focus?: boolean } = {}
 ): Promise<ManualVerificationStartResult> {
-  const existingSession = await getActiveManualVerificationSession(task.id);
+  const session =
+    (await getActiveManualVerificationSession(task.id)) ?? (await createAttachedManualVerificationSession(source, task));
 
-  if (existingSession) {
-    return {
-      finalUrl: existingSession.page.url()
-    };
+  if (options.focus !== false) {
+    await session.page.bringToFront().catch(() => undefined);
   }
 
-  const { browser, context } = await createBrowserSession(source, task, undefined, { interactive: true });
-
-  try {
-    const page = await context.newPage();
-    const targetUrl = task.currentUrl || source.entryUrl || source.sourceUrl;
-
-    await page.goto(targetUrl, {
-      waitUntil: "domcontentloaded",
-      timeout: 45_000
-    });
-
-    await page.bringToFront().catch(() => undefined);
-
-    const session: ManualVerificationSession = {
-      browser,
-      context,
-      page,
-      viewport: DEFAULT_MANUAL_VIEWPORT
-    };
-
-    manualVerificationSessions.set(task.id, session);
-
-    return {
-      finalUrl: page.url()
-    };
-  } catch (error) {
-    await context.close().catch(() => undefined);
-    await browser.close().catch(() => undefined);
-    throw error;
-  }
+  return {
+    finalUrl: session.page.url()
+  };
 }
 
 export async function completeManualVerificationSession(
   source: DataSource,
-  task: Pick<CrawlTask, "id">
+  task: Pick<CrawlTask, "id" | "currentUrl" | "artifacts">
 ): Promise<BrowserCrawlResult> {
-  const session = await getActiveManualVerificationSession(task.id);
-
-  if (!session) {
-    throw new Error("人工验证会话不存在，请先启动人工验证。");
-  }
+  const session =
+    (await getActiveManualVerificationSession(task.id)) ?? (await createAttachedManualVerificationSession(source, task));
 
   const capture = await capturePageState(source, task.id, session.context, session.page);
 
