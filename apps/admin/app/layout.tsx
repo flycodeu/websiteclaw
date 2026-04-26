@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="zh-CN" data-scroll-behavior="smooth" className={`${serif.variable} ${sans.variable}`}>
       <body className="font-sans">
         <style>{`
           :root {

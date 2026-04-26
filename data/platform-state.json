@@ -1,6 +1,6 @@
 {
-  "version": 29,
-  "updatedAt": "2026-04-25T12:17:18.496Z",
+  "version": 42,
+  "updatedAt": "2026-04-26T09:07:40.520Z",
   "sources": [
     {
       "sourceId": "src_37758749",
@@ -9,9 +9,9 @@
       "entryUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
       "crawlMode": "AUTO",
       "enabled": true,
-      "lastRunAt": "2026-04-25T12:17:11.855Z",
+      "lastRunAt": "2026-04-26T09:07:32.470Z",
       "createdAt": "2026-04-25T12:16:47.915Z",
-      "updatedAt": "2026-04-25T12:17:11.855Z",
+      "updatedAt": "2026-04-26T09:07:32.470Z",
       "verificationMethod": "NONE",
       "verificationPrompt": "",
       "waitSelector": "body",
@@ -55,6 +55,239 @@
     }
   ],
   "tasks": [
+    {
+      "id": "task_d11f9296",
+      "sourceId": "src_37758749",
+      "sourceName": "鸡哥AI代充(自营)",
+      "status": "WAITING_HUMAN",
+      "startedAt": "2026-04-26T09:07:32.470Z",
+      "updatedAt": "2026-04-26T09:07:40.517Z",
+      "logSummary": "页面触发了验证码或人机验证。",
+      "nextAction": "进入人工验证工作台，处理验证码、登录或站点拦截后继续抓取。",
+      "rawUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "currentUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "rawFragments": [
+        "Request ID：dcb58d1a17771944544452378e",
+        "Request ID： dcb58d1a17771944544452378e",
+        "Request ID: dcb58d1a17771944544452378e",
+        "appkey: \"CF_APP_WAF\", // 应用标识waf-nc-h5-mask var AC_Opt = {userUserId: requestInfo.userUserId",
+        "TraceID: dcb58d1a17771944544452378e",
+        "--> var requestInfo = {\"type\":\"GET\",\"data\":\"\",\"token\":\"69edd5d6-4b59-a934-eb3d-10a0918e2f29\",\"sceneId\":\"19x5u7lo\",\"userUserId\":\"KV1xJ+BGylU73MBMQb7V9g==\",\"userId\":\"HpadJlQnz2zSKcSmjXBaqQvjYUvP4jMJIk/ZwGNDNiM=\",\"region\":\"sgp\",\"traceid\":\"dcb58d1a17771944544452378e\"};"
+      ],
+      "timeline": [
+        {
+          "at": "2026-04-26T09:07:32.470Z",
+          "title": "任务创建",
+          "detail": "已加入抓取队列。"
+        },
+        {
+          "at": "2026-04-26T09:07:32.477Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
+        },
+        {
+          "at": "2026-04-26T09:07:40.517Z",
+          "title": "等待人工验证",
+          "detail": "页面触发了验证码或人机验证。"
+        }
+      ],
+      "requiresVerification": true,
+      "verificationMethod": "CAPTCHA",
+      "verificationPrompt": "页面触发了验证码或人机验证。",
+      "sessionId": "session_85f9d5d0",
+      "pageState": "WAITING_VERIFICATION",
+      "artifacts": {
+        "htmlPath": "data/runtime/tasks/task_d11f9296/page.html",
+        "textPath": "data/runtime/tasks/task_d11f9296/visible.txt",
+        "screenshotPath": "data/runtime/tasks/task_d11f9296/page.png",
+        "storageStatePath": "data/runtime/tasks/task_d11f9296/storage-state.json"
+      }
+    },
+    {
+      "id": "task_6105f378",
+      "sourceId": "src_37758749",
+      "sourceName": "鸡哥AI代充(自营)",
+      "status": "WAITING_HUMAN",
+      "startedAt": "2026-04-26T07:23:53.263Z",
+      "updatedAt": "2026-04-26T09:07:29.636Z",
+      "logSummary": "已启动人工验证工作台，等待人工处理验证或登录。",
+      "nextAction": "在验证工作台中完成验证码、登录或页面放行后，点击“完成验证并继续抓取”。",
+      "rawUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "currentUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "rawFragments": [
+        "Request ID：dcb58d1d17771882375253288e",
+        "Request ID： dcb58d1d17771882375253288e",
+        "Request ID: dcb58d1d17771882375253288e",
+        "appkey: \"CF_APP_WAF\", // 应用标识waf-nc-h5-mask var AC_Opt = {userUserId: requestInfo.userUserId",
+        "TraceID: dcb58d1d17771882375253288e",
+        "--> var requestInfo = {\"type\":\"GET\",\"data\":\"\",\"token\":\"69edbd8d-d340-b9cc-c068-e136b1844c67\",\"sceneId\":\"19x5u7lo\",\"userUserId\":\"KV1xJ+BGylU73MBMQb7V9g==\",\"userId\":\"HpadJlQnz2zSKcSmjXBaqQvjYUvP4jMJIk/ZwGNDNiM=\",\"region\":\"sgp\",\"traceid\":\"dcb58d1d17771882375253288e\"};"
+      ],
+      "timeline": [
+        {
+          "at": "2026-04-26T07:23:53.263Z",
+          "title": "任务创建",
+          "detail": "已加入抓取队列。"
+        },
+        {
+          "at": "2026-04-26T07:23:53.269Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
+        },
+        {
+          "at": "2026-04-26T07:24:07.623Z",
+          "title": "等待人工验证",
+          "detail": "页面触发了验证码或人机验证。"
+        },
+        {
+          "at": "2026-04-26T07:24:19.102Z",
+          "title": "启动内嵌验证",
+          "detail": "已创建真实网页嵌入验证会话，验证通过后将直接继续抓取。"
+        },
+        {
+          "at": "2026-04-26T09:07:29.636Z",
+          "title": "恢复验证会话",
+          "detail": "已创建可直接操作的人工验证会话，验证完成后将自动继续抓取。"
+        }
+      ],
+      "requiresVerification": true,
+      "verificationMethod": "NONE",
+      "verificationPrompt": "页面触发了验证码或人机验证。",
+      "sessionId": "session_5fe8e6bf",
+      "pageState": "VERIFYING",
+      "artifacts": {
+        "htmlPath": "data/runtime/tasks/task_6105f378/page.html",
+        "textPath": "data/runtime/tasks/task_6105f378/visible.txt",
+        "screenshotPath": "data/runtime/tasks/task_6105f378/page.png",
+        "storageStatePath": "data/runtime/tasks/task_6105f378/storage-state.json"
+      }
+    },
+    {
+      "id": "task_d5975203",
+      "sourceId": "src_37758749",
+      "sourceName": "鸡哥AI代充(自营)",
+      "status": "FAILED",
+      "startedAt": "2026-04-26T07:17:34.970Z",
+      "updatedAt": "2026-04-26T07:18:20.371Z",
+      "finishedAt": "2026-04-26T07:18:20.371Z",
+      "logSummary": "抓取流程失败。",
+      "nextAction": "请重试抓取；如果仍失败，需要继续检查页面加载和站点兼容逻辑。",
+      "rawUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "currentUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "rawFragments": [],
+      "timeline": [
+        {
+          "at": "2026-04-26T07:17:34.970Z",
+          "title": "任务创建",
+          "detail": "已加入抓取队列。"
+        },
+        {
+          "at": "2026-04-26T07:17:34.976Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
+        },
+        {
+          "at": "2026-04-26T07:18:20.371Z",
+          "title": "任务失败",
+          "detail": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://pay.ldxp.cn/shop/C1IDCH40\", waiting until \"domcontentloaded\"\u001b[22m\n"
+        }
+      ],
+      "requiresVerification": false,
+      "verificationMethod": "NONE",
+      "verificationPrompt": "",
+      "errorMessage": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://pay.ldxp.cn/shop/C1IDCH40\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "sessionId": "session_2ca85c00",
+      "artifacts": {}
+    },
+    {
+      "id": "task_6807a8ac",
+      "sourceId": "src_37758749",
+      "sourceName": "鸡哥AI代充(自营)",
+      "status": "WAITING_HUMAN",
+      "startedAt": "2026-04-26T04:11:51.637Z",
+      "updatedAt": "2026-04-26T04:12:17.851Z",
+      "logSummary": "已启动内嵌人工验证工作台，等待人工完成站点验证。",
+      "nextAction": "在工作台右侧完成验证码、登录或人工校验，然后点击“完成验证并继续抓取”。",
+      "rawUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "currentUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "rawFragments": [
+        "Request ID：dcb58d1517771767153355988e",
+        "Request ID： dcb58d1517771767153355988e",
+        "Request ID: dcb58d1517771767153355988e",
+        "appkey: \"CF_APP_WAF\", // 应用标识waf-nc-h5-mask var AC_Opt = {userUserId: requestInfo.userUserId",
+        "TraceID: dcb58d1517771767153355988e",
+        "--> var requestInfo = {\"type\":\"GET\",\"data\":\"\",\"token\":\"69ed908b-aa70-6fd7-fef4-43ffb15a173e\",\"sceneId\":\"19x5u7lo\",\"userUserId\":\"KV1xJ+BGylU73MBMQb7V9g==\",\"userId\":\"HpadJlQnz2zSKcSmjXBaqQvjYUvP4jMJIk/ZwGNDNiM=\",\"region\":\"sgp\",\"traceid\":\"dcb58d1517771767153355988e\"};"
+      ],
+      "timeline": [
+        {
+          "at": "2026-04-26T04:11:51.637Z",
+          "title": "任务创建",
+          "detail": "已加入抓取队列。"
+        },
+        {
+          "at": "2026-04-26T04:11:51.646Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
+        },
+        {
+          "at": "2026-04-26T04:12:01.298Z",
+          "title": "等待人工验证",
+          "detail": "页面触发了验证码或人机验证。"
+        },
+        {
+          "at": "2026-04-26T04:12:17.851Z",
+          "title": "启动内嵌验证",
+          "detail": "已创建可在任务页内操作的验证会话，验证通过后将直接继续抓取。"
+        }
+      ],
+      "requiresVerification": true,
+      "verificationMethod": "NONE",
+      "verificationPrompt": "页面触发了验证码或人机验证。",
+      "sessionId": "session_616bdea4",
+      "pageState": "VERIFYING",
+      "artifacts": {
+        "htmlPath": "data/runtime/tasks/task_6807a8ac/page.html",
+        "textPath": "data/runtime/tasks/task_6807a8ac/visible.txt",
+        "screenshotPath": "data/runtime/tasks/task_6807a8ac/page.png",
+        "storageStatePath": "data/runtime/tasks/task_6807a8ac/storage-state.json"
+      }
+    },
+    {
+      "id": "task_4693f97a",
+      "sourceId": "src_37758749",
+      "sourceName": "鸡哥AI代充(自营)",
+      "status": "FAILED",
+      "startedAt": "2026-04-26T02:42:17.864Z",
+      "updatedAt": "2026-04-26T02:42:20.077Z",
+      "finishedAt": "2026-04-26T02:42:20.077Z",
+      "logSummary": "抓取流程失败。",
+      "nextAction": "请重试抓取；如果仍失败，需要继续检查页面加载和站点兼容逻辑。",
+      "rawUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "currentUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
+      "rawFragments": [],
+      "timeline": [
+        {
+          "at": "2026-04-26T02:42:17.864Z",
+          "title": "任务创建",
+          "detail": "已加入抓取队列。"
+        },
+        {
+          "at": "2026-04-26T02:42:17.873Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
+        },
+        {
+          "at": "2026-04-26T02:42:20.077Z",
+          "title": "任务失败",
+          "detail": "page.evaluate: Target page, context or browser has been closed"
+        }
+      ],
+      "requiresVerification": false,
+      "verificationMethod": "NONE",
+      "verificationPrompt": "",
+      "errorMessage": "page.evaluate: Target page, context or browser has been closed",
+      "sessionId": "session_5fa98c10",
+      "artifacts": {}
+    },
     {
       "id": "task_3c85b694",
       "sourceId": "src_37758749",

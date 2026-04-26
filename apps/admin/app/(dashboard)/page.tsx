@@ -12,7 +12,6 @@ export default async function AdminDashboardPage() {
   const lowStockCount = visibleProducts.filter((item) => item.current.stockStatus === "LOW_STOCK").length;
   const pendingValidation = state.tasks.filter((task) => task.status === "WAITING_HUMAN");
   const pendingReview = state.tasks.filter((task) => task.status === "REVIEWING");
-  const latestTasks = state.tasks.slice(0, 4);
   const latestSources = state.sources.slice(0, 4);
   const latestDiffs = state.published.shopDiffs.slice(0, 4);
   const aiUsageTasks = state.tasks.filter((task) => task.aiUsage);
@@ -350,39 +349,6 @@ export default async function AdminDashboardPage() {
               </div>
             )}
           </div>
-        </div>
-      </section>
-
-      <section className="rounded-[32px] border border-[#d8cfbf] bg-[#f8f3ea] p-6 shadow-[0_18px_38px_rgba(102,88,64,0.07)]">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.18em] text-[#566271]">任务概览</div>
-            <h2 className="font-serif text-3xl text-[#18222c]">最近任务</h2>
-          </div>
-        </div>
-
-        <div className="mt-5 grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
-          {latestTasks.length > 0 ? (
-            latestTasks.map((task) => (
-              <article key={task.id} className="rounded-[22px] border border-[#ded4c4] bg-white/92 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="text-xs uppercase tracking-[0.16em] text-[#566271]">{taskStatusLabels[task.status]}</div>
-                    <h3 className="mt-2 text-lg font-semibold text-[#18222c]">{task.sourceName}</h3>
-                  </div>
-                  <div className="rounded-full border border-[#ded4c4] bg-[#faf7f1] px-3 py-1 text-xs text-slate-600">
-                    {formatDateLabel(task.updatedAt)}
-                  </div>
-                </div>
-                <div className="mt-3 text-sm text-slate-600">{task.logSummary}</div>
-                <div className="mt-3 text-sm text-[#355344]">{task.nextAction}</div>
-              </article>
-            ))
-          ) : (
-            <div className="rounded-[24px] border border-dashed border-[#ded4c4] bg-white/92 px-4 py-10 text-center text-slate-500">
-              暂无任务。
-            </div>
-          )}
         </div>
       </section>
     </div>

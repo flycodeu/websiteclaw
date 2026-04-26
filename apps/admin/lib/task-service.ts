@@ -14,12 +14,14 @@ import {
   ProductStatus,
   ReviewRecord,
   ShopChange,
-  StockStatus
+  StockStatus,
+  VerificationMethod
 } from "@shop-claw/shared/types";
 import { readAiSettingsFromEnv } from "@/lib/ai-config";
 import {
-  completeManualVerificationSession,
   closeManualVerificationSession,
+  completeManualVerificationSession,
+  getManualVerificationSessionSnapshot,
   runPlaywrightCapture,
   saveManualCapture,
   startManualVerificationSession,
@@ -1010,6 +1012,76 @@ interface CaptureProcessingOptions {
   fromManualVerification?: boolean;
 }
 
+function inferVerificationMethod(
+  source: DataSource,
+  ...inputs: Array<string | undefined>
+): VerificationMethod {
+  const marker = inputs.filter(Boolean).join("\n");
+
+  if (/(captcha|verify you are human|robot check|请完成验证|验证码|安全验证|滑动验证|真人验证)/i.test(marker)) {
+    return "CAPTCHA";
+  }
+
+  if (/(sign in|log in|login to continue|请先登录|登录后查看|账户验证)/i.test(marker)) {
+    return "LOGIN";
+  }
+
+  return source.verificationMethod !== "NONE" ? source.verificationMethod : "MANUAL";
+}
+
+function buildWaitingHumanTask(
+  workingTask: CrawlTask,
+  source: DataSource,
+  options: {
+    verificationNote?: string;
+    verificationReason?: string;
+    fromManualVerification?: boolean;
+    currentUrl?: string;
+    rawFragments?: string[];
+    artifacts?: CrawlTask["artifacts"];
+    errorMessage?: string;
+  } = {}
+) {
+  const detail =
+    options.verificationReason ||
+    source.verificationPrompt ||
+    options.errorMessage ||
+    "站点要求先完成验证。";
+
+  return {
+    ...workingTask,
+    status: "WAITING_HUMAN",
+    updatedAt: nowIso(),
+    currentUrl: options.currentUrl || workingTask.currentUrl,
+    rawFragments: options.rawFragments ?? workingTask.rawFragments,
+    requiresVerification: true,
+    verificationMethod: inferVerificationMethod(
+      source,
+      options.verificationReason,
+      options.errorMessage,
+      options.verificationNote,
+      source.verificationPrompt
+    ),
+    verificationPrompt: options.verificationReason || source.verificationPrompt || workingTask.verificationPrompt,
+    verificationNote: options.verificationNote,
+    errorMessage: options.errorMessage,
+    pageState: options.fromManualVerification ? "VERIFYING" : "WAITING_VERIFICATION",
+    artifacts: options.artifacts ?? workingTask.artifacts,
+    logSummary:
+      options.verificationReason ||
+      options.errorMessage ||
+      (options.fromManualVerification ? "人工验证尚未完成，请继续处理。" : "页面需要人工验证后继续。"),
+    nextAction: options.fromManualVerification
+      ? "在人工验证工作台中继续完成验证码、登录或页面放行，然后点击“完成验证并继续抓取”。"
+      : "进入人工验证工作台，处理验证码、登录或站点拦截后继续抓取。",
+    timeline: buildTimeline(
+      workingTask.timeline,
+      options.fromManualVerification ? "继续人工验证" : "等待人工验证",
+      detail
+    )
+  } satisfies CrawlTask;
+}
+
 async function processCaptureResult(
   state: PlatformState,
   workingTask: CrawlTask,
@@ -1021,30 +1093,39 @@ async function processCaptureResult(
   const rawContent = `${capture.title}\n${capture.visibleText}\n${capture.html}`;
   const rawFragments = extractRawFragments(rawContent);
   const verificationNote = options.payload?.verificationNote?.trim() || workingTask.verificationNote;
+  const normalizedVisibleText = sanitizeVisibleTextForAnalysis(capture.visibleText);
+  const shouldFallbackToManualVerification =
+    !options.payload?.manualContent?.trim() &&
+    !capture.requiresVerification &&
+    capture.productCards.length === 0 &&
+    normalizedVisibleText.length < 80 &&
+    (source.verificationMethod !== "NONE" || source.crawlMode === "MANUAL_ASSIST");
 
   if (capture.requiresVerification) {
-    const waitingTask: CrawlTask = {
-      ...workingTask,
-      status: "WAITING_HUMAN",
-      updatedAt: nowIso(),
+    const waitingTask = buildWaitingHumanTask(workingTask, source, {
+      verificationNote,
+      verificationReason: capture.verificationReason,
+      fromManualVerification: options.fromManualVerification,
       currentUrl: capture.finalUrl || workingTask.currentUrl,
       rawFragments,
-      requiresVerification: true,
-      verificationMethod: source.verificationMethod,
-      verificationPrompt: source.verificationPrompt || capture.verificationReason,
-      verificationNote,
-      pageState: options.fromManualVerification ? "VERIFYING" : "WAITING_VERIFICATION",
-      artifacts: capture.artifacts,
-      logSummary: capture.verificationReason || (options.fromManualVerification ? "人工验证尚未完成，请继续处理。" : "页面需要人工验证后继续。"),
-      nextAction: options.fromManualVerification
-        ? "继续在人工验证窗口完成验证码或登录，然后回到任务工作台点击“完成验证并继续抓取”。"
-        : "进入人工验证工作区，完成验证码或登录后直接继续抓取。",
-      timeline: buildTimeline(
-        workingTask.timeline,
-        options.fromManualVerification ? "继续人工验证" : "等待人工验证",
-        capture.verificationReason || source.verificationPrompt || "站点要求先完成验证。"
-      )
+      artifacts: capture.artifacts
+    });
+
+    return {
+      state: replaceTaskInState(state, waitingTask),
+      task: waitingTask
     };
+  }
+
+  if (shouldFallbackToManualVerification) {
+    const waitingTask = buildWaitingHumanTask(workingTask, source, {
+      verificationNote,
+      verificationReason: "当前页面可读内容过少，建议先完成人工验证后继续抓取。",
+      fromManualVerification: options.fromManualVerification,
+      currentUrl: capture.finalUrl || workingTask.currentUrl,
+      rawFragments,
+      artifacts: capture.artifacts
+    });
 
     return {
       state: replaceTaskInState(state, waitingTask),
@@ -1157,6 +1238,26 @@ async function runTaskPipeline(
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "未知异常";
     const suggestsVerification = /验证码|人机验证|滑动验证|login|sign in|verify/i.test(errorMessage);
+
+    if (suggestsVerification || source.verificationMethod !== "NONE" || source.crawlMode === "MANUAL_ASSIST") {
+      const waitingTask = buildWaitingHumanTask(workingTask, source, {
+        verificationNote: payload?.verificationNote?.trim() || workingTask.verificationNote,
+        verificationReason: suggestsVerification ? errorMessage : source.verificationPrompt || errorMessage,
+        currentUrl: workingTask.currentUrl,
+        rawFragments: workingTask.rawFragments,
+        artifacts: workingTask.artifacts,
+        errorMessage
+      });
+
+      return {
+        state: {
+          ...state,
+          tasks: state.tasks.map((item) => (item.id === waitingTask.id ? waitingTask : item))
+        },
+        task: waitingTask
+      };
+    }
+
     const failedTask: CrawlTask = {
       ...workingTask,
       status: "FAILED",
@@ -1164,9 +1265,7 @@ async function runTaskPipeline(
       finishedAt: nowIso(),
       errorMessage,
       logSummary: "抓取流程失败。",
-      nextAction: suggestsVerification
-        ? "页面疑似被验证拦截，请启动人工验证后继续抓取。"
-        : "请重试抓取；如果仍失败，需要继续检查页面加载和站点兼容逻辑。",
+      nextAction: "请重试抓取；如果仍失败，需要继续检查页面加载和站点兼容逻辑。",
       timeline: buildTimeline(workingTask.timeline, "任务失败", errorMessage)
     };
 
@@ -1212,7 +1311,7 @@ export async function createAndRunTask(payload: CrawlRequestPayload) {
         detail: "已加入抓取队列。"
       }
     ],
-    requiresVerification: source.verificationMethod !== "NONE",
+    requiresVerification: false,
     verificationMethod: source.verificationMethod,
     verificationPrompt: source.verificationPrompt,
     sessionId: `session_${randomUUID().slice(0, 8)}`,
@@ -1252,21 +1351,18 @@ export async function startTaskVerification(taskId: string) {
   }
 
   const session = await startManualVerificationSession(source, task);
-  const capture = session.capture;
   const nextTask: CrawlTask = {
     ...task,
     updatedAt: nowIso(),
-    currentUrl: session.finalUrl || capture?.finalUrl || task.currentUrl,
-    rawFragments: capture ? extractRawFragments(`${capture.title}\n${capture.visibleText}\n${capture.html}`) : task.rawFragments,
+    currentUrl: session.finalUrl || task.currentUrl,
     requiresVerification: true,
     pageState: "VERIFYING",
-    artifacts: capture?.artifacts ?? task.artifacts,
-    logSummary: "已打开人工验证窗口，等待人工完成站点验证。",
-    nextAction: "在浏览器中完成验证码或登录，然后回到任务工作台点击“完成验证并继续抓取”。",
+    logSummary: "已启动人工验证工作台，等待人工处理验证或登录。",
+    nextAction: "在验证工作台中完成验证码、登录或页面放行后，点击“完成验证并继续抓取”。",
     timeline: buildTimeline(
       task.timeline,
-      task.pageState === "VERIFYING" ? "重新聚焦验证窗口" : "启动人工验证",
-      "已打开可交互的浏览器验证窗口，验证完成后将自动继续抓取。"
+      task.pageState === "VERIFYING" ? "恢复验证会话" : "启动人工验证",
+      "已创建可直接操作的人工验证会话，验证完成后将自动继续抓取。"
     )
   };
 
@@ -1297,6 +1393,7 @@ export async function completeTaskVerification(taskId: string) {
     ...task,
     status: "CRAWLING",
     updatedAt: nowIso(),
+    currentUrl: task.currentUrl,
     nextAction: "正在读取人工验证后的页面内容",
     logSummary: "正在提取人工验证后的页面内容。",
     timeline: buildTimeline(task.timeline, "读取验证结果", "正在从人工验证会话提取页面内容。")
@@ -1306,8 +1403,31 @@ export async function completeTaskVerification(taskId: string) {
     fromManualVerification: true
   });
 
+  if (pipelineResult.task.status !== "WAITING_HUMAN") {
+    await closeManualVerificationSession(task.id);
+  }
+
   await savePlatformState(pipelineResult.state);
   return pipelineResult.task;
+}
+
+export async function getTaskVerificationWorkspace(taskId: string) {
+  const state = await getPlatformState();
+  const task = state.tasks.find((item) => item.id === taskId);
+
+  if (!task) {
+    throw new Error("任务不存在");
+  }
+
+  const workspace = await getManualVerificationSessionSnapshot(task.id);
+
+  return {
+    active: Boolean(workspace),
+    stale: task.pageState === "VERIFYING" && !workspace,
+    currentUrl: workspace?.currentUrl || task.currentUrl || task.rawUrl,
+    embedUrl: "",
+    lastUpdatedAt: workspace?.lastUpdatedAt || task.updatedAt
+  };
 }
 
 export async function continueTask(taskId: string, payload: ContinueTaskPayload) {

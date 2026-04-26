@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const published = await getPublishedData();
 
   return (
-    <html lang="zh-CN" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="zh-CN" data-scroll-behavior="smooth" className={`${serif.variable} ${sans.variable}`}>
       <body className="font-sans">
         <style>{`
           :root {

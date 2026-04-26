@@ -4,13 +4,12 @@ import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType } from "react";
-import { LayoutGrid, Package, ScanSearch } from "lucide-react";
+import { LayoutGrid, ScanSearch } from "lucide-react";
 import { formatDateLabel } from "@shop-claw/shared/labels";
 
 const navItems = [
   { href: "/", label: "总览", icon: LayoutGrid },
-  { href: "/shops", label: "店铺监控", icon: ScanSearch },
-  { href: "/products", label: "有货商品", icon: Package }
+  { href: "/shops", label: "店铺监控", icon: ScanSearch }
 ] satisfies Array<{ href: string; label: string; icon: ComponentType<{ className?: string }> }>;
 
 export function SiteShell({ children, latestSyncAt }: { children: React.ReactNode; latestSyncAt: string }) {

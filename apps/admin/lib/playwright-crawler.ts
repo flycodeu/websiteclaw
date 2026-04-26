@@ -15,6 +15,10 @@ interface ManualVerificationSession {
   browser: Browser;
   context: BrowserContext;
   page: Page;
+  viewport: {
+    width: number;
+    height: number;
+  };
 }
 
 export interface CapturedProductCard {
@@ -38,18 +42,67 @@ export interface BrowserCrawlResult {
 }
 
 interface ManualVerificationStartResult {
-  capture?: BrowserCrawlResult;
   finalUrl: string;
 }
 
+export interface ManualVerificationInteractable {
+  id: string;
+  kind: "INPUT" | "BUTTON" | "LINK" | "SELECT" | "FRAME" | "CONTROL";
+  label: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface ManualVerificationSessionSnapshot {
+  active: boolean;
+  title: string;
+  currentUrl: string;
+  lastUpdatedAt: string;
+  viewport: {
+    width: number;
+    height: number;
+  };
+  interactables: ManualVerificationInteractable[];
+}
+
+export interface ManualVerificationActionPayload {
+  type: "back" | "click" | "drag" | "forward" | "press" | "reload" | "scroll" | "type" | "wait";
+  x?: number;
+  y?: number;
+  fromX?: number;
+  fromY?: number;
+  toX?: number;
+  toY?: number;
+  text?: string;
+  key?: string;
+  deltaY?: number;
+  timeoutMs?: number;
+}
+
 const manualVerificationSessions = new Map<string, ManualVerificationSession>();
+const DEFAULT_MANUAL_VIEWPORT = {
+  width: 1440,
+  height: 1080
+} as const;
 
 function normalizeInlineText(input: string | null | undefined) {
   return (input ?? "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function clampNumber(value: number, minimum: number, maximum: number) {
+  return Math.min(Math.max(value, minimum), maximum);
+}
+
 function isPageUnavailableError(error: unknown) {
   return error instanceof Error && /Target page, context or browser has been closed/i.test(error.message);
+}
+
+function ensurePageIsAvailable(page: Page) {
+  if (page.isClosed()) {
+    throw new Error("浏览器页面已关闭，请重新启动验证会话。");
+  }
 }
 
 function inferStockStatusFromText(input: string) {
@@ -113,7 +166,7 @@ function parseCookieHeader(cookieHeader: string, targetUrl: string) {
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
 }
 
-function detectVerificationReason(source: DataSource, title: string, visibleText: string, html: string) {
+function detectVerificationReason(_source: DataSource, title: string, visibleText: string, html: string) {
   const marker = `${title}\n${visibleText}\n${html}`.toLowerCase();
 
   if (/(captcha|verify you are human|robot check|请完成验证|验证码|安全验证|滑动验证|真人验证)/i.test(marker)) {
@@ -122,14 +175,6 @@ function detectVerificationReason(source: DataSource, title: string, visibleText
 
   if (/(sign in|log in|login to continue|请先登录|登录后查看|账户验证)/i.test(marker)) {
     return "页面要求登录后才能查看完整内容。";
-  }
-
-  if (source.verificationMethod !== "NONE" && visibleText.trim().length < 120) {
-    return source.verificationPrompt || "需要完成人工验证后继续抓取。";
-  }
-
-  if (source.crawlMode === "MANUAL_ASSIST" && visibleText.trim().length < 180) {
-    return source.verificationPrompt || "当前页面有效内容不足，建议人工验证后继续。";
   }
 
   return undefined;
@@ -272,6 +317,7 @@ async function expandPageContent(page: Page) {
 }
 
 async function extractProductCards(page: Page): Promise<CapturedProductCard[]> {
+  ensurePageIsAvailable(page);
   const cards = await page.evaluate(() => {
     const normalize = (input: string | null | undefined) => (input ?? "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
     const parsePrice = (input: string) => {
@@ -342,6 +388,7 @@ async function extractProductCards(page: Page): Promise<CapturedProductCard[]> {
 }
 
 async function readVisibleText(page: Page): Promise<string> {
+  ensurePageIsAvailable(page);
   const fromBodyInnerText = await page.locator("body").innerText().catch(() => "");
 
   if (normalizeInlineText(fromBodyInnerText)) {
@@ -373,12 +420,13 @@ async function createBrowserSession(
     (await readStoredStorageState(task?.artifacts?.storageStatePath));
 
   const browser = await chromium.launch({
-    headless: options.interactive ? false : source.headless
+    headless: options.interactive ? true : source.headless
   });
 
   const context = await browser.newContext({
     storageState: storageStateInput,
-    extraHTTPHeaders: buildExtraHeaders(source)
+    extraHTTPHeaders: buildExtraHeaders(source),
+    viewport: options.interactive ? DEFAULT_MANUAL_VIEWPORT : undefined
   });
 
   if (!options.interactive && source.blockAssets) {
@@ -406,12 +454,134 @@ async function createBrowserSession(
   return { browser, context };
 }
 
+async function collectManualVerificationInteractables(page: Page): Promise<ManualVerificationInteractable[]> {
+  ensurePageIsAvailable(page);
+
+  return page
+    .evaluate(() => {
+      const normalize = (input: string | null | undefined) => (input ?? "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+      const clamp = (value: number, minimum: number, maximum: number) => Math.min(Math.max(value, minimum), maximum);
+      const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      const inferKind = (element: Element): ManualVerificationInteractable["kind"] => {
+        const tagName = element.tagName.toLowerCase();
+
+        if (tagName === "input" || tagName === "textarea") {
+          return "INPUT";
+        }
+
+        if (tagName === "select") {
+          return "SELECT";
+        }
+
+        if (tagName === "iframe") {
+          return "FRAME";
+        }
+
+        if (tagName === "a") {
+          return "LINK";
+        }
+
+        if (tagName === "button") {
+          return "BUTTON";
+        }
+
+        return "CONTROL";
+      };
+
+      return Array.from(
+        document.querySelectorAll("input, textarea, select, button, a, iframe, [role='button'], [contenteditable='true']")
+      )
+        .map((element, index) => {
+          const rect = element.getBoundingClientRect();
+
+          if (rect.width < 20 || rect.height < 16) {
+            return null;
+          }
+
+          if (rect.bottom <= 0 || rect.right <= 0 || rect.top >= viewportHeight || rect.left >= viewportWidth) {
+            return null;
+          }
+
+          const styles = window.getComputedStyle(element);
+
+          if (styles.display === "none" || styles.visibility === "hidden" || Number(styles.opacity) === 0) {
+            return null;
+          }
+
+          const rawLabel =
+            element.getAttribute("aria-label") ||
+            element.getAttribute("placeholder") ||
+            element.getAttribute("title") ||
+            element.getAttribute("name") ||
+            element.textContent;
+          const label = normalize(rawLabel).slice(0, 32);
+
+          return {
+            id: `hint_${index}`,
+            kind: inferKind(element),
+            label: label || "可交互元素",
+            x: clamp(rect.left, 0, viewportWidth),
+            y: clamp(rect.top, 0, viewportHeight),
+            width: clamp(rect.width, 0, viewportWidth),
+            height: clamp(rect.height, 0, viewportHeight)
+          };
+        })
+        .filter((item): item is ManualVerificationInteractable => Boolean(item))
+        .slice(0, 24);
+    })
+    .catch((error) => {
+      if (isPageUnavailableError(error)) {
+        return [];
+      }
+
+      throw error;
+    });
+}
+
+async function waitForManualVerificationStabilization(page: Page, timeoutMs = 350) {
+  if (page.isClosed()) {
+    return;
+  }
+
+  await page.waitForLoadState("domcontentloaded", { timeout: clampNumber(timeoutMs, 200, 2_000) }).catch(() => undefined);
+  await page.waitForTimeout(180).catch(() => undefined);
+}
+
+function normalizeViewportCoordinate(value: number | undefined) {
+  if (!Number.isFinite(value)) {
+    throw new Error("坐标无效，无法执行页面操作。");
+  }
+
+  return clampNumber(Number(value), 0, 1);
+}
+
+async function buildManualVerificationSessionSnapshot(
+  page: Page,
+  viewport: { width: number; height: number }
+): Promise<ManualVerificationSessionSnapshot> {
+  ensurePageIsAvailable(page);
+
+  const currentViewport = page.viewportSize() ?? viewport;
+  const interactables = await collectManualVerificationInteractables(page);
+
+  return {
+    active: true,
+    title: await page.title().catch(() => ""),
+    currentUrl: page.url(),
+    lastUpdatedAt: new Date().toISOString(),
+    viewport: currentViewport,
+    interactables
+  };
+}
+
 async function capturePageState(
   source: DataSource,
   taskId: string,
   context: BrowserContext,
   page: Page
 ): Promise<BrowserCrawlResult> {
+  ensurePageIsAvailable(page);
   await page.waitForLoadState("domcontentloaded", { timeout: 5_000 }).catch(() => undefined);
 
   if (!page.isClosed()) {
@@ -423,8 +593,10 @@ async function capturePageState(
   }
 
   await page.waitForLoadState("networkidle", { timeout: 5_000 }).catch(() => undefined);
+  ensurePageIsAvailable(page);
   const productCards = await extractProductCards(page);
 
+  ensurePageIsAvailable(page);
   const html = await page.content();
   const visibleText = await readVisibleText(page);
   const title = await page.title().catch(() => "");
@@ -486,20 +658,20 @@ export async function runPlaywrightCapture(
   source: DataSource,
   taskId: string,
   payload?: ContinueTaskPayload,
-  task?: Pick<CrawlTask, "artifacts">
+  task?: Pick<CrawlTask, "artifacts" | "currentUrl">
 ): Promise<BrowserCrawlResult> {
   const { browser, context } = await createBrowserSession(source, task, payload, { interactive: false });
 
   try {
     const page = await context.newPage();
-    const targetUrl = source.entryUrl || source.sourceUrl;
+    const targetUrl = task?.currentUrl || source.entryUrl || source.sourceUrl;
 
     await page.goto(targetUrl, {
       waitUntil: "domcontentloaded",
       timeout: 45_000
     });
 
-    return capturePageState(source, taskId, context, page);
+    return await capturePageState(source, taskId, context, page);
   } finally {
     await context.close().catch(() => undefined);
     await browser.close().catch(() => undefined);
@@ -513,9 +685,7 @@ export async function startManualVerificationSession(
   const existingSession = await getActiveManualVerificationSession(task.id);
 
   if (existingSession) {
-    await existingSession.page.bringToFront().catch(() => undefined);
     return {
-      capture: await capturePageState(source, task.id, existingSession.context, existingSession.page).catch(() => undefined),
       finalUrl: existingSession.page.url()
     };
   }
@@ -536,13 +706,13 @@ export async function startManualVerificationSession(
     const session: ManualVerificationSession = {
       browser,
       context,
-      page
+      page,
+      viewport: DEFAULT_MANUAL_VIEWPORT
     };
 
     manualVerificationSessions.set(task.id, session);
 
     return {
-      capture: await capturePageState(source, task.id, context, page).catch(() => undefined),
       finalUrl: page.url()
     };
   } catch (error) {
@@ -569,8 +739,121 @@ export async function completeManualVerificationSession(
     return capture;
   }
 
-  await session.page.bringToFront().catch(() => undefined);
   return capture;
+}
+
+export async function getManualVerificationSessionSnapshot(taskId: string) {
+  const session = await getActiveManualVerificationSession(taskId);
+
+  if (!session) {
+    return null;
+  }
+
+  await waitForManualVerificationStabilization(session.page);
+  return buildManualVerificationSessionSnapshot(session.page, session.viewport);
+}
+
+export async function getManualVerificationSessionScreenshot(taskId: string) {
+  const session = await getActiveManualVerificationSession(taskId);
+
+  if (!session) {
+    return null;
+  }
+
+  await waitForManualVerificationStabilization(session.page, 250);
+
+  try {
+    return await session.page.screenshot({
+      type: "png",
+      animations: "disabled",
+      caret: "hide"
+    });
+  } catch (error) {
+    if (isPageUnavailableError(error)) {
+      await releaseManualVerificationSession(taskId);
+      return null;
+    }
+
+    throw error;
+  }
+}
+
+export async function applyManualVerificationAction(taskId: string, payload: ManualVerificationActionPayload) {
+  const session = await getActiveManualVerificationSession(taskId);
+
+  if (!session) {
+    throw new Error("人工验证会话不存在，请先启动内嵌验证工作台。");
+  }
+
+  const page = session.page;
+  const viewport = page.viewportSize() ?? session.viewport;
+
+  ensurePageIsAvailable(page);
+
+  switch (payload.type) {
+    case "click": {
+      const x = Math.round(normalizeViewportCoordinate(payload.x) * viewport.width);
+      const y = Math.round(normalizeViewportCoordinate(payload.y) * viewport.height);
+      await page.mouse.click(x, y, { delay: 40 });
+      break;
+    }
+    case "drag": {
+      const fromX = Math.round(normalizeViewportCoordinate(payload.fromX) * viewport.width);
+      const fromY = Math.round(normalizeViewportCoordinate(payload.fromY) * viewport.height);
+      const toX = Math.round(normalizeViewportCoordinate(payload.toX) * viewport.width);
+      const toY = Math.round(normalizeViewportCoordinate(payload.toY) * viewport.height);
+      await page.mouse.move(fromX, fromY);
+      await page.mouse.down();
+      await page.mouse.move(toX, toY, { steps: 18 });
+      await page.mouse.up();
+      break;
+    }
+    case "type": {
+      if (typeof payload.text !== "string" || payload.text.length === 0) {
+        throw new Error("请输入要发送到页面的文本。");
+      }
+
+      await page.keyboard.type(payload.text.slice(0, 600), { delay: 24 });
+      break;
+    }
+    case "press": {
+      const key = payload.key?.trim();
+
+      if (!key) {
+        throw new Error("请选择要发送的按键。");
+      }
+
+      await page.keyboard.press(key);
+      break;
+    }
+    case "scroll": {
+      const deltaY = clampNumber(Number(payload.deltaY ?? 560), -1_600, 1_600);
+      await page.mouse.wheel(0, deltaY);
+      break;
+    }
+    case "reload": {
+      await page.reload({ waitUntil: "domcontentloaded", timeout: 45_000 }).catch(() => undefined);
+      break;
+    }
+    case "back": {
+      await page.goBack({ waitUntil: "domcontentloaded", timeout: 20_000 }).catch(() => undefined);
+      break;
+    }
+    case "forward": {
+      await page.goForward({ waitUntil: "domcontentloaded", timeout: 20_000 }).catch(() => undefined);
+      break;
+    }
+    case "wait": {
+      const timeoutMs = clampNumber(Number(payload.timeoutMs ?? 1_200), 200, 6_000);
+      await page.waitForTimeout(timeoutMs).catch(() => undefined);
+      break;
+    }
+    default:
+      throw new Error("不支持的验证操作。");
+  }
+
+  await waitForManualVerificationStabilization(page, 700);
+  return buildManualVerificationSessionSnapshot(page, session.viewport);
 }
 
 export async function saveManualCapture(taskId: string, content: string) {

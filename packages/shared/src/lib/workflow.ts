@@ -14,6 +14,7 @@ import {
   ShopSnapshot,
   ShopStatus,
   StockStatus,
+  TaskStatus,
   TaskTimelineItem
 } from "./types";
 import { deleteTaskRuntimeDirectory, getPlatformState, savePlatformState } from "./store";
@@ -400,6 +401,35 @@ export async function deleteSource(sourceId: string) {
     deletedTaskCount: taskIds.length,
     deletedReviewCount,
     deletedShopCount
+  };
+}
+
+export async function clearTasksByStatus(status: TaskStatus) {
+  if (status !== "WAITING_HUMAN" && status !== "FAILED") {
+    throw new Error("仅支持清空待补充验证和失败任务");
+  }
+
+  const state = await getPlatformState();
+  const taskIds = state.tasks.filter((task) => task.status === status).map((task) => task.id);
+
+  if (taskIds.length === 0) {
+    return {
+      status,
+      clearedCount: 0
+    };
+  }
+
+  const nextState: PlatformState = {
+    ...state,
+    tasks: state.tasks.filter((task) => task.status !== status)
+  };
+
+  await savePlatformState(nextState);
+  await Promise.all(taskIds.map((taskId) => deleteTaskRuntimeDirectory(taskId)));
+
+  return {
+    status,
+    clearedCount: taskIds.length
   };
 }
 
