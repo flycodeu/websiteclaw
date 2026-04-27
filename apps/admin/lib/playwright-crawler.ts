@@ -104,6 +104,7 @@ interface PersistedStorageState {
 type SupportedStorageStateInput = PersistedStorageState | BrowserContextOptions["storageState"] | undefined;
 
 const manualVerificationSessions = new Map<string, ManualVerificationSession>();
+const pendingManualVerificationSessions = new Map<string, Promise<ManualVerificationSession>>();
 const DEFAULT_MANUAL_VIEWPORT = {
   width: 1440,
   height: 1080
@@ -730,21 +731,43 @@ async function createAttachedManualVerificationSession(
   source: DataSource,
   task: Pick<CrawlTask, "id" | "currentUrl" | "artifacts">
 ) {
-  const { browser, context, page } = await attachManualVerificationSession(source, task);
+  const pending = pendingManualVerificationSessions.get(task.id);
+
+  if (pending) {
+    return pending;
+  }
+
+  const creation = (async () => {
+    const existing = await getActiveManualVerificationSession(task.id);
+
+    if (existing) {
+      return existing;
+    }
+
+    const { browser, context, page } = await attachManualVerificationSession(source, task);
+
+    try {
+      const session: ManualVerificationSession = {
+        browser,
+        context,
+        page,
+        viewport: DEFAULT_MANUAL_VIEWPORT
+      };
+
+      manualVerificationSessions.set(task.id, session);
+      return session;
+    } catch (error) {
+      await browser.close().catch(() => undefined);
+      throw error;
+    }
+  })();
+
+  pendingManualVerificationSessions.set(task.id, creation);
 
   try {
-    const session: ManualVerificationSession = {
-      browser,
-      context,
-      page,
-      viewport: DEFAULT_MANUAL_VIEWPORT
-    };
-
-    manualVerificationSessions.set(task.id, session);
-    return session;
-  } catch (error) {
-    await browser.close().catch(() => undefined);
-    throw error;
+    return await creation;
+  } finally {
+    pendingManualVerificationSessions.delete(task.id);
   }
 }
 

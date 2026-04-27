@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { CrawlTask } from "@shop-claw/shared/types";
+
+const verificationStartTimestamps = new Map<string, number>();
 
 interface VerificationWorkspaceState {
   active: boolean;
@@ -28,11 +31,23 @@ function readWorkspace(payload: unknown) {
   return null;
 }
 
+function readTask(payload: unknown) {
+  if (payload && typeof payload === "object" && "data" in payload) {
+    return payload.data as CrawlTask | null | undefined;
+  }
+
+  return null;
+}
+
 export function VerificationLauncher({ taskId, sourceName }: { taskId: string; sourceName: string }) {
   const [workspace, setWorkspace] = useState<VerificationWorkspaceState | null>(null);
   const [previewNonce, setPreviewNonce] = useState(0);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [statusMessage, setStatusMessage] = useState("正在连接真实 Chrome 会话...");
+  const [completing, setCompleting] = useState(false);
+  const [lastContinueAttemptAt, setLastContinueAttemptAt] = useState(0);
+  const completingRef = useRef(false);
 
   const screenshotUrl =
     workspace?.active && !workspace?.embedUrl
@@ -40,50 +55,68 @@ export function VerificationLauncher({ taskId, sourceName }: { taskId: string; s
       : null;
 
   useEffect(() => {
+    completingRef.current = completing;
+  }, [completing]);
+
+  useEffect(() => {
     let cancelled = false;
-    let timer: number | undefined;
+    let pollTimer: number | undefined;
 
     async function launch() {
       try {
-        const startResponse = await fetch(`/api/tasks/${taskId}/verification/start`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ allowEmbeddedFallback: false })
-        });
-        const startPayload = (await startResponse.json().catch(() => null)) as unknown;
+        const lastStartedAt = verificationStartTimestamps.get(taskId) ?? 0;
 
-        if (!startResponse.ok) {
-          throw new Error(readErrorMessage(startPayload, "启动人工验证失败"));
+        if (Date.now() - lastStartedAt > 15_000) {
+          verificationStartTimestamps.set(taskId, Date.now());
+
+          const startResponse = await fetch(`/api/tasks/${taskId}/verification/start`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ allowEmbeddedFallback: false })
+          });
+          const startPayload = (await startResponse.json().catch(() => null)) as unknown;
+
+          if (!startResponse.ok) {
+            verificationStartTimestamps.delete(taskId);
+            throw new Error(readErrorMessage(startPayload, "启动人工验证失败"));
+          }
         }
 
         const pollWorkspace = async (silent = false) => {
-          const workspaceResponse = await fetch(`/api/tasks/${taskId}/verification/session`, {
-            cache: "no-store"
-          });
-          const workspacePayload = (await workspaceResponse.json().catch(() => null)) as unknown;
+          try {
+            const workspaceResponse = await fetch(`/api/tasks/${taskId}/verification/session`, {
+              cache: "no-store"
+            });
+            const workspacePayload = (await workspaceResponse.json().catch(() => null)) as unknown;
 
-          if (!workspaceResponse.ok) {
-            throw new Error(readErrorMessage(workspacePayload, "读取人工验证状态失败"));
-          }
+            if (!workspaceResponse.ok) {
+              throw new Error(readErrorMessage(workspacePayload, "读取人工验证状态失败"));
+            }
 
-          const nextWorkspace = readWorkspace(workspacePayload);
+            const nextWorkspace = readWorkspace(workspacePayload);
 
-          if (!cancelled) {
-            setWorkspace(nextWorkspace ?? null);
-            if (!silent) {
+            if (!cancelled) {
+              setWorkspace(nextWorkspace ?? null);
               setErrorMessage("");
-              setStatusMessage(nextWorkspace?.active ? "已连接真实 Chrome，会话正在等待人工验证。" : "会话已连接。");
+
+              if (!silent) {
+                setStatusMessage(nextWorkspace?.active ? "已连接真实 Chrome，会话正在等待人工验证。" : "会话已连接。");
+              }
+            }
+          } catch (error) {
+            if (!cancelled && !silent) {
+              setErrorMessage(error instanceof Error ? error.message : "读取人工验证状态失败");
+            }
+          } finally {
+            if (!cancelled && !completingRef.current) {
+              pollTimer = window.setTimeout(() => {
+                void pollWorkspace(true);
+              }, 5000);
             }
           }
         };
 
         await pollWorkspace();
-        timer = window.setInterval(() => {
-          void pollWorkspace(true).catch(() => undefined);
-          if (!cancelled) {
-            setPreviewNonce((current) => current + 1);
-          }
-        }, 2500);
       } catch (error) {
         if (!cancelled) {
           setErrorMessage(error instanceof Error ? error.message : "人工验证启动失败");
@@ -96,11 +129,114 @@ export function VerificationLauncher({ taskId, sourceName }: { taskId: string; s
 
     return () => {
       cancelled = true;
-      if (timer !== undefined) {
-        window.clearInterval(timer);
+      if (pollTimer !== undefined) {
+        window.clearTimeout(pollTimer);
       }
     };
   }, [taskId]);
+
+  useEffect(() => {
+    if (!screenshotUrl) {
+      setPreviewUrl(null);
+      return;
+    }
+
+    let cancelled = false;
+    const image = new Image();
+
+    image.onload = () => {
+      if (!cancelled) {
+        setPreviewUrl(screenshotUrl);
+      }
+    };
+
+    image.src = screenshotUrl;
+
+    return () => {
+      cancelled = true;
+    };
+  }, [screenshotUrl]);
+
+  useEffect(() => {
+    if (!workspace?.active || workspace.embedUrl || completing) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      setPreviewNonce((current) => current + 1);
+    }, 4000);
+
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, [completing, workspace?.active, workspace?.embedUrl]);
+
+  async function continueAfterVerification(trigger: "manual" | "auto") {
+    if (completing) {
+      return;
+    }
+
+    setCompleting(true);
+    setErrorMessage("");
+    setStatusMessage(
+      trigger === "manual" ? "正在读取验证后的页面内容..." : "正在抓取页面并进行 AI 分析..."
+    );
+
+    try {
+      const response = await fetch(`/api/tasks/${taskId}/verification/complete`, {
+        method: "POST"
+      });
+      const payload = (await response.json().catch(() => null)) as unknown;
+
+      if (!response.ok) {
+        throw new Error(readErrorMessage(payload, "完成人工验证失败"));
+      }
+
+      const nextTask = readTask(payload);
+
+      if (!nextTask) {
+        throw new Error("人工验证返回结果无效");
+      }
+
+      if (nextTask.status === "WAITING_HUMAN") {
+        setStatusMessage("验证尚未完成，请继续在 Chrome 中处理。");
+        setLastContinueAttemptAt(Date.now());
+        return;
+      }
+
+      if (nextTask.status === "REVIEWING" && nextTask.reviewId) {
+        window.location.replace(`/review/${encodeURIComponent(nextTask.reviewId)}`);
+        return;
+      }
+
+      window.location.replace("/tasks");
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "完成人工验证失败");
+      setStatusMessage("继续抓取失败");
+    } finally {
+      setCompleting(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!workspace?.active || workspace.embedUrl || completing) {
+      return;
+    }
+
+    const elapsed = Date.now() - lastContinueAttemptAt;
+
+    if (elapsed < 12000) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      void continueAfterVerification("auto");
+    }, 3000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [completing, lastContinueAttemptAt, taskId, workspace?.active, workspace?.currentUrl, workspace?.embedUrl, workspace?.lastUpdatedAt]);
 
   return (
     <div className="min-h-[calc(100vh-140px)] px-0 py-0">
@@ -129,6 +265,14 @@ export function VerificationLauncher({ taskId, sourceName }: { taskId: string; s
             <button type="button" onClick={() => window.location.reload()} className="rounded-full bg-[#355344] px-5 py-3 text-sm text-white">
               刷新
             </button>
+            <button
+              type="button"
+              disabled={completing || !workspace?.active}
+              onClick={() => void continueAfterVerification("manual")}
+              className="rounded-full border border-[#355344]/15 bg-[#eef4e8] px-5 py-3 text-sm text-[#355344] disabled:opacity-50"
+            >
+              {completing ? "处理中..." : "完成验证并继续抓取"}
+            </button>
             <Link href="/tasks" className="rounded-full border border-[#d8cfbf] bg-white px-5 py-3 text-sm text-slate-700">
               返回任务
             </Link>
@@ -142,10 +286,9 @@ export function VerificationLauncher({ taskId, sourceName }: { taskId: string; s
           </div>
 
           <div className="p-4 sm:p-5">
-            {screenshotUrl ? (
+            {previewUrl ? (
               <img
-                key={screenshotUrl}
-                src={screenshotUrl}
+                src={previewUrl}
                 alt="当前验证页预览"
                 className="h-[78vh] w-full rounded-[22px] border border-white/10 bg-[#111a23] object-contain"
               />

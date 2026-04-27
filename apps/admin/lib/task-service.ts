@@ -1449,6 +1449,8 @@ export async function completeTaskVerification(taskId: string) {
     logSummary: "正在提取人工验证后的页面内容。",
     timeline: buildTimeline(task.timeline, "读取验证结果", "正在从人工验证会话提取页面内容。")
   };
+  const stateWithWorkingTask = replaceTaskInState(state, workingTask);
+  await savePlatformState(stateWithWorkingTask);
   let pipelineResult:
     | {
         state: PlatformState;
@@ -1465,7 +1467,7 @@ export async function completeTaskVerification(taskId: string) {
       },
       resumedTask
     );
-    pipelineResult = await processCaptureResult(state, workingTask, source, capture, aiSettings, {
+    pipelineResult = await processCaptureResult(stateWithWorkingTask, workingTask, source, capture, aiSettings, {
       fromManualVerification: true,
       payload: {
         storageState: embeddedSession.storageState,
@@ -1474,7 +1476,7 @@ export async function completeTaskVerification(taskId: string) {
     });
   } else {
     const capture = await completeManualVerificationSession(source, resumedTask);
-    pipelineResult = await processCaptureResult(state, workingTask, source, capture, aiSettings, {
+    pipelineResult = await processCaptureResult(stateWithWorkingTask, workingTask, source, capture, aiSettings, {
       fromManualVerification: true
     });
   }

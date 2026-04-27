@@ -188,9 +188,9 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
           </div>
 
           <div className="mt-5 space-y-4">
-            {review.rawFragments.map((fragment) => (
+            {review.rawFragments.map((fragment, index) => (
               <pre
-                key={fragment}
+                key={`fragment-${index}-${fragment.slice(0, 24)}`}
                 className="overflow-x-auto whitespace-pre-wrap break-words rounded-[22px] border border-[#d8cfbf] bg-[#fbf8f1] p-4 text-sm text-[#42505c] shadow-[inset_0_0_0_1px_rgba(216,207,191,0.22)]"
               >
                 {fragment}
@@ -391,8 +391,11 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
 
           <div className="mt-5 space-y-4">
             {review.previousDiff.length > 0 ? (
-              review.previousDiff.map((change) => (
-                <article key={`${change.type}-${change.note}`} className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
+              review.previousDiff.map((change, index) => (
+                <article
+                  key={`diff-${index}-${change.type}-${change.productKey ?? "note"}-${change.note.slice(0, 24)}`}
+                  className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4"
+                >
                   <div className="text-sm font-medium text-[#355344]">{changeTypeLabels[change.type]}</div>
                   <div className="mt-2 text-sm text-slate-600">{change.note}</div>
                 </article>
