@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { promises as fs } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { chromium, type Browser, type BrowserContext, type BrowserContextOptions, type Page } from "playwright";
+import type { Browser, BrowserContext, BrowserContextOptions, Page } from "playwright";
 import {
   MANUAL_VERIFICATION_CDP_URL,
   MANUAL_VERIFICATION_DEBUG_HOST,
@@ -109,6 +109,16 @@ const DEFAULT_MANUAL_VIEWPORT = {
   width: 1440,
   height: 1080
 } as const;
+let playwrightModulePromise: Promise<typeof import("playwright")> | null = null;
+
+async function getChromium() {
+  if (!playwrightModulePromise) {
+    playwrightModulePromise = import("playwright");
+  }
+
+  const playwrightModule = await playwrightModulePromise;
+  return playwrightModule.chromium;
+}
 
 function normalizeInlineText(input: string | null | undefined) {
   return (input ?? "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
@@ -628,6 +638,7 @@ async function createBrowserSession(
   payload: ContinueTaskPayload | undefined,
   options: { interactive: boolean }
 ) {
+  const chromium = await getChromium();
   const storageStateInput =
     parseStorageState(payload?.storageState) ??
     parseStorageState(payload?.verificationToken) ??
@@ -669,6 +680,7 @@ async function createBrowserSession(
 }
 
 async function connectToManualVerificationBrowser(targetUrl: string) {
+  const chromium = await getChromium();
   let launched = false;
 
   for (let attempt = 0; attempt < 18; attempt += 1) {

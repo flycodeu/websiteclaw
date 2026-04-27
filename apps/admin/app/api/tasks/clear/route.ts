@@ -1,7 +1,6 @@
 import { withTraceId } from "@shop-claw/shared/response";
 import { TaskStatus } from "@shop-claw/shared/types";
 import { clearTasksByStatus } from "@shop-claw/shared/workflow";
-import { closeManualVerificationSession } from "@/lib/playwright-crawler";
 import { closeEmbeddedVerificationSession } from "@/lib/verification-proxy";
 
 export const runtime = "nodejs";
@@ -20,7 +19,12 @@ export async function POST(request: Request) {
 
     await Promise.all(
       result.clearedTaskIds.map(async (taskId) => {
-        await closeManualVerificationSession(taskId);
+        try {
+          const { closeManualVerificationSession } = await import("@/lib/playwright-crawler");
+          await closeManualVerificationSession(taskId);
+        } catch {
+          // Ignore cleanup failures during environments where Playwright is unavailable.
+        }
         await closeEmbeddedVerificationSession(taskId);
       })
     );
