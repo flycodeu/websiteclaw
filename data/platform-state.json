@@ -1,6 +1,6 @@
 {
-  "version": 92,
-  "updatedAt": "2026-04-26T14:19:49.876Z",
+  "version": 108,
+  "updatedAt": "2026-04-27T13:20:37.490Z",
   "sources": [
     {
       "sourceId": "src_37758749",
@@ -9,9 +9,9 @@
       "entryUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
       "crawlMode": "AUTO",
       "enabled": true,
-      "lastRunAt": "2026-04-26T14:19:32.843Z",
+      "lastRunAt": "2026-04-27T13:20:18.390Z",
       "createdAt": "2026-04-25T12:16:47.915Z",
-      "updatedAt": "2026-04-26T14:19:32.843Z",
+      "updatedAt": "2026-04-27T13:20:18.390Z",
       "verificationMethod": "NONE",
       "verificationPrompt": "",
       "waitSelector": "body",
@@ -56,54 +56,56 @@
   ],
   "tasks": [
     {
-      "id": "task_70313e1d",
+      "id": "task_cf9b260d",
       "sourceId": "src_37758749",
       "sourceName": "鸡哥AI代充(自营)",
       "status": "WAITING_HUMAN",
-      "startedAt": "2026-04-26T14:19:32.843Z",
-      "updatedAt": "2026-04-26T14:19:49.874Z",
-      "logSummary": "已打开内嵌人工验证工作台，请直接在后台界面中完成验证码、登录或页面放行。",
-      "nextAction": "请在当前后台工作台中完成验证，完成后点击“完成验证并继续抓取”。",
+      "startedAt": "2026-04-27T13:20:18.390Z",
+      "updatedAt": "2026-04-27T13:20:37.484Z",
+      "logSummary": "已连接当前 Chrome 验证会话，等待人工完成验证码、登录或页面放行。",
+      "nextAction": "请在当前 Chrome 中完成验证，然后返回后台点击“完成验证并继续抓取”。",
       "rawUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
       "currentUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
       "rawFragments": [
-        "403 Forbidden",
-        "RequestID: 314fe50717772131737513767e",
-        "RuleID: 20876145",
-        "403 Forbidden 403"
+        "Request ID：dcb58d1517772960210128361e",
+        "Request ID： dcb58d1517772960210128361e",
+        "Request ID: dcb58d1517772960210128361e",
+        "appkey: \"CF_APP_WAF\", // 应用标识waf-nc-h5-mask var AC_Opt = {userUserId: requestInfo.userUserId",
+        "TraceID: dcb58d1517772960210128361e",
+        "--> var requestInfo = {\"type\":\"GET\",\"data\":\"\",\"token\":\"69ef6295-309d-1a70-3c32-df5da21a95db\",\"sceneId\":\"19x5u7lo\",\"userUserId\":\"KV1xJ+BGylU73MBMQb7V9g==\",\"userId\":\"HpadJlQnz2zSKcSmjXBaqQvjYUvP4jMJIk/ZwGNDNiM=\",\"region\":\"sgp\",\"traceid\":\"dcb58d1517772960210128361e\"};"
       ],
       "timeline": [
         {
-          "at": "2026-04-26T14:19:32.843Z",
+          "at": "2026-04-27T13:20:18.390Z",
           "title": "任务创建",
           "detail": "已加入抓取队列。"
         },
         {
-          "at": "2026-04-26T14:19:32.850Z",
+          "at": "2026-04-27T13:20:18.397Z",
           "title": "开始抓取",
           "detail": "已进入浏览器抓取流程。"
         },
         {
-          "at": "2026-04-26T14:19:34.349Z",
+          "at": "2026-04-27T13:20:26.409Z",
           "title": "等待人工验证",
           "detail": "站点返回 403 或风控拦截页面，请继续在当前 Chrome 中完成人工验证后再抓取。"
         },
         {
-          "at": "2026-04-26T14:19:49.874Z",
+          "at": "2026-04-27T13:20:37.484Z",
           "title": "启动人工验证",
-          "detail": "当前 Chrome 接管不可用，已回退到内嵌人工验证工作台。"
+          "detail": "已连接当前 Chrome 会话供人工验证，完成后将自动继续抓取。"
         }
       ],
       "requiresVerification": true,
       "verificationMethod": "MANUAL",
       "verificationPrompt": "站点返回 403 或风控拦截页面，请继续在当前 Chrome 中完成人工验证后再抓取。",
-      "sessionId": "session_dd0ca4ed",
+      "sessionId": "session_fc9dac91",
       "pageState": "VERIFYING",
       "artifacts": {
-        "htmlPath": "data/runtime/tasks/task_70313e1d/page.html",
-        "textPath": "data/runtime/tasks/task_70313e1d/visible.txt",
-        "screenshotPath": "data/runtime/tasks/task_70313e1d/page.png",
-        "storageStatePath": "data/runtime/tasks/task_70313e1d/storage-state.json"
+        "htmlPath": "data/runtime/tasks/task_cf9b260d/page.html",
+        "textPath": "data/runtime/tasks/task_cf9b260d/visible.txt",
+        "screenshotPath": "data/runtime/tasks/task_cf9b260d/page.png",
+        "storageStatePath": "data/runtime/tasks/task_cf9b260d/storage-state.json"
       }
     },
     {

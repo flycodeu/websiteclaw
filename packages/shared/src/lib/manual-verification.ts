@@ -11,7 +11,7 @@ const CAPTCHA_CHALLENGE_PATTERN =
 const LOGIN_CHALLENGE_PATTERN = /(sign in|log in|login to continue|请先登录|登录后查看|账户验证)/i;
 
 export function buildManualVerificationChromeSetupHint() {
-  return `请先关闭所有普通 Chrome 窗口，再用一个独立调试目录启动 Chrome：${MANUAL_VERIFICATION_CHROME_COMMAND}。如果系统无法直接识别 chrome.exe，请改成你本机 Chrome 的实际安装路径；启动后返回这里点击“连接当前 Chrome”。`;
+  return `系统会自动尝试启动调试 Chrome；如果失败，请先关闭所有普通 Chrome 窗口，再用一个独立调试目录启动 Chrome：${MANUAL_VERIFICATION_CHROME_COMMAND}。如果系统无法直接识别 chrome.exe，请改成你本机 Chrome 的实际安装路径。`;
 }
 
 export function detectManualVerificationReason(input: string | null | undefined) {

@@ -14,6 +14,7 @@ const navItems = [
 
 export function AdminShell({ email, children }: { email: string; children: React.ReactNode }) {
   const pathname = usePathname();
+  const isVerificationPage = pathname.startsWith("/tasks/") && pathname.endsWith("/verification");
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(164,188,96,0.18),transparent_20%),radial-gradient(circle_at_top_right,rgba(245,214,145,0.28),transparent_24%),linear-gradient(180deg,#faf6ee_0%,#efe7da_100%)] text-[#18222c]">
@@ -68,7 +69,7 @@ export function AdminShell({ email, children }: { email: string; children: React
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+      <main className={isVerificationPage ? "px-6 py-6" : "mx-auto max-w-7xl px-6 py-8"}>{children}</main>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-"use client";
-
+﻿"use client";
+import type { Route } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
@@ -25,6 +25,7 @@ interface VerificationWorkspaceState {
   currentUrl: string;
   embedUrl: string;
   lastUpdatedAt: string;
+  errorMessage?: string;
 }
 
 const columns = [
@@ -477,14 +478,12 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
 
                       <div className="flex flex-wrap items-center gap-2">
                         {task.status === "WAITING_HUMAN" ? (
-                          <button
-                            type="button"
-                            disabled={pending}
-                            onClick={() => setActiveTaskId(task.id)}
+                          <Link
+                            href={`/tasks/${encodeURIComponent(task.id)}/verification` as Route}
                             className="rounded-full bg-[#355344] px-4 py-2.5 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-60"
                           >
                             进入人工验证
-                          </button>
+                          </Link>
                         ) : null}
 
                         {task.status === "REVIEWING" && task.reviewId ? (
@@ -559,17 +558,6 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                 </div>
 
                 <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
-                  <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">任务摘要</div>
-                  <div className="mt-2 text-sm leading-6 text-slate-700">{activeTask.logSummary}</div>
-                  <div className="mt-3 text-sm text-[#355344]">{activeTask.nextAction}</div>
-                  {activeTask.verificationPrompt ? (
-                    <div className="mt-3 rounded-[18px] border border-[#efddad] bg-[#fff7e0] px-3 py-3 text-sm leading-6 text-[#7a5f14]">
-                      {activeTask.verificationPrompt}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-white/82 p-4">
                   <div className="flex items-center justify-between gap-3">
                     <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">验证状态</div>
                     <div className={`rounded-full border px-3 py-1 text-xs ${verificationWorkspaceTone(activeTask.pageState)}`}>
@@ -577,21 +565,25 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                     </div>
                   </div>
 
-                  <div className="mt-3 text-sm leading-6 text-slate-600">
-                    {workspace?.embedUrl
-                      ? "当前任务已切换到内嵌人工验证工作台。请直接在右侧页面中完成验证码、登录或页面放行。"
-                      : workspace?.active
-                        ? "当前 Chrome 验证会话已连接。请直接在该 Chrome 窗口中完成验证码、登录或页面放行。"
-                      : `尚未连接可调试的 Chrome 会话。${manualVerificationSetupHint}`}
-                  </div>
-
                   {workspace?.lastUpdatedAt ? (
                     <div className="mt-3 text-xs text-slate-500">最近状态更新：{formatDateLabel(workspace.lastUpdatedAt)}</div>
                   ) : null}
 
+                  {activeTask.verificationPrompt ? (
+                    <div className="mt-3 rounded-[18px] border border-[#efddad] bg-[#fff7e0] px-3 py-3 text-sm leading-6 text-[#7a5f14]">
+                      {activeTask.verificationPrompt}
+                    </div>
+                  ) : null}
+
                   {workspace?.stale ? (
                     <div className="mt-3 rounded-[18px] border border-[#efddad] bg-[#fff7e0] px-3 py-3 text-sm leading-6 text-[#7a5f14]">
-                      之前的人工验证会话已断开，请重新启动人工验证；如果验证已经完成，也可以直接点击下方“完成验证并继续抓取”，系统会尝试恢复当前会话并继续读取页面。
+                      验证会话已断开。
+                    </div>
+                  ) : null}
+
+                  {workspace?.errorMessage ? (
+                    <div className="mt-3 rounded-[18px] border border-[#f8ddd2] bg-[#fbede7] px-3 py-3 text-sm leading-6 text-[#9a4b33]">
+                      {workspace.errorMessage}
                     </div>
                   ) : null}
 
@@ -605,21 +597,9 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
 
               <div className="min-h-0 overflow-y-auto px-5 py-5 sm:px-6">
                 <section className="rounded-[28px] border border-[#d8cfbf] bg-white/84 p-5 shadow-[0_16px_34px_rgba(102,88,64,0.08)]">
-                  <div className="inline-flex rounded-full border border-[#d8cfbf] bg-[#faf7f1] px-3 py-1 text-xs text-slate-500">
-                    Manual Verification
-                  </div>
-                  <h3 className="mt-3 text-2xl font-semibold text-[#18222c]">处理人工验证</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    {workspace?.embedUrl
-                      ? "右侧验证页可直接交互，完成验证码、登录或页面放行后，点击“完成验证并继续抓取”即可继续；当前地址会随页面跳转自动同步。"
-                      : "连接当前验证会话后，请在对应页面中完成验证码、登录或页面放行；完成后返回这里点击“完成验证并继续抓取”。"}
-                  </p>
+                  <h3 className="text-2xl font-semibold text-[#18222c]">人工验证</h3>
 
-                  {workspace?.embedUrl ? (
-                    <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-[#f6f1e7] p-4 text-sm leading-6 text-slate-700">
-                      当前任务正在使用内嵌人工验证页。若页面再次跳转，左侧“当前地址”会自动更新，并作为后续继续抓取的目标地址。
-                    </div>
-                  ) : (
+                  {!workspace?.embedUrl ? (
                     <>
                       <div className="mt-4 rounded-[22px] border border-[#d8cfbf] bg-[#f6f1e7] p-4 text-sm leading-6 text-slate-700">
                         <div>{manualVerificationSetupHint}</div>
@@ -627,23 +607,8 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                           {MANUAL_VERIFICATION_CHROME_COMMAND}
                         </code>
                       </div>
-
-                      <div className="mt-5 grid gap-3 rounded-[22px] border border-[#e2d8c9] bg-[#faf7f1] p-4">
-                        <div className="flex items-start gap-3">
-                          <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#355344] text-xs text-white">1</div>
-                          <div className="text-sm leading-6 text-slate-700">关闭现有 Chrome 窗口，并按上面的命令重新启动一个可调试的 Chrome。</div>
-                        </div>
-                        <div className="flex items-start gap-3">
-                          <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#355344] text-xs text-white">2</div>
-                          <div className="text-sm leading-6 text-slate-700">点击“启动人工验证”，让系统附着到当前验证会话。</div>
-                        </div>
-                        <div className="flex items-start gap-3">
-                          <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#355344] text-xs text-white">3</div>
-                          <div className="text-sm leading-6 text-slate-700">完成验证并确认页面放行后，返回后台点击“完成验证并继续抓取”。</div>
-                        </div>
-                      </div>
                     </>
-                  )}
+                  ) : null}
 
                   <div className="mt-5 flex flex-wrap items-center gap-3">
                     <button
@@ -671,11 +636,6 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                     <h3 className="mt-2 text-xl font-semibold text-white">
                       {workspace?.embedUrl ? "人工验证页面" : "当前验证页预览"}
                     </h3>
-                    <p className="mt-2 text-sm leading-6 text-white/72">
-                      {workspace?.embedUrl
-                        ? "可以直接在下方页面中完成验证；页面跳转后左侧当前地址会自动同步。"
-                        : "这里会显示当前验证页的实时预览；如需操作，请在已连接的验证会话中完成。"}
-                    </p>
                   </div>
 
                   <div className="bg-[#0d151d] p-4 sm:p-5">
@@ -694,7 +654,7 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                       />
                     ) : (
                       <div className="flex h-[58vh] items-center justify-center rounded-[20px] border border-dashed border-white/12 px-8 text-center text-sm text-white/54">
-                        点击“启动人工验证”后，这里会显示当前验证页的实时预览。
+                        暂无预览
                       </div>
                     )}
                   </div>
@@ -704,9 +664,6 @@ export function TasksBoard({ tasks }: TasksBoardProps) {
                   <summary className="cursor-pointer list-none text-sm font-medium text-[#18222c]">
                     自动读取仍失败时，改用人工整理文本兜底
                   </summary>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
-                    如果站点完成人工验证后仍然无法被自动读取，可以直接贴入整理后的页面文本，系统将据此继续生成待校对商品。
-                  </p>
 
                   <label className="mt-4 grid gap-2 text-sm text-slate-700">
                     人工补充文本

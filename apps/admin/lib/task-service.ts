@@ -1,6 +1,9 @@
-import { randomUUID } from "node:crypto";
+﻿import { randomUUID } from "node:crypto";
 import { stockStatusLabels } from "@shop-claw/shared/labels";
-import { detectManualVerificationReason } from "@shop-claw/shared/manual-verification";
+import {
+  buildManualVerificationChromeSetupHint,
+  detectManualVerificationReason
+} from "@shop-claw/shared/manual-verification";
 import { getPlatformState, savePlatformState } from "@shop-claw/shared/store";
 import {
   AiSettings,
@@ -1341,7 +1344,10 @@ export async function createAndRunTask(payload: CrawlRequestPayload) {
   return pipelineResult.task;
 }
 
-export async function startTaskVerification(taskId: string) {
+export async function startTaskVerification(
+  taskId: string,
+  options: { preferEmbedded?: boolean; allowEmbeddedFallback?: boolean } = {}
+) {
   const state = await getPlatformState();
   const task = state.tasks.find((item) => item.id === taskId);
 
@@ -1364,16 +1370,30 @@ export async function startTaskVerification(taskId: string) {
   let nextAction = "请在当前 Chrome 中完成验证，然后返回后台点击“完成验证并继续抓取”。";
   let timelineDetail = "已连接当前 Chrome 会话供人工验证，完成后将自动继续抓取。";
 
-  try {
-    const session = await startManualVerificationSession(source, task);
-    currentUrl = session.finalUrl || task.currentUrl;
-    await closeEmbeddedVerificationSession(task.id);
-  } catch {
+  if (options.preferEmbedded) {
     const workspace = await startEmbeddedVerificationSession(source, task);
     currentUrl = workspace.currentUrl || task.currentUrl;
     logSummary = "已打开内嵌人工验证工作台，请直接在后台界面中完成验证码、登录或页面放行。";
     nextAction = "请在当前后台工作台中完成验证，完成后点击“完成验证并继续抓取”。";
-    timelineDetail = "当前 Chrome 接管不可用，已回退到内嵌人工验证工作台。";
+    timelineDetail = "已直接进入内嵌人工验证工作台。";
+  } else {
+    try {
+      const session = await startManualVerificationSession(source, task);
+      currentUrl = session.finalUrl || task.currentUrl;
+      await closeEmbeddedVerificationSession(task.id);
+    } catch {
+      if (options.allowEmbeddedFallback === false) {
+        throw new Error(
+          `无法连接可调试的 Chrome。${buildManualVerificationChromeSetupHint()}`
+        );
+      }
+
+      const workspace = await startEmbeddedVerificationSession(source, task);
+      currentUrl = workspace.currentUrl || task.currentUrl;
+      logSummary = "已打开内嵌人工验证工作台，请直接在后台界面中完成验证码、登录或页面放行。";
+      nextAction = "请在当前后台工作台中完成验证，完成后点击“完成验证并继续抓取”。";
+      timelineDetail = "当前 Chrome 接管不可用，已回退到内嵌人工验证工作台。";
+    }
   }
 
   const nextTask: CrawlTask = {
@@ -1486,11 +1506,16 @@ export async function getTaskVerificationWorkspace(taskId: string) {
       stale: false,
       currentUrl: embeddedWorkspace.currentUrl || task.currentUrl || task.rawUrl,
       embedUrl: embeddedWorkspace.embedUrl,
-      lastUpdatedAt: embeddedWorkspace.lastUpdatedAt || task.updatedAt
+      lastUpdatedAt: embeddedWorkspace.lastUpdatedAt || task.updatedAt,
+      errorMessage: undefined as string | undefined
     };
   }
 
-  if (!workspace && task.status === "WAITING_HUMAN" && task.pageState === "VERIFYING" && source) {
+  const isVerifying =
+    task.status === "WAITING_HUMAN" &&
+    (task.pageState === "VERIFYING" || task.pageState === "WAITING_VERIFICATION");
+
+  if (!workspace && isVerifying && source) {
     try {
       await startManualVerificationSession(source, task, { focus: false });
       workspace = await getManualVerificationSessionSnapshot(task.id);
@@ -1502,20 +1527,29 @@ export async function getTaskVerificationWorkspace(taskId: string) {
           stale: false,
           currentUrl: recoveredEmbeddedWorkspace.currentUrl || task.currentUrl || task.rawUrl,
           embedUrl: recoveredEmbeddedWorkspace.embedUrl,
-          lastUpdatedAt: recoveredEmbeddedWorkspace.lastUpdatedAt || task.updatedAt
+          lastUpdatedAt: recoveredEmbeddedWorkspace.lastUpdatedAt || task.updatedAt,
+          errorMessage: undefined as string | undefined
         };
-      } catch {
-        // Ignore reconnect failures here and let the UI show the stale state.
+      } catch (error) {
+        return {
+          active: false,
+          stale: true,
+          currentUrl: task.currentUrl || task.rawUrl || "",
+          embedUrl: "",
+          lastUpdatedAt: task.updatedAt,
+          errorMessage: error instanceof Error ? error.message : "验证会话恢复失败"
+        };
       }
     }
   }
 
   return {
     active: Boolean(workspace),
-    stale: task.pageState === "VERIFYING" && !workspace,
-    currentUrl: workspace?.currentUrl || task.currentUrl || task.rawUrl,
+    stale: isVerifying && !workspace,
+    currentUrl: workspace?.currentUrl || task.currentUrl || task.rawUrl || "",
     embedUrl: "",
-    lastUpdatedAt: workspace?.lastUpdatedAt || task.updatedAt
+    lastUpdatedAt: workspace?.lastUpdatedAt || task.updatedAt,
+    errorMessage: undefined as string | undefined
   };
 }
 

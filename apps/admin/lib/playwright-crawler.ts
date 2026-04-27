@@ -1,4 +1,6 @@
+import { spawn } from "node:child_process";
 import { promises as fs } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { chromium, type Browser, type BrowserContext, type BrowserContextOptions, type Page } from "playwright";
 import {
@@ -374,6 +376,74 @@ function buildExtraHeaders(source: DataSource) {
   );
 }
 
+function isConnectionRefusedError(error: unknown) {
+  return (
+    error instanceof Error &&
+    /(econnrefused|connect econnrefused|unexpected status 404|unexpected status 403|websocket|devtools server|cannot connect)/i.test(
+      error.message
+    )
+  );
+}
+
+async function findChromeExecutable() {
+  const candidates = [
+    process.env.CHROME_PATH,
+    process.env.GOOGLE_CHROME_PATH,
+    process.env.CHROME_EXECUTABLE_PATH,
+    process.platform === "win32" ? path.join(process.env.PROGRAMFILES ?? "C:\\Program Files", "Google\\Chrome\\Application\\chrome.exe") : undefined,
+    process.platform === "win32"
+      ? path.join(process.env["PROGRAMFILES(X86)"] ?? "C:\\Program Files (x86)", "Google\\Chrome\\Application\\chrome.exe")
+      : undefined,
+    process.platform === "win32"
+      ? path.join(process.env.LOCALAPPDATA ?? "", "Google\\Chrome\\Application\\chrome.exe")
+      : undefined,
+    process.platform === "darwin" ? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" : undefined,
+    process.platform === "linux" ? "/usr/bin/google-chrome" : undefined,
+    process.platform === "linux" ? "/usr/bin/google-chrome-stable" : undefined,
+    process.platform === "linux" ? "/usr/bin/chromium" : undefined,
+    process.platform === "linux" ? "/usr/bin/chromium-browser" : undefined
+  ].filter((item): item is string => Boolean(item));
+
+  for (const candidate of candidates) {
+    try {
+      await fs.access(candidate);
+      return candidate;
+    } catch {
+      // ignore
+    }
+  }
+
+  return null;
+}
+
+async function launchManualVerificationBrowser(targetUrl: string) {
+  const executablePath = await findChromeExecutable();
+
+  if (!executablePath) {
+    throw new Error(
+      `未找到本机 Chrome 可执行文件。请把 Chrome 安装到常见位置，或设置 CHROME_PATH 后重试。${buildManualVerificationChromeSetupHint()}`
+    );
+  }
+
+  const userDataDir = path.join(os.tmpdir(), "shop-claw-chrome-debug");
+  const args = [
+    `--remote-debugging-port=${MANUAL_VERIFICATION_DEBUG_PORT}`,
+    `--user-data-dir=${userDataDir}`,
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--new-window",
+    targetUrl || "about:blank"
+  ];
+
+  const child = spawn(executablePath, args, {
+    detached: true,
+    stdio: "ignore",
+    windowsHide: true
+  });
+
+  child.unref();
+}
+
 async function findVisibleLoadMoreControl(page: Page) {
   const candidates = [
     page.getByText("加载更多", { exact: false }),
@@ -597,30 +667,37 @@ async function createBrowserSession(
   return { browser, context };
 }
 
-async function connectToManualVerificationBrowser() {
-  try {
-    return await chromium.connectOverCDP(MANUAL_VERIFICATION_CDP_URL);
-  } catch (error) {
-    if (
-      error instanceof Error &&
-      /(econnrefused|connect econnrefused|unexpected status 404|unexpected status 403|websocket|devtools server|cannot connect)/i.test(
-        error.message
-      )
-    ) {
-      throw new Error(
-        `未检测到可调试的 Chrome（${MANUAL_VERIFICATION_DEBUG_HOST}:${MANUAL_VERIFICATION_DEBUG_PORT} 未监听）。${buildManualVerificationChromeSetupHint()}`
-      );
-    }
+async function connectToManualVerificationBrowser(targetUrl: string) {
+  let launched = false;
 
-    throw error;
+  for (let attempt = 0; attempt < 18; attempt += 1) {
+    try {
+      return await chromium.connectOverCDP(MANUAL_VERIFICATION_CDP_URL);
+    } catch (error) {
+      if (!isConnectionRefusedError(error)) {
+        throw error;
+      }
+
+      if (!launched) {
+        await launchManualVerificationBrowser(targetUrl);
+        launched = true;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 600));
+    }
   }
+
+  throw new Error(
+    `无法连接到调试 Chrome（${MANUAL_VERIFICATION_DEBUG_HOST}:${MANUAL_VERIFICATION_DEBUG_PORT}）。请检查浏览器是否成功启动，或在 CHROME_PATH 中指定可执行文件路径。`
+  );
 }
 
 async function attachManualVerificationSession(
   source: DataSource,
   task: Pick<CrawlTask, "currentUrl" | "artifacts">
 ) {
-  const browser = await connectToManualVerificationBrowser();
+  const targetUrl = task.currentUrl || source.entryUrl || source.sourceUrl;
+  const browser = await connectToManualVerificationBrowser(targetUrl);
   const context = browser.contexts()[0];
 
   if (!context) {
@@ -628,7 +705,6 @@ async function attachManualVerificationSession(
     throw new Error(`当前 Chrome 未暴露可用的浏览器上下文。${buildManualVerificationChromeSetupHint()}`);
   }
 
-  const targetUrl = task.currentUrl || source.entryUrl || source.sourceUrl;
   const storageStateInput = filterPersistedStorageStateForUrl(
     await readStoredStorageState(task.artifacts?.storageStatePath),
     targetUrl

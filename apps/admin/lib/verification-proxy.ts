@@ -1,4 +1,4 @@
-import { promises as fs } from "node:fs";
+﻿import { promises as fs } from "node:fs";
 import path from "node:path";
 import { getTaskRuntimeDirectory, resolveWorkspaceRoot } from "@shop-claw/shared/store";
 import { CrawlTask, DataSource } from "@shop-claw/shared/types";
@@ -30,6 +30,7 @@ export interface VerificationWorkspaceState {
   currentUrl: string;
   embedUrl: string;
   lastUpdatedAt: string;
+  errorMessage?: string;
 }
 
 interface ExportedVerificationSession {
@@ -39,6 +40,71 @@ interface ExportedVerificationSession {
 }
 
 const verificationProxySessions = new Map<string, VerificationProxySession>();
+interface PersistedSessionMetadata {
+  taskId: string;
+  currentUrl: string;
+  updatedAt: string;
+  requestHeaders: Record<string, string>;
+}
+
+async function getSessionMetadataPath(taskId: string) {
+  const runtimeDirectory = await getTaskRuntimeDirectory(taskId);
+  return path.join(runtimeDirectory, "proxy-session.json");
+}
+
+async function persistSessionMetadata(session: VerificationProxySession) {
+  const metadataPath = await getSessionMetadataPath(session.taskId);
+  const metadata: PersistedSessionMetadata = {
+    taskId: session.taskId,
+    currentUrl: session.currentUrl,
+    updatedAt: session.updatedAt,
+    requestHeaders: session.requestHeaders
+  };
+  await fs.writeFile(metadataPath, `${JSON.stringify(metadata, null, 2)}\n`, "utf8");
+}
+
+async function loadSessionMetadata(taskId: string): Promise<PersistedSessionMetadata | null> {
+  try {
+    const metadataPath = await getSessionMetadataPath(taskId);
+    const raw = await fs.readFile(metadataPath, "utf8");
+    return JSON.parse(raw) as PersistedSessionMetadata;
+  } catch {
+    return null;
+  }
+}
+
+async function deleteSessionMetadata(taskId: string) {
+  try {
+    const metadataPath = await getSessionMetadataPath(taskId);
+    await fs.unlink(metadataPath);
+  } catch {
+    // ignore
+  }
+}
+
+async function readPersistedCookies(taskId: string): Promise<VerificationProxyCookie[]> {
+  try {
+    const runtimeDirectory = await getTaskRuntimeDirectory(taskId);
+    const storageStatePath = path.join(runtimeDirectory, "storage-state.json");
+    const raw = await fs.readFile(storageStatePath, "utf8");
+    const parsed = parseStorageState(raw);
+    return (parsed?.cookies ?? [])
+      .filter((item) => item.name && item.domain)
+      .map((item) => ({
+        name: item.name,
+        value: item.value,
+        domain: normalizeCookieDomain(item.domain),
+        path: item.path || "/",
+        expires: Number.isFinite(item.expires) ? item.expires : -1,
+        httpOnly: Boolean(item.httpOnly),
+        secure: Boolean(item.secure),
+        sameSite: sameSiteValue(item.sameSite)
+      }));
+  } catch {
+    return [];
+  }
+}
+
 
 function nowIso() {
   return new Date().toISOString();
@@ -63,8 +129,16 @@ function buildRequestHeaders(source: DataSource) {
   }, {});
 }
 
-function buildProxyUrl(taskId: string, targetUrl: string) {
-  return `/api/tasks/${encodeURIComponent(taskId)}/verification/web?target=${encodeURIComponent(targetUrl)}`;
+function buildProxyUrl(taskId: string, targetUrl: string, options: { workspaceMode?: boolean } = {}) {
+  const searchParams = new URLSearchParams({
+    target: targetUrl
+  });
+
+  if (options.workspaceMode) {
+    searchParams.set("workspace", "1");
+  }
+
+  return `/api/tasks/${encodeURIComponent(taskId)}/verification/web?${searchParams.toString()}`;
 }
 
 function clampUrlInput(value: string | null | undefined) {
@@ -437,22 +511,126 @@ function rewriteJavaScriptForProxy(script: string, taskId: string, baseUrl: stri
     });
 }
 
-function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
+function escapeHtmlAttribute(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function buildBaseTag(targetUrl: string) {
+  return `<base href="${escapeHtmlAttribute(targetUrl)}">`;
+}
+
+function buildWorkspaceChromeMarkup(taskId: string) {
+  return `
+<div id="shop-claw-verification-toolbar">
+  <button type="button" data-toolbar-action="back">返回任务</button>
+  <div id="shop-claw-verification-toolbar-url" aria-live="polite"></div>
+  <div id="shop-claw-verification-toolbar-actions">
+    <button type="button" data-toolbar-action="reload">刷新</button>
+    <button type="button" data-toolbar-action="complete">完成并继续</button>
+  </div>
+</div>`;
+}
+
+function buildWorkspaceChromeStyles() {
+  return `
+<style>
+  html {
+    scroll-padding-top: 64px !important;
+  }
+
+  body {
+    padding-top: 64px !important;
+  }
+
+  #shop-claw-verification-toolbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 64px;
+    padding: 12px 16px;
+    background: rgba(24, 34, 44, 0.94);
+    color: #f6f2e8;
+    box-shadow: 0 12px 30px rgba(24, 34, 44, 0.24);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+  }
+
+  #shop-claw-verification-toolbar-url {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: rgba(246, 242, 232, 0.92);
+  }
+
+  #shop-claw-verification-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #shop-claw-verification-toolbar button {
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 14px;
+    font: 600 13px/1 system-ui, sans-serif;
+    cursor: pointer;
+  }
+
+  #shop-claw-verification-toolbar button[data-toolbar-action="back"],
+  #shop-claw-verification-toolbar button[data-toolbar-action="reload"] {
+    background: rgba(255, 255, 255, 0.14);
+    color: #f6f2e8;
+  }
+
+  #shop-claw-verification-toolbar button[data-toolbar-action="complete"] {
+    background: #dbe9c7;
+    color: #1b3221;
+  }
+</style>`;
+}
+
+function buildInjectedRuntimeScript(taskId: string, targetUrl: string, workspaceMode: boolean) {
   const proxyBase = `/api/tasks/${taskId}/verification/web`;
   const sessionBase = `/api/tasks/${taskId}/verification/session`;
+  const completeEndpoint = `/api/tasks/${taskId}/verification/complete`;
+  const tasksPageUrl = "/tasks";
 
   return `
 <script>
 (() => {
   const proxyBase = ${JSON.stringify(proxyBase)};
   const sessionBase = ${JSON.stringify(sessionBase)};
+  const completeEndpoint = ${JSON.stringify(completeEndpoint)};
+  const tasksPageUrl = ${JSON.stringify(tasksPageUrl)};
+  const workspaceMode = ${JSON.stringify(workspaceMode)};
   let targetBase = ${JSON.stringify(targetUrl)};
   const originalFetch = window.fetch.bind(window);
   const skip = (value) => !value || /^(#|javascript:|data:|mailto:|tel:|about:blank)/i.test(String(value).trim());
+  const getToolbarUrl = () => workspaceMode ? document.getElementById("shop-claw-verification-toolbar-url") : null;
+  const updateToolbarUrl = () => {
+    const toolbarUrl = getToolbarUrl();
+    if (toolbarUrl) {
+      toolbarUrl.textContent = targetBase;
+      toolbarUrl.setAttribute("title", targetBase);
+    }
+  };
   const reportCurrentUrl = (value) => {
     if (skip(value)) return;
     try {
       targetBase = new URL(String(value), targetBase).toString();
+      updateToolbarUrl();
       originalFetch(sessionBase, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -479,7 +657,15 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
   const toProxy = (value) => {
     if (skip(value)) return value;
     try {
-      return proxyBase + "?target=" + encodeURIComponent(new URL(String(value), targetBase).toString());
+      if (String(value).includes(proxyBase)) {
+        return value;
+      }
+      const nextUrl = new URL(proxyBase, window.location.origin);
+      nextUrl.searchParams.set("target", new URL(String(value), targetBase).toString());
+      if (workspaceMode) {
+        nextUrl.searchParams.set("workspace", "1");
+      }
+      return nextUrl.toString();
     } catch {
       return value;
     }
@@ -496,21 +682,31 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
     .join(", ");
   const rewriteNode = (node) => {
     if (!(node instanceof Element)) return;
-    const attrs = ["href", "src", "action", "poster"];
-    attrs.forEach((attr) => {
-      if (!node.hasAttribute(attr)) return;
-      const current = node.getAttribute(attr);
-      if (!current || current.startsWith(proxyBase) || skip(current)) return;
-      node.setAttribute(attr, toProxy(current));
-    });
-    if (node.hasAttribute("srcset")) {
-      const current = node.getAttribute("srcset");
-      if (current) node.setAttribute("srcset", rewriteSrcset(current));
+
+    if ((node instanceof HTMLAnchorElement || node instanceof HTMLAreaElement) && node.hasAttribute("href")) {
+      const currentHref = node.getAttribute("href");
+      if (currentHref && !currentHref.startsWith(proxyBase) && !skip(currentHref)) {
+        node.setAttribute("href", toProxy(currentHref));
+      }
     }
-    if (node.tagName === "FORM" && !node.getAttribute("action")) {
-      node.setAttribute("action", toProxy(targetBase));
+
+    if (node instanceof HTMLFormElement) {
+      const currentAction = node.getAttribute("action") || targetBase;
+      if (!currentAction.startsWith(proxyBase) && !skip(currentAction)) {
+        node.setAttribute("action", toProxy(currentAction));
+      }
     }
-    node.querySelectorAll?.("[href],[src],[action],[poster],[srcset]").forEach((child) => rewriteNode(child));
+
+    if (node.hasAttribute("formaction")) {
+      const currentFormAction = node.getAttribute("formaction");
+      if (currentFormAction && !currentFormAction.startsWith(proxyBase) && !skip(currentFormAction)) {
+        node.setAttribute("formaction", toProxy(currentFormAction));
+      }
+    }
+
+    node.querySelectorAll?.("a[href],area[href],form[action],form:not([action]),button[formaction],input[formaction]").forEach((child) =>
+      rewriteNode(child)
+    );
   };
   rewriteNode(document.documentElement);
   const observer = new MutationObserver((mutations) => {
@@ -526,9 +722,10 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
     subtree: true,
     childList: true,
     attributes: true,
-    attributeFilter: ["href", "src", "action", "poster", "srcset"]
+    attributeFilter: ["href", "action", "formaction"]
   });
   reportCurrentUrl(targetBase);
+  updateToolbarUrl();
   window.fetch = (input, init) => {
     try {
       if (typeof input === "string") {
@@ -573,6 +770,14 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
     this.setAttribute("action", toProxy(currentAction));
     return originalSubmit.call(this);
   };
+  document.addEventListener("submit", (event) => {
+    const form = event.target instanceof HTMLFormElement ? event.target : null;
+    if (!form) return;
+    const currentAction = form.getAttribute("action") || targetBase;
+    if (!currentAction.startsWith(proxyBase) && !skip(currentAction)) {
+      form.setAttribute("action", toProxy(currentAction));
+    }
+  }, true);
   document.addEventListener("click", (event) => {
     const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
     if (anchor instanceof HTMLAnchorElement) {
@@ -582,39 +787,78 @@ function buildInjectedRuntimeScript(taskId: string, targetUrl: string) {
       }
     }
   }, true);
+  if (workspaceMode) {
+    document.addEventListener("click", async (event) => {
+      const button = event.target instanceof Element ? event.target.closest("[data-toolbar-action]") : null;
+      if (!(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const action = button.getAttribute("data-toolbar-action");
+
+      if (action === "back") {
+        window.location.href = tasksPageUrl;
+        return;
+      }
+
+      if (action === "reload") {
+        window.location.reload();
+        return;
+      }
+
+      if (action !== "complete") {
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "处理中...";
+
+      try {
+        const response = await originalFetch(completeEndpoint, { method: "POST" });
+        const payload = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          throw new Error(payload?.message || "完成人工验证失败");
+        }
+
+        const nextTask = payload?.data;
+
+        if (nextTask?.reviewId && nextTask?.status === "REVIEWING") {
+          window.location.href = "/review/" + encodeURIComponent(nextTask.reviewId);
+          return;
+        }
+
+        window.location.href = tasksPageUrl;
+      } catch (error) {
+        button.disabled = false;
+        button.textContent = "完成并继续";
+        window.alert(error instanceof Error ? error.message : "完成人工验证失败");
+      }
+    }, true);
+  }
   window.addEventListener("popstate", syncFromLocation);
   window.addEventListener("hashchange", syncFromLocation);
+  window.addEventListener("DOMContentLoaded", updateToolbarUrl);
 })();
 </script>`;
 }
 
-function rewriteHtmlForProxy(html: string, taskId: string, targetUrl: string) {
-  let rewritten = html
-    .replace(/<base[\s\S]*?>/gi, "")
-    .replace(/\b(href|src|action|poster)=("([^"]*)"|'([^']*)'|([^\s>]+))/gi, (match, attribute: string, wholeValue: string, doubleQuoted: string, singleQuoted: string, unquoted: string) => {
-      const originalValue = doubleQuoted ?? singleQuoted ?? unquoted ?? "";
-      const rewrittenValue = rewriteUrlValue(taskId, targetUrl, originalValue);
-
-      if (originalValue === rewrittenValue) {
-        return match;
-      }
-
-      const quote = wholeValue.startsWith("'") ? "'" : '"';
-      return `${attribute}=${quote}${rewrittenValue}${quote}`;
-    })
-    .replace(/\bsrcset=("([^"]*)"|'([^']*)')/gi, (match, wholeValue: string, doubleQuoted: string, singleQuoted: string) => {
-      const originalValue = doubleQuoted ?? singleQuoted ?? "";
-      const rewrittenValue = rewriteSrcsetValue(taskId, targetUrl, originalValue);
-      const quote = wholeValue.startsWith("'") ? "'" : '"';
-      return `srcset=${quote}${rewrittenValue}${quote}`;
-    });
-
-  const injectedScript = buildInjectedRuntimeScript(taskId, targetUrl);
+function rewriteHtmlForProxy(html: string, taskId: string, targetUrl: string, workspaceMode: boolean) {
+  let rewritten = html.replace(/<base[\s\S]*?>/gi, "");
+  const injectedMarkup = `${buildBaseTag(targetUrl)}${workspaceMode ? buildWorkspaceChromeStyles() : ""}${buildInjectedRuntimeScript(taskId, targetUrl, workspaceMode)}`;
 
   if (/<head[^>]*>/i.test(rewritten)) {
-    rewritten = rewritten.replace(/<head[^>]*>/i, (matched) => `${matched}${injectedScript}`);
+    rewritten = rewritten.replace(/<head[^>]*>/i, (matched) => `${matched}${injectedMarkup}`);
   } else {
-    rewritten = `${injectedScript}${rewritten}`;
+    rewritten = `${injectedMarkup}${rewritten}`;
+  }
+
+  if (workspaceMode) {
+    if (/<body[^>]*>/i.test(rewritten)) {
+      rewritten = rewritten.replace(/<body[^>]*>/i, (matched) => `${matched}${buildWorkspaceChromeMarkup(taskId)}`);
+    } else {
+      rewritten = `${buildWorkspaceChromeMarkup(taskId)}${rewritten}`;
+    }
   }
 
   return rewritten;
@@ -717,10 +961,15 @@ export async function startEmbeddedVerificationSession(
   const existing = verificationProxySessions.get(task.id);
   const currentUrl = task.currentUrl || source.entryUrl || source.sourceUrl;
 
+  if (!currentUrl) {
+    throw new Error("无法启动内嵌验证：任务和数据源均未提供有效的目标地址。");
+  }
+
   if (existing) {
-    existing.currentUrl = currentUrl || existing.currentUrl;
+    existing.currentUrl = currentUrl;
     existing.requestHeaders = buildRequestHeaders(source);
     existing.updatedAt = nowIso();
+    await persistSessionMetadata(existing);
     return buildWorkspace(existing);
   }
 
@@ -734,15 +983,31 @@ export async function startEmbeddedVerificationSession(
 
   verificationProxySessions.set(task.id, session);
   await persistProxyStorageState(task.id, session.cookies);
+  await persistSessionMetadata(session);
   return buildWorkspace(session);
 }
 
 export async function closeEmbeddedVerificationSession(taskId: string) {
   verificationProxySessions.delete(taskId);
+  await deleteSessionMetadata(taskId);
 }
 
 export async function getEmbeddedVerificationWorkspace(taskId: string) {
-  const session = verificationProxySessions.get(taskId);
+  let session = verificationProxySessions.get(taskId);
+
+  if (!session) {
+    const metadata = await loadSessionMetadata(taskId);
+    if (metadata) {
+      session = {
+        taskId: metadata.taskId,
+        currentUrl: metadata.currentUrl,
+        updatedAt: metadata.updatedAt,
+        cookies: await readPersistedCookies(taskId),
+        requestHeaders: metadata.requestHeaders
+      };
+      verificationProxySessions.set(taskId, session);
+    }
+  }
 
   if (!session) {
     return null;
@@ -803,6 +1068,7 @@ export async function handleEmbeddedVerificationProxyRequest(taskId: string, req
   }
 
   const requestUrl = new URL(request.url);
+  const workspaceMode = requestUrl.searchParams.get("workspace") === "1";
   const targetUrl = resolveTargetUrl(session, requestUrl.searchParams.get("target"));
   const method = request.method.toUpperCase();
   const headers = buildForwardHeaders(request, targetUrl, session);
@@ -844,7 +1110,7 @@ export async function handleEmbeddedVerificationProxyRequest(taskId: string, req
       status: upstreamResponse.status,
       headers: copyResponseHeaders(upstreamResponse.headers, {
         rewritten: true,
-        location: buildProxyUrl(taskId, resolvedLocation)
+        location: buildProxyUrl(taskId, resolvedLocation, { workspaceMode })
       })
     });
   }
@@ -856,7 +1122,7 @@ export async function handleEmbeddedVerificationProxyRequest(taskId: string, req
 
   if (isHtmlResponse(contentType)) {
     const html = await upstreamResponse.text();
-    const rewrittenHtml = rewriteHtmlForProxy(html, taskId, targetUrl);
+    const rewrittenHtml = rewriteHtmlForProxy(html, taskId, targetUrl, workspaceMode);
     const headersForHtml = copyResponseHeaders(upstreamResponse.headers, { rewritten: true });
     headersForHtml.set("Content-Type", "text/html; charset=utf-8");
 
@@ -880,11 +1146,10 @@ export async function handleEmbeddedVerificationProxyRequest(taskId: string, req
 
   if (isJavaScriptResponse(contentType, targetUrl)) {
     const script = await upstreamResponse.text();
-    const rewrittenScript = rewriteJavaScriptForProxy(script, taskId, targetUrl);
     const headersForScript = copyResponseHeaders(upstreamResponse.headers, { rewritten: true });
     headersForScript.set("Content-Type", "text/javascript; charset=utf-8");
 
-    return new Response(rewrittenScript, {
+    return new Response(script, {
       status: upstreamResponse.status,
       headers: headersForScript
     });

@@ -13,7 +13,14 @@ export async function POST(_request: Request, context: { params: Promise<{ id: s
   const id = await readParams(context);
 
   try {
-    const task = await startTaskVerification(id);
+    const payload = (await _request.json().catch(() => null)) as {
+      preferEmbedded?: boolean;
+      allowEmbeddedFallback?: boolean;
+    } | null;
+    const task = await startTaskVerification(id, {
+      preferEmbedded: Boolean(payload?.preferEmbedded),
+      allowEmbeddedFallback: payload?.allowEmbeddedFallback ?? true
+    });
     return Response.json(withTraceId(task, "已启动人工验证工作台"));
   } catch (error) {
     return Response.json(
