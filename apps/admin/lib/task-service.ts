@@ -22,22 +22,17 @@ import {
   VerificationMethod
 } from "@shop-claw/shared/types";
 import { readAiSettingsFromEnv } from "@/lib/ai-config";
-import {
-  closeManualVerificationSession,
-  completeManualVerificationSession,
-  getManualVerificationSessionSnapshot,
-  runPlaywrightCapture,
-  saveManualCapture,
-  startManualVerificationSession,
-  type BrowserCrawlResult,
-  type CapturedProductCard
-} from "@/lib/playwright-crawler";
+import type { BrowserCrawlResult, CapturedProductCard } from "@/lib/playwright-crawler";
 import {
   closeEmbeddedVerificationSession,
   exportEmbeddedVerificationSession,
   getEmbeddedVerificationWorkspace,
   startEmbeddedVerificationSession
 } from "@/lib/verification-proxy";
+
+async function loadPlaywrightCrawler() {
+  return import("@/lib/playwright-crawler");
+}
 
 function nowIso() {
   return new Date().toISOString();
@@ -1243,8 +1238,8 @@ async function runTaskPipeline(
 
   try {
     const capture = payload?.manualContent?.trim()
-      ? await saveManualCapture(task.id, payload.manualContent.trim())
-      : await runPlaywrightCapture(source, task.id, payload, task);
+      ? await (await loadPlaywrightCrawler()).saveManualCapture(task.id, payload.manualContent.trim())
+      : await (await loadPlaywrightCrawler()).runPlaywrightCapture(source, task.id, payload, task);
 
     return processCaptureResult(state, workingTask, source, capture, aiSettings, { payload });
   } catch (error) {
@@ -1378,7 +1373,7 @@ export async function startTaskVerification(
     timelineDetail = "已直接进入内嵌人工验证工作台。";
   } else {
     try {
-      const session = await startManualVerificationSession(source, task);
+      const session = await (await loadPlaywrightCrawler()).startManualVerificationSession(source, task);
       currentUrl = session.finalUrl || task.currentUrl;
       await closeEmbeddedVerificationSession(task.id);
     } catch {
@@ -1458,7 +1453,7 @@ export async function completeTaskVerification(taskId: string) {
       };
 
   if (embeddedSession) {
-    const capture = await runPlaywrightCapture(
+    const capture = await (await loadPlaywrightCrawler()).runPlaywrightCapture(
       source,
       resumedTask.id,
       {
@@ -1475,14 +1470,14 @@ export async function completeTaskVerification(taskId: string) {
       }
     });
   } else {
-    const capture = await completeManualVerificationSession(source, resumedTask);
+    const capture = await (await loadPlaywrightCrawler()).completeManualVerificationSession(source, resumedTask);
     pipelineResult = await processCaptureResult(stateWithWorkingTask, workingTask, source, capture, aiSettings, {
       fromManualVerification: true
     });
   }
 
   if (pipelineResult.task.status !== "WAITING_HUMAN") {
-    await closeManualVerificationSession(task.id);
+    await (await loadPlaywrightCrawler()).closeManualVerificationSession(task.id);
     await closeEmbeddedVerificationSession(task.id);
   }
 
@@ -1499,7 +1494,7 @@ export async function getTaskVerificationWorkspace(taskId: string) {
   }
 
   const source = state.sources.find((item) => item.sourceId === task.sourceId);
-  let workspace = await getManualVerificationSessionSnapshot(task.id);
+  let workspace = await (await loadPlaywrightCrawler()).getManualVerificationSessionSnapshot(task.id);
   const embeddedWorkspace = await getEmbeddedVerificationWorkspace(task.id);
 
   if (!workspace && embeddedWorkspace) {
@@ -1519,8 +1514,8 @@ export async function getTaskVerificationWorkspace(taskId: string) {
 
   if (!workspace && isVerifying && source) {
     try {
-      await startManualVerificationSession(source, task, { focus: false });
-      workspace = await getManualVerificationSessionSnapshot(task.id);
+      await (await loadPlaywrightCrawler()).startManualVerificationSession(source, task, { focus: false });
+      workspace = await (await loadPlaywrightCrawler()).getManualVerificationSessionSnapshot(task.id);
     } catch {
       try {
         const recoveredEmbeddedWorkspace = await startEmbeddedVerificationSession(source, task);
@@ -1569,7 +1564,7 @@ export async function continueTask(taskId: string, payload: ContinueTaskPayload)
     throw new Error("数据源不存在");
   }
 
-  await closeManualVerificationSession(task.id);
+  await (await loadPlaywrightCrawler()).closeManualVerificationSession(task.id);
   await closeEmbeddedVerificationSession(task.id);
 
   const updatedTask: CrawlTask = {

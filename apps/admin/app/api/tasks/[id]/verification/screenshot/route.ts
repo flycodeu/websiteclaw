@@ -1,5 +1,3 @@
-import { getManualVerificationSessionScreenshot } from "@/lib/playwright-crawler";
-
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -12,6 +10,7 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
   const id = await readParams(context);
 
   try {
+    const { getManualVerificationSessionScreenshot } = await import("@/lib/playwright-crawler");
     const screenshot = await getManualVerificationSessionScreenshot(id);
 
     if (!screenshot) {
