@@ -1,11 +1,11 @@
 import { withTraceId } from "@shop-claw/shared/response";
-import { getPublishedData } from "@shop-claw/shared/store";
+import { getPublishedSnapshot } from "@/lib/published-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const { shops } = await getPublishedData();
+  const { shops } = await getPublishedSnapshot();
   const { searchParams } = new URL(request.url);
   const keyword = searchParams.get("keyword")?.toLowerCase();
   const status = searchParams.get("status");

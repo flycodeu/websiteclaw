@@ -1,12 +1,12 @@
 import { withTraceId } from "@shop-claw/shared/response";
-import { getPublishedData } from "@shop-claw/shared/store";
 import { getProductFeedPage } from "@/lib/product-feed";
+import { getPublishedSnapshot } from "@/lib/published-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const published = await getPublishedData();
+  const published = await getPublishedSnapshot();
   const { searchParams } = new URL(request.url);
   const limitParam = searchParams.get("limit");
 

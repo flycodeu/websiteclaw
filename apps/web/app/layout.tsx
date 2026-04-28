@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { DM_Serif_Display, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
-import { getPublishedData } from "@shop-claw/shared/store";
+import { getPublishedSnapshot } from "@/lib/published-data";
 
 const serif = DM_Serif_Display({
   subsets: ["latin"],
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const published = await getPublishedData();
+  const published = await getPublishedSnapshot();
 
   return (
     <html lang="zh-CN" data-scroll-behavior="smooth" className={`${serif.variable} ${sans.variable}`}>

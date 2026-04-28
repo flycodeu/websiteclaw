@@ -1,5 +1,5 @@
 import { withTraceId } from "@shop-claw/shared/response";
-import { getPublishedData } from "@shop-claw/shared/store";
+import { getPublishedSnapshot } from "@/lib/published-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -11,7 +11,7 @@ async function readParams(context: { params: Promise<{ shopId: string }> | { sho
 
 export async function GET(_request: Request, context: { params: Promise<{ shopId: string }> | { shopId: string } }) {
   const shopId = await readParams(context);
-  const { shops, shopProducts, shopSnapshots, shopDiffs } = await getPublishedData();
+  const { shops, shopProducts, shopSnapshots, shopDiffs } = await getPublishedSnapshot();
   const shop = shops.find((item) => item.shopId === shopId);
 
   if (!shop) {
