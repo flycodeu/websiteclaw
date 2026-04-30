@@ -21,6 +21,7 @@ export type ChangeType =
   | "SHOP_STATUS_CHANGED";
 export type ReviewStatus = "REVIEWING" | "READY_TO_PUBLISH" | "PUBLISHED";
 export type CrawlPageState = "COLLECTED" | "WAITING_VERIFICATION" | "VERIFYING" | "RESUMED";
+export type PriceTrendDirection = "UP" | "DOWN" | "FLAT" | "UNKNOWN";
 export type ProductCategory =
   | "CHATGPT"
   | "CLAUDE"
@@ -89,6 +90,24 @@ export interface ProductObservation {
   sourceLine?: string;
 }
 
+export interface ProductPricePoint {
+  price: number;
+  currency: string;
+  capturedAt: string;
+  snapshotDate: string;
+}
+
+export interface ProductPriceTrend {
+  direction: PriceTrendDirection;
+  previousPrice: number | null;
+  currentPrice: number;
+  changeAmount: number;
+  changePercent: number | null;
+  lowestPrice: number | null;
+  highestPrice: number | null;
+  sampleCount: number;
+}
+
 export interface PublishedShopProduct {
   shopId: string;
   sourceId: string;
@@ -97,6 +116,12 @@ export interface PublishedShopProduct {
   specLabel: string;
   current: ProductItem;
   history: ProductObservation[];
+  priceHistory: ProductPricePoint[];
+  priceTrend: ProductPriceTrend;
+  missingStreak: number;
+  lastSeenAt: string;
+  lastMissingAt?: string;
+  removedAt?: string;
 }
 
 export interface ShopSummary {
@@ -153,6 +178,56 @@ export interface PublishedShopDetail {
   products: PublishedShopProduct[];
   recentSnapshots: ShopSnapshot[];
   recentDiffs: ShopDiff[];
+  publishedAt: string;
+}
+
+export interface PublishedMeta {
+  publishedAt: string;
+  shopCount: number;
+  liveProductCount: number;
+  archivedProductCount: number;
+  categoryCount: number;
+  categories: ProductCategory[];
+}
+
+export interface PublishedShopIndex {
+  shops: ShopSummary[];
+  publishedAt: string;
+  meta: PublishedMeta;
+}
+
+export interface PublishedProductCatalogItem {
+  id: string;
+  shopId: string;
+  shopName: string;
+  shopUrl: string;
+  productKey: string;
+  rawName: string;
+  specLabel: string;
+  category: ProductCategory;
+  price: number;
+  currency: string;
+  stockStatus: StockStatus;
+  status: ProductStatus;
+  inventoryText: string;
+  warrantySupported: boolean | null;
+  updatedAt: string;
+  isDetected: boolean;
+  missingStreak: number;
+  lastSeenAt: string;
+  priceTrend: ProductPriceTrend;
+}
+
+export interface PublishedProductCatalog {
+  items: PublishedProductCatalogItem[];
+  categories: ProductCategory[];
+  publishedAt: string;
+  meta: PublishedMeta;
+}
+
+export interface PublishedDiffFeed {
+  items: ShopDiff[];
+  publishedAt: string;
 }
 
 export interface SourceRequestHeader {
@@ -236,6 +311,7 @@ export interface ReviewRecord {
 export interface PublishedData {
   shops: ShopSummary[];
   shopProducts: PublishedShopProduct[];
+  archivedShopProducts: PublishedShopProduct[];
   shopSnapshots: ShopSnapshot[];
   shopDiffs: ShopDiff[];
   publishedAt: string;

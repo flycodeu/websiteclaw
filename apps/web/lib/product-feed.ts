@@ -1,33 +1,18 @@
 import { productCategoryLabels } from "@shop-claw/shared/labels";
-import { ProductCategory, ProductStatus, PublishedData, StockStatus } from "@shop-claw/shared/types";
+import { ProductCategory, PublishedProductCatalog, PublishedProductCatalogItem } from "@shop-claw/shared/types";
 
-const categoryOrder = Object.keys(productCategoryLabels) as ProductCategory[];
-const DEFAULT_LIMIT = 30;
+const DEFAULT_LIMIT = 24;
 const MAX_LIMIT = 60;
 
-export interface ProductFeedItem {
-  id: string;
-  shopId: string;
-  shopName: string;
-  shopUrl: string;
-  productKey: string;
-  rawName: string;
-  specLabel: string;
-  category: ProductCategory;
-  price: number;
-  currency: string;
-  stockStatus: StockStatus;
-  status: ProductStatus;
-  inventoryText: string;
-  warrantySupported: boolean | null;
-  updatedAt: string;
-  isDetected: boolean;
-}
+export type ProductFeedItem = PublishedProductCatalogItem;
 
 export interface ProductFeedPage {
   items: ProductFeedItem[];
   nextCursor: string | null;
   total: number;
+  categories: ProductCategory[];
+  publishedAt: string;
+  summary: ProductFeedSummary;
 }
 
 export interface ProductFeedSummary {
@@ -53,51 +38,28 @@ interface ProductFeedFilterOptions {
   maxPrice?: number | null;
 }
 
-export function getProductFeedCategories(published: PublishedData) {
-  const categorySet = new Set(
-    published.shopProducts
-      .filter((product) => isListableProduct(product))
-      .map((product) => product.category)
+export function getProductFeedCategories(catalog: PublishedProductCatalog) {
+  const available = new Set(
+    catalog.items
+      .filter((item) => isListableProduct(item))
+      .map((item) => item.category)
   );
 
-  return categoryOrder.filter((category) => categorySet.has(category));
+  return catalog.categories.filter((category) => available.has(category));
 }
 
-export function getProductFeedItems(published: PublishedData, options: ProductFeedFilterOptions = {}): ProductFeedItem[] {
-  const categories = getProductFeedCategories(published);
+export function getProductFeedItems(catalog: PublishedProductCatalog, options: ProductFeedFilterOptions = {}) {
+  const categories = getProductFeedCategories(catalog);
   const activeCategory = readCategoryFilter(options.category, categories);
   const keyword = normalizeText(options.keyword);
   const minPrice = readPrice(options.minPrice);
   const maxPrice = readPrice(options.maxPrice);
-  const shopMap = new Map(published.shops.map((shop) => [shop.shopId, shop]));
 
-  return published.shopProducts
-    .filter((product) => isListableProduct(product))
-    .filter((product) => !activeCategory || product.category === activeCategory)
-    .map((product) => {
-      const shop = shopMap.get(product.shopId);
-
-      return {
-        id: `${product.shopId}:${product.productKey}`,
-        shopId: product.shopId,
-        shopName: shop?.name ?? product.shopId,
-        shopUrl: shop?.url ?? "",
-        productKey: product.productKey,
-        rawName: product.current.rawName,
-        specLabel: product.specLabel,
-        category: product.category,
-        price: product.current.price,
-        currency: product.current.currency,
-        stockStatus: product.current.stockStatus,
-        status: product.current.status,
-        inventoryText: product.current.inventoryText,
-        warrantySupported: product.current.warrantySupported,
-        updatedAt: product.current.updatedAt,
-        isDetected: product.current.isDetected
-      } satisfies ProductFeedItem;
-    })
-    .filter((product) => matchesKeyword(product, keyword))
-    .filter((product) => matchesPrice(product, minPrice, maxPrice))
+  return catalog.items
+    .filter((item) => isListableProduct(item))
+    .filter((item) => !activeCategory || item.category === activeCategory)
+    .filter((item) => matchesKeyword(item, keyword))
+    .filter((item) => matchesPrice(item, minPrice, maxPrice))
     .sort((left, right) => {
       const displayPriority = getDisplayPriority(left) - getDisplayPriority(right);
       if (displayPriority !== 0) {
@@ -121,17 +83,19 @@ export function getProductFeedItems(published: PublishedData, options: ProductFe
     });
 }
 
-export function getProductFeedPage(published: PublishedData, options: ProductFeedOptions = {}): ProductFeedPage {
+export function getProductFeedPage(catalog: PublishedProductCatalog, options: ProductFeedOptions = {}): ProductFeedPage {
   const cursor = readCursor(options.cursor);
   const limit = readLimit(options.limit);
-  const filtered = getProductFeedItems(published, options);
-
+  const filtered = getProductFeedItems(catalog, options);
   const nextCursor = cursor + limit < filtered.length ? String(cursor + limit) : null;
 
   return {
     items: filtered.slice(cursor, cursor + limit),
     nextCursor,
-    total: filtered.length
+    total: filtered.length,
+    categories: getProductFeedCategories(catalog),
+    publishedAt: catalog.publishedAt,
+    summary: getProductFeedSummary(filtered)
   };
 }
 
@@ -152,34 +116,34 @@ export function isDimmedProductFeedItem(item: Pick<ProductFeedItem, "status" | "
   return item.status === "OFFLINE" || item.stockStatus === "OUT_OF_STOCK" || !item.isDetected;
 }
 
-function isListableProduct(product: PublishedData["shopProducts"][number]) {
-  return Boolean(normalizeText(product.current.rawName));
+function isListableProduct(item: ProductFeedItem) {
+  return Boolean(normalizeText(item.rawName));
 }
 
-function matchesKeyword(product: ProductFeedItem, keyword: string) {
+function matchesKeyword(item: ProductFeedItem, keyword: string) {
   if (!keyword) {
     return true;
   }
 
   return normalizeText(
-    [product.rawName, product.specLabel, product.shopName, productCategoryLabels[product.category], product.inventoryText].join(" ")
+    [item.rawName, item.specLabel, item.shopName, productCategoryLabels[item.category], item.inventoryText].join(" ")
   ).includes(keyword);
 }
 
-function matchesPrice(product: ProductFeedItem, minPrice: number | null, maxPrice: number | null) {
+function matchesPrice(item: ProductFeedItem, minPrice: number | null, maxPrice: number | null) {
   if (minPrice === null && maxPrice === null) {
     return true;
   }
 
-  if (!Number.isFinite(product.price) || product.price <= 0) {
+  if (!Number.isFinite(item.price) || item.price <= 0) {
     return false;
   }
 
-  if (minPrice !== null && product.price < minPrice) {
+  if (minPrice !== null && item.price < minPrice) {
     return false;
   }
 
-  if (maxPrice !== null && product.price > maxPrice) {
+  if (maxPrice !== null && item.price > maxPrice) {
     return false;
   }
 

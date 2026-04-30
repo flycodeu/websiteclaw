@@ -1,16 +1,16 @@
 import { withTraceId } from "@shop-claw/shared/response";
 import { getProductFeedPage } from "@/lib/product-feed";
-import { getPublishedSnapshot } from "@/lib/published-data";
+import { getPublishedProductCatalog } from "@/lib/published-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const published = await getPublishedSnapshot();
+  const catalog = await getPublishedProductCatalog();
   const { searchParams } = new URL(request.url);
   const limitParam = searchParams.get("limit");
 
-  const page = getProductFeedPage(published, {
+  const page = getProductFeedPage(catalog, {
     category: searchParams.get("category"),
     cursor: searchParams.get("cursor"),
     keyword: searchParams.get("keyword"),

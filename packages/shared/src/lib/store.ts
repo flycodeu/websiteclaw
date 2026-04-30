@@ -8,7 +8,15 @@ import {
   ProductCategory,
   ProductItem,
   ProductObservation,
+  ProductPricePoint,
+  ProductPriceTrend,
   PublishedData,
+  PublishedDiffFeed,
+  PublishedMeta,
+  PublishedProductCatalog,
+  PublishedProductCatalogItem,
+  PublishedShopDetail,
+  PublishedShopIndex,
   PublishedShopProduct,
   ReviewRecord,
   ShopDiff,
@@ -18,7 +26,13 @@ import {
 } from "./types";
 
 const PUBLIC_DIRECTORY_NAME = "public";
-const PUBLIC_PUBLISHED_FILENAME = "published-shops.json";
+const PUBLIC_PUBLISHED_FILENAME = "published-data.json";
+const LEGACY_PUBLIC_PUBLISHED_FILENAME = "published-shops.json";
+const PUBLIC_META_FILENAME = "published-meta.json";
+const PUBLIC_PRODUCTS_FILENAME = "published-products.json";
+const PUBLIC_DIFFS_FILENAME = "published-diffs.json";
+const PUBLIC_SHOP_DETAILS_DIRECTORY_NAME = "shops";
+const HISTORY_LIMIT = 10;
 
 let workspaceRootPromise: Promise<string> | undefined;
 
@@ -81,10 +95,75 @@ function normalizeSpec(rawName: string, fallback?: string) {
   return normalizeToken(fallback || rawName || "DEFAULT") || "DEFAULT";
 }
 
+function uniqueCategories(categories: ProductCategory[]) {
+  return [...new Set(categories)];
+}
+
+function trimHistory<T>(items: T[]) {
+  return items.slice(0, HISTORY_LIMIT);
+}
+
+function buildPriceHistory(entries: ProductObservation[]): ProductPricePoint[] {
+  const seen = new Set<string>();
+  const points: ProductPricePoint[] = [];
+
+  entries.forEach((entry) => {
+    if (!entry.isDetected || !Number.isFinite(entry.price) || entry.price <= 0) {
+      return;
+    }
+
+    const key = `${entry.capturedAt}|${entry.price}|${entry.currency}`;
+    if (seen.has(key)) {
+      return;
+    }
+
+    seen.add(key);
+    points.push({
+      price: entry.price,
+      currency: entry.currency,
+      capturedAt: entry.capturedAt,
+      snapshotDate: entry.snapshotDate
+    });
+  });
+
+  return trimHistory(points);
+}
+
+function buildPriceTrend(priceHistory: ProductPricePoint[], currentPrice: number): ProductPriceTrend {
+  const latest = priceHistory[0];
+  const previous = priceHistory[1];
+  const values = priceHistory.map((item) => item.price).filter((value) => Number.isFinite(value) && value > 0);
+  const activeCurrentPrice =
+    Number.isFinite(currentPrice) && currentPrice > 0 ? currentPrice : latest?.price && latest.price > 0 ? latest.price : 0;
+  const previousPrice = previous?.price && previous.price > 0 ? previous.price : null;
+  const changeAmount = previousPrice === null ? 0 : activeCurrentPrice - previousPrice;
+  const changePercent =
+    previousPrice && previousPrice > 0 ? Number((((activeCurrentPrice - previousPrice) / previousPrice) * 100).toFixed(2)) : null;
+
+  return {
+    direction:
+      previousPrice === null
+        ? "UNKNOWN"
+        : changeAmount > 0
+          ? "UP"
+          : changeAmount < 0
+            ? "DOWN"
+            : "FLAT",
+    previousPrice,
+    currentPrice: activeCurrentPrice,
+    changeAmount: Number(changeAmount.toFixed(2)),
+    changePercent,
+    lowestPrice: values.length > 0 ? Math.min(...values) : null,
+    highestPrice: values.length > 0 ? Math.max(...values) : null,
+    sampleCount: priceHistory.length
+  };
+}
+
 function createEmptyPublishedData(now: string): PublishedData {
   return {
     shops: [],
     shopProducts: [],
+    archivedShopProducts: [],
     shopSnapshots: [],
     shopDiffs: [],
     publishedAt: now
@@ -252,7 +331,10 @@ function normalizeObservation(item: Partial<ProductObservation>): ProductObserva
 
 function normalizePublishedShopProduct(item: Partial<PublishedShopProduct>): PublishedShopProduct {
   const current = normalizeProductItem(item.current ?? {});
-  const history = (item.history ?? []).map((entry) => normalizeObservation(entry));
+  const history = trimHistory((item.history ?? []).map((entry) => normalizeObservation(entry)));
+  const priceHistory = trimHistory(item.priceHistory ?? buildPriceHistory(history));
+  const priceTrend = item.priceTrend ?? buildPriceTrend(priceHistory, current.price);
+  const firstDetected = history.find((entry) => entry.isDetected);
 
   return {
     shopId: item.shopId?.trim() || "",
@@ -261,7 +343,36 @@ function normalizePublishedShopProduct(item: Partial<PublishedShopProduct>): Pub
     category: item.category ?? current.category,
     specLabel: item.specLabel?.trim() || current.specLabel,
     current,
-    history
+    history,
+    priceHistory,
+    priceTrend: {
+      ...priceTrend,
+      currentPrice: Number(priceTrend.currentPrice ?? current.price ?? 0),
+      previousPrice: priceTrend.previousPrice ?? null,
+      changeAmount: Number(priceTrend.changeAmount ?? 0),
+      changePercent:
+        typeof priceTrend.changePercent === "number" && Number.isFinite(priceTrend.changePercent)
+          ? priceTrend.changePercent
+          : null,
+      lowestPrice:
+        typeof priceTrend.lowestPrice === "number" && Number.isFinite(priceTrend.lowestPrice) ? priceTrend.lowestPrice : null,
+      highestPrice:
+        typeof priceTrend.highestPrice === "number" && Number.isFinite(priceTrend.highestPrice)
+          ? priceTrend.highestPrice
+          : null,
+      sampleCount: Number(priceTrend.sampleCount ?? priceHistory.length),
+      direction:
+        priceTrend.direction === "UP" ||
+        priceTrend.direction === "DOWN" ||
+        priceTrend.direction === "FLAT" ||
+        priceTrend.direction === "UNKNOWN"
+          ? priceTrend.direction
+          : "UNKNOWN"
+    },
+    missingStreak: Math.max(Number(item.missingStreak ?? (current.isDetected ? 0 : 1)), 0),
+    lastSeenAt: item.lastSeenAt?.trim() || firstDetected?.capturedAt || current.updatedAt,
+    lastMissingAt: item.lastMissingAt?.trim() || undefined,
+    removedAt: item.removedAt?.trim() || undefined
   };
 }
 
@@ -319,6 +430,7 @@ function normalizePublished(state: Partial<PublishedData> & { snapshots?: ShopSn
       runCount: Number(shop.runCount ?? 0)
     })),
     shopProducts: (state.shopProducts ?? []).map((item) => normalizePublishedShopProduct(item)),
+    archivedShopProducts: (state.archivedShopProducts ?? []).map((item) => normalizePublishedShopProduct(item)),
     shopSnapshots: (state.shopSnapshots ?? state.snapshots ?? []).map((item) => normalizeSnapshot(item)),
     shopDiffs: (state.shopDiffs ?? state.diffs ?? []).map((item) => normalizeDiff(item)),
     publishedAt: state.publishedAt ?? nowIso()
@@ -345,6 +457,109 @@ function normalizeState(state: PlatformState): PlatformState {
     ),
     reviews: (state.reviews ?? []).map((review) => normalizeReview(review)),
     published: normalizePublished(state.published ?? fallback.published)
+  };
+}
+
+function sortDiffsDescending(items: ShopDiff[]) {
+  return [...items].sort((left, right) => Date.parse(right.capturedAt) - Date.parse(left.capturedAt));
+}
+
+function sortShopProducts(items: PublishedShopProduct[]) {
+  return [...items].sort((left, right) => {
+    if (left.current.isDetected !== right.current.isDetected) {
+      return left.current.isDetected ? -1 : 1;
+    }
+
+    if (left.missingStreak !== right.missingStreak) {
+      return left.missingStreak - right.missingStreak;
+    }
+
+    if (left.category !== right.category) {
+      return left.category.localeCompare(right.category, "zh-CN");
+    }
+
+    return left.current.rawName.localeCompare(right.current.rawName, "zh-CN");
+  });
+}
+
+function buildPublishedMeta(published: PublishedData): PublishedMeta {
+  const categories = uniqueCategories(published.shopProducts.map((item) => item.category));
+
+  return {
+    publishedAt: published.publishedAt,
+    shopCount: published.shops.length,
+    liveProductCount: published.shopProducts.length,
+    archivedProductCount: published.archivedShopProducts.length,
+    categoryCount: categories.length,
+    categories
+  };
+}
+
+function buildPublishedProductCatalogItem(
+  product: PublishedShopProduct,
+  shopMap: Map<string, PublishedData["shops"][number]>
+): PublishedProductCatalogItem {
+  const shop = shopMap.get(product.shopId);
+
+  return {
+    id: `${product.shopId}:${product.productKey}`,
+    shopId: product.shopId,
+    shopName: shop?.name ?? product.shopId,
+    shopUrl: shop?.url ?? "",
+    productKey: product.productKey,
+    rawName: product.current.rawName,
+    specLabel: product.specLabel,
+    category: product.category,
+    price: product.current.price,
+    currency: product.current.currency,
+    stockStatus: product.current.stockStatus,
+    status: product.current.status,
+    inventoryText: product.current.inventoryText,
+    warrantySupported: product.current.warrantySupported,
+    updatedAt: product.current.updatedAt,
+    isDetected: product.current.isDetected,
+    missingStreak: product.missingStreak,
+    lastSeenAt: product.lastSeenAt,
+    priceTrend: product.priceTrend
+  };
+}
+
+function buildPublishedShopIndex(published: PublishedData, meta: PublishedMeta): PublishedShopIndex {
+  return {
+    shops: [...published.shops].sort((left, right) => Date.parse(right.lastCrawledAt) - Date.parse(left.lastCrawledAt)),
+    publishedAt: published.publishedAt,
+    meta
+  };
+}
+
+function buildPublishedProductCatalog(published: PublishedData, meta: PublishedMeta): PublishedProductCatalog {
+  const shopMap = new Map(published.shops.map((shop) => [shop.shopId, shop] as const));
+
+  return {
+    items: published.shopProducts.map((product) => buildPublishedProductCatalogItem(product, shopMap)),
+    categories: meta.categories,
+    publishedAt: published.publishedAt,
+    meta
+  };
+}
+
+function buildPublishedDiffFeed(published: PublishedData): PublishedDiffFeed {
+  return {
+    items: sortDiffsDescending(published.shopDiffs),
+    publishedAt: published.publishedAt
+  };
+}
+
+function buildPublishedShopDetail(
+  shop: PublishedData["shops"][number],
+  published: PublishedData
+): PublishedShopDetail {
+  return {
+    shop,
+    products: sortShopProducts(published.shopProducts.filter((item) => item.shopId === shop.shopId)),
+    recentSnapshots: published.shopSnapshots.filter((item) => item.shopId === shop.shopId).slice(0, HISTORY_LIMIT),
+    recentDiffs: sortDiffsDescending(published.shopDiffs.filter((item) => item.shopId === shop.shopId)).slice(0, HISTORY_LIMIT),
+    publishedAt: published.publishedAt
   };
 }
 
@@ -422,15 +637,41 @@ async function getPublicDataDirectory() {
   return publicDirectory;
 }
 
+async function getPublicShopDetailsDirectory() {
+  const publicDirectory = await getPublicDataDirectory();
+  const detailsDirectory = path.join(publicDirectory, PUBLIC_SHOP_DETAILS_DIRECTORY_NAME);
+  await fs.mkdir(detailsDirectory, { recursive: true });
+  return detailsDirectory;
+}
+
 async function getPublishedDataFile() {
   const publicDirectory = await getPublicDataDirectory();
-  const filePath = path.join(publicDirectory, PUBLIC_PUBLISHED_FILENAME);
+  return path.join(publicDirectory, PUBLIC_PUBLISHED_FILENAME);
+}
 
-  if (!(await pathExists(filePath))) {
-    await fs.writeFile(filePath, `${JSON.stringify(createEmptyPublishedData(nowIso()), null, 2)}\n`, "utf8");
-  }
+async function getLegacyPublishedDataFile() {
+  const publicDirectory = await getPublicDataDirectory();
+  return path.join(publicDirectory, LEGACY_PUBLIC_PUBLISHED_FILENAME);
+}
 
-  return filePath;
+async function getPublishedMetaFile() {
+  const publicDirectory = await getPublicDataDirectory();
+  return path.join(publicDirectory, PUBLIC_META_FILENAME);
+}
+
+async function getPublishedProductsFile() {
+  const publicDirectory = await getPublicDataDirectory();
+  return path.join(publicDirectory, PUBLIC_PRODUCTS_FILENAME);
+}
+
+async function getPublishedDiffsFile() {
+  const publicDirectory = await getPublicDataDirectory();
+  return path.join(publicDirectory, PUBLIC_DIFFS_FILENAME);
+}
+
+async function getPublishedShopsFile() {
+  const publicDirectory = await getPublicDataDirectory();
+  return path.join(publicDirectory, LEGACY_PUBLIC_PUBLISHED_FILENAME);
 }
 
 export async function getRuntimeDirectory() {
@@ -465,10 +706,64 @@ async function readJsonFile<T>(filePath: string, fallback: T) {
   }
 }
 
+async function writeJsonFile(filePath: string, payload: unknown) {
+  await fs.writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+}
+
+async function readPublishedDataPayload(fallback: PublishedData) {
+  const publishedDataFile = await getPublishedDataFile();
+
+  if (await pathExists(publishedDataFile)) {
+    return {
+      filePath: publishedDataFile,
+      payload: await readJsonFile<PublishedData>(publishedDataFile, fallback)
+    };
+  }
+
+  const legacyFile = await getLegacyPublishedDataFile();
+  const legacyPayload = await readJsonFile<unknown>(legacyFile, fallback);
+
+  if (
+    legacyPayload &&
+    typeof legacyPayload === "object" &&
+    Array.isArray((legacyPayload as Partial<PublishedData>).shopProducts)
+  ) {
+    return {
+      filePath: legacyFile,
+      payload: legacyPayload as PublishedData
+    };
+  }
+
+  return {
+    filePath: publishedDataFile,
+    payload: fallback
+  };
+}
+
 async function writePublishedData(published: PublishedData) {
-  const filePath = await getPublishedDataFile();
   const normalized = normalizePublished(published);
-  await fs.writeFile(filePath, `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
+  const meta = buildPublishedMeta(normalized);
+  const detailsDirectory = await getPublicShopDetailsDirectory();
+  const publishedDataFile = await getPublishedDataFile();
+  const publishedMetaFile = await getPublishedMetaFile();
+  const publishedProductsFile = await getPublishedProductsFile();
+  const publishedDiffsFile = await getPublishedDiffsFile();
+  const publishedShopsFile = await getPublishedShopsFile();
+
+  await writeJsonFile(publishedDataFile, normalized);
+  await writeJsonFile(publishedMetaFile, meta);
+  await writeJsonFile(publishedShopsFile, buildPublishedShopIndex(normalized, meta));
+  await writeJsonFile(publishedProductsFile, buildPublishedProductCatalog(normalized, meta));
+  await writeJsonFile(publishedDiffsFile, buildPublishedDiffFeed(normalized));
+  await fs.rm(detailsDirectory, { recursive: true, force: true });
+  await fs.mkdir(detailsDirectory, { recursive: true });
+
+  await Promise.all(
+    normalized.shops.map((shop) =>
+      writeJsonFile(path.join(detailsDirectory, `${shop.shopId}.json`), buildPublishedShopDetail(shop, normalized))
+    )
+  );
+
   return normalized;
 }
 
@@ -502,9 +797,8 @@ export async function updatePlatformState(
 }
 
 export async function getPublishedData() {
-  const filePath = await getPublishedDataFile();
   const fallback = createEmptyPublishedData(nowIso());
-  const parsed = await readJsonFile<PublishedData>(filePath, fallback);
+  const { payload: parsed } = await readPublishedDataPayload(fallback);
   const normalized = normalizePublished(parsed);
 
   if (JSON.stringify(parsed) !== JSON.stringify(normalized)) {
@@ -537,6 +831,11 @@ export async function getStoragePaths() {
     platformStateFile: await getPlatformStateFile(),
     runtimeDirectory: await getRuntimeDirectory(),
     publicDataDirectory: await getPublicDataDirectory(),
-    publishedDataFile: await getPublishedDataFile()
+    publicShopDetailsDirectory: await getPublicShopDetailsDirectory(),
+    publishedDataFile: await getPublishedDataFile(),
+    publishedMetaFile: await getPublishedMetaFile(),
+    publishedShopsFile: await getPublishedShopsFile(),
+    publishedProductsFile: await getPublishedProductsFile(),
+    publishedDiffsFile: await getPublishedDiffsFile()
   };
 }

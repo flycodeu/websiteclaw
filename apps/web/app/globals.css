@@ -4,6 +4,11 @@
 
 :root {
   color-scheme: light;
+  --ink: #1c232c;
+  --muted: #5f645f;
+  --paper-soft: #f8f1e7;
+  --line-soft: rgba(209, 193, 170, 0.72);
+  --line-strong: rgba(194, 180, 158, 0.84);
 }
 
 html {
@@ -14,9 +19,23 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(247, 216, 90, 0.14), transparent 24%),
-    radial-gradient(circle at top right, rgba(21, 29, 41, 0.08), transparent 28%),
-    linear-gradient(180deg, #efe6d7 0%, #e8ddcb 100%);
+    radial-gradient(circle at top left, rgba(241, 196, 105, 0.16), transparent 24%),
+    radial-gradient(circle at 88% 10%, rgba(31, 61, 49, 0.10), transparent 28%),
+    linear-gradient(180deg, #f4ebdd 0%, #ede1cf 42%, #e6ddcb 100%);
+  color: var(--ink);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 100% 36px, 36px 100%;
+  opacity: 0.18;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.66), transparent 92%);
 }
 
 * {
@@ -28,8 +47,15 @@ a {
   text-decoration: none;
 }
 
+input,
+select,
+button,
+textarea {
+  font: inherit;
+}
+
 ::selection {
-  background: rgba(247, 216, 90, 0.3);
+  background: rgba(214, 173, 66, 0.28);
 }
 
 @keyframes rise-in {
@@ -45,5 +71,5 @@ a {
 }
 
 .rise-in {
-  animation: rise-in 0.4s ease-out both;
+  animation: rise-in 0.45s ease-out both;
 }

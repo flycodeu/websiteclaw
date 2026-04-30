@@ -1,11 +1,12 @@
 import { withTraceId } from "@shop-claw/shared/response";
-import { getPublishedSnapshot } from "@/lib/published-data";
+import { productCategoryLabels } from "@shop-claw/shared/labels";
+import { getPublishedShopIndex } from "@/lib/published-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const { shops } = await getPublishedSnapshot();
+  const { shops, publishedAt, meta } = await getPublishedShopIndex();
   const { searchParams } = new URL(request.url);
   const keyword = searchParams.get("keyword")?.toLowerCase();
   const status = searchParams.get("status");
@@ -16,7 +17,10 @@ export async function GET(request: Request) {
       const keywordMatched =
         !keyword ||
         shop.name.toLowerCase().includes(keyword) ||
-        shop.categories.some((category) => category.toLowerCase().includes(keyword));
+        shop.categories.some(
+          (category) =>
+            category.toLowerCase().includes(keyword) || productCategoryLabels[category].toLowerCase().includes(keyword)
+        );
       const statusMatched = !status || status === "ALL" || shop.status === status;
       return keywordMatched && statusMatched;
     })
@@ -40,5 +44,11 @@ export async function GET(request: Request) {
       return Date.parse(b.lastCrawledAt) - Date.parse(a.lastCrawledAt);
     });
 
-  return Response.json(withTraceId(result));
+  return Response.json(
+    withTraceId({
+      items: result,
+      publishedAt,
+      meta
+    })
+  );
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
+import { startTransition, useEffect, useState } from "react";
+import { ArrowUpRight, LoaderCircle, Search, X } from "lucide-react";
 import {
   formatDateLabel,
   formatWarrantyLabel,
@@ -10,86 +10,131 @@ import {
   shopStatusLabels,
   stockStatusLabels
 } from "@shop-claw/shared/labels";
-import { ProductCategory, PublishedShopProduct, ShopSummary } from "@shop-claw/shared/types";
+import {
+  ApiResponse,
+  ProductCategory,
+  PublishedMeta,
+  PublishedShopDetail,
+  PublishedShopProduct,
+  ShopSummary
+} from "@shop-claw/shared/types";
 
 interface ShopExplorerProps {
   shops: ShopSummary[];
-  products: PublishedShopProduct[];
+  latestSyncAt: string;
+  meta: PublishedMeta;
 }
 
-const categoryOrder = Object.keys(productCategoryLabels) as ProductCategory[];
-
-export function ShopExplorer({ shops, products }: ShopExplorerProps) {
+export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<"ALL" | ShopSummary["status"]>("ALL");
   const [sortBy, setSortBy] = useState<"updated" | "price" | "changes">("updated");
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"ALL" | ProductCategory>("ALL");
+  const [detailsByShop, setDetailsByShop] = useState<Record<string, PublishedShopDetail>>({});
+  const [detailError, setDetailError] = useState("");
 
-  const filtered = useMemo(() => {
-    return [...shops]
-      .filter((shop) => {
-        const keywordMatched =
-          shop.name.toLowerCase().includes(keyword.toLowerCase()) ||
-          shop.categories.some((category) => productCategoryLabels[category].toLowerCase().includes(keyword.toLowerCase()));
-        const statusMatched = status === "ALL" || shop.status === status;
-        return keywordMatched && statusMatched;
-      })
-      .sort((a, b) => {
-        if (sortBy === "price") {
-          if (a.lowestPrice === 0) {
-            return 1;
-          }
-
-          if (b.lowestPrice === 0) {
-            return -1;
-          }
-
-          return a.lowestPrice - b.lowestPrice;
+  const filteredShops = [...shops]
+    .filter((shop) => {
+      const text = keyword.trim().toLowerCase();
+      const keywordMatched =
+        !text ||
+        shop.name.toLowerCase().includes(text) ||
+        shop.categories.some(
+          (category) =>
+            category.toLowerCase().includes(text) || productCategoryLabels[category].toLowerCase().includes(text)
+        );
+      const statusMatched = status === "ALL" || shop.status === status;
+      return keywordMatched && statusMatched;
+    })
+    .sort((left, right) => {
+      if (sortBy === "price") {
+        if (left.lowestPrice === 0) {
+          return 1;
         }
 
-        if (sortBy === "changes") {
-          return b.recentChangeCount - a.recentChangeCount;
+        if (right.lowestPrice === 0) {
+          return -1;
         }
 
-        return Date.parse(b.lastCrawledAt) - Date.parse(a.lastCrawledAt);
-      });
-  }, [keyword, shops, sortBy, status]);
+        return left.lowestPrice - right.lowestPrice;
+      }
 
-  const activeShop = shops.find((item) => item.shopId === activeId) ?? null;
-  const activeProducts = useMemo(
-    () =>
-      activeShop
-        ? products
-            .filter((item) => item.shopId === activeShop.shopId)
-            .sort((left, right) => {
-              const stockPriority = getStockPriority(left) - getStockPriority(right);
-              if (stockPriority !== 0) {
-                return stockPriority;
-              }
+      if (sortBy === "changes") {
+        return right.recentChangeCount - left.recentChangeCount;
+      }
 
-              if (left.category !== right.category) {
-                return left.category.localeCompare(right.category, "zh-CN");
-              }
+      return Date.parse(right.lastCrawledAt) - Date.parse(left.lastCrawledAt);
+    });
 
-              return left.current.rawName.localeCompare(right.current.rawName, "zh-CN");
-            })
-        : [],
-    [activeShop, products]
-  );
+  const activeShop = activeId ? shops.find((shop) => shop.shopId === activeId) ?? null : null;
+  const activeDetail = activeId ? detailsByShop[activeId] ?? null : null;
+  const loadingDetail = Boolean(activeId && !activeDetail && !detailError);
+  const visibleProducts =
+    activeDetail?.products.filter((product) => activeCategory === "ALL" || product.category === activeCategory) ?? [];
+  const activeCategories = activeDetail ? [...new Set(activeDetail.products.map((product) => product.category))] : [];
+  const productGroups = [
+    {
+      key: "in-stock",
+      title: "有货商品",
+      emptyText: "当前没有有货商品。",
+      items: visibleProducts.filter((product) => product.current.isDetected && product.current.stockStatus === "IN_STOCK")
+    },
+    {
+      key: "low-stock",
+      title: "库存紧张",
+      emptyText: "当前没有库存紧张商品。",
+      items: visibleProducts.filter((product) => product.current.isDetected && product.current.stockStatus === "LOW_STOCK")
+    },
+    {
+      key: "offline",
+      title: "离线商品",
+      emptyText: "当前没有离线商品。",
+      items: visibleProducts.filter((product) => !product.current.isDetected || product.current.stockStatus === "OUT_OF_STOCK")
+    }
+  ];
 
-  const activeCategories = useMemo(() => {
-    const currentSet = new Set(activeProducts.map((product) => product.category));
-    return categoryOrder.filter((category) => currentSet.has(category));
-  }, [activeProducts]);
-
-  const visibleProducts = useMemo(() => {
-    if (activeCategory === "ALL") {
-      return activeProducts;
+  useEffect(() => {
+    if (!activeId || detailsByShop[activeId]) {
+      return;
     }
 
-    return activeProducts.filter((product) => product.category === activeCategory);
-  }, [activeCategory, activeProducts]);
+    const shopId = activeId;
+    const controller = new AbortController();
+
+    async function loadDetail() {
+      setDetailError("");
+
+      try {
+        const response = await fetch(`/api/shops/${activeId}`, {
+          signal: controller.signal,
+          cache: "no-store"
+        });
+        const payload = (await response.json()) as ApiResponse<PublishedShopDetail>;
+
+        if (!response.ok || payload.code !== 0 || !payload.data) {
+          throw new Error(payload.message || "店铺详情加载失败");
+        }
+
+        startTransition(() => {
+          setDetailsByShop((current) => ({
+            ...current,
+            [shopId]: payload.data
+          }));
+        });
+      } catch (fetchError) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setDetailError(fetchError instanceof Error ? fetchError.message : "店铺详情加载失败");
+      }
+    }
+
+    void loadDetail();
+
+    return () => controller.abort();
+  }, [activeId, detailsByShop]);
 
   useEffect(() => {
     if (!activeId) {
@@ -113,291 +158,256 @@ export function ShopExplorer({ shops, products }: ShopExplorerProps) {
   }, [activeId]);
 
   useEffect(() => {
-    if (activeId && !shops.some((item) => item.shopId === activeId)) {
-      setActiveId(null);
-    }
-  }, [activeId, shops]);
-
-  useEffect(() => {
     setActiveCategory("ALL");
+    setDetailError("");
   }, [activeId]);
 
   return (
-    <div className="space-y-6">
-      <section className="rise-in overflow-hidden rounded-[32px] border border-[#d8cfbf] bg-[linear-gradient(135deg,#fbf7f0_0%,#f3ebdd_52%,#edf4e7_100%)] p-5 shadow-panel">
-        <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
+    <div className="space-y-5">
+      <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,rgba(255,253,248,0.98)_0%,rgba(247,240,230,0.92)_100%)] p-4 shadow-[0_18px_48px_rgba(53,44,30,0.08)] sm:p-5">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
           <div>
-            <div className="inline-flex rounded-full border border-[#d8cfbf] bg-white/82 px-4 py-2 text-sm text-slate-600 shadow-[0_10px_24px_rgba(102,88,64,0.08)]">
-              当前公开 {filtered.length} 家店铺
-            </div>
-            <h1 className="mt-4 font-serif text-4xl text-[#18222c]">店铺监控</h1>
+            <h1 className="font-serif text-[2rem] leading-tight text-[color:var(--ink)] sm:text-[2.45rem]">店铺列表</h1>
           </div>
 
-          <div className="grid gap-3 md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.78fr)_minmax(0,0.78fr)]">
-            <label className="flex min-w-0 items-center gap-2 rounded-[20px] border border-[#d8cfbf] bg-white/90 px-4 py-3 text-sm text-slate-500 shadow-[0_10px_24px_rgba(102,88,64,0.06)]">
-              <Search className="h-4 w-4" />
-              <input
-                value={keyword}
-                onChange={(event) => setKeyword(event.target.value)}
-                placeholder="搜索店铺或分类"
-                className="w-full min-w-0 bg-transparent text-[#18222c] outline-none placeholder:text-slate-400"
-              />
-            </label>
-            <label className="flex min-w-0 items-center gap-2 rounded-[20px] border border-[#d8cfbf] bg-white/90 px-4 py-3 text-sm text-slate-500 shadow-[0_10px_24px_rgba(102,88,64,0.06)]">
-              <SlidersHorizontal className="h-4 w-4" />
-              <select
-                value={status}
-                onChange={(event) => setStatus(event.target.value as "ALL" | ShopSummary["status"])}
-                className="w-full min-w-0 bg-transparent text-[#18222c] outline-none"
-              >
-                <option value="ALL">全部状态</option>
-                <option value="OPEN">正常</option>
-                <option value="RISK">异常</option>
-                <option value="CLOSED">关闭</option>
-              </select>
-            </label>
+          <div className="grid gap-2 sm:grid-cols-3">
+            <CompactMetric label="公开店铺" value={`${meta.shopCount}`} />
+            <CompactMetric label="公开商品" value={`${meta.liveProductCount}`} />
+            <CompactMetric label="同步时间" value={formatDateLabel(latestSyncAt)} />
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[rgba(255,252,246,0.92)] p-4 shadow-[0_16px_44px_rgba(53,44,30,0.08)] sm:p-5">
+        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_190px_190px]">
+          <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
+            <Search className="h-4 w-4" />
+            <input
+              value={keyword}
+              onChange={(event) => setKeyword(event.target.value)}
+              placeholder="搜索店铺或商品类型"
+              className="w-full min-w-0 bg-transparent text-[color:var(--ink)] outline-none placeholder:text-[color:var(--muted)]/70"
+            />
+          </label>
+
+          <label className="flex items-center rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
+            <select
+              value={status}
+              onChange={(event) => setStatus(event.target.value as "ALL" | ShopSummary["status"])}
+              className="w-full bg-transparent text-[color:var(--ink)] outline-none"
+            >
+              <option value="ALL">全部状态</option>
+              <option value="OPEN">正常</option>
+              <option value="RISK">异常</option>
+              <option value="CLOSED">关闭</option>
+            </select>
+          </label>
+
+          <label className="flex items-center rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
             <select
               value={sortBy}
               onChange={(event) => setSortBy(event.target.value as "updated" | "price" | "changes")}
-              className="min-w-0 rounded-[20px] border border-[#d8cfbf] bg-white/90 px-4 py-3 text-sm text-[#18222c] outline-none shadow-[0_10px_24px_rgba(102,88,64,0.06)]"
+              className="w-full bg-transparent text-[color:var(--ink)] outline-none"
             >
               <option value="updated">按最近更新</option>
               <option value="price">按最低价</option>
               <option value="changes">按最近变动</option>
             </select>
-          </div>
+          </label>
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {filtered.map((shop) => (
+      <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {filteredShops.map((shop) => (
           <button
             key={shop.shopId}
             type="button"
             onClick={() => setActiveId(shop.shopId)}
-            className="rise-in rounded-[28px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee3_100%)] p-5 text-left shadow-panel transition duration-200 hover:-translate-y-0.5 hover:border-[#cbbca2]"
+            className="group rounded-[24px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf9_0%,#f7efe4_100%)] p-4 text-left shadow-[0_12px_32px_rgba(53,44,30,0.07)] transition hover:-translate-y-1 hover:border-[#c8bba6]"
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <h2 className="break-words text-[1.25rem] font-semibold text-[#18222c]">{shop.name}</h2>
-                <div className="mt-1 text-sm text-slate-500">{formatDateLabel(shop.lastCrawledAt)}</div>
+                <h2 className="truncate text-[1.05rem] font-semibold text-[color:var(--ink)]">{shop.name}</h2>
+                <div className="mt-1 text-xs text-[color:var(--muted)]">{formatDateLabel(shop.lastCrawledAt)}</div>
               </div>
               <span className={`shrink-0 rounded-full px-3 py-1 text-xs ${getShopStatusTone(shop.status)}`}>
                 {shopStatusLabels[shop.status]}
               </span>
             </div>
 
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <MetricCard label="商品数" value={`${shop.productCount}`} />
-              <MetricCard label="有货" value={`${shop.inStockCount}`} />
-              <MetricCard label="最低价" value={shop.lowestPrice > 0 ? `¥${shop.lowestPrice}` : "--"} />
-              <MetricCard label="近次变动" value={`${shop.recentChangeCount}`} />
+            <div className="mt-4 flex flex-wrap gap-2">
+              <SummaryToken label={`${shop.productCount} 商品`} />
+              <SummaryToken label={`${shop.inStockCount} 有货`} />
+              <SummaryToken label={shop.lowestPrice > 0 ? `¥${shop.lowestPrice}` : "暂无价格"} />
+              {shop.recentChangeCount > 0 ? <SummaryToken label={`${shop.recentChangeCount} 变动`} /> : null}
             </div>
 
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              {shop.outOfStockCount > 0 ? (
-                <span className="rounded-full border border-[#efc8bb] bg-[#fff2ed] px-3 py-1 text-xs text-[#a3462c]">
-                  {shop.outOfStockCount} 件无货
-                </span>
-              ) : null}
-              {shop.lowStockCount > 0 ? (
-                <span className="rounded-full border border-[#efddad] bg-[#fff7e0] px-3 py-1 text-xs text-[#8b6510]">
-                  {shop.lowStockCount} 件库存紧张
-                </span>
-              ) : null}
-              {shop.categories.map((category) => (
-                <span
-                  key={category}
-                  className="rounded-full border border-[#e1d6c5] bg-white/88 px-3 py-1 text-xs text-slate-700"
-                >
-                  {productCategoryLabels[category]}
-                </span>
-              ))}
+            <div className="mt-3 truncate text-xs text-[color:var(--muted)]">
+              {shop.categories.map((category) => productCategoryLabels[category]).join(" · ") || "未分类"}
             </div>
           </button>
         ))}
 
-        {filtered.length === 0 ? (
-          <div className="col-span-full rounded-[24px] border border-dashed border-[#d8cfbf] bg-[#f7f1e6] px-4 py-12 text-center text-slate-500">
+        {filteredShops.length === 0 ? (
+          <div className="col-span-full rounded-[28px] border border-dashed border-[color:var(--line-strong)] bg-[rgba(255,250,242,0.86)] px-5 py-16 text-center text-[color:var(--muted)]">
             当前没有匹配的店铺。
           </div>
         ) : null}
       </section>
 
       {activeShop ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#18222c]/14 p-4 backdrop-blur-[2px] sm:p-6"
-          onClick={() => setActiveId(null)}
-        >
-          <section
-            role="dialog"
-            aria-modal="true"
-            onClick={(event) => event.stopPropagation()}
-            className="flex max-h-[90vh] w-full max-w-[1480px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
-          >
-            <div className="border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
-              <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+        <div className="fixed inset-0 z-50 bg-[rgba(20,28,35,0.26)] backdrop-blur-[2px]">
+          <button type="button" className="absolute inset-0 h-full w-full cursor-default" onClick={() => setActiveId(null)} />
+
+          <aside className="absolute inset-y-0 right-0 flex w-full max-w-[960px] flex-col overflow-hidden border-l border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf8_0%,#f6ecdd_100%)] shadow-[-20px_0_60px_rgba(19,28,35,0.16)]">
+            <div className="border-b border-[color:var(--line-strong)] px-5 py-5 sm:px-6">
+              <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`rounded-full px-3 py-1 text-xs ${getShopStatusTone(activeShop.status)}`}>
                       {shopStatusLabels[activeShop.status]}
                     </span>
-                    <span className="rounded-full border border-[#d8cfbf] bg-white/86 px-3 py-1 text-xs text-slate-500">
+                    <span className="rounded-full border border-[color:var(--line-strong)] bg-white/76 px-3 py-1 text-xs text-[color:var(--muted)]">
                       {formatDateLabel(activeShop.lastCrawledAt)}
                     </span>
                   </div>
-                  <h2 className="mt-3 break-words font-serif text-[2rem] leading-tight text-[#18222c]">{activeShop.name}</h2>
+                  <h2 className="mt-3 break-words font-serif text-[2.35rem] leading-tight text-[color:var(--ink)]">
+                    {activeShop.name}
+                  </h2>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
-                  <a
-                    href={activeShop.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
-                  >
-                    打开原站点
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
+                <div className="flex items-center gap-2">
+                  {activeShop.url ? (
+                    <a
+                      href={activeShop.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-[color:var(--line-strong)] bg-white/82 px-4 py-2 text-sm text-[color:var(--ink)] shadow-[0_10px_24px_rgba(53,44,30,0.06)]"
+                    >
+                      打开原站点
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  ) : null}
                   <button
                     type="button"
                     onClick={() => setActiveId(null)}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d8cfbf] bg-white/88 text-slate-600 shadow-[0_10px_20px_rgba(102,88,64,0.06)]"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white/82 text-[color:var(--muted)] shadow-[0_10px_24px_rgba(53,44,30,0.06)]"
                   >
                     <X className="h-5 w-5" />
                   </button>
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                <ShopMetricPill label="商品总数" value={`${activeShop.productCount}`} />
-                <ShopMetricPill label="当前有货" value={`${activeShop.inStockCount}`} tone="success" />
-                <ShopMetricPill label="库存紧张" value={`${activeShop.lowStockCount}`} tone="warn" />
-                <ShopMetricPill label="当前无货" value={`${activeShop.outOfStockCount}`} tone="danger" />
+              <div className="mt-5 grid gap-3 sm:grid-cols-4">
+                <Tile label="商品总数" value={`${activeShop.productCount}`} />
+                <Tile label="当前有货" value={`${activeShop.inStockCount}`} />
+                <Tile label="库存紧张" value={`${activeShop.lowStockCount}`} />
+                <Tile label="当前离线" value={`${activeShop.outOfStockCount}`} />
               </div>
 
-              <div className="mt-5 flex flex-wrap gap-2">
-                <FilterChip
-                  active={activeCategory === "ALL"}
-                  label={`全部 ${activeProducts.length}`}
-                  onClick={() => setActiveCategory("ALL")}
-                />
-                {activeCategories.map((category) => (
-                  <FilterChip
-                    key={category}
-                    active={activeCategory === category}
-                    label={productCategoryLabels[category]}
-                    onClick={() => setActiveCategory(category)}
-                  />
-                ))}
-              </div>
+              {activeDetail ? (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <CategoryFilter active={activeCategory === "ALL"} label={`全部 ${activeDetail.products.length}`} onClick={() => setActiveCategory("ALL")} />
+                  {activeCategories.map((category) => (
+                    <CategoryFilter
+                      key={category}
+                      active={activeCategory === category}
+                      label={productCategoryLabels[category]}
+                      onClick={() => setActiveCategory(category)}
+                    />
+                  ))}
+                </div>
+              ) : null}
             </div>
 
             <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6">
-              {visibleProducts.length > 0 ? (
-                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  {visibleProducts.map((product) => {
-                    const tone = getProductTone(product);
-
-                    return (
-                      <article
-                        key={product.productKey}
-                        className={`min-w-0 rounded-[24px] border p-4 shadow-[0_12px_28px_rgba(102,88,64,0.08)] ${tone.card}`}
-                      >
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <div className="flex flex-wrap gap-2">
-                              <span className="rounded-full border border-[#d8cfbf] bg-white/80 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-slate-500">
-                                {productCategoryLabels[product.category]}
-                              </span>
-                              <span className={`rounded-full px-3 py-1 text-xs ${tone.stockBadge}`}>
-                                {product.current.isDetected ? stockStatusLabels[product.current.stockStatus] : "本次未检测到"}
-                              </span>
-                            </div>
-                            <h3 className="mt-3 break-words text-lg font-semibold text-[#18222c]">{product.current.rawName}</h3>
-                            <div className="mt-1 text-sm text-slate-500">{product.specLabel || "未标注规格"}</div>
-                          </div>
-
-                          <div className="shrink-0 text-right">
-                            <div className="text-xl font-semibold text-[#18222c]">
-                              {product.current.price > 0 ? `¥${product.current.price}` : "--"}
-                            </div>
-                            <div className="mt-1 text-xs text-slate-500">{formatDateLabel(product.current.updatedAt)}</div>
-                          </div>
-                        </div>
-
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          <ProductChip label={productStatusLabels[product.current.status]} />
-                          <ProductChip label={formatWarrantyLabel(product.current.warrantySupported)} />
-                        </div>
-
-                        <div className="mt-4 rounded-[18px] border border-white/60 bg-white/72 p-3">
-                          <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">库存说明</div>
-                          <div className="mt-1 text-sm leading-6 text-slate-700">
-                            {product.current.inventoryText || "未提供库存说明"}
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
+              {loadingDetail ? (
+                <div className="flex min-h-[260px] items-center justify-center">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--line-strong)] bg-white/84 px-4 py-2 text-sm text-[color:var(--muted)] shadow-[0_10px_24px_rgba(53,44,30,0.06)]">
+                    <LoaderCircle className="h-4 w-4 animate-spin" />
+                    正在读取单店详情
+                  </div>
                 </div>
-              ) : (
-                <div className="rounded-[24px] border border-dashed border-[#d8cfbf] bg-white/78 px-4 py-12 text-center text-slate-500">
-                  当前筛选条件下没有商品记录。
+              ) : detailError ? (
+                <div className="rounded-[24px] border border-[#ecd0c4] bg-[#fff4ef] px-5 py-4 text-sm text-[#8a3f27]">{detailError}</div>
+              ) : activeDetail ? (
+                <div className="space-y-6">
+                  <section className="grid gap-4 xl:grid-cols-3">
+                    {visibleProducts.length === 0 ? (
+                      <div className="xl:col-span-3 rounded-[24px] border border-dashed border-[color:var(--line-strong)] bg-white/72 px-5 py-14 text-center text-[color:var(--muted)]">
+                        当前筛选条件下没有商品记录。
+                      </div>
+                    ) : (
+                      productGroups.map((group) => (
+                        <section
+                          key={group.key}
+                          className="rounded-[24px] border border-[color:var(--line-strong)] bg-white/76 p-4 shadow-[0_12px_32px_rgba(53,44,30,0.06)]"
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <h3 className="text-base font-semibold text-[color:var(--ink)]">{group.title}</h3>
+                            <span className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper-soft)] px-3 py-1 text-xs text-[color:var(--muted)]">
+                              {group.items.length}
+                            </span>
+                          </div>
+
+                          <div className="mt-4 space-y-4">
+                            {group.items.length > 0 ? (
+                              group.items.map((product) => <ProductPanel key={product.productKey} product={product} />)
+                            ) : (
+                              <div className="rounded-[18px] border border-dashed border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-10 text-center text-sm text-[color:var(--muted)]">
+                                {group.emptyText}
+                              </div>
+                            )}
+                          </div>
+                        </section>
+                      ))
+                    )}
+                  </section>
                 </div>
-              )}
+              ) : null}
             </div>
-          </section>
+          </aside>
         </div>
       ) : null}
     </div>
   );
 }
 
-function MetricCard({ label, value }: { label: string; value: string }) {
+function Tile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[18px] border border-[#e1d6c5] bg-white/82 p-3">
-      <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">{label}</div>
-      <div className="mt-1.5 text-lg font-semibold text-[#18222c]">{value}</div>
-    </div>
+    <article className="rounded-[20px] border border-[color:var(--line-strong)] bg-white/78 p-4">
+      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">{label}</div>
+      <div className="mt-2 text-xl font-semibold text-[color:var(--ink)]">{value}</div>
+    </article>
   );
 }
 
-function ShopMetricPill({
-  label,
-  value,
-  tone = "neutral"
-}: {
-  label: string;
-  value: string;
-  tone?: "neutral" | "success" | "warn" | "danger";
-}) {
-  const toneClass =
-    tone === "danger"
-      ? "border-[#efc8bb] bg-[#fff2ed] text-[#a3462c]"
-      : tone === "warn"
-        ? "border-[#efddad] bg-[#fff7e0] text-[#8b6510]"
-        : tone === "success"
-          ? "border-[#d4e3c4] bg-[#edf6e2] text-[#355535]"
-          : "border-[#d8cfbf] bg-white/84 text-[#355344]";
-
+function CompactMetric({ label, value }: { label: string; value: string }) {
   return (
-    <div className={`rounded-[20px] border p-4 ${toneClass}`}>
-      <div className="text-[11px] uppercase tracking-[0.14em] text-slate-500">{label}</div>
-      <div className="mt-1 text-2xl font-semibold">{value}</div>
-    </div>
+    <article className="rounded-[18px] border border-[color:var(--line-soft)] bg-white/78 px-4 py-3 shadow-[0_10px_24px_rgba(53,44,30,0.05)]">
+      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">{label}</div>
+      <div className="mt-1.5 text-sm font-semibold text-[color:var(--ink)]">{value}</div>
+    </article>
   );
 }
 
-function FilterChip({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
+function SummaryToken({ label }: { label: string }) {
+  return (
+    <span className="rounded-full border border-[color:var(--line-strong)] bg-white/76 px-3 py-1 text-xs text-[color:var(--muted)]">
+      {label}
+    </span>
+  );
+}
+
+function CategoryFilter({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={`rounded-full px-4 py-2 text-sm transition ${
         active
-          ? "border border-[#b8d0b2] bg-[#edf6e2] text-[#264233]"
-          : "border border-[#d8cfbf] bg-white/82 text-slate-600 hover:border-[#cdbca0] hover:bg-white"
+          ? "border border-[#1c4336] bg-[#1c4336] text-white shadow-[0_10px_24px_rgba(28,67,54,0.18)]"
+          : "border border-[color:var(--line-strong)] bg-white/76 text-[color:var(--muted)] hover:border-[#c8bba6] hover:text-[color:var(--ink)]"
       }`}
     >
       {label}
@@ -405,62 +415,103 @@ function FilterChip({ active, label, onClick }: { active: boolean; label: string
   );
 }
 
-function ProductChip({ label }: { label: string }) {
-  return <span className="rounded-full border border-[#d8cfbf] bg-white/84 px-3 py-1 text-xs text-slate-700">{label}</span>;
+function ProductPanel({ product }: { product: PublishedShopProduct }) {
+  const tone = getProductTone(product);
+  const priceLabel = product.current.price > 0 ? `¥${product.current.price}` : "--";
+
+  return (
+    <article className={`rounded-[24px] border p-4 shadow-[0_12px_32px_rgba(53,44,30,0.08)] ${tone.card}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex flex-wrap gap-2">
+            <span className="rounded-full border border-[color:var(--line-strong)] bg-white/70 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[color:var(--muted)]">
+              {productCategoryLabels[product.category]}
+            </span>
+            <span className={`rounded-full px-3 py-1 text-xs ${tone.stockBadge}`}>
+              {product.current.isDetected ? stockStatusLabels[product.current.stockStatus] : `缺席 ${product.missingStreak} 次`}
+            </span>
+          </div>
+          <h3 className="mt-3 break-words text-lg font-semibold text-[color:var(--ink)]">{product.current.rawName}</h3>
+          <div className="mt-1 text-sm text-[color:var(--muted)]">{product.specLabel || "未标注规格"}</div>
+        </div>
+
+        <div className="text-right">
+          <div className="font-mono text-[1.8rem] font-semibold text-[color:var(--ink)]">{priceLabel}</div>
+          <div className="mt-1 text-xs text-[color:var(--muted)]">{formatDateLabel(product.current.updatedAt)}</div>
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <MiniTag label={productStatusLabels[product.current.status]} />
+        <MiniTag label={formatWarrantyLabel(product.current.warrantySupported)} />
+        <MiniTag label={`价格样本 ${product.priceHistory.length}`} />
+        {product.priceTrend.previousPrice !== null ? <MiniTag label={formatTrend(product)} /> : null}
+      </div>
+
+      <div className="mt-4 rounded-[18px] border border-white/60 bg-white/72 p-3 text-sm leading-6 text-[color:var(--muted)]">
+        {product.current.inventoryText || "未提供库存说明"}
+      </div>
+    </article>
+  );
 }
 
-function getStockPriority(product: PublishedShopProduct) {
-  if (!product.current.isDetected) {
-    return 3;
-  }
-
-  if (product.current.stockStatus === "OUT_OF_STOCK") {
-    return 0;
-  }
-
-  if (product.current.stockStatus === "LOW_STOCK") {
-    return 1;
-  }
-
-  return 2;
+function MiniTag({ label }: { label: string }) {
+  return (
+    <span className="rounded-full border border-[color:var(--line-strong)] bg-white/74 px-3 py-1 text-xs text-[color:var(--muted)]">
+      {label}
+    </span>
+  );
 }
 
 function getShopStatusTone(status: ShopSummary["status"]) {
   if (status === "OPEN") {
-    return "border border-[#d4e3c4] bg-[#edf6e2] text-[#355535]";
+    return "border border-[#cfe4cf] bg-[#edf6ea] text-[#214f35]";
   }
 
   if (status === "RISK") {
-    return "border border-[#efddad] bg-[#fff7e0] text-[#8b6510]";
+    return "border border-[#efdfb4] bg-[#fff3c8] text-[#835f11]";
   }
 
-  return "border border-[#efc8bb] bg-[#fff2ed] text-[#a3462c]";
+  return "border border-[#ecd0c4] bg-[#fff1ea] text-[#8a3f27]";
 }
 
 function getProductTone(product: PublishedShopProduct) {
   if (!product.current.isDetected) {
     return {
-      card: "border-[#d8cfbf] bg-white/86",
-      stockBadge: "border border-[#d8cfbf] bg-white text-slate-600"
+      card: "border-[#dbcdbb] bg-[linear-gradient(180deg,#f6efe8_0%,#efe7dc_100%)]",
+      stockBadge: "border border-[#dbcdbb] bg-white/70 text-[color:var(--muted)]"
     };
   }
 
   if (product.current.stockStatus === "OUT_OF_STOCK") {
     return {
-      card: "border-[#efc8bb] bg-[linear-gradient(180deg,#fff7f4_0%,#fdebe4_100%)]",
-      stockBadge: "border border-[#da7b5b] bg-[#c54d2a] text-white"
+      card: "border-[#ecd0c4] bg-[linear-gradient(180deg,#fff7f4_0%,#fbece4_100%)]",
+      stockBadge: "border border-[#d07458] bg-[#c95534] text-white"
     };
   }
 
   if (product.current.stockStatus === "LOW_STOCK") {
     return {
-      card: "border-[#efddad] bg-[linear-gradient(180deg,#fffaf0_0%,#fff2d9_100%)]",
-      stockBadge: "border border-[#efddad] bg-[#fff2c0] text-[#8b6510]"
+      card: "border-[#efdfb4] bg-[linear-gradient(180deg,#fffaf1_0%,#fff1d3_100%)]",
+      stockBadge: "border border-[#efdfb4] bg-[#fff0b8] text-[#835f11]"
     };
   }
 
   return {
-    card: "border-[#d8cfbf] bg-white/88",
-    stockBadge: "border border-[#d4e3c4] bg-[#edf6e2] text-[#355535]"
+    card: "border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf9_0%,#f8f1e6_100%)]",
+    stockBadge: "border border-[#cfe4cf] bg-[#edf6ea] text-[#214f35]"
   };
+}
+
+function formatTrend(product: PublishedShopProduct) {
+  if (product.priceTrend.previousPrice === null) {
+    return "价格新样本";
+  }
+
+  if (product.priceTrend.direction === "FLAT") {
+    return "价格持平";
+  }
+
+  const direction = product.priceTrend.direction === "UP" ? "上涨" : "下降";
+  return `${direction} ¥${Math.abs(product.priceTrend.changeAmount)}`;
 }

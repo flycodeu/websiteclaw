@@ -5,6 +5,8 @@ import {
   PlatformState,
   ProductItem,
   ProductObservation,
+  ProductPricePoint,
+  ProductPriceTrend,
   ProductStatus,
   PublishedShopProduct,
   ReviewRecord,
@@ -21,6 +23,7 @@ import { deleteTaskRuntimeDirectory, getPlatformState, savePlatformState } from 
 import { stockStatusLabels } from "./labels";
 
 const HISTORY_LIMIT = 10;
+const MAX_MISSING_STREAK = 3;
 
 function nowIso() {
   return new Date().toISOString();
@@ -63,12 +66,76 @@ function dedupeProductsByKey(items: ProductItem[]) {
   return [...map.values()];
 }
 
+function buildPriceHistory(entries: ProductObservation[]): ProductPricePoint[] {
+  const seen = new Set<string>();
+  const points: ProductPricePoint[] = [];
+
+  entries.forEach((entry) => {
+    if (!entry.isDetected || !Number.isFinite(entry.price) || entry.price <= 0) {
+      return;
+    }
+
+    const key = `${entry.capturedAt}|${entry.price}|${entry.currency}`;
+    if (seen.has(key)) {
+      return;
+    }
+
+    seen.add(key);
+    points.push({
+      price: entry.price,
+      currency: entry.currency,
+      capturedAt: entry.capturedAt,
+      snapshotDate: entry.snapshotDate
+    });
+  });
+
+  return trimHistory(points);
+}
+
+function buildPriceTrend(priceHistory: ProductPricePoint[], currentPrice: number): ProductPriceTrend {
+  const latest = priceHistory[0];
+  const previous = priceHistory[1];
+  const values = priceHistory.map((item) => item.price).filter((value) => Number.isFinite(value) && value > 0);
+  const resolvedCurrentPrice =
+    Number.isFinite(currentPrice) && currentPrice > 0 ? currentPrice : latest?.price && latest.price > 0 ? latest.price : 0;
+  const previousPrice = previous?.price && previous.price > 0 ? previous.price : null;
+  const changeAmount = previousPrice === null ? 0 : resolvedCurrentPrice - previousPrice;
+  const changePercent =
+    previousPrice && previousPrice > 0 ? Number((((resolvedCurrentPrice - previousPrice) / previousPrice) * 100).toFixed(2)) : null;
+
+  return {
+    direction:
+      previousPrice === null
+        ? "UNKNOWN"
+        : changeAmount > 0
+          ? "UP"
+          : changeAmount < 0
+            ? "DOWN"
+            : "FLAT",
+    previousPrice,
+    currentPrice: resolvedCurrentPrice,
+    changeAmount: Number(changeAmount.toFixed(2)),
+    changePercent,
+    lowestPrice: values.length > 0 ? Math.min(...values) : null,
+    highestPrice: values.length > 0 ? Math.max(...values) : null,
+    sampleCount: priceHistory.length
+  };
+}
+
+function buildPublishedProductRecord(item: Omit<PublishedShopProduct, "priceHistory" | "priceTrend">): PublishedShopProduct {
+  const history = trimHistory(item.history);
+  const priceHistory = buildPriceHistory(history);
+
+  return {
+    ...item,
+    history,
+    priceHistory,
+    priceTrend: buildPriceTrend(priceHistory, item.current.price)
+  };
+}
+
 function buildChangeComparableMap(items: ProductItem[]) {
-  return new Map(
-    items
-      .filter((item) => item.isDetected)
-      .map((item) => [item.productKey, item] as const)
-  );
+  return new Map(items.filter((item) => item.productKey).map((item) => [item.productKey, item] as const));
 }
 
 function buildChanges(previousProducts: ProductItem[], nextProducts: ProductItem[]) {
@@ -198,55 +265,14 @@ function buildMissingProduct(previous: PublishedShopProduct, timestamp: string):
   };
 }
 
-function mergeShopProducts(
-  shopId: string,
-  sourceId: string,
-  review: ReviewRecord,
-  previousProducts: PublishedShopProduct[]
-) {
-  const previousByKey = new Map(previousProducts.map((item) => [item.productKey, item]));
-  const nextDetected = dedupeProductsByKey(
-    review.products.map((product) => ({
-      ...product,
-      isDetected: true
-    }))
-  );
-  const nextByKey = new Map(nextDetected.map((item) => [item.productKey, item]));
-  const merged: PublishedShopProduct[] = [];
-
-  nextDetected.forEach((product) => {
-    const previous = previousByKey.get(product.productKey);
-    const observation = buildObservation(shopId, sourceId, review, product);
-
-    merged.push({
-      shopId,
-      sourceId,
-      productKey: product.productKey,
-      category: product.category,
-      specLabel: product.specLabel,
-      current: product,
-      history: trimHistory([observation, ...(previous?.history ?? [])])
-    });
-  });
-
-  previousProducts.forEach((product) => {
-    if (nextByKey.has(product.productKey)) {
-      return;
-    }
-
-    const missingCurrent = buildMissingProduct(product, nowIso());
-    const observation = buildObservation(shopId, sourceId, review, missingCurrent);
-
-    merged.push({
-      ...product,
-      current: missingCurrent,
-      history: trimHistory([observation, ...product.history])
-    });
-  });
-
-  return merged.sort((left, right) => {
+function sortPublishedProducts(items: PublishedShopProduct[]) {
+  return [...items].sort((left, right) => {
     if (left.current.isDetected !== right.current.isDetected) {
       return left.current.isDetected ? -1 : 1;
+    }
+
+    if (left.missingStreak !== right.missingStreak) {
+      return left.missingStreak - right.missingStreak;
     }
 
     if (left.category !== right.category) {
@@ -255,6 +281,103 @@ function mergeShopProducts(
 
     return left.current.rawName.localeCompare(right.current.rawName, "zh-CN");
   });
+}
+
+function sortArchivedProducts(items: PublishedShopProduct[]) {
+  return [...items].sort((left, right) => {
+    const removedDiff = Date.parse(right.removedAt ?? right.current.updatedAt) - Date.parse(left.removedAt ?? left.current.updatedAt);
+    if (removedDiff !== 0) {
+      return removedDiff;
+    }
+
+    return right.current.rawName.localeCompare(left.current.rawName, "zh-CN");
+  });
+}
+
+function mergeShopProducts(
+  shopId: string,
+  sourceId: string,
+  review: ReviewRecord,
+  previousProducts: PublishedShopProduct[],
+  previousArchivedProducts: PublishedShopProduct[]
+) {
+  const previousByKey = new Map(
+    [...previousArchivedProducts, ...previousProducts].map((item) => [item.productKey, item] as const)
+  );
+  const nextDetected = dedupeProductsByKey(
+    review.products.map((product) => ({
+      ...product,
+      isDetected: true
+    }))
+  );
+  const nextByKey = new Map(nextDetected.map((item) => [item.productKey, item]));
+  const activeProducts: PublishedShopProduct[] = [];
+  const archivedProducts: PublishedShopProduct[] = [];
+
+  nextDetected.forEach((product) => {
+    const previous = previousByKey.get(product.productKey);
+    const observation = buildObservation(shopId, sourceId, review, product);
+
+    activeProducts.push(
+      buildPublishedProductRecord({
+        shopId,
+        sourceId,
+        productKey: product.productKey,
+        category: product.category,
+        specLabel: product.specLabel,
+        current: product,
+        history: [observation, ...(previous?.history ?? [])],
+        missingStreak: 0,
+        lastSeenAt: product.updatedAt,
+        lastMissingAt: undefined,
+        removedAt: undefined
+      })
+    );
+  });
+
+  previousProducts.forEach((product) => {
+    if (nextByKey.has(product.productKey)) {
+      return;
+    }
+
+    const missingAt = nowIso();
+    const missingCurrent = buildMissingProduct(product, missingAt);
+    const observation = buildObservation(shopId, sourceId, review, missingCurrent);
+    const missingStreak = Math.max(product.missingStreak, 0) + 1;
+    const nextRecord = buildPublishedProductRecord({
+      shopId,
+      sourceId,
+      productKey: product.productKey,
+      category: product.category,
+      specLabel: product.specLabel,
+      current: missingCurrent,
+      history: [observation, ...product.history],
+      missingStreak,
+      lastSeenAt: product.lastSeenAt || product.current.updatedAt,
+      lastMissingAt: missingAt,
+      removedAt: missingStreak >= MAX_MISSING_STREAK ? missingAt : undefined
+    });
+
+    if (missingStreak >= MAX_MISSING_STREAK) {
+      archivedProducts.push(nextRecord);
+      return;
+    }
+
+    activeProducts.push(nextRecord);
+  });
+
+  previousArchivedProducts.forEach((product) => {
+    if (nextByKey.has(product.productKey)) {
+      return;
+    }
+
+    archivedProducts.push(product);
+  });
+
+  return {
+    activeProducts: sortPublishedProducts(activeProducts),
+    archivedProducts: sortArchivedProducts(archivedProducts)
+  };
 }
 
 function buildShopStatus(products: PublishedShopProduct[]): ShopStatus {
@@ -275,10 +398,11 @@ function buildShopSummary(
   recentChangeCount: number,
   runCount: number
 ) {
-  const visibleProducts = shopProducts.filter((item) => item.current.isDetected);
-  const inStockCount = visibleProducts.filter((item) => item.current.stockStatus === "IN_STOCK").length;
-  const lowStockCount = visibleProducts.filter((item) => item.current.stockStatus === "LOW_STOCK").length;
-  const outOfStockCount = visibleProducts.filter((item) => item.current.stockStatus === "OUT_OF_STOCK").length;
+  const activeProducts = shopProducts;
+  const visibleProducts = activeProducts.filter((item) => item.current.isDetected);
+  const inStockCount = activeProducts.filter((item) => item.current.stockStatus === "IN_STOCK").length;
+  const lowStockCount = activeProducts.filter((item) => item.current.stockStatus === "LOW_STOCK").length;
+  const outOfStockCount = activeProducts.filter((item) => item.current.stockStatus === "OUT_OF_STOCK").length;
   const visiblePrices = visibleProducts
     .map((item) => item.current.price)
     .filter((value) => Number.isFinite(value) && value > 0);
@@ -290,12 +414,12 @@ function buildShopSummary(
     url: source.sourceUrl,
     status: buildShopStatus(shopProducts),
     lastCrawledAt: nowIso(),
-    productCount: visibleProducts.length,
+    productCount: activeProducts.length,
     inStockCount,
     lowStockCount,
     outOfStockCount,
     lowestPrice: visiblePrices.length > 0 ? Math.min(...visiblePrices) : 0,
-    categories: dedupe(visibleProducts.map((item) => item.category)),
+    categories: dedupe(activeProducts.map((item) => item.category)),
     recentChangeCount,
     runCount
   };
@@ -386,6 +510,9 @@ export async function deleteSource(sourceId: string) {
       ...state.published,
       shops: state.published.shops.filter((item) => item.sourceId !== normalizedSourceId),
       shopProducts: state.published.shopProducts.filter(
+        (item) => item.sourceId !== normalizedSourceId && !shopIds.includes(item.shopId)
+      ),
+      archivedShopProducts: state.published.archivedShopProducts.filter(
         (item) => item.sourceId !== normalizedSourceId && !shopIds.includes(item.shopId)
       ),
       shopSnapshots: state.published.shopSnapshots.filter((item) => !shopIds.includes(item.shopId)),
@@ -505,11 +632,33 @@ export async function publishReview(reviewId: string) {
   const existingShop = state.published.shops.find((item) => item.sourceId === review.sourceId);
   const shopId = existingShop?.shopId ?? `shop_${source.sourceId}`;
   const previousShopProducts = state.published.shopProducts.filter((item) => item.shopId === shopId);
-  const previousCurrentProducts = previousShopProducts.map((item) => item.current);
+  const previousArchivedProducts = state.published.archivedShopProducts.filter((item) => item.shopId === shopId);
   const nextReviewProducts = dedupeProductsByKey(review.products);
-  const changes = buildChanges(previousCurrentProducts, nextReviewProducts);
   const diffCapturedAt = nowIso();
-  const nextShopProducts = mergeShopProducts(shopId, source.sourceId, review, previousShopProducts);
+  const nextMergedProducts = mergeShopProducts(
+    shopId,
+    source.sourceId,
+    review,
+    previousShopProducts,
+    previousArchivedProducts
+  );
+  const previousProductMap = new Map(previousShopProducts.map((item) => [item.productKey, item] as const));
+  const changes = buildChanges(
+    previousShopProducts.map((item) => item.current),
+    nextMergedProducts.activeProducts.map((item) => item.current)
+  ).map((change) => {
+    if (change.type !== "PRODUCT_REMOVED" || !change.productKey) {
+      return change;
+    }
+
+    const previousProduct = previousProductMap.get(change.productKey);
+    const productLabel = change.productLabel ?? previousProduct?.current.rawName ?? change.productKey;
+
+    return {
+      ...change,
+      note: `${productLabel} 连续 ${Math.max((previousProduct?.missingStreak ?? MAX_MISSING_STREAK - 1) + 1, MAX_MISSING_STREAK)} 次未再检测到，已从公开列表移除。`
+    };
+  });
   const snapshot: ShopSnapshot = {
     shopId,
     crawlTaskId: review.taskId,
@@ -522,7 +671,7 @@ export async function publishReview(reviewId: string) {
   };
   const previousSnapshots = state.published.shopSnapshots.filter((item) => item.shopId === shopId);
   const nextSnapshots = trimSnapshotsForShop(shopId, [snapshot, ...previousSnapshots]);
-  const nextShop = buildShopSummary(source, shopId, nextShopProducts, changes.length, nextSnapshots.length);
+  const nextShop = buildShopSummary(source, shopId, nextMergedProducts.activeProducts, changes.length, nextSnapshots.length);
   const diffChanges =
     existingShop && existingShop.status !== nextShop.status
       ? [
@@ -545,7 +694,12 @@ export async function publishReview(reviewId: string) {
 
   const nextPublished = {
     shops: upsertShopSummary(state.published.shops, nextShop),
-    shopProducts: upsertShopProducts(state.published.shopProducts, shopId, nextShopProducts),
+    shopProducts: upsertShopProducts(state.published.shopProducts, shopId, nextMergedProducts.activeProducts),
+    archivedShopProducts: upsertShopProducts(
+      state.published.archivedShopProducts,
+      shopId,
+      nextMergedProducts.archivedProducts
+    ),
     shopSnapshots: [...nextSnapshots, ...state.published.shopSnapshots.filter((item) => item.shopId !== shopId)],
     shopDiffs: [...nextDiffs, ...state.published.shopDiffs.filter((item) => item.shopId !== shopId)],
     publishedAt: diffCapturedAt

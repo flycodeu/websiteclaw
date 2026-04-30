@@ -1,0 +1,1133 @@
+{
+  "items": [
+    {
+      "shopId": "shop_src_37758749",
+      "snapshotDate": "2026-04-27",
+      "capturedAt": "2026-04-27T13:39:32.667Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__TEAM车位自动激活_稳定质保4天",
+          "productLabel": "team车位自动激活(稳定质保4天)",
+          "note": "team车位自动激活(稳定质保4天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__TEAM车位自动激活_稳定质保3天",
+          "productLabel": "team车位自动激活(稳定质保3天)",
+          "note": "team车位自动激活(稳定质保3天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__TEAM车位自动激活_稳定质保2天",
+          "productLabel": "team车位自动激活(稳定质保2天)",
+          "note": "team车位自动激活(稳定质保2天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__PLUS月卡_登录成品号_质保二天",
+          "productLabel": "plus月卡 登录成品号(质保二天)",
+          "note": "plus月卡 登录成品号(质保二天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_月卡_无质保",
+          "productLabel": "GPT PLUS 月卡 无质保",
+          "note": "GPT PLUS 月卡 无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__质保三天_PLUS月卡_独享成品号",
+          "productLabel": "质保三天 Plus月卡 独享成品号",
+          "note": "质保三天 Plus月卡 独享成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__低价捡漏_CODEX半月卡_成品号_无质保",
+          "productLabel": "低价捡漏 codex半月卡 成品号 无质保",
+          "note": "低价捡漏 codex半月卡 成品号 无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_月卡_成品号_无质保",
+          "productLabel": "GPT Plus 月卡 成品号 无质保",
+          "note": "GPT Plus 月卡 成品号 无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS稳定新渠道无质保_仅GMAIL使用",
+          "productLabel": "gpt Plus稳定新渠道无质保（仅gmail使用）",
+          "note": "gpt Plus稳定新渠道无质保（仅gmail使用） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_12个月_CDK_充值订阅你的账号",
+          "productLabel": "Gemini Pro 12个月 CDK 充值订阅你的账号",
+          "note": "Gemini Pro 12个月 CDK 充值订阅你的账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_12个月_PIXEL_成品号_美区22_24年账号",
+          "productLabel": "Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__包GCP可用_PRO_12个月_PIXEL_成品号_美区22_24年账号",
+          "productLabel": "【包GCP可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "【包GCP可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__包GCP反重力可用_PRO_12个月_PIXEL_成品号_美区22_24年账号",
+          "productLabel": "【包GCP反重力可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "【包GCP反重力可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_5X_100刀款_月卡套餐自助充值卡密_无质保_购买前看介绍在拍_不要囤货",
+          "productLabel": "GPT Pro 【5X-100刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】",
+          "note": "GPT Pro 【5X-100刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_20X_200刀款_月卡套餐自助充值卡密_无质保_购买前看介绍在拍_不要囤货",
+          "productLabel": "GPT Pro 【20X-200刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】",
+          "note": "GPT Pro 【20X-200刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_5X_月卡_无质保_FERRI渠道",
+          "productLabel": "GPT Pro 5x 月卡（无质保，ferri渠道）",
+          "note": "GPT Pro 5x 月卡（无质保，ferri渠道） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS月卡_独家渠道",
+          "productLabel": "GPT PLUS月卡 独家渠道",
+          "note": "GPT PLUS月卡 独家渠道 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS月卡成品号_质保72小时",
+          "productLabel": "GPT PLUS月卡成品号（质保72小时）",
+          "note": "GPT PLUS月卡成品号（质保72小时） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_200美金_月卡_无质保_CHONG渠道",
+          "productLabel": "ChatGPT Pro 200美金 月卡 无质保 (Chong渠道)",
+          "note": "ChatGPT Pro 200美金 月卡 无质保 (Chong渠道) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_100美金_月卡_无质保_CHONG渠道",
+          "productLabel": "ChatGPT Pro 100美金 月卡 无质保 (Chong渠道)",
+          "note": "ChatGPT Pro 100美金 月卡 无质保 (Chong渠道) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__TEAM车位自动激活_稳定无质保",
+          "productLabel": "team车位自动激活(稳定无质保)",
+          "note": "team车位自动激活(稳定无质保) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_1年充值订阅",
+          "productLabel": "Gemini Pro 1年充值订阅",
+          "note": "Gemini Pro 1年充值订阅 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS成品号_月付",
+          "productLabel": "GPT Plus成品号(月付)",
+          "note": "GPT Plus成品号(月付) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__长效_微软邮箱交付_账号_白号_普通号_账号密码直登_专用_高权重家宽_独享号",
+          "productLabel": "长效【微软邮箱交付】GPT账号（白号）普通号｜账号密码直登｜gpt专用｜高权重家宽｜独享号",
+          "note": "长效【微软邮箱交付】GPT账号（白号）普通号｜账号密码直登｜gpt专用｜高权重家宽｜独享号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS成品_单号开通24小时_质保24小时无账密",
+          "productLabel": "GPT Plus成品 单号开通24小时+ (质保24小时无账密)",
+          "note": "GPT Plus成品 单号开通24小时+ (质保24小时无账密) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_成品号_质保一天",
+          "productLabel": "GPT Plus 成品号（质保一天）",
+          "note": "GPT Plus 成品号（质保一天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO20X月卡无质保_原价200美元",
+          "productLabel": "ChatGPT Pro20x月卡无质保（原价200美元）",
+          "note": "ChatGPT Pro20x月卡无质保（原价200美元） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_5X月卡无质保",
+          "productLabel": "ChatGPT pro 5x月卡无质保",
+          "note": "ChatGPT pro 5x月卡无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS一个月成品号_无质保",
+          "productLabel": "ChatGPT plus一个月成品号（无质保）",
+          "note": "ChatGPT plus一个月成品号（无质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__美国_1",
+          "productLabel": "🇺🇸 美国➕ 1",
+          "note": "🇺🇸 美国➕ 1 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS土区IOS官方直充月卡_质保不掉订阅版_DNS渠道",
+          "productLabel": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版，dns渠道）",
+          "note": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版，dns渠道） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_月卡_成品号",
+          "productLabel": "ChatGPT - Plus 月卡 成品号",
+          "note": "ChatGPT - Plus 月卡 成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GOOGLE_ACCOUNT__非纯血统",
+          "productLabel": "📮 谷歌账号（非纯血统）",
+          "note": "📮 谷歌账号（非纯血统） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GOOGLE个人邮箱_随机地区_21_24年老号_高质量手工注册_2FA_推荐",
+          "productLabel": "【Google个人邮箱】随机地区 21-24年老号 高质量手工注册 2FA 推荐",
+          "note": "【Google个人邮箱】随机地区 21-24年老号 高质量手工注册 2FA 推荐 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GOOGLE个人邮箱_美区21_24_年_高质量谷歌老号直登_高质量手工注册_2FA",
+          "productLabel": "Google个人邮箱】美区21-24 年 高质量谷歌老号直登 高质量手工注册 2FA",
+          "note": "Google个人邮箱】美区21-24 年 高质量谷歌老号直登 高质量手工注册 2FA 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__APP_STORE_美区_余额充值卡_礼品卡_2_美元",
+          "productLabel": "App Store 美区 余额充值卡 礼品卡 2 美元",
+          "note": "App Store 美区 余额充值卡 礼品卡 2 美元 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__APP_STORE_美区_余额充值卡_礼品卡_1_美元",
+          "productLabel": "App Store 美区 余额充值卡 礼品卡 1 美元",
+          "note": "App Store 美区 余额充值卡 礼品卡 1 美元 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "APPLE_ACCOUNT__美区",
+          "productLabel": "🆔 Apple ID 美区",
+          "note": "🆔 Apple ID 美区 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO_尼区直充",
+          "productLabel": "Claude Pro 尼区直充",
+          "note": "Claude Pro 尼区直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__CHAT_IOS内购1个月",
+          "productLabel": "Chat GPT iOS内购1个月",
+          "note": "Chat GPT iOS内购1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__1MONTH_PRO_X20_200刀_无质保CHONG渠道",
+          "productLabel": "1MONTH PRO x20 200刀 【无质保chong渠道】",
+          "note": "1MONTH PRO x20 200刀 【无质保chong渠道】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__特价_PLUS_成品号_全网最低_不稳定_保首登",
+          "productLabel": "【特价】GPT Plus 成品号 （全网最低，不稳定，保首登）",
+          "note": "【特价】GPT Plus 成品号 （全网最低，不稳定，保首登） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_200_代充_1个月",
+          "productLabel": "GPT Pro 200＄ 代充 1个月",
+          "note": "GPT Pro 200＄ 代充 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_100_代充_1个月",
+          "productLabel": "GPT Pro 100＄ 代充 1个月",
+          "note": "GPT Pro 100＄ 代充 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_20_成品_1个月",
+          "productLabel": "GPT Plus 20＄ 成品 1个月",
+          "note": "GPT Plus 20＄ 成品 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_20_代充_1个月",
+          "productLabel": "GPT Plus 20＄ 代充 1个月",
+          "note": "GPT Plus 20＄ 代充 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__全新GOOGLE_GMINI年卡账号",
+          "productLabel": "全新Google Gmini年卡账号",
+          "note": "全新Google Gmini年卡账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月PLUS充值码_充自己的账号",
+          "productLabel": "ChatGPT月plus充值码（充自己的账号）",
+          "note": "ChatGPT月plus充值码（充自己的账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_PRO成品号_无质保",
+          "productLabel": "gemini3-pro成品号-无质保",
+          "note": "gemini3-pro成品号-无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__自助卡_密尊享保障版_含封号包赔",
+          "productLabel": "ChatGPT自助卡 密尊享保障版（含封号包赔）",
+          "note": "ChatGPT自助卡 密尊享保障版（含封号包赔） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__手工_30天_TEAM_BUSINESS_高质量激活码_质保3天",
+          "productLabel": "【手工】【30天】GPT-Team / Business 高质量激活码（质保3天）",
+          "note": "【手工】【30天】GPT-Team / Business 高质量激活码（质保3天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS充值1个月_带质保_全网最稳技术",
+          "productLabel": "ChatGPT Plus充值1个月【带质保】【全网最稳技术】",
+          "note": "ChatGPT Plus充值1个月【带质保】【全网最稳技术】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS月卡无质保_渠道86",
+          "productLabel": "GPT PLUS月卡无质保（渠道86）",
+          "note": "GPT PLUS月卡无质保（渠道86） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__PLUS_成品账号_质保7天",
+          "productLabel": "Plus 成品账号（质保7天）",
+          "note": "Plus 成品账号（质保7天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__PLUS_成品账号_稳定",
+          "productLabel": "Plus 成品账号（稳定）",
+          "note": "Plus 成品账号（稳定） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_1年差绑卡号_PIXEL渠道_22_24年老号带2FA",
+          "productLabel": "Gemini Pro 1年差绑卡号【pixel渠道 22-24年老号带2fa】",
+          "note": "Gemini Pro 1年差绑卡号【pixel渠道 22-24年老号带2fa】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__0刀卡_支持_三个月_其他自测",
+          "productLabel": "0刀卡（支持gemini三个月，其他自测）",
+          "note": "0刀卡（支持gemini三个月，其他自测） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__TEAM_子号_无质保",
+          "productLabel": "GPT Team 子号（无质保）",
+          "note": "GPT Team 子号（无质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__TEAM_子号_质保24小时",
+          "productLabel": "GPT Team 子号（质保24小时）",
+          "note": "GPT Team 子号（质保24小时） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__三个月优惠链接",
+          "productLabel": "gemini三个月优惠链接",
+          "note": "gemini三个月优惠链接 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__三个月PRO成品_两年左右老号_美国地区_GCP功能正常",
+          "productLabel": "gemini三个月pro成品，两年左右老号。美国地区，gcp功能正常",
+          "note": "gemini三个月pro成品，两年左右老号。美国地区，gcp功能正常 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_200刀月卡",
+          "productLabel": "ChatGPT Pro 200刀月卡",
+          "note": "ChatGPT Pro 200刀月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO_20MAX",
+          "productLabel": "Claude Pro 20max",
+          "note": "Claude Pro 20max 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__5X礼品卡",
+          "productLabel": "claude 5x礼品卡",
+          "note": "claude 5x礼品卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "VIRTUAL_CARD__虚拟信用卡VISA_0刀_485954",
+          "productLabel": "虚拟信用卡VISA 0刀虚拟卡 485954",
+          "note": "虚拟信用卡VISA 0刀虚拟卡 485954 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "productLabel": "[普号] ChatGPT 长效微软邮箱",
+          "note": "[普号] ChatGPT 长效微软邮箱 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__22_24年号2FA_PRO1年美区",
+          "productLabel": "22-24年号2FA Pro1年美区",
+          "note": "22-24年号2FA Pro1年美区 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__20X",
+          "productLabel": "claude 20x",
+          "note": "claude 20x 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO",
+          "productLabel": "claude pro",
+          "note": "claude pro 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__成品和代充",
+          "productLabel": "claude成品和代充",
+          "note": "claude成品和代充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_1PRO_美区_12个月PIXEL成品号_22_24年账号",
+          "productLabel": "Gemini 3.1pro 美区 12个月pixel成品号（22-24年账号）",
+          "note": "Gemini 3.1pro 美区 12个月pixel成品号（22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO卡密",
+          "productLabel": "Claude Pro卡密",
+          "note": "Claude Pro卡密 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO_IOS_直冲",
+          "productLabel": "claude PRO iOS 直冲",
+          "note": "claude PRO iOS 直冲 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO_直充月卡_质保不掉订阅版",
+          "productLabel": "Claude Pro 直充月卡（质保不掉订阅版）",
+          "note": "Claude Pro 直充月卡（质保不掉订阅版） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__PIEXL提取优惠链接_不包绑卡",
+          "productLabel": "Piexl提取优惠链接 不包绑卡",
+          "note": "Piexl提取优惠链接 不包绑卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__账号_微软邮箱",
+          "productLabel": "Claude账号（微软邮箱）",
+          "note": "Claude账号（微软邮箱） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__PIXEL自助开通卡密_包绑卡",
+          "productLabel": "Pixel自助开通卡密 包绑卡",
+          "note": "Pixel自助开通卡密 包绑卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__质保4天",
+          "productLabel": "team车位自动激活(稳定质保4天)",
+          "note": "team车位自动激活(稳定质保4天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__质保3天",
+          "productLabel": "team车位自动激活(稳定质保3天)",
+          "note": "team车位自动激活(稳定质保3天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__质保2天",
+          "productLabel": "team车位自动激活(稳定质保2天)",
+          "note": "team车位自动激活(稳定质保2天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡_成品号_质保二天",
+          "productLabel": "plus月卡 登录成品号(质保二天)",
+          "note": "plus月卡 登录成品号(质保二天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡",
+          "productLabel": "GPT PLUS月卡无质保（渠道86）",
+          "note": "GPT PLUS月卡无质保（渠道86） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡_成品号_质保三天",
+          "productLabel": "质保三天 Plus月卡 独享成品号",
+          "note": "质保三天 Plus月卡 独享成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__半月卡_成品号",
+          "productLabel": "低价捡漏 codex半月卡 成品号 无质保",
+          "note": "低价捡漏 codex半月卡 成品号 无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡_成品号",
+          "productLabel": "ChatGPT - Plus 月卡 成品号",
+          "note": "ChatGPT - Plus 月卡 成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__12个月_CDK",
+          "productLabel": "Gemini Pro 12个月 CDK 充值订阅你的账号",
+          "note": "Gemini Pro 12个月 CDK 充值订阅你的账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__12个月_PIXEL_成品号",
+          "productLabel": "Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__12个月_PIXEL_成品号_包GCP",
+          "productLabel": "【包GCP可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "【包GCP可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__12个月_PIXEL_成品号_包GCP反重力",
+          "productLabel": "【包GCP反重力可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "【包GCP反重力可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__5X_100刀款_月卡_卡密",
+          "productLabel": "GPT Pro 【5X-100刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】",
+          "note": "GPT Pro 【5X-100刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__20X_200刀款_月卡_卡密",
+          "productLabel": "GPT Pro 【20X-200刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】",
+          "note": "GPT Pro 【20X-200刀款】 月卡套餐自助充值卡密(无质保) 【购买前看介绍在拍 不要囤货】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__5X_月卡",
+          "productLabel": "GPT Pro 5x 月卡（无质保，ferri渠道）",
+          "note": "GPT Pro 5x 月卡（无质保，ferri渠道） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡_成品号_质保72小时",
+          "productLabel": "GPT PLUS月卡成品号（质保72小时）",
+          "note": "GPT PLUS月卡成品号（质保72小时） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__200美金_月卡",
+          "productLabel": "ChatGPT Pro 200美金 月卡 无质保 (Chong渠道)",
+          "note": "ChatGPT Pro 200美金 月卡 无质保 (Chong渠道) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__100美金_月卡",
+          "productLabel": "ChatGPT Pro 100美金 月卡 无质保 (Chong渠道)",
+          "note": "ChatGPT Pro 100美金 月卡 无质保 (Chong渠道) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__TEAM车位自动激活_稳定无质保",
+          "productLabel": "team车位自动激活(稳定无质保)",
+          "note": "team车位自动激活(稳定无质保) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__1年",
+          "productLabel": "Gemini Pro 1年充值订阅",
+          "note": "Gemini Pro 1年充值订阅 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月付_成品号",
+          "productLabel": "GPT Plus成品号(月付)",
+          "note": "GPT Plus成品号(月付) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__白号_独享",
+          "productLabel": "长效【微软邮箱交付】GPT账号（白号）普通号｜账号密码直登｜gpt专用｜高权重家宽｜独享号",
+          "note": "长效【微软邮箱交付】GPT账号（白号）普通号｜账号密码直登｜gpt专用｜高权重家宽｜独享号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__成品_单号_质保24小时",
+          "productLabel": "GPT Plus成品 单号开通24小时+ (质保24小时无账密)",
+          "note": "GPT Plus成品 单号开通24小时+ (质保24小时无账密) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__成品号_质保一天",
+          "productLabel": "GPT Plus 成品号（质保一天）",
+          "note": "GPT Plus 成品号（质保一天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__20X_月卡",
+          "productLabel": "ChatGPT Pro20x月卡无质保（原价200美元）",
+          "note": "ChatGPT Pro20x月卡无质保（原价200美元） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__一个月_成品号",
+          "productLabel": "ChatGPT plus一个月成品号（无质保）",
+          "note": "ChatGPT plus一个月成品号（无质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡_土区IOS直充_质保不掉订阅",
+          "productLabel": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版，dns渠道）",
+          "note": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版，dns渠道） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GOOGLE_ACCOUNT__谷歌账号",
+          "productLabel": "📮 谷歌账号（非纯血统）",
+          "note": "📮 谷歌账号（非纯血统） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__21_24年老号_2FA",
+          "productLabel": "【Google个人邮箱】随机地区 21-24年老号 高质量手工注册 2FA 推荐",
+          "note": "【Google个人邮箱】随机地区 21-24年老号 高质量手工注册 2FA 推荐 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__美区21_24年老号_2FA",
+          "productLabel": "Google个人邮箱】美区21-24 年 高质量谷歌老号直登 高质量手工注册 2FA",
+          "note": "Google个人邮箱】美区21-24 年 高质量谷歌老号直登 高质量手工注册 2FA 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__2美元_礼品卡",
+          "productLabel": "App Store 美区 余额充值卡 礼品卡 2 美元",
+          "note": "App Store 美区 余额充值卡 礼品卡 2 美元 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__1美元_礼品卡",
+          "productLabel": "App Store 美区 余额充值卡 礼品卡 1 美元",
+          "note": "App Store 美区 余额充值卡 礼品卡 1 美元 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "APPLE_ACCOUNT__APPLE_ID",
+          "productLabel": "🆔 Apple ID 美区",
+          "note": "🆔 Apple ID 美区 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__尼区直充",
+          "productLabel": "Claude Pro 尼区直充",
+          "note": "Claude Pro 尼区直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__IOS内购1个月",
+          "productLabel": "Chat GPT iOS内购1个月",
+          "note": "Chat GPT iOS内购1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_X20_200刀_1MONTH",
+          "productLabel": "1MONTH PRO x20 200刀 【无质保chong渠道】",
+          "note": "1MONTH PRO x20 200刀 【无质保chong渠道】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__成品号",
+          "productLabel": "【特价】GPT Plus 成品号 （全网最低，不稳定，保首登）",
+          "note": "【特价】GPT Plus 成品号 （全网最低，不稳定，保首登） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__200_代充_1个月",
+          "productLabel": "GPT Pro 200＄ 代充 1个月",
+          "note": "GPT Pro 200＄ 代充 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__100_代充_1个月",
+          "productLabel": "GPT Pro 100＄ 代充 1个月",
+          "note": "GPT Pro 100＄ 代充 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__20_成品_1个月",
+          "productLabel": "GPT Plus 20＄ 成品 1个月",
+          "note": "GPT Plus 20＄ 成品 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__20_代充_1个月",
+          "productLabel": "GPT Plus 20＄ 代充 1个月",
+          "note": "GPT Plus 20＄ 代充 1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GMINI年卡账号",
+          "productLabel": "全新Google Gmini年卡账号",
+          "note": "全新Google Gmini年卡账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月PLUS充值码",
+          "productLabel": "ChatGPT月plus充值码（充自己的账号）",
+          "note": "ChatGPT月plus充值码（充自己的账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_PRO成品号",
+          "productLabel": "gemini3-pro成品号-无质保",
+          "note": "gemini3-pro成品号-无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__自助卡密_尊享保障版",
+          "productLabel": "ChatGPT自助卡 密尊享保障版（含封号包赔）",
+          "note": "ChatGPT自助卡 密尊享保障版（含封号包赔） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__30天_TEAM_BUSINESS激活码_质保3天",
+          "productLabel": "【手工】【30天】GPT-Team / Business 高质量激活码（质保3天）",
+          "note": "【手工】【30天】GPT-Team / Business 高质量激活码（质保3天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__1个月_带质保",
+          "productLabel": "ChatGPT Plus充值1个月【带质保】【全网最稳技术】",
+          "note": "ChatGPT Plus充值1个月【带质保】【全网最稳技术】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__成品账号_质保7天",
+          "productLabel": "Plus 成品账号（质保7天）",
+          "note": "Plus 成品账号（质保7天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__成品账号",
+          "productLabel": "Plus 成品账号（稳定）",
+          "note": "Plus 成品账号（稳定） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__1年_差绑卡号_PIXEL渠道",
+          "productLabel": "Gemini Pro 1年差绑卡号【pixel渠道 22-24年老号带2fa】",
+          "note": "Gemini Pro 1年差绑卡号【pixel渠道 22-24年老号带2fa】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__0刀卡",
+          "productLabel": "0刀卡（支持gemini三个月，其他自测）",
+          "note": "0刀卡（支持gemini三个月，其他自测） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__TEAM_子号",
+          "productLabel": "GPT Team 子号（无质保）",
+          "note": "GPT Team 子号（无质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__三个月PRO成品_老号",
+          "productLabel": "gemini三个月pro成品，两年左右老号。美国地区，gcp功能正常",
+          "note": "gemini三个月pro成品，两年左右老号。美国地区，gcp功能正常 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__200刀月卡",
+          "productLabel": "ChatGPT Pro 200刀月卡",
+          "note": "ChatGPT Pro 200刀月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__20MAX",
+          "productLabel": "Claude Pro 20max",
+          "note": "Claude Pro 20max 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "VIRTUAL_CARD__VISA_0刀虚拟卡",
+          "productLabel": "虚拟信用卡VISA 0刀虚拟卡 485954",
+          "note": "虚拟信用卡VISA 0刀虚拟卡 485954 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__22_24年号_2FA_PRO1年美区",
+          "productLabel": "22-24年号2FA Pro1年美区",
+          "note": "22-24年号2FA Pro1年美区 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_1PRO_12个月_PIXEL成品号",
+          "productLabel": "Gemini 3.1pro 美区 12个月pixel成品号（22-24年账号）",
+          "note": "Gemini 3.1pro 美区 12个月pixel成品号（22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__卡密",
+          "productLabel": "Claude Pro卡密",
+          "note": "Claude Pro卡密 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__IOS直冲",
+          "productLabel": "claude PRO iOS 直冲",
+          "note": "claude PRO iOS 直冲 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__月卡_质保不掉订阅版",
+          "productLabel": "Claude Pro 直充月卡（质保不掉订阅版）",
+          "note": "Claude Pro 直充月卡（质保不掉订阅版） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PIEXL提取优惠链接",
+          "productLabel": "Piexl提取优惠链接 不包绑卡",
+          "note": "Piexl提取优惠链接 不包绑卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__微软邮箱",
+          "productLabel": "Claude账号（微软邮箱）",
+          "note": "Claude账号（微软邮箱） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__自助开通卡密_包绑卡",
+          "productLabel": "Pixel自助开通卡密 包绑卡",
+          "note": "Pixel自助开通卡密 包绑卡 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 141 项"
+    },
+    {
+      "shopId": "shop_src_74a11226",
+      "snapshotDate": "2026-04-26",
+      "capturedAt": "2026-04-26T10:26:30.991Z",
+      "changes": [
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "productLabel": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+          "oldPrice": 21.85,
+          "newPrice": 23.75,
+          "note": "ChatGPT Plus 代充｜自助充值｜24小时充值 价格从 ¥21.85 变为 ¥23.75。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "productLabel": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+          "oldPrice": 138,
+          "newPrice": 175,
+          "note": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 价格从 ¥138 变为 ¥175。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "productLabel": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+          "oldPrice": 230,
+          "newPrice": 275,
+          "note": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 价格从 ¥230 变为 ¥275。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+          "productLabel": "ChatGPT Plus独享账号 全功能独享",
+          "oldPrice": 23,
+          "newPrice": 25,
+          "note": "ChatGPT Plus独享账号 全功能独享 价格从 ¥23 变为 ¥25。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_独享账号_30美金订阅成品号",
+          "productLabel": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "note": "SuperGrok 独享账号 | 30美金订阅成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__AI_账号_稳定普号_长效邮箱",
+          "productLabel": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "note": "Grok AI 账号 | Grok稳定普号 | 长效邮箱 已进入当前商品列表。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "productLabel": "【稳定老号】Google 普号｜美区老号",
+          "oldPrice": 6.9,
+          "newPrice": 7.5,
+          "note": "【稳定老号】Google 普号｜美区老号 价格从 ¥6.9 变为 ¥7.5。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "productLabel": "【稳定老号】Google 普号｜美区老号",
+          "oldStockStatus": "OUT_OF_STOCK",
+          "newStockStatus": "IN_STOCK",
+          "note": "【稳定老号】Google 普号｜美区老号 库存状态由 无货 变更为 有货。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+          "productLabel": "【美区高质量老号】Gemini Pro 年卡",
+          "oldPrice": 20.7,
+          "newPrice": 22.5,
+          "note": "【美区高质量老号】Gemini Pro 年卡 价格从 ¥20.7 变为 ¥22.5。"
+        },
+        {
+          "type": "PRICE_INCREASED",
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "productLabel": "[普号] ChatGPT > 长效微软邮箱",
+          "oldPrice": 0.57,
+          "newPrice": 0.62,
+          "note": "[普号] ChatGPT > 长效微软邮箱 价格从 ¥0.57 变为 ¥0.62。"
+        },
+        {
+          "type": "PRODUCT_REMOVED",
+          "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "productLabel": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "note": "Grok AI 账号 | Grok稳定普号 | 长效邮箱 本次未再检测到。"
+        },
+        {
+          "type": "PRODUCT_REMOVED",
+          "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "productLabel": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "note": "SuperGrok 独享账号 | 30美金订阅成品号 本次未再检测到。"
+        }
+      ],
+      "summary": "新增 2 项，移除 2 项，涨价 7 项，库存变化 1 项"
+    },
+    {
+      "shopId": "shop_src_74a11226",
+      "snapshotDate": "2026-04-25",
+      "capturedAt": "2026-04-25T06:43:43.532Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_代充_自助充值_24小时充值",
+          "productLabel": "ChatGPT Plus 代充｜自助充值｜24小时充值",
+          "note": "ChatGPT Plus 代充｜自助充值｜24小时充值 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_5X_充值_100美元_PRO代充",
+          "productLabel": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充",
+          "note": "ChatGPT PRO 5x 充值 ｜ 100美元 GPT PRO代充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_20X充值_200美元_PRO代充",
+          "productLabel": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充",
+          "note": "ChatGPT PRO 20x充值 ｜200美元 GPT PRO代充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS独享账号_全功能独享",
+          "productLabel": "ChatGPT Plus独享账号 全功能独享",
+          "note": "ChatGPT Plus独享账号 全功能独享 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__SUPERGROK_独享账号_30美金订阅成品号",
+          "productLabel": "SuperGrok 独享账号 | 30美金订阅成品号",
+          "note": "SuperGrok 独享账号 | 30美金订阅成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GROK_AI_账号_GROK稳定普号_长效邮箱",
+          "productLabel": "Grok AI 账号 | Grok稳定普号 | 长效邮箱",
+          "note": "Grok AI 账号 | Grok稳定普号 | 长效邮箱 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__稳定老号_GOOGLE_普号_美区老号",
+          "productLabel": "【稳定老号】Google 普号｜美区老号",
+          "note": "【稳定老号】Google 普号｜美区老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__美区高质量老号_PRO_年卡",
+          "productLabel": "【美区高质量老号】Gemini Pro 年卡",
+          "note": "【美区高质量老号】Gemini Pro 年卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GOOGLE_AI_ULTRA_250美元订阅",
+          "productLabel": "Google AI Ultra 250美元订阅",
+          "note": "Google AI Ultra 250美元订阅 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "productLabel": "[普号] ChatGPT > 长效微软邮箱",
+          "note": "[普号] ChatGPT > 长效微软邮箱 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 10 项"
+    },
+    {
+      "shopId": "shop_src_7ba51843",
+      "snapshotDate": "2026-04-25",
+      "capturedAt": "2026-04-25T06:36:40.206Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__ULTRA",
+          "productLabel": "【Ultra】Gemini Ultra 个人号母号满积分",
+          "note": "【Ultra】Gemini Ultra 个人号母号满积分 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__特价",
+          "productLabel": "【特价】Pixel - Gemini Pro一年成品号",
+          "note": "【特价】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__美区",
+          "productLabel": "【美区】Pixel - Gemini Pro一年成品号",
+          "note": "【美区】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__获取一年订阅链接_一年PRO_PIXEL机器人",
+          "productLabel": "获取一年订阅链接，Gemini 一年Pro Pixel机器人",
+          "note": "获取一年订阅链接，Gemini 一年Pro Pixel机器人 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS",
+          "productLabel": "【GPT渠道二】Plus 一个月直充",
+          "note": "【GPT渠道二】Plus 一个月直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__质保版",
+          "productLabel": "【GPT渠道二】Plus 一个月直充（质保十五天）",
+          "note": "【GPT渠道二】Plus 一个月直充（质保十五天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__渠道三_一个月直充_无质保",
+          "productLabel": "【GPT渠道三】一个月直充（无质保）",
+          "note": "【GPT渠道三】一个月直充（无质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO5X",
+          "productLabel": "【GPT Pro5x】Chong渠道，一个月直充（质保7天）",
+          "note": "【GPT Pro5x】Chong渠道，一个月直充（质保7天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__5X_PRO_100刀",
+          "productLabel": "【GPT Pro 5x】一个月直充",
+          "note": "【GPT Pro 5x】一个月直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__20X_PRO_200刀",
+          "productLabel": "【GPT Pro 20x】一个月直充",
+          "note": "【GPT Pro 20x】一个月直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__接码服务",
+          "productLabel": "【短效手机号接码】支持OpenAI/反重力接码",
+          "note": "【短效手机号接码】支持OpenAI/反重力接码 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__中转站",
+          "productLabel": "【GPT中转站】 50刀额度兑换券（30天订阅）",
+          "note": "【GPT中转站】 50刀额度兑换券（30天订阅） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__中转站",
+          "productLabel": "【中转站】Claude 50刀额度兑换券（30天订阅）",
+          "note": "【中转站】Claude 50刀额度兑换券（30天订阅） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__SUPERGROK",
+          "productLabel": "【Grok】一年成品号",
+          "note": "【Grok】一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__抽奖专用",
+          "productLabel": "【抽奖专用】GPT Plus一个月直充兑换券",
+          "note": "【抽奖专用】GPT Plus一个月直充兑换券 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__抽奖专用",
+          "productLabel": "【抽奖专用】Pixel - Gemini Pro一年成品号",
+          "note": "【抽奖专用】Pixel - Gemini Pro一年成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__测试商品2",
+          "productLabel": "测试商品2",
+          "note": "测试商品2 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 17 项"
+    }
+  ],
+  "publishedAt": "2026-04-27T13:39:32.667Z"
+}

@@ -1,10 +1,10 @@
 import { ShopExplorer } from "@/components/shop-explorer";
-import { getPublishedSnapshot } from "@/lib/published-data";
+import { getPublishedShopIndex } from "@/lib/published-data";
 
 export const dynamic = "force-dynamic";
 
 export default async function ShopsPage() {
-  const { shopProducts, shops } = await getPublishedSnapshot();
+  const { shops, publishedAt, meta } = await getPublishedShopIndex();
 
-  return <ShopExplorer shops={shops} products={shopProducts} />;
+  return <ShopExplorer shops={shops} latestSyncAt={publishedAt} meta={meta} />;
 }
