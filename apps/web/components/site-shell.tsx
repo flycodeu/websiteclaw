@@ -27,19 +27,19 @@ export function SiteShell({
   return (
     <div className="min-h-screen text-[color:var(--ink)]">
       <header className="sticky top-0 z-30 border-b border-[color:var(--line-strong)] bg-[rgba(250,246,239,0.88)] backdrop-blur-xl">
-        <div className="mx-auto max-w-[1400px] px-5 py-4 sm:px-6">
+        <div className="mx-auto max-w-[1400px] px-4 py-4 sm:px-6">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-              <Link href="/" className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-[22px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fff8eb_0%,#edf4ea_100%)] font-serif text-2xl text-[color:var(--ink)] shadow-[0_12px_30px_rgba(53,44,30,0.08)]">
+              <Link href="/" className="flex min-w-0 items-center gap-3 sm:gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[18px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fff8eb_0%,#edf4ea_100%)] font-serif text-xl text-[color:var(--ink)] shadow-[0_12px_30px_rgba(53,44,30,0.08)] sm:h-14 sm:w-14 sm:rounded-[22px] sm:text-2xl">
                   货
                 </div>
-                <div>
-                  <div className="font-serif text-2xl text-[color:var(--ink)]">Shop Claw</div>
+                <div className="min-w-0">
+                  <div className="truncate font-serif text-[1.35rem] text-[color:var(--ink)] sm:text-2xl">Shop Claw</div>
                 </div>
               </Link>
 
-              <nav className="flex min-w-0 items-center gap-2 overflow-x-auto pb-1 lg:pb-0">
+              <nav className="flex min-w-0 items-center gap-2 overflow-x-auto pb-1 pr-1 lg:pb-0">
                 {navItems.map((item) => {
                   const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                   const Icon = item.icon;
@@ -71,7 +71,7 @@ export function SiteShell({
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1400px] px-5 py-6 sm:px-6">{children}</main>
+      <main className="mx-auto max-w-[1400px] px-4 py-5 sm:px-6 sm:py-6">{children}</main>
     </div>
   );
 }
@@ -80,7 +80,7 @@ function HeaderStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[20px] border border-[color:var(--line-strong)] bg-white/74 px-4 py-3 shadow-[0_10px_24px_rgba(53,44,30,0.05)]">
       <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">{label}</div>
-      <div className="mt-1.5 font-mono text-sm font-semibold text-[color:var(--ink)]">{value}</div>
+      <div className="mt-1.5 break-words font-mono text-sm font-semibold text-[color:var(--ink)]">{value}</div>
     </div>
   );
 }

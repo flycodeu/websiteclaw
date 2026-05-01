@@ -138,8 +138,8 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
   return (
     <div className="space-y-5">
       <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[rgba(255,252,246,0.92)] p-4 shadow-[0_16px_44px_rgba(53,44,30,0.08)] sm:p-5">
-        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_190px_190px]">
-          <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[minmax(0,1.1fr)_190px_190px]">
+          <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)] md:col-span-2 xl:col-span-1">
             <Search className="h-4 w-4" />
             <input
               value={keyword}
@@ -185,7 +185,7 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <h2 className="truncate text-[1.05rem] font-semibold text-[color:var(--ink)]">{shop.name}</h2>
+                <h2 className="break-words text-[1.05rem] font-semibold text-[color:var(--ink)]">{shop.name}</h2>
                 <div className="mt-1 text-xs text-[color:var(--muted)]">{formatDateLabel(shop.lastCrawledAt)}</div>
               </div>
               <span className={`shrink-0 rounded-full px-3 py-1 text-xs ${getShopStatusTone(shop.status)}`}>
@@ -199,7 +199,7 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
               <SummaryToken label={shop.lowestPrice > 0 ? `¥${shop.lowestPrice}` : "暂无价格"} />
             </div>
 
-            <div className="mt-3 truncate text-xs text-[color:var(--muted)]">
+            <div className="mt-3 break-words text-xs text-[color:var(--muted)]">
               {shop.categories.map((category) => productCategoryLabels[category]).join(" · ") || "未分类"}
             </div>
           </button>
@@ -221,9 +221,12 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
             onClick={() => setActiveId(null)}
           />
 
-          <aside className="absolute inset-4 z-10 flex flex-col overflow-hidden rounded-[32px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf8_0%,#f6ecdd_100%)] shadow-[0_28px_90px_rgba(19,28,35,0.22)] sm:inset-6 xl:inset-10">
+          <aside
+            className="absolute inset-3 z-10 flex flex-col overflow-hidden rounded-[28px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf8_0%,#f6ecdd_100%)] shadow-[0_28px_90px_rgba(19,28,35,0.22)] sm:inset-6 xl:inset-10"
+            style={{ maxHeight: "calc(100dvh - 1.5rem)" }}
+          >
             <div className="border-b border-[color:var(--line-strong)] px-5 py-5 sm:px-6">
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`rounded-full px-3 py-1 text-xs ${getShopStatusTone(activeShop.status)}`}>
@@ -233,12 +236,12 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
                       {formatDateLabel(activeShop.lastCrawledAt)}
                     </span>
                   </div>
-                  <h2 className="mt-3 break-words font-serif text-[2.35rem] leading-tight text-[color:var(--ink)]">
+                  <h2 className="mt-3 break-words font-serif text-[1.9rem] leading-tight text-[color:var(--ink)] sm:text-[2.35rem]">
                     {activeShop.name}
                   </h2>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                   {activeShop.url ? (
                     <a
                       href={activeShop.url}
@@ -260,7 +263,7 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-4">
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 <Tile label="商品总数" value={`${activeShop.productCount}`} />
                 <Tile label="当前有货" value={`${activeShop.inStockCount}`} />
                 <Tile label="库存紧张" value={`${activeShop.lowStockCount}`} />
@@ -310,10 +313,10 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
                         当前筛选条件下没有商品记录。
                       </div>
                     ) : (
-                      <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                        {visibleProducts.map((product) => (
-                          <ProductPanel key={product.productKey} product={product} />
-                        ))}
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                      {visibleProducts.map((product) => (
+                        <ProductPanel key={product.productKey} product={product} />
+                      ))}
                       </div>
                     )}
                   </section>
@@ -376,12 +379,12 @@ function ProductPanel({ product }: { product: PublishedShopProductPreview }) {
               {product.current.isDetected ? stockStatusLabels[product.current.stockStatus] : `缺席 ${product.missingStreak} 次`}
             </span>
           </div>
-          <h3 className={`mt-3 break-words text-lg font-semibold ${tone.title}`}>{product.current.rawName}</h3>
+          <h3 className={`mt-3 break-words text-base font-semibold leading-6 sm:text-lg ${tone.title}`}>{product.current.rawName}</h3>
           <div className={`mt-1 text-sm ${tone.meta}`}>{product.specLabel || "未标注规格"}</div>
         </div>
 
-        <div className="text-right">
-          <div className={`font-mono text-[1.8rem] font-semibold ${tone.price}`}>{priceLabel}</div>
+        <div className="shrink-0 text-right">
+          <div className={`font-mono text-[1.45rem] font-semibold sm:text-[1.8rem] ${tone.price}`}>{priceLabel}</div>
           <div className={`mt-1 text-xs ${tone.meta}`}>{formatDateLabel(product.current.updatedAt)}</div>
         </div>
       </div>

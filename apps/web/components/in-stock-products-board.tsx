@@ -121,8 +121,8 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
   return (
     <div className="space-y-5">
       <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,rgba(255,253,248,0.98)_0%,rgba(247,240,230,0.92)_100%)] p-4 shadow-[0_18px_48px_rgba(53,44,30,0.08)] sm:p-5">
-        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_180px_150px_150px_auto]">
-          <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[minmax(0,1.1fr)_180px_150px_150px_auto]">
+          <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)] md:col-span-2 xl:col-span-1">
             <Search className="h-4 w-4" />
             <input
               value={keyword}
@@ -150,7 +150,7 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
           <PriceInput value={minPrice} onChange={setMinPrice} placeholder="最低价" />
           <PriceInput value={maxPrice} onChange={setMaxPrice} placeholder="最高价" />
 
-          <div className="flex flex-wrap items-center gap-2 xl:justify-end">
+          <div className="flex flex-wrap items-center gap-2 md:col-span-2 xl:col-span-1 xl:justify-end">
             <AvailabilityChip active={availability === "IN_STOCK"} label="有货" onClick={() => handleAvailabilityChange("IN_STOCK")} />
             <AvailabilityChip active={availability === "OUT_OF_STOCK"} label="无货" onClick={() => handleAvailabilityChange("OUT_OF_STOCK")} />
             <AvailabilityChip active={availability === "ALL"} label="全部" onClick={() => handleAvailabilityChange("ALL")} />
@@ -216,23 +216,23 @@ function ProductCard({ item }: { item: ProductFeedItem }) {
 
   const card = (
     <div
-      className={`relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-[24px] border px-4 py-3.5 shadow-[0_12px_30px_rgba(53,44,30,0.07)] transition duration-200 ${tone.card} ${
+      className={`relative flex min-h-[124px] flex-col justify-between overflow-hidden rounded-[24px] border px-4 py-3.5 shadow-[0_12px_30px_rgba(53,44,30,0.07)] transition duration-200 sm:min-h-[112px] ${tone.card} ${
         item.shopUrl ? "hover:-translate-y-1" : ""
       }`}
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 title={item.rawName} className={`min-w-0 flex-1 truncate text-[15px] font-semibold leading-6 ${tone.title}`}>
+        <h2 title={item.rawName} className={`min-w-0 flex-1 break-words text-[15px] font-semibold leading-5 sm:leading-6 ${tone.title}`}>
           {item.rawName}
         </h2>
         <div className={`shrink-0 font-mono text-[1.02rem] font-semibold leading-6 ${tone.price}`}>{priceLabel}</div>
       </div>
 
       <div className="mt-3 flex items-center justify-between gap-3">
-        <div title={item.shopName} className={`min-w-0 truncate text-xs ${tone.meta}`}>
+        <div title={item.shopName} className={`min-w-0 break-words text-xs ${tone.meta}`}>
           {item.shopName || "未命名店铺"}
         </div>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
           {specialAccountLabel ? <CardBadge label={specialAccountLabel} tone="muted" /> : null}
           {!specialAccountLabel && !item.isDetected ? <CardBadge label="缺席" tone="muted" /> : null}
           {!specialAccountLabel && item.isDetected && item.stockStatus === "OUT_OF_STOCK" ? <CardBadge label="缺货" tone="danger" /> : null}
@@ -275,7 +275,7 @@ function AvailabilityChip({ active, label, onClick }: { active: boolean; label: 
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-4 py-2 text-sm transition ${
+      className={`min-w-[72px] rounded-full px-4 py-2 text-sm transition ${
         active
           ? "border border-[#2d4f44] bg-[#2d4f44] text-white shadow-[0_10px_24px_rgba(45,79,68,0.20)]"
           : "border border-[color:var(--line-strong)] bg-white/80 text-[color:var(--muted)] hover:border-[#c8bba6] hover:text-[color:var(--ink)]"
@@ -313,14 +313,14 @@ function PriceInput({
   placeholder: string;
 }) {
   return (
-    <label className="flex items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
+    <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
       <span>¥</span>
       <input
         inputMode="decimal"
         value={value}
         onChange={(event) => onChange(event.target.value.replace(/[^\d.]/g, ""))}
         placeholder={placeholder}
-        className="w-full bg-transparent text-[color:var(--ink)] outline-none placeholder:text-[color:var(--muted)]/70"
+        className="w-full min-w-0 bg-transparent text-[color:var(--ink)] outline-none placeholder:text-[color:var(--muted)]/70"
       />
     </label>
   );
