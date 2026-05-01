@@ -5,6 +5,7 @@ const DEFAULT_LIMIT = 24;
 const MAX_LIMIT = 60;
 
 export type ProductFeedItem = PublishedProductCatalogItem;
+export type ProductAvailabilityFilter = "ALL" | "IN_STOCK" | "OUT_OF_STOCK";
 
 export interface ProductFeedPage {
   items: ProductFeedItem[];
@@ -23,6 +24,7 @@ export interface ProductFeedSummary {
 }
 
 interface ProductFeedOptions {
+  availability?: string | null;
   category?: string | null;
   cursor?: string | null;
   limit?: number;
@@ -32,16 +34,19 @@ interface ProductFeedOptions {
 }
 
 interface ProductFeedFilterOptions {
+  availability?: string | null;
   category?: string | null;
   keyword?: string | null;
   minPrice?: number | null;
   maxPrice?: number | null;
 }
 
-export function getProductFeedCategories(catalog: PublishedProductCatalog) {
+export function getProductFeedCategories(catalog: PublishedProductCatalog, options: Pick<ProductFeedFilterOptions, "availability"> = {}) {
+  const availability = readAvailabilityFilter(options.availability);
   const available = new Set(
     catalog.items
       .filter((item) => isListableProduct(item))
+      .filter((item) => matchesAvailability(item, availability))
       .map((item) => item.category)
   );
 
@@ -49,7 +54,8 @@ export function getProductFeedCategories(catalog: PublishedProductCatalog) {
 }
 
 export function getProductFeedItems(catalog: PublishedProductCatalog, options: ProductFeedFilterOptions = {}) {
-  const categories = getProductFeedCategories(catalog);
+  const availability = readAvailabilityFilter(options.availability);
+  const categories = getProductFeedCategories(catalog, { availability });
   const activeCategory = readCategoryFilter(options.category, categories);
   const keyword = normalizeText(options.keyword);
   const minPrice = readPrice(options.minPrice);
@@ -57,6 +63,7 @@ export function getProductFeedItems(catalog: PublishedProductCatalog, options: P
 
   return catalog.items
     .filter((item) => isListableProduct(item))
+    .filter((item) => matchesAvailability(item, availability))
     .filter((item) => !activeCategory || item.category === activeCategory)
     .filter((item) => matchesKeyword(item, keyword))
     .filter((item) => matchesPrice(item, minPrice, maxPrice))
@@ -87,13 +94,14 @@ export function getProductFeedPage(catalog: PublishedProductCatalog, options: Pr
   const cursor = readCursor(options.cursor);
   const limit = readLimit(options.limit);
   const filtered = getProductFeedItems(catalog, options);
+  const availability = readAvailabilityFilter(options.availability);
   const nextCursor = cursor + limit < filtered.length ? String(cursor + limit) : null;
 
   return {
     items: filtered.slice(cursor, cursor + limit),
     nextCursor,
     total: filtered.length,
-    categories: getProductFeedCategories(catalog),
+    categories: getProductFeedCategories(catalog, { availability }),
     publishedAt: catalog.publishedAt,
     summary: getProductFeedSummary(filtered)
   };
@@ -150,6 +158,15 @@ function matchesPrice(item: ProductFeedItem, minPrice: number | null, maxPrice: 
   return true;
 }
 
+function matchesAvailability(item: ProductFeedItem, availability: ProductAvailabilityFilter) {
+  if (availability === "ALL") {
+    return true;
+  }
+
+  const isOutOfStock = isDimmedProductFeedItem(item);
+  return availability === "IN_STOCK" ? !isOutOfStock : isOutOfStock;
+}
+
 function getDisplayPriority(product: ProductFeedItem) {
   if (product.status === "OFFLINE") {
     return 3;
@@ -172,6 +189,14 @@ function readCategoryFilter(category: string | null | undefined, categories: Pro
   }
 
   return categories.includes(category as ProductCategory) ? (category as ProductCategory) : null;
+}
+
+function readAvailabilityFilter(value: string | null | undefined): ProductAvailabilityFilter {
+  if (value === "IN_STOCK" || value === "OUT_OF_STOCK") {
+    return value;
+  }
+
+  return "ALL";
 }
 
 function readCursor(cursor: string | null | undefined) {

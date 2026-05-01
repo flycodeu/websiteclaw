@@ -4,7 +4,7 @@ import { startTransition, useDeferredValue, useEffect, useRef, useState } from "
 import { ArrowUpRight, LoaderCircle, Search } from "lucide-react";
 import { productCategoryLabels } from "@shop-claw/shared/labels";
 import { ApiResponse, ProductCategory } from "@shop-claw/shared/types";
-import { ProductFeedItem, ProductFeedPage } from "@/lib/product-feed";
+import { ProductAvailabilityFilter, ProductFeedItem, ProductFeedPage } from "@/lib/product-feed";
 
 interface ProductListBoardProps {
   initialPage: ProductFeedPage;
@@ -16,12 +16,18 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
   const [keyword, setKeyword] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [availability, setAvailability] = useState<ProductAvailabilityFilter>("IN_STOCK");
   const [activeCategory, setActiveCategory] = useState<"ALL" | ProductCategory>("ALL");
   const [page, setPage] = useState(initialPage);
   const [loadMode, setLoadMode] = useState<LoadMode>("idle");
   const [error, setError] = useState("");
   const hydratedRef = useRef(false);
   const deferredKeyword = useDeferredValue(keyword);
+
+  function handleAvailabilityChange(nextAvailability: ProductAvailabilityFilter) {
+    setAvailability(nextAvailability);
+    setActiveCategory("ALL");
+  }
 
   useEffect(() => {
     if (!hydratedRef.current) {
@@ -36,10 +42,13 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
       setError("");
 
       try {
-        const response = await fetch(buildProductsUrl({ activeCategory, keyword: deferredKeyword, minPrice, maxPrice }), {
-          signal: controller.signal,
-          cache: "no-store"
-        });
+        const response = await fetch(
+          buildProductsUrl({ availability, activeCategory, keyword: deferredKeyword, minPrice, maxPrice }),
+          {
+            signal: controller.signal,
+            cache: "no-store"
+          }
+        );
         const payload = (await response.json()) as ApiResponse<ProductFeedPage>;
 
         if (!response.ok || payload.code !== 0 || !payload.data) {
@@ -63,7 +72,7 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
     void refreshPage();
 
     return () => controller.abort();
-  }, [activeCategory, deferredKeyword, minPrice, maxPrice]);
+  }, [availability, activeCategory, deferredKeyword, minPrice, maxPrice]);
 
   async function handleLoadMore() {
     if (!page.nextCursor || loadMode !== "idle") {
@@ -76,6 +85,7 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
     try {
       const response = await fetch(
         buildProductsUrl({
+          availability,
           activeCategory,
           keyword: deferredKeyword,
           minPrice,
@@ -111,7 +121,7 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
   return (
     <div className="space-y-5">
       <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,rgba(255,253,248,0.98)_0%,rgba(247,240,230,0.92)_100%)] p-4 shadow-[0_18px_48px_rgba(53,44,30,0.08)] sm:p-5">
-        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_180px_150px_150px]">
+        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_180px_150px_150px_auto]">
           <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
             <Search className="h-4 w-4" />
             <input
@@ -139,6 +149,12 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
 
           <PriceInput value={minPrice} onChange={setMinPrice} placeholder="最低价" />
           <PriceInput value={maxPrice} onChange={setMaxPrice} placeholder="最高价" />
+
+          <div className="flex flex-wrap items-center gap-2 xl:justify-end">
+            <AvailabilityChip active={availability === "IN_STOCK"} label="有货" onClick={() => handleAvailabilityChange("IN_STOCK")} />
+            <AvailabilityChip active={availability === "OUT_OF_STOCK"} label="无货" onClick={() => handleAvailabilityChange("OUT_OF_STOCK")} />
+            <AvailabilityChip active={availability === "ALL"} label="全部" onClick={() => handleAvailabilityChange("ALL")} />
+          </div>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
@@ -200,7 +216,7 @@ function ProductCard({ item }: { item: ProductFeedItem }) {
 
   const card = (
     <div
-      className={`flex min-h-[112px] flex-col justify-between rounded-[24px] border px-4 py-3.5 shadow-[0_12px_30px_rgba(53,44,30,0.07)] transition duration-200 ${tone.card} ${
+      className={`relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-[24px] border px-4 py-3.5 shadow-[0_12px_30px_rgba(53,44,30,0.07)] transition duration-200 ${tone.card} ${
         item.shopUrl ? "hover:-translate-y-1" : ""
       }`}
     >
@@ -247,6 +263,22 @@ function CategoryChip({ active, label, onClick }: { active: boolean; label: stri
         active
           ? "border border-[#1c4336] bg-[#1c4336] text-white shadow-[0_10px_24px_rgba(28,67,54,0.22)]"
           : "border border-[color:var(--line-strong)] bg-white/74 text-[color:var(--muted)] hover:border-[#c8bba6] hover:text-[color:var(--ink)]"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function AvailabilityChip({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-full px-4 py-2 text-sm transition ${
+        active
+          ? "border border-[#2d4f44] bg-[#2d4f44] text-white shadow-[0_10px_24px_rgba(45,79,68,0.20)]"
+          : "border border-[color:var(--line-strong)] bg-white/80 text-[color:var(--muted)] hover:border-[#c8bba6] hover:text-[color:var(--ink)]"
       }`}
     >
       {label}
@@ -306,12 +338,14 @@ function LoadingCurtain() {
 }
 
 function buildProductsUrl({
+  availability,
   activeCategory,
   keyword,
   minPrice,
   maxPrice,
   cursor
 }: {
+  availability: ProductAvailabilityFilter;
   activeCategory: "ALL" | ProductCategory;
   keyword: string;
   minPrice: string;
@@ -319,6 +353,10 @@ function buildProductsUrl({
   cursor?: string | null;
 }) {
   const search = new URLSearchParams();
+
+  if (availability !== "ALL") {
+    search.set("availability", availability);
+  }
 
   if (activeCategory !== "ALL") {
     search.set("category", activeCategory);
@@ -347,27 +385,27 @@ function buildProductsUrl({
 function getCardTone(item: ProductFeedItem, accountless: boolean) {
   if (accountless) {
     return {
-      card: "border-[#d5d9de] bg-[linear-gradient(180deg,#f3f4f6_0%,#e8ebef_100%)]",
-      title: "text-[#48515d]",
-      price: "text-[#48515d]",
-      meta: "text-[#6b7280]",
-      icon: "text-[#6b7280]"
+      card: "border-[#cfd6de] bg-[linear-gradient(180deg,#f4f6f8_0%,#e8edf2_100%)] shadow-[0_16px_30px_rgba(84,96,111,0.10)]",
+      title: "text-[#425062]",
+      price: "text-[#425062]",
+      meta: "text-[#6d7b8c]",
+      icon: "text-[#6d7b8c]"
     };
   }
 
   if (!item.isDetected || item.stockStatus === "OUT_OF_STOCK") {
     return {
-      card: "border-[#ecd0c4] bg-[linear-gradient(180deg,#fff7f4_0%,#fbece4_100%)]",
-      title: "text-[#7a4431]",
-      price: "text-[#7a4431]",
-      meta: "text-[#9a6554]",
-      icon: "text-[#9a6554]"
+      card: "border-[#c8d0d8] bg-[linear-gradient(180deg,#f1f4f7_0%,#e1e7ee_100%)] shadow-[0_16px_30px_rgba(84,96,111,0.12)]",
+      title: "text-[#3f4d5f]",
+      price: "text-[#3f4d5f]",
+      meta: "text-[#6a7888]",
+      icon: "text-[#6a7888]"
     };
   }
 
   if (item.stockStatus === "LOW_STOCK") {
     return {
-      card: "border-[#efdfb4] bg-[linear-gradient(180deg,#fffaf1_0%,#fff1d3_100%)]",
+      card: "border-[#e3c27b] bg-[linear-gradient(180deg,#fff7e8_0%,#ffe6b3_100%)] shadow-[0_14px_30px_rgba(180,129,27,0.16)]",
       title: "text-[#6e5213]",
       price: "text-[#6e5213]",
       meta: "text-[#8e722f]",
@@ -376,11 +414,11 @@ function getCardTone(item: ProductFeedItem, accountless: boolean) {
   }
 
   return {
-    card: "border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdfa_0%,#f8f1e6_100%)] hover:border-[#c8bba6]",
+    card: "border-[#dde3ea] bg-[linear-gradient(180deg,#ffffff_0%,#f5f8fb_100%)] shadow-[0_16px_32px_rgba(84,96,111,0.10)] hover:border-[#a8b5c3]",
     title: "text-[color:var(--ink)]",
     price: "text-[color:var(--ink)]",
-    meta: "text-[color:var(--muted)]",
-    icon: "text-[color:var(--muted)]"
+    meta: "text-[#667487]",
+    icon: "text-[#667487]"
   };
 }
 

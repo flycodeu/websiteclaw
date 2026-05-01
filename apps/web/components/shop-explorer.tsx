@@ -214,9 +214,14 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
 
       {activeShop ? (
         <div className="fixed inset-0 z-50 bg-[rgba(20,28,35,0.26)] backdrop-blur-[2px]">
-          <button type="button" className="absolute inset-0 h-full w-full cursor-default" onClick={() => setActiveId(null)} />
+          <button
+            type="button"
+            aria-label="关闭店铺详情"
+            className="absolute inset-0 h-full w-full cursor-default"
+            onClick={() => setActiveId(null)}
+          />
 
-          <aside className="absolute inset-y-0 right-0 flex w-full max-w-[960px] flex-col overflow-hidden border-l border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf8_0%,#f6ecdd_100%)] shadow-[-20px_0_60px_rgba(19,28,35,0.16)]">
+          <aside className="absolute inset-4 z-10 flex flex-col overflow-hidden rounded-[32px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf8_0%,#f6ecdd_100%)] shadow-[0_28px_90px_rgba(19,28,35,0.22)] sm:inset-6 xl:inset-10">
             <div className="border-b border-[color:var(--line-strong)] px-5 py-5 sm:px-6">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
@@ -293,7 +298,7 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div>
                         <h3 className="text-base font-semibold text-[color:var(--ink)]">商品列表</h3>
-                        <div className="mt-1 text-sm text-[color:var(--muted)]">按最近更新时间排序，桌面端最多每行展示 4 个商品。</div>
+                        <div className="mt-1 text-sm text-[color:var(--muted)]">弹窗会根据屏幕宽度自动调整列数，方便集中查看单店全部商品。</div>
                       </div>
                       <span className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper-soft)] px-3 py-1 text-xs text-[color:var(--muted)]">
                         当前 {visibleProducts.length} 件
@@ -305,7 +310,7 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
                         当前筛选条件下没有商品记录。
                       </div>
                     ) : (
-                      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                         {visibleProducts.map((product) => (
                           <ProductPanel key={product.productKey} product={product} />
                         ))}
@@ -360,7 +365,7 @@ function ProductPanel({ product }: { product: PublishedShopProductPreview }) {
   const priceLabel = product.current.price > 0 ? `¥${product.current.price}` : "--";
 
   return (
-    <article className={`rounded-[24px] border p-4 shadow-[0_12px_32px_rgba(53,44,30,0.08)] ${tone.card}`}>
+    <article className={`relative overflow-hidden rounded-[24px] border p-4 shadow-[0_12px_32px_rgba(53,44,30,0.08)] ${tone.card}`}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex flex-wrap gap-2">
@@ -371,13 +376,13 @@ function ProductPanel({ product }: { product: PublishedShopProductPreview }) {
               {product.current.isDetected ? stockStatusLabels[product.current.stockStatus] : `缺席 ${product.missingStreak} 次`}
             </span>
           </div>
-          <h3 className="mt-3 break-words text-lg font-semibold text-[color:var(--ink)]">{product.current.rawName}</h3>
-          <div className="mt-1 text-sm text-[color:var(--muted)]">{product.specLabel || "未标注规格"}</div>
+          <h3 className={`mt-3 break-words text-lg font-semibold ${tone.title}`}>{product.current.rawName}</h3>
+          <div className={`mt-1 text-sm ${tone.meta}`}>{product.specLabel || "未标注规格"}</div>
         </div>
 
         <div className="text-right">
-          <div className="font-mono text-[1.8rem] font-semibold text-[color:var(--ink)]">{priceLabel}</div>
-          <div className="mt-1 text-xs text-[color:var(--muted)]">{formatDateLabel(product.current.updatedAt)}</div>
+          <div className={`font-mono text-[1.8rem] font-semibold ${tone.price}`}>{priceLabel}</div>
+          <div className={`mt-1 text-xs ${tone.meta}`}>{formatDateLabel(product.current.updatedAt)}</div>
         </div>
       </div>
 
@@ -388,7 +393,7 @@ function ProductPanel({ product }: { product: PublishedShopProductPreview }) {
         {product.priceTrend.previousPrice !== null ? <MiniTag label={formatTrend(product)} /> : null}
       </div>
 
-      <div className="mt-4 rounded-[18px] border border-white/60 bg-white/72 p-3 text-sm leading-6 text-[color:var(--muted)]">
+      <div className={`mt-4 rounded-[18px] border p-3 text-sm leading-6 ${tone.surface}`}>
         {product.current.inventoryText || "未提供库存说明"}
       </div>
     </article>
@@ -418,28 +423,44 @@ function getShopStatusTone(status: ShopSummary["status"]) {
 function getProductTone(product: PublishedShopProductPreview) {
   if (!product.current.isDetected) {
     return {
-      card: "border-[#dbcdbb] bg-[linear-gradient(180deg,#f6efe8_0%,#efe7dc_100%)]",
-      stockBadge: "border border-[#dbcdbb] bg-white/70 text-[color:var(--muted)]"
+      card: "border-[#cfd6de] bg-[linear-gradient(180deg,#f4f6f8_0%,#e8edf2_100%)] shadow-[0_16px_32px_rgba(84,96,111,0.10)]",
+      stockBadge: "border border-[#c3ccd5] bg-[#e5eaef] text-[#4c5b6d]",
+      title: "text-[#425062]",
+      price: "text-[#425062]",
+      meta: "text-[#6d7b8c]",
+      surface: "border-[#dbe2e9] bg-[rgba(255,255,255,0.72)] text-[#6d7b8c]"
     };
   }
 
   if (product.current.stockStatus === "OUT_OF_STOCK") {
     return {
-      card: "border-[#ecd0c4] bg-[linear-gradient(180deg,#fff7f4_0%,#fbece4_100%)]",
-      stockBadge: "border border-[#d07458] bg-[#c95534] text-white"
+      card: "border-[#c8d0d8] bg-[linear-gradient(180deg,#f1f4f7_0%,#e1e7ee_100%)] shadow-[0_16px_32px_rgba(84,96,111,0.12)]",
+      stockBadge: "border border-[#e9b8b8] bg-[#f7e5e5] text-[#c93c3c]",
+      title: "text-[#3f4d5f]",
+      price: "text-[#3f4d5f]",
+      meta: "text-[#6a7888]",
+      surface: "border-[#d7dfe7] bg-[rgba(255,255,255,0.76)] text-[#6a7888]"
     };
   }
 
   if (product.current.stockStatus === "LOW_STOCK") {
     return {
-      card: "border-[#efdfb4] bg-[linear-gradient(180deg,#fffaf1_0%,#fff1d3_100%)]",
-      stockBadge: "border border-[#efdfb4] bg-[#fff0b8] text-[#835f11]"
+      card: "border-[#e3c27b] bg-[linear-gradient(180deg,#fff7e8_0%,#ffe6b3_100%)] shadow-[0_16px_34px_rgba(180,129,27,0.16)]",
+      stockBadge: "border border-[#e3c27b] bg-[#fff0b8] text-[#835f11]",
+      title: "text-[#6e5213]",
+      price: "text-[#6e5213]",
+      meta: "text-[#8e722f]",
+      surface: "border-white/60 bg-white/74 text-[#8e722f]"
     };
   }
 
   return {
-    card: "border-[color:var(--line-strong)] bg-[linear-gradient(180deg,#fffdf9_0%,#f8f1e6_100%)]",
-    stockBadge: "border border-[#cfe4cf] bg-[#edf6ea] text-[#214f35]"
+    card: "border-[#dde3ea] bg-[linear-gradient(180deg,#ffffff_0%,#f6f8fb_100%)] shadow-[0_16px_32px_rgba(84,96,111,0.10)]",
+    stockBadge: "border border-[#d5dee7] bg-white text-[#2b3947]",
+    title: "text-[color:var(--ink)]",
+    price: "text-[color:var(--ink)]",
+    meta: "text-[#667487]",
+    surface: "border-[#edf1f5] bg-[rgba(248,250,252,0.92)] text-[#667487]"
   };
 }
 

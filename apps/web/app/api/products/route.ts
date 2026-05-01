@@ -11,6 +11,7 @@ export async function GET(request: Request) {
   const limitParam = searchParams.get("limit");
 
   const page = getProductFeedPage(catalog, {
+    availability: searchParams.get("availability"),
     category: searchParams.get("category"),
     cursor: searchParams.get("cursor"),
     keyword: searchParams.get("keyword"),

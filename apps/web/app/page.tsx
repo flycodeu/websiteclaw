@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const catalog = await getPublishedProductCatalog();
-  const initialPage = getProductFeedPage(catalog, { limit: 24 });
+  const initialPage = getProductFeedPage(catalog, { availability: "IN_STOCK", limit: 24 });
 
   return <ProductListBoard initialPage={initialPage} />;
 }
