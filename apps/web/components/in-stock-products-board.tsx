@@ -12,6 +12,12 @@ interface ProductListBoardProps {
 
 type LoadMode = "idle" | "replace" | "append";
 
+interface ProductCategorySection {
+  category: ProductCategory;
+  items: ProductFeedItem[];
+  priceRangeLabel: string;
+}
+
 export function ProductListBoard({ initialPage }: ProductListBoardProps) {
   const [keyword, setKeyword] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -117,6 +123,7 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
 
   const isLoading = loadMode === "replace";
   const isAppending = loadMode === "append";
+  const productSections = buildProductSections(page.items, page.categories);
 
   return (
     <div className="space-y-5">
@@ -182,9 +189,32 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
             当前筛选条件下没有可展示的商品。
           </div>
         ) : (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {page.items.map((item) => (
-              <ProductCard key={item.id} item={item} />
+          <div className="space-y-4">
+            {productSections.map((section) => (
+              <article
+                key={section.category}
+                className="rounded-[28px] border border-[color:var(--line-strong)] bg-[rgba(255,251,246,0.92)] p-4 shadow-[0_16px_40px_rgba(53,44,30,0.07)] sm:p-5"
+              >
+                <div className="flex flex-col gap-3 border-b border-[color:var(--line-soft)] pb-4 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <div className="inline-flex rounded-full border border-[color:var(--line-strong)] bg-white/82 px-3 py-1 text-xs uppercase tracking-[0.16em] text-[color:var(--muted)]">
+                      {productCategoryLabels[section.category]}
+                    </div>
+                    <div className="mt-2 text-sm text-[color:var(--muted)]">当前分类已按价格从低到高排列，方便横向比价。</div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    <SectionMetaToken label={`${section.items.length} 件商品`} />
+                    <SectionMetaToken label={section.priceRangeLabel} />
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {section.items.map((item) => (
+                    <ProductCard key={item.id} item={item} />
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
         )}
@@ -208,6 +238,79 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
 }
 
 export const InStockProductsBoard = ProductListBoard;
+
+function buildProductSections(items: ProductFeedItem[], categoryOrder: ProductCategory[]): ProductCategorySection[] {
+  const grouped = new Map<ProductCategory, ProductFeedItem[]>();
+
+  for (const item of items) {
+    const existing = grouped.get(item.category);
+
+    if (existing) {
+      existing.push(item);
+      continue;
+    }
+
+    grouped.set(item.category, [item]);
+  }
+
+  const orderedCategories = [
+    ...categoryOrder.filter((category) => grouped.has(category)),
+    ...Array.from(grouped.keys()).filter((category) => !categoryOrder.includes(category))
+  ];
+
+  return orderedCategories.map((category) => {
+    const sectionItems = [...(grouped.get(category) ?? [])].sort(compareProductItemsByPrice);
+
+    return {
+      category,
+      items: sectionItems,
+      priceRangeLabel: formatSectionPriceRange(sectionItems)
+    };
+  });
+}
+
+function compareProductItemsByPrice(left: ProductFeedItem, right: ProductFeedItem) {
+  if (left.price === 0) {
+    return right.price === 0 ? 0 : 1;
+  }
+
+  if (right.price === 0) {
+    return -1;
+  }
+
+  const priceDiff = left.price - right.price;
+  if (priceDiff !== 0) {
+    return priceDiff;
+  }
+
+  const nameDiff = left.rawName.localeCompare(right.rawName, "zh-CN");
+  if (nameDiff !== 0) {
+    return nameDiff;
+  }
+
+  return Date.parse(right.updatedAt) - Date.parse(left.updatedAt);
+}
+
+function formatSectionPriceRange(items: ProductFeedItem[]) {
+  const prices = items.map((item) => item.price).filter((value) => Number.isFinite(value) && value > 0);
+
+  if (prices.length === 0) {
+    return "暂无有效价格";
+  }
+
+  const lowest = Math.min(...prices);
+  const highest = Math.max(...prices);
+
+  if (lowest === highest) {
+    return `当前价 ¥${formatPriceValue(lowest)}`;
+  }
+
+  return `¥${formatPriceValue(lowest)} - ¥${formatPriceValue(highest)}`;
+}
+
+function formatPriceValue(value: number) {
+  return Number.isInteger(value) ? `${value}` : value.toFixed(2).replace(/\.?0+$/, "");
+}
 
 function ProductCard({ item }: { item: ProductFeedItem }) {
   const specialAccountLabel = getSpecialAccountLabel(item);
@@ -251,6 +354,14 @@ function ProductCard({ item }: { item: ProductFeedItem }) {
     <a href={item.shopUrl} target="_blank" rel="noreferrer" className="block">
       {card}
     </a>
+  );
+}
+
+function SectionMetaToken({ label }: { label: string }) {
+  return (
+    <span className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper-soft)] px-3 py-1.5 text-xs text-[color:var(--muted)]">
+      {label}
+    </span>
   );
 }
 

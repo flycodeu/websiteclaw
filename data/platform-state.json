@@ -1,7 +1,24 @@
 {
-  "version": 209,
-  "updatedAt": "2026-05-01T09:02:41.104Z",
+  "version": 210,
+  "updatedAt": "2026-05-01T09:13:13.364Z",
   "sources": [
+    {
+      "sourceId": "src_cfb67677",
+      "sourceName": "web3chirou",
+      "sourceUrl": "https://web3chirou.com/",
+      "entryUrl": "https://web3chirou.com/",
+      "crawlMode": "AUTO",
+      "enabled": true,
+      "lastRunAt": "",
+      "createdAt": "2026-05-01T09:13:13.355Z",
+      "updatedAt": "2026-05-01T09:13:13.355Z",
+      "verificationMethod": "NONE",
+      "verificationPrompt": "",
+      "waitSelector": "body",
+      "headless": true,
+      "blockAssets": true,
+      "requestHeaders": []
+    },
     {
       "sourceId": "src_1b6f2b1c",
       "sourceName": "ai-member",

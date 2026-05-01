@@ -60,6 +60,7 @@ export function getProductFeedItems(catalog: PublishedProductCatalog, options: P
   const keyword = normalizeText(options.keyword);
   const minPrice = readPrice(options.minPrice);
   const maxPrice = readPrice(options.maxPrice);
+  const categoryRank = new Map(categories.map((category, index) => [category, index] as const));
 
   return catalog.items
     .filter((item) => isListableProduct(item))
@@ -68,14 +69,11 @@ export function getProductFeedItems(catalog: PublishedProductCatalog, options: P
     .filter((item) => matchesKeyword(item, keyword))
     .filter((item) => matchesPrice(item, minPrice, maxPrice))
     .sort((left, right) => {
-      const displayPriority = getDisplayPriority(left) - getDisplayPriority(right);
-      if (displayPriority !== 0) {
-        return displayPriority;
-      }
-
-      const datePriority = toTimestamp(right.updatedAt) - toTimestamp(left.updatedAt);
-      if (datePriority !== 0) {
-        return datePriority;
+      const categoryDiff =
+        (categoryRank.get(left.category) ?? Number.MAX_SAFE_INTEGER) -
+        (categoryRank.get(right.category) ?? Number.MAX_SAFE_INTEGER);
+      if (categoryDiff !== 0) {
+        return categoryDiff;
       }
 
       if (left.price === 0) {
@@ -86,7 +84,22 @@ export function getProductFeedItems(catalog: PublishedProductCatalog, options: P
         return -1;
       }
 
-      return left.price - right.price || left.rawName.localeCompare(right.rawName, "zh-CN");
+      const priceDiff = left.price - right.price;
+      if (priceDiff !== 0) {
+        return priceDiff;
+      }
+
+      const displayPriority = getDisplayPriority(left) - getDisplayPriority(right);
+      if (displayPriority !== 0) {
+        return displayPriority;
+      }
+
+      const nameDiff = left.rawName.localeCompare(right.rawName, "zh-CN");
+      if (nameDiff !== 0) {
+        return nameDiff;
+      }
+
+      return toTimestamp(right.updatedAt) - toTimestamp(left.updatedAt);
     });
 }
 
