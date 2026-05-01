@@ -1,0 +1,479 @@
+{
+  "shop": {
+    "shopId": "shop_src_8942ba69",
+    "sourceId": "src_8942ba69",
+    "name": "bei-bei",
+    "url": "https://bei-bei.shop/",
+    "status": "OPEN",
+    "lastCrawledAt": "2026-05-01T08:55:33.161Z",
+    "productCount": 6,
+    "inStockCount": 4,
+    "lowStockCount": 0,
+    "outOfStockCount": 2,
+    "lowestPrice": 35,
+    "categories": [
+      "CHATGPT",
+      "GEMINI"
+    ],
+    "recentChangeCount": 6,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_8942ba69",
+      "sourceId": "src_8942ba69",
+      "productKey": "CHATGPT__月卡_卡密",
+      "category": "CHATGPT",
+      "specLabel": "月卡_卡密",
+      "current": {
+        "productKey": "CHATGPT__月卡_卡密",
+        "rawName": "ChatGPT Plus 月卡 卡密【独家】【快充】【质保7天】【渠道贝】【自动发货】",
+        "category": "CHATGPT",
+        "specLabel": "月卡_卡密",
+        "price": 45,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存 20",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Plus 月卡 卡密【独家】【快充】【质保7天】【渠道贝】【自动发货】",
+        "updatedAt": "2026-05-01T08:55:33.064Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8942ba69",
+          "sourceId": "src_8942ba69",
+          "productKey": "CHATGPT__月卡_卡密",
+          "rawName": "ChatGPT Plus 月卡 卡密【独家】【快充】【质保7天】【渠道贝】【自动发货】",
+          "category": "CHATGPT",
+          "specLabel": "月卡_卡密",
+          "price": 45,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 20",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_3dbdee34",
+          "reviewId": "review_7ded3287",
+          "sourceLine": "ChatGPT Plus 月卡 卡密【独家】【快充】【质保7天】【渠道贝】【自动发货】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 45,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 45,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 45,
+        "highestPrice": 45,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:55:33.064Z"
+    },
+    {
+      "shopId": "shop_src_8942ba69",
+      "sourceId": "src_8942ba69",
+      "productKey": "CHATGPT__月卡",
+      "category": "CHATGPT",
+      "specLabel": "月卡",
+      "current": {
+        "productKey": "CHATGPT__月卡",
+        "rawName": "ChatGPT Plus 月卡 土区iOS官方正规充值【自动发货】",
+        "category": "CHATGPT",
+        "specLabel": "月卡",
+        "price": 125,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存 4",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Plus 月卡 土区iOS官方正规充值【自动发货】",
+        "updatedAt": "2026-05-01T08:55:33.064Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8942ba69",
+          "sourceId": "src_8942ba69",
+          "productKey": "CHATGPT__月卡",
+          "rawName": "ChatGPT Plus 月卡 土区iOS官方正规充值【自动发货】",
+          "category": "CHATGPT",
+          "specLabel": "月卡",
+          "price": 125,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 4",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_3dbdee34",
+          "reviewId": "review_7ded3287",
+          "sourceLine": "ChatGPT Plus 月卡 土区iOS官方正规充值【自动发货】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 125,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 125,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 125,
+        "highestPrice": 125,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:55:33.064Z"
+    },
+    {
+      "shopId": "shop_src_8942ba69",
+      "sourceId": "src_8942ba69",
+      "productKey": "CHATGPT__月卡_稳定卡密",
+      "category": "CHATGPT",
+      "specLabel": "月卡_稳定卡密",
+      "current": {
+        "productKey": "CHATGPT__月卡_稳定卡密",
+        "rawName": "ChatGPT Plus 月卡 稳定卡密【自动发货】【渠道1】",
+        "category": "CHATGPT",
+        "specLabel": "月卡_稳定卡密",
+        "price": 35,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "已售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Plus 月卡 稳定卡密【自动发货】【渠道1】",
+        "updatedAt": "2026-05-01T08:55:33.064Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8942ba69",
+          "sourceId": "src_8942ba69",
+          "productKey": "CHATGPT__月卡_稳定卡密",
+          "rawName": "ChatGPT Plus 月卡 稳定卡密【自动发货】【渠道1】",
+          "category": "CHATGPT",
+          "specLabel": "月卡_稳定卡密",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "已售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_3dbdee34",
+          "reviewId": "review_7ded3287",
+          "sourceLine": "ChatGPT Plus 月卡 稳定卡密【自动发货】【渠道1】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 35,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 35,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 35,
+        "highestPrice": 35,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:55:33.064Z"
+    },
+    {
+      "shopId": "shop_src_8942ba69",
+      "sourceId": "src_8942ba69",
+      "productKey": "CHATGPT__20X_月卡",
+      "category": "CHATGPT",
+      "specLabel": "20X_月卡",
+      "current": {
+        "productKey": "CHATGPT__20X_月卡",
+        "rawName": "ChatGPT Pro 20X 月卡 自助充值卡密 【秒冲】【自动发货】【渠道：1】",
+        "category": "CHATGPT",
+        "specLabel": "20X_月卡",
+        "price": 270,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存 3",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Pro 20X 月卡 自助充值卡密 【秒冲】【自动发货】【渠道：1】",
+        "updatedAt": "2026-05-01T08:55:33.064Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8942ba69",
+          "sourceId": "src_8942ba69",
+          "productKey": "CHATGPT__20X_月卡",
+          "rawName": "ChatGPT Pro 20X 月卡 自助充值卡密 【秒冲】【自动发货】【渠道：1】",
+          "category": "CHATGPT",
+          "specLabel": "20X_月卡",
+          "price": 270,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 3",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_3dbdee34",
+          "reviewId": "review_7ded3287",
+          "sourceLine": "ChatGPT Pro 20X 月卡 自助充值卡密 【秒冲】【自动发货】【渠道：1】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 270,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 270,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 270,
+        "highestPrice": 270,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:55:33.064Z"
+    },
+    {
+      "shopId": "shop_src_8942ba69",
+      "sourceId": "src_8942ba69",
+      "productKey": "CHATGPT__5X月卡",
+      "category": "CHATGPT",
+      "specLabel": "5X月卡",
+      "current": {
+        "productKey": "CHATGPT__5X月卡",
+        "rawName": "ChatGPT Pro 5X月卡 自助充值卡密 【秒冲】【自动发货】",
+        "category": "CHATGPT",
+        "specLabel": "5X月卡",
+        "price": 170,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存 1",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Pro 5X月卡 自助充值卡密 【秒冲】【自动发货】",
+        "updatedAt": "2026-05-01T08:55:33.064Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8942ba69",
+          "sourceId": "src_8942ba69",
+          "productKey": "CHATGPT__5X月卡",
+          "rawName": "ChatGPT Pro 5X月卡 自助充值卡密 【秒冲】【自动发货】",
+          "category": "CHATGPT",
+          "specLabel": "5X月卡",
+          "price": 170,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 1",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_3dbdee34",
+          "reviewId": "review_7ded3287",
+          "sourceLine": "ChatGPT Pro 5X月卡 自助充值卡密 【秒冲】【自动发货】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 170,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 170,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 170,
+        "highestPrice": 170,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:55:33.064Z"
+    },
+    {
+      "shopId": "shop_src_8942ba69",
+      "sourceId": "src_8942ba69",
+      "productKey": "GEMINI__年卡",
+      "category": "GEMINI",
+      "specLabel": "年卡",
+      "current": {
+        "productKey": "GEMINI__年卡",
+        "rawName": "Gemini Pro 美区老号 年卡 成品号【自动发货】",
+        "category": "GEMINI",
+        "specLabel": "年卡",
+        "price": 35,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "已售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Gemini Pro 美区老号 年卡 成品号【自动发货】",
+        "updatedAt": "2026-05-01T08:55:33.064Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8942ba69",
+          "sourceId": "src_8942ba69",
+          "productKey": "GEMINI__年卡",
+          "rawName": "Gemini Pro 美区老号 年卡 成品号【自动发货】",
+          "category": "GEMINI",
+          "specLabel": "年卡",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "已售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_3dbdee34",
+          "reviewId": "review_7ded3287",
+          "sourceLine": "Gemini Pro 美区老号 年卡 成品号【自动发货】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 35,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:55:33.064Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 35,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 35,
+        "highestPrice": 35,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:55:33.064Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_8942ba69",
+      "crawlTaskId": "task_3dbdee34",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T08:55:33.161Z",
+      "summary": "贝贝商店主营AI工具充值账号，当前页面展示6个商品，含2个售罄，其余在售。",
+      "conclusion": "页面商品主要为ChatGPT Plus/Pro月卡及Gemini年卡，部分商品有质保或自动发货说明，整体信息清晰。",
+      "productCount": 6,
+      "productKeys": [
+        "CHATGPT__月卡",
+        "CHATGPT__月卡_卡密",
+        "CHATGPT__月卡_稳定卡密",
+        "CHATGPT__5X月卡",
+        "CHATGPT__20X_月卡",
+        "GEMINI__年卡"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_8942ba69",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T08:55:33.161Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡_卡密",
+          "productLabel": "ChatGPT Plus 月卡 卡密【独家】【快充】【质保7天】【渠道贝】【自动发货】",
+          "note": "ChatGPT Plus 月卡 卡密【独家】【快充】【质保7天】【渠道贝】【自动发货】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡",
+          "productLabel": "ChatGPT Plus 月卡 土区iOS官方正规充值【自动发货】",
+          "note": "ChatGPT Plus 月卡 土区iOS官方正规充值【自动发货】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡_稳定卡密",
+          "productLabel": "ChatGPT Plus 月卡 稳定卡密【自动发货】【渠道1】",
+          "note": "ChatGPT Plus 月卡 稳定卡密【自动发货】【渠道1】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__20X_月卡",
+          "productLabel": "ChatGPT Pro 20X 月卡 自助充值卡密 【秒冲】【自动发货】【渠道：1】",
+          "note": "ChatGPT Pro 20X 月卡 自助充值卡密 【秒冲】【自动发货】【渠道：1】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__5X月卡",
+          "productLabel": "ChatGPT Pro 5X月卡 自助充值卡密 【秒冲】【自动发货】",
+          "note": "ChatGPT Pro 5X月卡 自助充值卡密 【秒冲】【自动发货】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__年卡",
+          "productLabel": "Gemini Pro 美区老号 年卡 成品号【自动发货】",
+          "note": "Gemini Pro 美区老号 年卡 成品号【自动发货】 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 6 项"
+    }
+  ],
+  "publishedAt": "2026-05-01T09:02:41.094Z"
+}

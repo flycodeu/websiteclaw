@@ -8,7 +8,7 @@ import {
   MANUAL_VERIFICATION_DEBUG_HOST,
   MANUAL_VERIFICATION_DEBUG_PORT,
   buildManualVerificationChromeSetupHint,
-  detectManualVerificationReason
+  detectManualVerificationReasonFromPage
 } from "@shop-claw/shared/manual-verification";
 import { getTaskRuntimeDirectory, resolveWorkspaceRoot, toWorkspaceRelativePath } from "@shop-claw/shared/store";
 import { ContinueTaskPayload, CrawlTask, DataSource, StockStatus } from "@shop-claw/shared/types";
@@ -208,7 +208,7 @@ function normalizePersistedStorageState(input: SupportedStorageStateInput) {
 }
 
 function detectVerificationReason(_source: DataSource, title: string, visibleText: string, html: string, finalUrl: string) {
-  return detectManualVerificationReason(`${title}\n${visibleText}\n${html}\n${finalUrl}`);
+  return detectManualVerificationReasonFromPage({ title, visibleText, html, finalUrl });
 }
 
 function isReusableChromeLandingUrl(url: string) {

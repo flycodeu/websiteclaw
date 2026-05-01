@@ -1,0 +1,1130 @@
+{
+  "shop": {
+    "shopId": "shop_src_1b6f2b1c",
+    "sourceId": "src_1b6f2b1c",
+    "name": "ai-member",
+    "url": "https://www.ai-member.icu/",
+    "status": "OPEN",
+    "lastCrawledAt": "2026-05-01T09:02:41.095Z",
+    "productCount": 15,
+    "inStockCount": 14,
+    "lowStockCount": 0,
+    "outOfStockCount": 1,
+    "lowestPrice": 0.5,
+    "categories": [
+      "CHATGPT",
+      "CLAUDE",
+      "GEMINI",
+      "GROK",
+      "OTHER"
+    ],
+    "recentChangeCount": 15,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CHATGPT__一年PLUS会员",
+      "category": "CHATGPT",
+      "specLabel": "一年PLUS会员",
+      "current": {
+        "productKey": "CHATGPT__一年PLUS会员",
+        "rawName": "【无质保 不要囤货】GPT 代充 一年Plus会员 只保证当天可充值 过了当天不质保",
+        "category": "CHATGPT",
+        "specLabel": "一年PLUS会员",
+        "price": 330,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：7",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【无质保 不要囤货】GPT 代充 一年Plus会员 只保证当天可充值 过了当天不质保",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CHATGPT__一年PLUS会员",
+          "rawName": "【无质保 不要囤货】GPT 代充 一年Plus会员 只保证当天可充值 过了当天不质保",
+          "category": "CHATGPT",
+          "specLabel": "一年PLUS会员",
+          "price": 330,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：7",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "【无质保 不要囤货】GPT 代充 一年Plus会员 只保证当天可充值 过了当天不质保"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 330,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 330,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 330,
+        "highestPrice": 330,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CHATGPT__163邮箱_已实名_可注册GPT_更稳定",
+      "category": "CHATGPT",
+      "specLabel": "163邮箱_已实名_可注册GPT_更稳定",
+      "current": {
+        "productKey": "CHATGPT__163邮箱_已实名_可注册GPT_更稳定",
+        "rawName": "163邮箱（已实名）-可注册GPT-更稳定",
+        "category": "CHATGPT",
+        "specLabel": "163邮箱_已实名_可注册GPT_更稳定",
+        "price": 0.7,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：82",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "163邮箱（已实名）-可注册GPT-更稳定",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CHATGPT__163邮箱_已实名_可注册GPT_更稳定",
+          "rawName": "163邮箱（已实名）-可注册GPT-更稳定",
+          "category": "CHATGPT",
+          "specLabel": "163邮箱_已实名_可注册GPT_更稳定",
+          "price": 0.7,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：82",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "163邮箱（已实名）-可注册GPT-更稳定"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 0.7,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 0.7,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 0.7,
+        "highestPrice": 0.7,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CHATGPT__微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+      "category": "CHATGPT",
+      "specLabel": "微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+      "current": {
+        "productKey": "CHATGPT__微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+        "rawName": "微软邮箱长效(hotmail)-可注册GPT/Gemini",
+        "category": "CHATGPT",
+        "specLabel": "微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+        "price": 0.5,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：43",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "微软邮箱长效(hotmail)-可注册GPT/Gemini",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CHATGPT__微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+          "rawName": "微软邮箱长效(hotmail)-可注册GPT/Gemini",
+          "category": "CHATGPT",
+          "specLabel": "微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+          "price": 0.5,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：43",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "微软邮箱长效(hotmail)-可注册GPT/Gemini"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 0.5,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 0.5,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 0.5,
+        "highestPrice": 0.5,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CHATGPT__PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+      "current": {
+        "productKey": "CHATGPT__PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+        "rawName": "ChatGPT PLUS CDK(卡密)自助充值 [渠道3 质保当天可充值 请勿囤货]",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+        "price": 45,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT PLUS CDK(卡密)自助充值 [渠道3 质保当天可充值 请勿囤货]",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CHATGPT__PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+          "rawName": "ChatGPT PLUS CDK(卡密)自助充值 [渠道3 质保当天可充值 请勿囤货]",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+          "price": 45,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "ChatGPT PLUS CDK(卡密)自助充值 [渠道3 质保当天可充值 请勿囤货]"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 45,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 45,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 45,
+        "highestPrice": 45,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CHATGPT__一个月CDK",
+      "category": "CHATGPT",
+      "specLabel": "一个月CDK",
+      "current": {
+        "productKey": "CHATGPT__一个月CDK",
+        "rawName": "ChatGPT Pro (5x 100$) CDK一个月【不质保 拿上赶紧充 只售后当天未充值的用户】",
+        "category": "CHATGPT",
+        "specLabel": "一个月CDK",
+        "price": 135,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：16",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Pro (5x 100$) CDK一个月【不质保 拿上赶紧充 只售后当天未充值的用户】",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CHATGPT__一个月CDK",
+          "rawName": "ChatGPT Pro (5x 100$) CDK一个月【不质保 拿上赶紧充 只售后当天未充值的用户】",
+          "category": "CHATGPT",
+          "specLabel": "一个月CDK",
+          "price": 135,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：16",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "ChatGPT Pro (5x 100$) CDK一个月【不质保 拿上赶紧充 只售后当天未充值的用户】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 135,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 135,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 135,
+        "highestPrice": 135,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CHATGPT__白号_微软邮箱长效_HOTMAIL_已注册好",
+      "category": "CHATGPT",
+      "specLabel": "白号_微软邮箱长效_HOTMAIL_已注册好",
+      "current": {
+        "productKey": "CHATGPT__白号_微软邮箱长效_HOTMAIL_已注册好",
+        "rawName": "ChatGPT白号-微软邮箱长效(hotmail)-已注册好ChatGPT",
+        "category": "CHATGPT",
+        "specLabel": "白号_微软邮箱长效_HOTMAIL_已注册好",
+        "price": 0.9,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：429",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT白号-微软邮箱长效(hotmail)-已注册好ChatGPT",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CHATGPT__白号_微软邮箱长效_HOTMAIL_已注册好",
+          "rawName": "ChatGPT白号-微软邮箱长效(hotmail)-已注册好ChatGPT",
+          "category": "CHATGPT",
+          "specLabel": "白号_微软邮箱长效_HOTMAIL_已注册好",
+          "price": 0.9,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：429",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "ChatGPT白号-微软邮箱长效(hotmail)-已注册好ChatGPT"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 0.9,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 0.9,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 0.9,
+        "highestPrice": 0.9,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CLAUDE__实名认证KYC",
+      "category": "CLAUDE",
+      "specLabel": "实名认证KYC",
+      "current": {
+        "productKey": "CLAUDE__实名认证KYC",
+        "rawName": "Claude 实名认证KYC",
+        "category": "CLAUDE",
+        "specLabel": "实名认证KYC",
+        "price": 138,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：8",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Claude 实名认证KYC",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CLAUDE__实名认证KYC",
+          "rawName": "Claude 实名认证KYC",
+          "category": "CLAUDE",
+          "specLabel": "实名认证KYC",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：8",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "Claude 实名认证KYC"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 138,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 138,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 138,
+        "highestPrice": 138,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "CLAUDE__按需_用多少刀买多少件",
+      "category": "CLAUDE",
+      "specLabel": "按需_用多少刀买多少件",
+      "current": {
+        "productKey": "CLAUDE__按需_用多少刀买多少件",
+        "rawName": "CLAUDE CODE API 支持Opus 4.7 用多少刀就买多少件",
+        "category": "CLAUDE",
+        "specLabel": "按需_用多少刀买多少件",
+        "price": 0.7,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：246",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "CLAUDE CODE API 支持Opus 4.7 用多少刀就买多少件",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "CLAUDE__按需_用多少刀买多少件",
+          "rawName": "CLAUDE CODE API 支持Opus 4.7 用多少刀就买多少件",
+          "category": "CLAUDE",
+          "specLabel": "按需_用多少刀买多少件",
+          "price": 0.7,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：246",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "CLAUDE CODE API 支持Opus 4.7 用多少刀就买多少件"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 0.7,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 0.7,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 0.7,
+        "highestPrice": 0.7,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "GEMINI__一年会员",
+      "category": "GEMINI",
+      "specLabel": "一年会员",
+      "current": {
+        "productKey": "GEMINI__一年会员",
+        "rawName": "【美区】Gemini Pro 一年会员(账号|密码|辅助邮箱|2fa)",
+        "category": "GEMINI",
+        "specLabel": "一年会员",
+        "price": 27.6,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：3",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【美区】Gemini Pro 一年会员(账号|密码|辅助邮箱|2fa)",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "GEMINI__一年会员",
+          "rawName": "【美区】Gemini Pro 一年会员(账号|密码|辅助邮箱|2fa)",
+          "category": "GEMINI",
+          "specLabel": "一年会员",
+          "price": 27.6,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：3",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "【美区】Gemini Pro 一年会员(账号|密码|辅助邮箱|2fa)"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 27.6,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 27.6,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 27.6,
+        "highestPrice": 27.6,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "GEMINI__一月会员",
+      "category": "GEMINI",
+      "specLabel": "一月会员",
+      "current": {
+        "productKey": "GEMINI__一月会员",
+        "rawName": "企业 Gemini Ultra 一月会员 成品号(账号|密码|辅助邮箱|2fa)",
+        "category": "GEMINI",
+        "specLabel": "一月会员",
+        "price": 40,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：11",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "企业 Gemini Ultra 一月会员 成品号(账号|密码|辅助邮箱|2fa)",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "GEMINI__一月会员",
+          "rawName": "企业 Gemini Ultra 一月会员 成品号(账号|密码|辅助邮箱|2fa)",
+          "category": "GEMINI",
+          "specLabel": "一月会员",
+          "price": 40,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：11",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "企业 Gemini Ultra 一月会员 成品号(账号|密码|辅助邮箱|2fa)"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 40,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 40,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 40,
+        "highestPrice": 40,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "GEMINI__一年PRO会员",
+      "category": "GEMINI",
+      "specLabel": "一年PRO会员",
+      "current": {
+        "productKey": "GEMINI__一年PRO会员",
+        "rawName": "Gemini Pro 一年pro会员 代充到自己账号",
+        "category": "GEMINI",
+        "specLabel": "一年PRO会员",
+        "price": 25,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：8",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Gemini Pro 一年pro会员 代充到自己账号",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "GEMINI__一年PRO会员",
+          "rawName": "Gemini Pro 一年pro会员 代充到自己账号",
+          "category": "GEMINI",
+          "specLabel": "一年PRO会员",
+          "price": 25,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：8",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "Gemini Pro 一年pro会员 代充到自己账号"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 25,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 25,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 25,
+        "highestPrice": 25,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "GROK__一个月",
+      "category": "GROK",
+      "specLabel": "一个月",
+      "current": {
+        "productKey": "GROK__一个月",
+        "rawName": "Grok 成品号一个月（30刀）",
+        "category": "GROK",
+        "specLabel": "一个月",
+        "price": 138,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：6",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Grok 成品号一个月（30刀）",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "GROK__一个月",
+          "rawName": "Grok 成品号一个月（30刀）",
+          "category": "GROK",
+          "specLabel": "一个月",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：6",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "Grok 成品号一个月（30刀）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 138,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 138,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 138,
+        "highestPrice": 138,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "OTHER__20刀套餐",
+      "category": "OTHER",
+      "specLabel": "20刀套餐",
+      "current": {
+        "productKey": "OTHER__20刀套餐",
+        "rawName": "【体验套餐】CODEX API 不限时 20刀 订阅 满血 PRO号池 非team订阅",
+        "category": "OTHER",
+        "specLabel": "20刀套餐",
+        "price": 5,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：22",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【体验套餐】CODEX API 不限时 20刀 订阅 满血 PRO号池 非team订阅",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "OTHER__20刀套餐",
+          "rawName": "【体验套餐】CODEX API 不限时 20刀 订阅 满血 PRO号池 非team订阅",
+          "category": "OTHER",
+          "specLabel": "20刀套餐",
+          "price": 5,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：22",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "【体验套餐】CODEX API 不限时 20刀 订阅 满血 PRO号池 非team订阅"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 5,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 5,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 5,
+        "highestPrice": 5,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "OTHER__天卡_周卡",
+      "category": "OTHER",
+      "specLabel": "天卡_周卡",
+      "current": {
+        "productKey": "OTHER__天卡_周卡",
+        "rawName": "【天卡+周卡】CODEX API 天卡+周卡 每天100-200刀订阅 纯血PRO 号池 非team订阅",
+        "category": "OTHER",
+        "specLabel": "天卡_周卡",
+        "price": 25,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：61",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【天卡+周卡】CODEX API 天卡+周卡 每天100-200刀订阅 纯血PRO 号池 非team订阅",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "OTHER__天卡_周卡",
+          "rawName": "【天卡+周卡】CODEX API 天卡+周卡 每天100-200刀订阅 纯血PRO 号池 非team订阅",
+          "category": "OTHER",
+          "specLabel": "天卡_周卡",
+          "price": 25,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：61",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "【天卡+周卡】CODEX API 天卡+周卡 每天100-200刀订阅 纯血PRO 号池 非team订阅"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 25,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 25,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 25,
+        "highestPrice": 25,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    },
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "sourceId": "src_1b6f2b1c",
+      "productKey": "OTHER__100刀_700刀套餐",
+      "category": "OTHER",
+      "specLabel": "100刀_700刀套餐",
+      "current": {
+        "productKey": "OTHER__100刀_700刀套餐",
+        "rawName": "CODEX API 不限时 100刀-700刀套餐 订阅 纯血PRO 号池",
+        "category": "OTHER",
+        "specLabel": "100刀_700刀套餐",
+        "price": 30,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：83",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "CODEX API 不限时 100刀-700刀套餐 订阅 纯血PRO 号池",
+        "updatedAt": "2026-05-01T09:02:40.977Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_1b6f2b1c",
+          "sourceId": "src_1b6f2b1c",
+          "productKey": "OTHER__100刀_700刀套餐",
+          "rawName": "CODEX API 不限时 100刀-700刀套餐 订阅 纯血PRO 号池",
+          "category": "OTHER",
+          "specLabel": "100刀_700刀套餐",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：83",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_68182882",
+          "reviewId": "review_b5151626",
+          "sourceLine": "CODEX API 不限时 100刀-700刀套餐 订阅 纯血PRO 号池"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 30,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T09:02:40.977Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 30,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 30,
+        "highestPrice": 30,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T09:02:40.977Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "crawlTaskId": "task_68182882",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T09:02:41.094Z",
+      "summary": "AI-MEMBER发卡网购物页面，包含ChatGPT、Claude、Gemini、Grok、CODEX API以及邮箱等商品。",
+      "conclusion": "成功提取16个在售商品。",
+      "productCount": 15,
+      "productKeys": [
+        "CHATGPT__PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+        "CHATGPT__一年PLUS会员",
+        "CLAUDE__按需_用多少刀买多少件",
+        "CHATGPT__一个月CDK",
+        "OTHER__100刀_700刀套餐",
+        "CHATGPT__微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+        "OTHER__20刀套餐",
+        "OTHER__天卡_周卡",
+        "CHATGPT__白号_微软邮箱长效_HOTMAIL_已注册好",
+        "CHATGPT__163邮箱_已实名_可注册GPT_更稳定",
+        "GEMINI__一年会员",
+        "GEMINI__一年PRO会员",
+        "CLAUDE__实名认证KYC",
+        "GEMINI__一月会员",
+        "GROK__一个月"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_1b6f2b1c",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T09:02:41.094Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__一年PLUS会员",
+          "productLabel": "【无质保 不要囤货】GPT 代充 一年Plus会员 只保证当天可充值 过了当天不质保",
+          "note": "【无质保 不要囤货】GPT 代充 一年Plus会员 只保证当天可充值 过了当天不质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__163邮箱_已实名_可注册GPT_更稳定",
+          "productLabel": "163邮箱（已实名）-可注册GPT-更稳定",
+          "note": "163邮箱（已实名）-可注册GPT-更稳定 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__微软邮箱长效_HOTMAIL_可注册GPT_GEMINI",
+          "productLabel": "微软邮箱长效(hotmail)-可注册GPT/Gemini",
+          "note": "微软邮箱长效(hotmail)-可注册GPT/Gemini 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_CDK_卡密_自助充值_渠道3_质保当天可充值_请勿囤货",
+          "productLabel": "ChatGPT PLUS CDK(卡密)自助充值 [渠道3 质保当天可充值 请勿囤货]",
+          "note": "ChatGPT PLUS CDK(卡密)自助充值 [渠道3 质保当天可充值 请勿囤货] 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__一个月CDK",
+          "productLabel": "ChatGPT Pro (5x 100$) CDK一个月【不质保 拿上赶紧充 只售后当天未充值的用户】",
+          "note": "ChatGPT Pro (5x 100$) CDK一个月【不质保 拿上赶紧充 只售后当天未充值的用户】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__白号_微软邮箱长效_HOTMAIL_已注册好",
+          "productLabel": "ChatGPT白号-微软邮箱长效(hotmail)-已注册好ChatGPT",
+          "note": "ChatGPT白号-微软邮箱长效(hotmail)-已注册好ChatGPT 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__实名认证KYC",
+          "productLabel": "Claude 实名认证KYC",
+          "note": "Claude 实名认证KYC 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__按需_用多少刀买多少件",
+          "productLabel": "CLAUDE CODE API 支持Opus 4.7 用多少刀就买多少件",
+          "note": "CLAUDE CODE API 支持Opus 4.7 用多少刀就买多少件 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__一年会员",
+          "productLabel": "【美区】Gemini Pro 一年会员(账号|密码|辅助邮箱|2fa)",
+          "note": "【美区】Gemini Pro 一年会员(账号|密码|辅助邮箱|2fa) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__一月会员",
+          "productLabel": "企业 Gemini Ultra 一月会员 成品号(账号|密码|辅助邮箱|2fa)",
+          "note": "企业 Gemini Ultra 一月会员 成品号(账号|密码|辅助邮箱|2fa) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__一年PRO会员",
+          "productLabel": "Gemini Pro 一年pro会员 代充到自己账号",
+          "note": "Gemini Pro 一年pro会员 代充到自己账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__一个月",
+          "productLabel": "Grok 成品号一个月（30刀）",
+          "note": "Grok 成品号一个月（30刀） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__20刀套餐",
+          "productLabel": "【体验套餐】CODEX API 不限时 20刀 订阅 满血 PRO号池 非team订阅",
+          "note": "【体验套餐】CODEX API 不限时 20刀 订阅 满血 PRO号池 非team订阅 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__天卡_周卡",
+          "productLabel": "【天卡+周卡】CODEX API 天卡+周卡 每天100-200刀订阅 纯血PRO 号池 非team订阅",
+          "note": "【天卡+周卡】CODEX API 天卡+周卡 每天100-200刀订阅 纯血PRO 号池 非team订阅 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__100刀_700刀套餐",
+          "productLabel": "CODEX API 不限时 100刀-700刀套餐 订阅 纯血PRO 号池",
+          "note": "CODEX API 不限时 100刀-700刀套餐 订阅 纯血PRO 号池 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 15 项"
+    }
+  ],
+  "publishedAt": "2026-05-01T09:02:41.094Z"
+}

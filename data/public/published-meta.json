@@ -1,17 +1,17 @@
 {
-  "publishedAt": "2026-04-27T13:39:32.667Z",
-  "shopCount": 3,
-  "liveProductCount": 170,
+  "publishedAt": "2026-05-01T09:02:41.094Z",
+  "shopCount": 14,
+  "liveProductCount": 300,
   "archivedProductCount": 0,
   "categoryCount": 8,
   "categories": [
-    "APPLE_ACCOUNT",
     "CHATGPT",
     "CLAUDE",
     "GEMINI",
-    "GOOGLE_ACCOUNT",
+    "GROK",
     "OTHER",
-    "VIRTUAL_CARD",
-    "GROK"
+    "GOOGLE_ACCOUNT",
+    "APPLE_ACCOUNT",
+    "VIRTUAL_CARD"
   ]
 }

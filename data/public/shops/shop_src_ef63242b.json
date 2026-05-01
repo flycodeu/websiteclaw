@@ -1,0 +1,552 @@
+{
+  "shop": {
+    "shopId": "shop_src_ef63242b",
+    "sourceId": "src_ef63242b",
+    "name": "xiaosen",
+    "url": "https://www.xiaosen.shop/?aff=FZTCXVFU",
+    "status": "OPEN",
+    "lastCrawledAt": "2026-05-01T08:39:02.880Z",
+    "productCount": 7,
+    "inStockCount": 3,
+    "lowStockCount": 0,
+    "outOfStockCount": 4,
+    "lowestPrice": 2,
+    "categories": [
+      "CHATGPT",
+      "GEMINI",
+      "GROK"
+    ],
+    "recentChangeCount": 7,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_ef63242b",
+      "sourceId": "src_ef63242b",
+      "productKey": "CHATGPT__PLUS_一个月",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_一个月",
+      "current": {
+        "productKey": "CHATGPT__PLUS_一个月",
+        "rawName": "chatGPT PLUS 一个月",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_一个月",
+        "price": 99999,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存: 38",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "home",
+        "updatedAt": "2026-05-01T08:39:02.784Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ef63242b",
+          "sourceId": "src_ef63242b",
+          "productKey": "CHATGPT__PLUS_一个月",
+          "rawName": "chatGPT PLUS 一个月",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_一个月",
+          "price": 99999,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存: 38",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_6f17d0ef",
+          "reviewId": "review_fc86bf9b",
+          "sourceLine": "home"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 99999,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 99999,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 99999,
+        "highestPrice": 99999,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:39:02.784Z"
+    },
+    {
+      "shopId": "shop_src_ef63242b",
+      "sourceId": "src_ef63242b",
+      "productKey": "CHATGPT__PRO_100美金档",
+      "category": "CHATGPT",
+      "specLabel": "PRO_100美金档",
+      "current": {
+        "productKey": "CHATGPT__PRO_100美金档",
+        "rawName": "chatGPT PRO 100美金档",
+        "category": "CHATGPT",
+        "specLabel": "PRO_100美金档",
+        "price": 400,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存: 0",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "home",
+        "updatedAt": "2026-05-01T08:39:02.784Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ef63242b",
+          "sourceId": "src_ef63242b",
+          "productKey": "CHATGPT__PRO_100美金档",
+          "rawName": "chatGPT PRO 100美金档",
+          "category": "CHATGPT",
+          "specLabel": "PRO_100美金档",
+          "price": 400,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存: 0",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_6f17d0ef",
+          "reviewId": "review_fc86bf9b",
+          "sourceLine": "home"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 400,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 400,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 400,
+        "highestPrice": 400,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:39:02.784Z"
+    },
+    {
+      "shopId": "shop_src_ef63242b",
+      "sourceId": "src_ef63242b",
+      "productKey": "CHATGPT__PRO_200美金档",
+      "category": "CHATGPT",
+      "specLabel": "PRO_200美金档",
+      "current": {
+        "productKey": "CHATGPT__PRO_200美金档",
+        "rawName": "chatGPT PRO 200美金档",
+        "category": "CHATGPT",
+        "specLabel": "PRO_200美金档",
+        "price": 750,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存: 0",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "home",
+        "updatedAt": "2026-05-01T08:39:02.784Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ef63242b",
+          "sourceId": "src_ef63242b",
+          "productKey": "CHATGPT__PRO_200美金档",
+          "rawName": "chatGPT PRO 200美金档",
+          "category": "CHATGPT",
+          "specLabel": "PRO_200美金档",
+          "price": 750,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存: 0",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_6f17d0ef",
+          "reviewId": "review_fc86bf9b",
+          "sourceLine": "home"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 750,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 750,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 750,
+        "highestPrice": 750,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:39:02.784Z"
+    },
+    {
+      "shopId": "shop_src_ef63242b",
+      "sourceId": "src_ef63242b",
+      "productKey": "CHATGPT__普号邮箱成品号_非会员_不懂不要拍",
+      "category": "CHATGPT",
+      "specLabel": "普号邮箱成品号_非会员_不懂不要拍",
+      "current": {
+        "productKey": "CHATGPT__普号邮箱成品号_非会员_不懂不要拍",
+        "rawName": "GPT普号邮箱成品号，非会员，不懂不要拍",
+        "category": "CHATGPT",
+        "specLabel": "普号邮箱成品号_非会员_不懂不要拍",
+        "price": 2,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存: 0",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "home",
+        "updatedAt": "2026-05-01T08:39:02.784Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ef63242b",
+          "sourceId": "src_ef63242b",
+          "productKey": "CHATGPT__普号邮箱成品号_非会员_不懂不要拍",
+          "rawName": "GPT普号邮箱成品号，非会员，不懂不要拍",
+          "category": "CHATGPT",
+          "specLabel": "普号邮箱成品号_非会员_不懂不要拍",
+          "price": 2,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存: 0",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_6f17d0ef",
+          "reviewId": "review_fc86bf9b",
+          "sourceLine": "home"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 2,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 2,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 2,
+        "highestPrice": 2,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:39:02.784Z"
+    },
+    {
+      "shopId": "shop_src_ef63242b",
+      "sourceId": "src_ef63242b",
+      "productKey": "GEMINI__PRO_一年账户成品号",
+      "category": "GEMINI",
+      "specLabel": "PRO_一年账户成品号",
+      "current": {
+        "productKey": "GEMINI__PRO_一年账户成品号",
+        "rawName": "Gemini PRO 一年账户成品号",
+        "category": "GEMINI",
+        "specLabel": "PRO_一年账户成品号",
+        "price": 68,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存: 28",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "home",
+        "updatedAt": "2026-05-01T08:39:02.784Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ef63242b",
+          "sourceId": "src_ef63242b",
+          "productKey": "GEMINI__PRO_一年账户成品号",
+          "rawName": "Gemini PRO 一年账户成品号",
+          "category": "GEMINI",
+          "specLabel": "PRO_一年账户成品号",
+          "price": 68,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存: 28",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_6f17d0ef",
+          "reviewId": "review_fc86bf9b",
+          "sourceLine": "home"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 68,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 68,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 68,
+        "highestPrice": 68,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:39:02.784Z"
+    },
+    {
+      "shopId": "shop_src_ef63242b",
+      "sourceId": "src_ef63242b",
+      "productKey": "GEMINI__GMAIL美区老号",
+      "category": "GEMINI",
+      "specLabel": "GMAIL美区老号",
+      "current": {
+        "productKey": "GEMINI__GMAIL美区老号",
+        "rawName": "Gmail美区老号",
+        "category": "GEMINI",
+        "specLabel": "GMAIL美区老号",
+        "price": 30,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存: 25",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "home",
+        "updatedAt": "2026-05-01T08:39:02.784Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ef63242b",
+          "sourceId": "src_ef63242b",
+          "productKey": "GEMINI__GMAIL美区老号",
+          "rawName": "Gmail美区老号",
+          "category": "GEMINI",
+          "specLabel": "GMAIL美区老号",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存: 25",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_6f17d0ef",
+          "reviewId": "review_fc86bf9b",
+          "sourceLine": "home"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 30,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 30,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 30,
+        "highestPrice": 30,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:39:02.784Z"
+    },
+    {
+      "shopId": "shop_src_ef63242b",
+      "sourceId": "src_ef63242b",
+      "productKey": "GROK__SUPERGROK独享账号_30美金订阅成品号",
+      "category": "GROK",
+      "specLabel": "SUPERGROK独享账号_30美金订阅成品号",
+      "current": {
+        "productKey": "GROK__SUPERGROK独享账号_30美金订阅成品号",
+        "rawName": "SuperGrok独享账号|30美金订阅成品号",
+        "category": "GROK",
+        "specLabel": "SUPERGROK独享账号_30美金订阅成品号",
+        "price": 150,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存: 0",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "home",
+        "updatedAt": "2026-05-01T08:39:02.784Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ef63242b",
+          "sourceId": "src_ef63242b",
+          "productKey": "GROK__SUPERGROK独享账号_30美金订阅成品号",
+          "rawName": "SuperGrok独享账号|30美金订阅成品号",
+          "category": "GROK",
+          "specLabel": "SUPERGROK独享账号_30美金订阅成品号",
+          "price": 150,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存: 0",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_6f17d0ef",
+          "reviewId": "review_fc86bf9b",
+          "sourceLine": "home"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 150,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:39:02.784Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 150,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 150,
+        "highestPrice": 150,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:39:02.784Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_ef63242b",
+      "crawlTaskId": "task_6f17d0ef",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T08:39:02.880Z",
+      "summary": "首页展示了7个精选商品，包括ChatGPT Plus/Pro、Gemini Pro、Gmail老号、GPT普号、SuperGrok等，部分商品已售罄。",
+      "conclusion": "该页面为GPT企业折扣商店首页，提供多种数字商品，多数商品有质保，但chatGPT PLUS一个月价格异常偏高（99999 CNY），且Gmail美区老号被归类为GEMINI可能不准确。",
+      "productCount": 7,
+      "productKeys": [
+        "CHATGPT__PLUS_一个月",
+        "GEMINI__PRO_一年账户成品号",
+        "GEMINI__GMAIL美区老号",
+        "CHATGPT__PRO_100美金档",
+        "CHATGPT__PRO_200美金档",
+        "CHATGPT__普号邮箱成品号_非会员_不懂不要拍",
+        "GROK__SUPERGROK独享账号_30美金订阅成品号"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_ef63242b",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T08:39:02.880Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_一个月",
+          "productLabel": "chatGPT PLUS 一个月",
+          "note": "chatGPT PLUS 一个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_100美金档",
+          "productLabel": "chatGPT PRO 100美金档",
+          "note": "chatGPT PRO 100美金档 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_200美金档",
+          "productLabel": "chatGPT PRO 200美金档",
+          "note": "chatGPT PRO 200美金档 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__普号邮箱成品号_非会员_不懂不要拍",
+          "productLabel": "GPT普号邮箱成品号，非会员，不懂不要拍",
+          "note": "GPT普号邮箱成品号，非会员，不懂不要拍 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_一年账户成品号",
+          "productLabel": "Gemini PRO 一年账户成品号",
+          "note": "Gemini PRO 一年账户成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__GMAIL美区老号",
+          "productLabel": "Gmail美区老号",
+          "note": "Gmail美区老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPERGROK独享账号_30美金订阅成品号",
+          "productLabel": "SuperGrok独享账号|30美金订阅成品号",
+          "note": "SuperGrok独享账号|30美金订阅成品号 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 7 项"
+    }
+  ],
+  "publishedAt": "2026-05-01T09:02:41.094Z"
+}

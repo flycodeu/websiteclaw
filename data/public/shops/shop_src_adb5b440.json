@@ -1,0 +1,409 @@
+{
+  "shop": {
+    "shopId": "shop_src_adb5b440",
+    "sourceId": "src_adb5b440",
+    "name": "nobrisk",
+    "url": "https://shop.nobrisk.com/",
+    "status": "RISK",
+    "lastCrawledAt": "2026-05-01T08:46:33.872Z",
+    "productCount": 5,
+    "inStockCount": 0,
+    "lowStockCount": 4,
+    "outOfStockCount": 1,
+    "lowestPrice": 38,
+    "categories": [
+      "CHATGPT",
+      "CLAUDE",
+      "GEMINI",
+      "GROK"
+    ],
+    "recentChangeCount": 5,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_adb5b440",
+      "sourceId": "src_adb5b440",
+      "productKey": "CHATGPT__PRO_5X_自助卡密",
+      "category": "CHATGPT",
+      "specLabel": "PRO_5X_自助卡密",
+      "current": {
+        "productKey": "CHATGPT__PRO_5X_自助卡密",
+        "rawName": "ChatGPT Pro 5x 自助卡密",
+        "category": "CHATGPT",
+        "specLabel": "PRO_5X_自助卡密",
+        "price": 200,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "即将售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.95,
+        "sourceLine": "ChatGPT Pro 5x 自助卡密",
+        "updatedAt": "2026-05-01T08:46:33.767Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_adb5b440",
+          "sourceId": "src_adb5b440",
+          "productKey": "CHATGPT__PRO_5X_自助卡密",
+          "rawName": "ChatGPT Pro 5x 自助卡密",
+          "category": "CHATGPT",
+          "specLabel": "PRO_5X_自助卡密",
+          "price": 200,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "即将售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_aa897f1b",
+          "reviewId": "review_8d70886a",
+          "sourceLine": "ChatGPT Pro 5x 自助卡密"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 200,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 200,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 200,
+        "highestPrice": 200,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:46:33.767Z"
+    },
+    {
+      "shopId": "shop_src_adb5b440",
+      "sourceId": "src_adb5b440",
+      "productKey": "CHATGPT__自助卡密_谷歌试用",
+      "category": "CHATGPT",
+      "specLabel": "自助卡密_谷歌试用",
+      "current": {
+        "productKey": "CHATGPT__自助卡密_谷歌试用",
+        "rawName": "ChatGPT自助卡密（谷歌试用）",
+        "category": "CHATGPT",
+        "specLabel": "自助卡密_谷歌试用",
+        "price": 38,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "已售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.95,
+        "sourceLine": "ChatGPT自助卡密（谷歌试用）",
+        "updatedAt": "2026-05-01T08:46:33.767Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_adb5b440",
+          "sourceId": "src_adb5b440",
+          "productKey": "CHATGPT__自助卡密_谷歌试用",
+          "rawName": "ChatGPT自助卡密（谷歌试用）",
+          "category": "CHATGPT",
+          "specLabel": "自助卡密_谷歌试用",
+          "price": 38,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "已售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_aa897f1b",
+          "reviewId": "review_8d70886a",
+          "sourceLine": "ChatGPT自助卡密（谷歌试用）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 38,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 38,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 38,
+        "highestPrice": 38,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:46:33.767Z"
+    },
+    {
+      "shopId": "shop_src_adb5b440",
+      "sourceId": "src_adb5b440",
+      "productKey": "CLAUDE__自助卡密",
+      "category": "CLAUDE",
+      "specLabel": "自助卡密",
+      "current": {
+        "productKey": "CLAUDE__自助卡密",
+        "rawName": "Claude自助卡密",
+        "category": "CLAUDE",
+        "specLabel": "自助卡密",
+        "price": 108,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "即将售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.95,
+        "sourceLine": "Claude自助卡密",
+        "updatedAt": "2026-05-01T08:46:33.767Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_adb5b440",
+          "sourceId": "src_adb5b440",
+          "productKey": "CLAUDE__自助卡密",
+          "rawName": "Claude自助卡密",
+          "category": "CLAUDE",
+          "specLabel": "自助卡密",
+          "price": 108,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "即将售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_aa897f1b",
+          "reviewId": "review_8d70886a",
+          "sourceLine": "Claude自助卡密"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 108,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 108,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 108,
+        "highestPrice": 108,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:46:33.767Z"
+    },
+    {
+      "shopId": "shop_src_adb5b440",
+      "sourceId": "src_adb5b440",
+      "productKey": "GEMINI__3_1PRO_12个月成品账号",
+      "category": "GEMINI",
+      "specLabel": "3_1PRO_12个月成品账号",
+      "current": {
+        "productKey": "GEMINI__3_1PRO_12个月成品账号",
+        "rawName": "Gemini 3.1pro 12个月成品账号",
+        "category": "GEMINI",
+        "specLabel": "3_1PRO_12个月成品账号",
+        "price": 45,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "即将售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.95,
+        "sourceLine": "Gemini 3.1pro 12个月成品账号",
+        "updatedAt": "2026-05-01T08:46:33.767Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_adb5b440",
+          "sourceId": "src_adb5b440",
+          "productKey": "GEMINI__3_1PRO_12个月成品账号",
+          "rawName": "Gemini 3.1pro 12个月成品账号",
+          "category": "GEMINI",
+          "specLabel": "3_1PRO_12个月成品账号",
+          "price": 45,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "即将售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_aa897f1b",
+          "reviewId": "review_8d70886a",
+          "sourceLine": "Gemini 3.1pro 12个月成品账号"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 45,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 45,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 45,
+        "highestPrice": 45,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:46:33.767Z"
+    },
+    {
+      "shopId": "shop_src_adb5b440",
+      "sourceId": "src_adb5b440",
+      "productKey": "GROK__自助卡密",
+      "category": "GROK",
+      "specLabel": "自助卡密",
+      "current": {
+        "productKey": "GROK__自助卡密",
+        "rawName": "Grok自助卡密",
+        "category": "GROK",
+        "specLabel": "自助卡密",
+        "price": 90,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "即将售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.95,
+        "sourceLine": "Grok自助卡密",
+        "updatedAt": "2026-05-01T08:46:33.767Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_adb5b440",
+          "sourceId": "src_adb5b440",
+          "productKey": "GROK__自助卡密",
+          "rawName": "Grok自助卡密",
+          "category": "GROK",
+          "specLabel": "自助卡密",
+          "price": 90,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "即将售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01",
+          "crawlTaskId": "task_aa897f1b",
+          "reviewId": "review_8d70886a",
+          "sourceLine": "Grok自助卡密"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 90,
+          "currency": "CNY",
+          "capturedAt": "2026-05-01T08:46:33.767Z",
+          "snapshotDate": "2026-05-01"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 90,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 90,
+        "highestPrice": 90,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-01T08:46:33.767Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_adb5b440",
+      "crawlTaskId": "task_aa897f1b",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T08:46:33.872Z",
+      "summary": "页面共识别5个在售商品，包含ChatGPT、Gemini、Claude、Grok等AI工具类商品，库存状态包括售罄和即将售罄，所有商品均为数字卡密/账号类产品，无虚拟卡和AppleID商品。",
+      "conclusion": "成功提取全部在售商品信息，字段完整，无异常项。",
+      "productCount": 5,
+      "productKeys": [
+        "CHATGPT__自助卡密_谷歌试用",
+        "CHATGPT__PRO_5X_自助卡密",
+        "GEMINI__3_1PRO_12个月成品账号",
+        "CLAUDE__自助卡密",
+        "GROK__自助卡密"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_adb5b440",
+      "snapshotDate": "2026-05-01",
+      "capturedAt": "2026-05-01T08:46:33.872Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_5X_自助卡密",
+          "productLabel": "ChatGPT Pro 5x 自助卡密",
+          "note": "ChatGPT Pro 5x 自助卡密 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__自助卡密_谷歌试用",
+          "productLabel": "ChatGPT自助卡密（谷歌试用）",
+          "note": "ChatGPT自助卡密（谷歌试用） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__自助卡密",
+          "productLabel": "Claude自助卡密",
+          "note": "Claude自助卡密 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_1PRO_12个月成品账号",
+          "productLabel": "Gemini 3.1pro 12个月成品账号",
+          "note": "Gemini 3.1pro 12个月成品账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__自助卡密",
+          "productLabel": "Grok自助卡密",
+          "note": "Grok自助卡密 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 5 项"
+    }
+  ],
+  "publishedAt": "2026-05-01T09:02:41.094Z"
+}

@@ -2,7 +2,8 @@
 import { stockStatusLabels } from "@shop-claw/shared/labels";
 import {
   buildManualVerificationChromeSetupHint,
-  detectManualVerificationReason
+  detectManualVerificationReason,
+  detectManualVerificationReasonFromPage
 } from "@shop-claw/shared/manual-verification";
 import { getPlatformState, savePlatformState } from "@shop-claw/shared/store";
 import {
@@ -1099,7 +1100,13 @@ async function processCaptureResult(
   const rawFragments = extractRawFragments(rawContent);
   const verificationNote = options.payload?.verificationNote?.trim() || workingTask.verificationNote;
   const captureVerificationReason =
-    capture.verificationReason ?? detectManualVerificationReason(`${rawContent}\n${capture.finalUrl}`);
+    capture.verificationReason ??
+    detectManualVerificationReasonFromPage({
+      title: capture.title,
+      visibleText: capture.visibleText,
+      html: capture.html,
+      finalUrl: capture.finalUrl
+    });
   const normalizedVisibleText = sanitizeVisibleTextForAnalysis(capture.visibleText);
   const shouldFallbackToManualVerification =
     !options.payload?.manualContent?.trim() &&
