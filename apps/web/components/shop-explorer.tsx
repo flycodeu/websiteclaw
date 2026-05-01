@@ -12,26 +12,23 @@ import {
 } from "@shop-claw/shared/labels";
 import {
   ApiResponse,
+  PublicShopDetail,
   ProductCategory,
-  PublishedMeta,
-  PublishedShopDetail,
-  PublishedShopProduct,
+  PublishedShopProductPreview,
   ShopSummary
 } from "@shop-claw/shared/types";
 
 interface ShopExplorerProps {
   shops: ShopSummary[];
-  latestSyncAt: string;
-  meta: PublishedMeta;
 }
 
-export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
+export function ShopExplorer({ shops }: ShopExplorerProps) {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<"ALL" | ShopSummary["status"]>("ALL");
-  const [sortBy, setSortBy] = useState<"updated" | "price" | "changes">("updated");
+  const [sortBy, setSortBy] = useState<"updated" | "price">("updated");
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"ALL" | ProductCategory>("ALL");
-  const [detailsByShop, setDetailsByShop] = useState<Record<string, PublishedShopDetail>>({});
+  const [detailsByShop, setDetailsByShop] = useState<Record<string, PublicShopDetail>>({});
   const [detailError, setDetailError] = useState("");
 
   const filteredShops = [...shops]
@@ -60,10 +57,6 @@ export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
         return left.lowestPrice - right.lowestPrice;
       }
 
-      if (sortBy === "changes") {
-        return right.recentChangeCount - left.recentChangeCount;
-      }
-
       return Date.parse(right.lastCrawledAt) - Date.parse(left.lastCrawledAt);
     });
 
@@ -72,27 +65,7 @@ export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
   const loadingDetail = Boolean(activeId && !activeDetail && !detailError);
   const visibleProducts =
     activeDetail?.products.filter((product) => activeCategory === "ALL" || product.category === activeCategory) ?? [];
-  const activeCategories = activeDetail ? [...new Set(activeDetail.products.map((product) => product.category))] : [];
-  const productGroups = [
-    {
-      key: "in-stock",
-      title: "有货商品",
-      emptyText: "当前没有有货商品。",
-      items: visibleProducts.filter((product) => product.current.isDetected && product.current.stockStatus === "IN_STOCK")
-    },
-    {
-      key: "low-stock",
-      title: "库存紧张",
-      emptyText: "当前没有库存紧张商品。",
-      items: visibleProducts.filter((product) => product.current.isDetected && product.current.stockStatus === "LOW_STOCK")
-    },
-    {
-      key: "offline",
-      title: "离线商品",
-      emptyText: "当前没有离线商品。",
-      items: visibleProducts.filter((product) => !product.current.isDetected || product.current.stockStatus === "OUT_OF_STOCK")
-    }
-  ];
+  const activeCategories = activeDetail?.categories ?? [];
 
   useEffect(() => {
     if (!activeId || detailsByShop[activeId]) {
@@ -110,7 +83,7 @@ export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
           signal: controller.signal,
           cache: "no-store"
         });
-        const payload = (await response.json()) as ApiResponse<PublishedShopDetail>;
+        const payload = (await response.json()) as ApiResponse<PublicShopDetail>;
 
         if (!response.ok || payload.code !== 0 || !payload.data) {
           throw new Error(payload.message || "店铺详情加载失败");
@@ -164,20 +137,6 @@ export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
 
   return (
     <div className="space-y-5">
-      <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,rgba(255,253,248,0.98)_0%,rgba(247,240,230,0.92)_100%)] p-4 shadow-[0_18px_48px_rgba(53,44,30,0.08)] sm:p-5">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
-          <div>
-            <h1 className="font-serif text-[2rem] leading-tight text-[color:var(--ink)] sm:text-[2.45rem]">店铺列表</h1>
-          </div>
-
-          <div className="grid gap-2 sm:grid-cols-3">
-            <CompactMetric label="公开店铺" value={`${meta.shopCount}`} />
-            <CompactMetric label="公开商品" value={`${meta.liveProductCount}`} />
-            <CompactMetric label="同步时间" value={formatDateLabel(latestSyncAt)} />
-          </div>
-        </div>
-      </section>
-
       <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[rgba(255,252,246,0.92)] p-4 shadow-[0_16px_44px_rgba(53,44,30,0.08)] sm:p-5">
         <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_190px_190px]">
           <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
@@ -206,12 +165,11 @@ export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
           <label className="flex items-center rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
             <select
               value={sortBy}
-              onChange={(event) => setSortBy(event.target.value as "updated" | "price" | "changes")}
+              onChange={(event) => setSortBy(event.target.value as "updated" | "price")}
               className="w-full bg-transparent text-[color:var(--ink)] outline-none"
             >
               <option value="updated">按最近更新</option>
               <option value="price">按最低价</option>
-              <option value="changes">按最近变动</option>
             </select>
           </label>
         </div>
@@ -239,7 +197,6 @@ export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
               <SummaryToken label={`${shop.productCount} 商品`} />
               <SummaryToken label={`${shop.inStockCount} 有货`} />
               <SummaryToken label={shop.lowestPrice > 0 ? `¥${shop.lowestPrice}` : "暂无价格"} />
-              {shop.recentChangeCount > 0 ? <SummaryToken label={`${shop.recentChangeCount} 变动`} /> : null}
             </div>
 
             <div className="mt-3 truncate text-xs text-[color:var(--muted)]">
@@ -332,35 +289,27 @@ export function ShopExplorer({ shops, latestSyncAt, meta }: ShopExplorerProps) {
                 <div className="rounded-[24px] border border-[#ecd0c4] bg-[#fff4ef] px-5 py-4 text-sm text-[#8a3f27]">{detailError}</div>
               ) : activeDetail ? (
                 <div className="space-y-6">
-                  <section className="grid gap-4 xl:grid-cols-3">
+                  <section className="rounded-[24px] border border-[color:var(--line-strong)] bg-white/72 p-4 shadow-[0_12px_32px_rgba(53,44,30,0.06)]">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <h3 className="text-base font-semibold text-[color:var(--ink)]">商品列表</h3>
+                        <div className="mt-1 text-sm text-[color:var(--muted)]">按最近更新时间排序，桌面端最多每行展示 4 个商品。</div>
+                      </div>
+                      <span className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper-soft)] px-3 py-1 text-xs text-[color:var(--muted)]">
+                        当前 {visibleProducts.length} 件
+                      </span>
+                    </div>
+
                     {visibleProducts.length === 0 ? (
-                      <div className="xl:col-span-3 rounded-[24px] border border-dashed border-[color:var(--line-strong)] bg-white/72 px-5 py-14 text-center text-[color:var(--muted)]">
+                      <div className="mt-4 rounded-[24px] border border-dashed border-[color:var(--line-strong)] bg-[color:var(--paper-soft)] px-5 py-14 text-center text-[color:var(--muted)]">
                         当前筛选条件下没有商品记录。
                       </div>
                     ) : (
-                      productGroups.map((group) => (
-                        <section
-                          key={group.key}
-                          className="rounded-[24px] border border-[color:var(--line-strong)] bg-white/76 p-4 shadow-[0_12px_32px_rgba(53,44,30,0.06)]"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <h3 className="text-base font-semibold text-[color:var(--ink)]">{group.title}</h3>
-                            <span className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper-soft)] px-3 py-1 text-xs text-[color:var(--muted)]">
-                              {group.items.length}
-                            </span>
-                          </div>
-
-                          <div className="mt-4 space-y-4">
-                            {group.items.length > 0 ? (
-                              group.items.map((product) => <ProductPanel key={product.productKey} product={product} />)
-                            ) : (
-                              <div className="rounded-[18px] border border-dashed border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-10 text-center text-sm text-[color:var(--muted)]">
-                                {group.emptyText}
-                              </div>
-                            )}
-                          </div>
-                        </section>
-                      ))
+                      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        {visibleProducts.map((product) => (
+                          <ProductPanel key={product.productKey} product={product} />
+                        ))}
+                      </div>
                     )}
                   </section>
                 </div>
@@ -378,15 +327,6 @@ function Tile({ label, value }: { label: string; value: string }) {
     <article className="rounded-[20px] border border-[color:var(--line-strong)] bg-white/78 p-4">
       <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">{label}</div>
       <div className="mt-2 text-xl font-semibold text-[color:var(--ink)]">{value}</div>
-    </article>
-  );
-}
-
-function CompactMetric({ label, value }: { label: string; value: string }) {
-  return (
-    <article className="rounded-[18px] border border-[color:var(--line-soft)] bg-white/78 px-4 py-3 shadow-[0_10px_24px_rgba(53,44,30,0.05)]">
-      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">{label}</div>
-      <div className="mt-1.5 text-sm font-semibold text-[color:var(--ink)]">{value}</div>
     </article>
   );
 }
@@ -415,7 +355,7 @@ function CategoryFilter({ active, label, onClick }: { active: boolean; label: st
   );
 }
 
-function ProductPanel({ product }: { product: PublishedShopProduct }) {
+function ProductPanel({ product }: { product: PublishedShopProductPreview }) {
   const tone = getProductTone(product);
   const priceLabel = product.current.price > 0 ? `¥${product.current.price}` : "--";
 
@@ -444,7 +384,7 @@ function ProductPanel({ product }: { product: PublishedShopProduct }) {
       <div className="mt-4 flex flex-wrap gap-2">
         <MiniTag label={productStatusLabels[product.current.status]} />
         <MiniTag label={formatWarrantyLabel(product.current.warrantySupported)} />
-        <MiniTag label={`价格样本 ${product.priceHistory.length}`} />
+        <MiniTag label={`价格样本 ${product.priceSampleCount}`} />
         {product.priceTrend.previousPrice !== null ? <MiniTag label={formatTrend(product)} /> : null}
       </div>
 
@@ -475,7 +415,7 @@ function getShopStatusTone(status: ShopSummary["status"]) {
   return "border border-[#ecd0c4] bg-[#fff1ea] text-[#8a3f27]";
 }
 
-function getProductTone(product: PublishedShopProduct) {
+function getProductTone(product: PublishedShopProductPreview) {
   if (!product.current.isDetected) {
     return {
       card: "border-[#dbcdbb] bg-[linear-gradient(180deg,#f6efe8_0%,#efe7dc_100%)]",
@@ -503,7 +443,7 @@ function getProductTone(product: PublishedShopProduct) {
   };
 }
 
-function formatTrend(product: PublishedShopProduct) {
+function formatTrend(product: PublishedShopProductPreview) {
   if (product.priceTrend.previousPrice === null) {
     return "价格新样本";
   }

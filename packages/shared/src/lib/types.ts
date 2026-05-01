@@ -181,6 +181,50 @@ export interface PublishedShopDetail {
   publishedAt: string;
 }
 
+export interface PublicShopDetail {
+  shop: ShopSummary;
+  categories: ProductCategory[];
+  products: PublishedShopProductPreview[];
+  publishedAt: string;
+}
+
+export type ShopProductGroup = "IN_STOCK" | "LOW_STOCK" | "OFFLINE";
+
+export interface PublishedShopProductPreview {
+  shopId: string;
+  sourceId: string;
+  productKey: string;
+  category: ProductCategory;
+  specLabel: string;
+  current: ProductItem;
+  priceTrend: ProductPriceTrend;
+  missingStreak: number;
+  priceSampleCount: number;
+}
+
+export interface ShopProductGroupPage {
+  group: ShopProductGroup;
+  items: PublishedShopProductPreview[];
+  nextCursor: string | null;
+  total: number;
+}
+
+export interface PublishedShopDetailPage {
+  shop: ShopSummary;
+  categories: ProductCategory[];
+  activeCategory: ProductCategory | null;
+  groups: ShopProductGroupPage[];
+  publishedAt: string;
+}
+
+export interface PublishedShopDetailGroupResponse {
+  shop: ShopSummary;
+  categories: ProductCategory[];
+  activeCategory: ProductCategory | null;
+  group: ShopProductGroupPage;
+  publishedAt: string;
+}
+
 export interface PublishedMeta {
   publishedAt: string;
   shopCount: number;

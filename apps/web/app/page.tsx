@@ -8,5 +8,5 @@ export default async function HomePage() {
   const catalog = await getPublishedProductCatalog();
   const initialPage = getProductFeedPage(catalog, { limit: 24 });
 
-  return <ProductListBoard initialPage={initialPage} latestSyncAt={catalog.publishedAt} meta={catalog.meta} />;
+  return <ProductListBoard initialPage={initialPage} />;
 }

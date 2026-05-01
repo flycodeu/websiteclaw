@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { unstable_cache } from "next/cache";
 import type {
   PublishedDiffFeed,
   PublishedMeta,
@@ -7,7 +8,21 @@ import type {
   PublishedShopDetail,
   PublishedShopIndex
 } from "@shop-claw/shared/types";
-import { getStoragePaths } from "@shop-claw/shared/store";
+
+export const PUBLIC_DATA_REVALIDATE_SECONDS = 300;
+const PUBLIC_DIRECTORY_SEGMENTS = ["data", "public"] as const;
+const PUBLIC_META_FILENAME = "published-meta.json";
+const PUBLIC_PRODUCTS_FILENAME = "published-products.json";
+const PUBLIC_SHOPS_FILENAME = "published-shops.json";
+const PUBLIC_DIFFS_FILENAME = "published-diffs.json";
+const PUBLIC_SHOPS_DIRECTORY_NAME = "shops";
+const PUBLIC_DATA_DIRECTORY_CANDIDATES = [
+  path.join(/* turbopackIgnore: true */ process.cwd(), ...PUBLIC_DIRECTORY_SEGMENTS),
+  path.resolve(/* turbopackIgnore: true */ process.cwd(), "../..", ...PUBLIC_DIRECTORY_SEGMENTS),
+  path.resolve(/* turbopackIgnore: true */ process.cwd(), "..", ...PUBLIC_DIRECTORY_SEGMENTS)
+];
+
+let publicDataDirectoryPromise: Promise<string> | undefined;
 
 function createEmptyMeta(): PublishedMeta {
   return {
@@ -53,27 +68,106 @@ async function readJsonFile<T>(filePath: string, fallback: T) {
   }
 }
 
+async function pathExists(targetPath: string) {
+  try {
+    await fs.access(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function resolvePublicDataDirectory() {
+  if (!publicDataDirectoryPromise) {
+    publicDataDirectoryPromise = (async () => {
+      for (const candidate of PUBLIC_DATA_DIRECTORY_CANDIDATES) {
+        if (await pathExists(candidate)) {
+          return candidate;
+        }
+      }
+
+      return PUBLIC_DATA_DIRECTORY_CANDIDATES[0];
+    })();
+  }
+
+  return publicDataDirectoryPromise;
+}
+
+async function getPublicDataFilePath(filename: string) {
+  const publicDirectory = await resolvePublicDataDirectory();
+  return path.join(publicDirectory, filename);
+}
+
+async function getPublicShopDetailPath(shopId: string) {
+  const publicDirectory = await resolvePublicDataDirectory();
+  return path.join(publicDirectory, PUBLIC_SHOPS_DIRECTORY_NAME, `${shopId}.json`);
+}
+
+export function getPublicApiCacheHeaders() {
+  return {
+    "Cache-Control": `public, max-age=60, s-maxage=${PUBLIC_DATA_REVALIDATE_SECONDS}, stale-while-revalidate=${PUBLIC_DATA_REVALIDATE_SECONDS * 2}`
+  };
+}
+
+const readPublishedMeta = unstable_cache(
+  async () => {
+    return readJsonFile<PublishedMeta>(await getPublicDataFilePath(PUBLIC_META_FILENAME), createEmptyMeta());
+  },
+  ["published-meta"],
+  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
+
+const readPublishedShopIndex = unstable_cache(
+  async () => {
+    return readJsonFile<PublishedShopIndex>(await getPublicDataFilePath(PUBLIC_SHOPS_FILENAME), createEmptyShopIndex());
+  },
+  ["published-shop-index"],
+  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
+
+const readPublishedProductCatalog = unstable_cache(
+  async () => {
+    return readJsonFile<PublishedProductCatalog>(
+      await getPublicDataFilePath(PUBLIC_PRODUCTS_FILENAME),
+      createEmptyProductCatalog()
+    );
+  },
+  ["published-product-catalog"],
+  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
+
+const readPublishedDiffFeed = unstable_cache(
+  async () => {
+    return readJsonFile<PublishedDiffFeed>(await getPublicDataFilePath(PUBLIC_DIFFS_FILENAME), createEmptyDiffFeed());
+  },
+  ["published-diff-feed"],
+  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
+
+const readPublishedShopDetail = unstable_cache(
+  async (shopId: string) => {
+    return readJsonFile<PublishedShopDetail | null>(await getPublicShopDetailPath(shopId), null);
+  },
+  ["published-shop-detail"],
+  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
+);
+
 export async function getPublishedMeta() {
-  const { publishedMetaFile } = await getStoragePaths();
-  return readJsonFile<PublishedMeta>(publishedMetaFile, createEmptyMeta());
+  return readPublishedMeta();
 }
 
 export async function getPublishedShopIndex() {
-  const { publishedShopsFile } = await getStoragePaths();
-  return readJsonFile<PublishedShopIndex>(publishedShopsFile, createEmptyShopIndex());
+  return readPublishedShopIndex();
 }
 
 export async function getPublishedProductCatalog() {
-  const { publishedProductsFile } = await getStoragePaths();
-  return readJsonFile<PublishedProductCatalog>(publishedProductsFile, createEmptyProductCatalog());
+  return readPublishedProductCatalog();
 }
 
 export async function getPublishedDiffFeed() {
-  const { publishedDiffsFile } = await getStoragePaths();
-  return readJsonFile<PublishedDiffFeed>(publishedDiffsFile, createEmptyDiffFeed());
+  return readPublishedDiffFeed();
 }
 
 export async function getPublishedShopDetail(shopId: string) {
-  const { publicShopDetailsDirectory } = await getStoragePaths();
-  return readJsonFile<PublishedShopDetail | null>(path.join(publicShopDetailsDirectory, `${shopId}.json`), null);
+  return readPublishedShopDetail(shopId);
 }

@@ -2,19 +2,17 @@
 
 import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
 import { ArrowUpRight, LoaderCircle, Search } from "lucide-react";
-import { formatDateLabel, productCategoryLabels } from "@shop-claw/shared/labels";
-import { ApiResponse, ProductCategory, PublishedMeta } from "@shop-claw/shared/types";
+import { productCategoryLabels } from "@shop-claw/shared/labels";
+import { ApiResponse, ProductCategory } from "@shop-claw/shared/types";
 import { ProductFeedItem, ProductFeedPage } from "@/lib/product-feed";
 
 interface ProductListBoardProps {
   initialPage: ProductFeedPage;
-  latestSyncAt: string;
-  meta: PublishedMeta;
 }
 
 type LoadMode = "idle" | "replace" | "append";
 
-export function ProductListBoard({ initialPage, latestSyncAt, meta }: ProductListBoardProps) {
+export function ProductListBoard({ initialPage }: ProductListBoardProps) {
   const [keyword, setKeyword] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -113,20 +111,7 @@ export function ProductListBoard({ initialPage, latestSyncAt, meta }: ProductLis
   return (
     <div className="space-y-5">
       <section className="rounded-[30px] border border-[color:var(--line-strong)] bg-[linear-gradient(180deg,rgba(255,253,248,0.98)_0%,rgba(247,240,230,0.92)_100%)] p-4 shadow-[0_18px_48px_rgba(53,44,30,0.08)] sm:p-5">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
-          <div>
-            <h1 className="font-serif text-[2rem] leading-tight text-[color:var(--ink)] sm:text-[2.45rem]">商品列表</h1>
-          </div>
-
-          <div className="grid gap-2 sm:grid-cols-4">
-            <CompactStat label="当前展示" value={`${page.summary.total}`} />
-            <CompactStat label="有货" value={`${page.summary.inStock}`} />
-            <CompactStat label="公开店铺" value={`${meta.shopCount}`} />
-            <CompactStat label="同步时间" value={formatDateLabel(latestSyncAt)} />
-          </div>
-        </div>
-
-        <div className="mt-4 grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_180px_150px_150px]">
+        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_180px_150px_150px]">
           <label className="flex min-w-0 items-center gap-3 rounded-[18px] border border-[color:var(--line-soft)] bg-[color:var(--paper-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
             <Search className="h-4 w-4" />
             <input
@@ -250,15 +235,6 @@ function ProductCard({ item }: { item: ProductFeedItem }) {
     <a href={item.shopUrl} target="_blank" rel="noreferrer" className="block">
       {card}
     </a>
-  );
-}
-
-function CompactStat({ label, value }: { label: string; value: string }) {
-  return (
-    <article className="rounded-[18px] border border-[color:var(--line-soft)] bg-white/78 px-4 py-3 shadow-[0_10px_24px_rgba(53,44,30,0.05)]">
-      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">{label}</div>
-      <div className="mt-1.5 text-sm font-semibold text-[color:var(--ink)]">{value}</div>
-    </article>
   );
 }
 
