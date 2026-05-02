@@ -1,7 +1,25 @@
 {
-  "version": 211,
-  "updatedAt": "2026-05-02T07:07:41.198Z",
+  "version": 212,
+  "updatedAt": "2026-05-02T07:26:11.506Z",
   "sources": [
+    {
+      "sourceId": "src_73e6025c",
+      "sourceName": "拼拼工坊",
+      "sourceUrl": "https://ipinpin.store/",
+      "entryUrl": "https://ipinpin.store/",
+      "crawlMode": "AUTO",
+      "enabled": true,
+      "visible": true,
+      "lastRunAt": "",
+      "createdAt": "2026-05-02T07:26:11.488Z",
+      "updatedAt": "2026-05-02T07:26:11.488Z",
+      "verificationMethod": "NONE",
+      "verificationPrompt": "",
+      "waitSelector": "body",
+      "headless": true,
+      "blockAssets": true,
+      "requestHeaders": []
+    },
     {
       "sourceId": "src_cfb67677",
       "sourceName": "web3chirou",

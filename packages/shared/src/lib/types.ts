@@ -426,6 +426,21 @@ export interface NewSourcePayload {
   requestHeaders?: SourceRequestHeader[];
 }
 
+export interface UpdateSourcePayload {
+  sourceName?: string;
+  sourceUrl?: string;
+  entryUrl?: string;
+  crawlMode?: CrawlMode;
+  enabled?: boolean;
+  visible?: boolean;
+  verificationMethod?: VerificationMethod;
+  verificationPrompt?: string;
+  waitSelector?: string;
+  headless?: boolean;
+  blockAssets?: boolean;
+  requestHeaders?: SourceRequestHeader[];
+}
+
 export interface CrawlRequestPayload {
   sourceId?: string;
   sourceIds?: string[];

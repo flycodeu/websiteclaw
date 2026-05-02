@@ -1,5 +1,6 @@
 import { withTraceId } from "@shop-claw/shared/response";
-import { deleteSource, updateSourceVisibility } from "@shop-claw/shared/workflow";
+import { deleteSource, updateSource, updateSourceVisibility } from "@shop-claw/shared/workflow";
+import type { UpdateSourcePayload } from "@shop-claw/shared/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,17 +21,25 @@ export async function DELETE(_: Request, context: { params: Promise<{ id: string
 export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await context.params;
-    const payload = (await request.json().catch(() => null)) as { visible?: boolean } | null;
+    const payload = (await request.json().catch(() => null)) as UpdateSourcePayload | null;
 
-    if (typeof payload?.visible !== "boolean") {
-      throw new Error("展示状态无效");
+    if (!payload || typeof payload !== "object") {
+      throw new Error("更新参数无效");
     }
 
-    const source = await updateSourceVisibility(id, payload.visible);
-    return Response.json(withTraceId(source, payload.visible ? "站点已恢复前台展示" : "站点已从前台隐藏"));
+    const visibleOnlyKeys = Object.keys(payload);
+    const isVisibilityOnly = visibleOnlyKeys.length === 1 && typeof payload.visible === "boolean";
+
+    if (isVisibilityOnly) {
+      const source = await updateSourceVisibility(id, payload.visible as boolean);
+      return Response.json(withTraceId(source, payload.visible ? "站点已恢复前台展示" : "站点已从前台隐藏"));
+    }
+
+    const source = await updateSource(id, payload);
+    return Response.json(withTraceId(source, "站点信息已更新"));
   } catch (error) {
     return Response.json(
-      withTraceId(null, error instanceof Error ? error.message : "更新站点展示状态失败"),
+      withTraceId(null, error instanceof Error ? error.message : "更新站点信息失败"),
       { status: 400 }
     );
   }

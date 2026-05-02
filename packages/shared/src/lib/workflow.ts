@@ -17,7 +17,8 @@ import {
   ShopStatus,
   StockStatus,
   TaskStatus,
-  TaskTimelineItem
+  TaskTimelineItem,
+  UpdateSourcePayload
 } from "./types";
 import { deleteTaskRuntimeDirectory, getPlatformState, savePlatformState } from "./store";
 import { stockStatusLabels } from "./labels";
@@ -551,6 +552,67 @@ export async function updateSourceVisibility(sourceId: string, visible: boolean)
     sources: state.sources.map((item) => (item.sourceId === normalizedSourceId ? nextSource : item)),
     published: {
       ...state.published,
+      publishedAt: updatedAt
+    }
+  });
+
+  return nextSource;
+}
+
+export async function updateSource(sourceId: string, payload: UpdateSourcePayload) {
+  const normalizedSourceId = sourceId?.trim();
+
+  if (!normalizedSourceId) {
+    throw new Error("数据源不存在");
+  }
+
+  const state = await getPlatformState();
+  const source = state.sources.find((item) => item.sourceId === normalizedSourceId);
+
+  if (!source) {
+    throw new Error("数据源不存在");
+  }
+
+  const sourceName = payload.sourceName?.trim() ?? source.sourceName;
+  const sourceUrl = payload.sourceUrl?.trim() ?? source.sourceUrl;
+  const entryUrl = payload.entryUrl?.trim() || sourceUrl;
+
+  if (!sourceName || !sourceUrl) {
+    throw new Error("名称和链接不能为空");
+  }
+
+  const updatedAt = nowIso();
+  const nextSource: DataSource = {
+    ...source,
+    sourceName,
+    sourceUrl,
+    entryUrl,
+    crawlMode: payload.crawlMode ?? source.crawlMode,
+    enabled: payload.enabled ?? source.enabled,
+    visible: payload.visible ?? source.visible,
+    verificationMethod: payload.verificationMethod ?? source.verificationMethod,
+    verificationPrompt: payload.verificationPrompt?.trim() ?? source.verificationPrompt,
+    waitSelector: payload.waitSelector?.trim() || "body",
+    headless: payload.headless ?? source.headless,
+    blockAssets: payload.blockAssets ?? source.blockAssets,
+    requestHeaders: payload.requestHeaders ?? source.requestHeaders,
+    updatedAt
+  };
+
+  await savePlatformState({
+    ...state,
+    sources: state.sources.map((item) => (item.sourceId === normalizedSourceId ? nextSource : item)),
+    published: {
+      ...state.published,
+      shops: state.published.shops.map((shop) =>
+        shop.sourceId === normalizedSourceId
+          ? {
+              ...shop,
+              name: nextSource.sourceName,
+              url: nextSource.sourceUrl
+            }
+          : shop
+      ),
       publishedAt: updatedAt
     }
   });

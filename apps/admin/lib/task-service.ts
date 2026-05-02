@@ -1427,12 +1427,6 @@ export async function createAndRunTask(payload: CrawlRequestPayload) {
       throw new Error("当前已有进行中的批量抓取，请先完成当前批次。");
     }
 
-    const inflightTasks = state.tasks.filter((item) => !isFinalTaskStatus(item.status));
-
-    if (inflightTasks.length > 0) {
-      throw new Error("当前仍有未完成任务，请先处理后再启动批量抓取。");
-    }
-
     const sources = resolveSourcesForBatch(
       state,
       requestedSourceIds.length > 0 ? requestedSourceIds : payload.sourceId ? [payload.sourceId] : []
