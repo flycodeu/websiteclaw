@@ -2,12 +2,14 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Globe2, Play, Plus, Search, ShieldCheck, Sparkles, Trash2, X } from "lucide-react";
-import { CrawlMode, DataSource, VerificationMethod } from "@shop-claw/shared/types";
+import { Eye, EyeOff, Globe2, Play, Plus, Search, ShieldCheck, Sparkles, Trash2, X } from "lucide-react";
+import { CrawlBatchState, CrawlMode, DataSource, ShopSummary, VerificationMethod } from "@shop-claw/shared/types";
 import { crawlModeLabels, formatDateLabel, verificationMethodLabels } from "@shop-claw/shared/labels";
 
 interface SourcesConsoleProps {
   sources: DataSource[];
+  publishedShops: ShopSummary[];
+  crawlBatch: CrawlBatchState | null;
 }
 
 interface SourceFormState {
@@ -41,7 +43,7 @@ async function readMessage(response: Response) {
   return payload.message || "成功";
 }
 
-export function SourcesConsole({ sources }: SourcesConsoleProps) {
+export function SourcesConsole({ sources, publishedShops, crawlBatch }: SourcesConsoleProps) {
   const router = useRouter();
   const [sourceForm, setSourceForm] = useState<SourceFormState>(emptySourceForm);
   const [statusText, setStatusText] = useState("");
@@ -70,10 +72,20 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
         return rightStamp - leftStamp;
       });
   }, [keyword, sources]);
+  const publishedShopBySourceId = useMemo(
+    () => new Map(publishedShops.map((shop) => [shop.sourceId, shop] as const)),
+    [publishedShops]
+  );
+  const batchSourceIds = useMemo(
+    () => filteredSources.filter((source) => source.enabled).map((source) => source.sourceId),
+    [filteredSources]
+  );
 
   const enabledCount = sources.filter((source) => source.enabled).length;
   const verificationCount = sources.filter((source) => source.verificationMethod !== "NONE").length;
   const crawledCount = sources.filter((source) => Boolean(source.lastRunAt)).length;
+  const batchTotal = crawlBatch?.sourceIds.length ?? 0;
+  const batchCompleted = crawlBatch?.completedSourceIds.length ?? 0;
 
   useEffect(() => {
     if (!isCreateOpen) {
@@ -138,6 +150,53 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
     });
   }
 
+  function triggerBatchCrawl() {
+    if (batchSourceIds.length === 0) {
+      setStatusText("当前列表里没有可批量抓取的启用站点。");
+      return;
+    }
+
+    setStatusText("");
+
+    startTransition(async () => {
+      try {
+        const response = await fetch("/api/tasks/crawl", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sourceIds: batchSourceIds,
+            startBatch: true
+          })
+        });
+
+        setStatusText(await readMessage(response));
+        router.push("/tasks");
+        router.refresh();
+      } catch (error) {
+        setStatusText(error instanceof Error ? error.message : "发起批量抓取失败");
+      }
+    });
+  }
+
+  function toggleVisibility(source: DataSource) {
+    setStatusText("");
+
+    startTransition(async () => {
+      try {
+        const response = await fetch(`/api/sources/${source.sourceId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ visible: !source.visible })
+        });
+
+        setStatusText(await readMessage(response));
+        router.refresh();
+      } catch (error) {
+        setStatusText(error instanceof Error ? error.message : "更新站点展示状态失败");
+      }
+    });
+  }
+
   function removeSource(source: DataSource) {
     if (!window.confirm(`确认删除站点“${source.sourceName}”及其全部关联任务、校对和发布数据吗？`)) {
       return;
@@ -189,6 +248,16 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
 
             <button
               type="button"
+              disabled={pending || Boolean(crawlBatch)}
+              onClick={triggerBatchCrawl}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#355344]/18 bg-white/88 px-5 py-3 text-sm text-[#355344] shadow-[0_10px_24px_rgba(53,83,68,0.08)] disabled:opacity-50"
+            >
+              <Play className="h-4 w-4" />
+              {crawlBatch ? `批次进行中 V${crawlBatch.version}` : `批量抓取当前列表（${batchSourceIds.length}）`}
+            </button>
+
+            <button
+              type="button"
               onClick={() => setIsCreateOpen(true)}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#355344] px-5 py-3 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)]"
             >
@@ -204,76 +273,129 @@ export function SourcesConsole({ sources }: SourcesConsoleProps) {
           <ConsoleStat icon={<Sparkles className="h-4 w-4" />} label="需验证" value={`${verificationCount}`} />
           <ConsoleStat icon={<Play className="h-4 w-4" />} label="已执行" value={`${crawledCount}`} />
         </div>
+
+        {crawlBatch ? (
+          <div className="mt-5 rounded-[24px] border border-[#d4e3c4] bg-[#edf6e2] px-5 py-4 text-sm text-[#355535] shadow-[0_12px_24px_rgba(53,83,68,0.08)]">
+            当前批次 V{crawlBatch.version} 正在进行，已完成 {batchCompleted}/{batchTotal}
+            {crawlBatch.currentSourceId
+              ? `，当前或下一站：${publishedShopBySourceId.get(crawlBatch.currentSourceId)?.name ?? sources.find((item) => item.sourceId === crawlBatch.currentSourceId)?.sourceName ?? crawlBatch.currentSourceId}`
+              : "。"}
+          </div>
+        ) : null}
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {filteredSources.length > 0 ? (
-          filteredSources.map((source) => (
-            <article
-              key={source.sourceId}
-              className="flex h-full flex-col rounded-[28px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#ffffff_0%,#faf4ea_100%)] p-5 shadow-[0_18px_36px_rgba(102,88,64,0.07)]"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="flex flex-wrap gap-2">
-                    <InfoTag label={crawlModeLabels[source.crawlMode]} />
-                    <InfoTag label={verificationMethodLabels[source.verificationMethod]} />
-                  </div>
-                  <h3 className="mt-4 break-words text-xl font-semibold text-[#18222c]">{source.sourceName}</h3>
-                  <div className="mt-2 text-sm leading-6 text-slate-500 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
-                    {source.sourceUrl}
-                  </div>
-                  {source.entryUrl !== source.sourceUrl ? (
-                    <div className="mt-2 text-xs leading-5 text-slate-500 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
-                      入口：{source.entryUrl}
+          filteredSources.map((source) => {
+            const publishedShop = publishedShopBySourceId.get(source.sourceId);
+            const currentVersionLabel = publishedShop ? `当前版本 V${publishedShop.currentVersion}` : "未发布";
+
+            return (
+              <article
+                key={source.sourceId}
+                className="flex h-full flex-col rounded-[28px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#ffffff_0%,#faf4ea_100%)] p-5 shadow-[0_18px_36px_rgba(102,88,64,0.07)]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap gap-2">
+                      <InfoTag label={crawlModeLabels[source.crawlMode]} />
+                      <InfoTag label={verificationMethodLabels[source.verificationMethod]} />
+                      <InfoTag label={currentVersionLabel} />
                     </div>
-                  ) : null}
+                    <h3 className="mt-4 break-words text-xl font-semibold text-[#18222c]">{source.sourceName}</h3>
+                    <div className="mt-2 text-sm leading-6 text-slate-500 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                      {source.sourceUrl}
+                    </div>
+                    {source.entryUrl !== source.sourceUrl ? (
+                      <div className="mt-2 text-xs leading-5 text-slate-500 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                        入口：{source.entryUrl}
+                      </div>
+                    ) : null}
+                  </div>
+                  <span
+                    className={`shrink-0 rounded-full px-3 py-1 text-xs ${
+                      source.enabled
+                        ? "border border-[#d4e3c4] bg-[#edf6e2] text-[#355535]"
+                        : "border border-[#d8cfbf] bg-[#f4efe6] text-slate-500"
+                    }`}
+                  >
+                    {source.enabled ? "启用中" : "已停用"}
+                  </span>
                 </div>
-                <span
-                  className={`shrink-0 rounded-full px-3 py-1 text-xs ${
-                    source.enabled
-                      ? "border border-[#d4e3c4] bg-[#edf6e2] text-[#355535]"
-                      : "border border-[#d8cfbf] bg-[#f4efe6] text-slate-500"
-                  }`}
-                >
-                  {source.enabled ? "启用中" : "已停用"}
-                </span>
-              </div>
 
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <MetaTile label="等待元素" value={source.waitSelector} />
-                <MetaTile label="最近执行" value={source.lastRunAt ? formatDateLabel(source.lastRunAt) : "尚未执行"} />
-                <MetaTile label="浏览模式" value={source.headless ? "无头浏览器" : "可见窗口"} />
-                <MetaTile label="资源策略" value={source.blockAssets ? "已拦截图片媒体" : "保留完整资源"} />
-              </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <MetaTile label="等待元素" value={source.waitSelector} />
+                  <MetaTile label="最近执行" value={source.lastRunAt ? formatDateLabel(source.lastRunAt) : "尚未执行"} />
+                  <MetaTile label="浏览模式" value={source.headless ? "无头浏览器" : "可见窗口"} />
+                  <MetaTile label="资源策略" value={source.blockAssets ? "已拦截图片媒体" : "保留完整资源"} />
+                </div>
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                <InfoTag label={source.enabled ? "正在监控" : "暂停采集"} />
-                <InfoTag label={source.lastRunAt ? "已建历史记录" : "待首次抓取"} />
-              </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <InfoTag label={source.enabled ? "正在监控" : "暂停采集"} />
+                  <InfoTag label={source.visible ? "前台展示中" : "前台已隐藏"} />
+                  <InfoTag label={source.lastRunAt ? "已建历史记录" : "待首次抓取"} />
+                </div>
 
-              <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                <button
-                  type="button"
-                  disabled={pending}
-                  onClick={() => removeSource(source)}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#c98d78]/40 bg-[#fff3ee] px-4 py-2.5 text-sm text-[#9a4b33] disabled:opacity-50"
-                >
-                  <Trash2 className="h-4 w-4" />
-                  删除
-                </button>
-                <button
-                  type="button"
-                  disabled={pending || !source.enabled}
-                  onClick={() => triggerCrawl(source.sourceId)}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#355344] px-4 py-2.5 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-50"
-                >
-                  <Play className="h-4 w-4" />
-                  立即抓取
-                </button>
-              </div>
-            </article>
-          ))
+                <div className="mt-5 rounded-[22px] border border-[#ddd3c3] bg-white/88 p-4 shadow-[0_10px_24px_rgba(102,88,64,0.05)]">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="text-[11px] uppercase tracking-[0.16em] text-slate-500">前台展示</div>
+                      <div className="mt-1 text-sm text-slate-600">
+                        {source.visible ? "用户端会展示该商铺及其商品。" : "用户端已隐藏该商铺及其全部商品。"}
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => toggleVisibility(source)}
+                      aria-pressed={source.visible}
+                      className={`inline-flex min-w-[126px] items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm shadow-[0_10px_24px_rgba(53,83,68,0.12)] transition disabled:opacity-50 ${
+                        source.visible
+                          ? "border border-[#d4e3c4] bg-[#edf6e2] text-[#355535]"
+                          : "border border-[#d8cfbf] bg-[#f5efe5] text-slate-600"
+                      }`}
+                    >
+                      <span
+                        className={`relative h-6 w-11 rounded-full transition ${
+                          source.visible ? "bg-[#355344]" : "bg-[#cfc3b0]"
+                        }`}
+                      >
+                        <span
+                          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-[0_4px_10px_rgba(24,34,44,0.18)] transition ${
+                            source.visible ? "left-[22px]" : "left-[2px]"
+                          }`}
+                        />
+                      </span>
+                      {source.visible ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                      {source.visible ? "展示中" : "已隐藏"}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    disabled={pending}
+                    onClick={() => removeSource(source)}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#c98d78]/40 bg-[#fff3ee] px-4 py-2.5 text-sm text-[#9a4b33] disabled:opacity-50"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    删除
+                  </button>
+                  <button
+                    type="button"
+                    disabled={pending || !source.enabled || Boolean(crawlBatch)}
+                    onClick={() => triggerCrawl(source.sourceId)}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#355344] px-4 py-2.5 text-sm text-white shadow-[0_12px_24px_rgba(53,83,68,0.18)] disabled:opacity-50"
+                  >
+                    <Play className="h-4 w-4" />
+                    {crawlBatch ? "批次进行中" : "立即抓取"}
+                  </button>
+                </div>
+              </article>
+            );
+          })
         ) : (
           <div className="col-span-full rounded-[24px] border border-dashed border-[#d8cfbf] bg-white p-8 text-center text-slate-500">
             当前没有匹配的站点。

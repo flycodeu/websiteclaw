@@ -5,6 +5,7 @@
     "name": "ai-member",
     "url": "https://www.ai-member.icu/",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T09:02:41.095Z",
     "productCount": 15,
     "inStockCount": 14,
@@ -1002,6 +1003,7 @@
     {
       "shopId": "shop_src_1b6f2b1c",
       "crawlTaskId": "task_68182882",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T09:02:41.094Z",
       "summary": "AI-MEMBER发卡网购物页面，包含ChatGPT、Claude、Gemini、Grok、CODEX API以及邮箱等商品。",
@@ -1029,6 +1031,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_1b6f2b1c",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T09:02:41.094Z",
       "changes": [
@@ -1126,5 +1129,5 @@
       "summary": "新增 15 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

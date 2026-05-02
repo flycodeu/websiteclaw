@@ -5,6 +5,7 @@
     "name": "AI HOME",
     "url": "https://pay.ldxp.cn/shop/MEDDEX4V",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:34:01.414Z",
     "productCount": 19,
     "inStockCount": 5,
@@ -1260,6 +1261,7 @@
     {
       "shopId": "shop_src_8b7c2939",
       "crawlTaskId": "task_a5b965b1",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:34:01.413Z",
       "summary": "AI HOME小店共有18种商品，涵盖GPT和Claude等分类，部分商品有质保，部分缺货。",
@@ -1291,6 +1293,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_8b7c2939",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:34:01.413Z",
       "changes": [
@@ -1412,5 +1415,5 @@
       "summary": "新增 19 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

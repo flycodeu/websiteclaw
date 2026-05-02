@@ -1,6 +1,6 @@
 {
-  "version": 210,
-  "updatedAt": "2026-05-01T09:13:13.364Z",
+  "version": 211,
+  "updatedAt": "2026-05-02T07:07:41.198Z",
   "sources": [
     {
       "sourceId": "src_cfb67677",
@@ -9,6 +9,7 @@
       "entryUrl": "https://web3chirou.com/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "",
       "createdAt": "2026-05-01T09:13:13.355Z",
       "updatedAt": "2026-05-01T09:13:13.355Z",
@@ -26,6 +27,7 @@
       "entryUrl": "https://www.ai-member.icu/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T09:00:42.274Z",
       "createdAt": "2026-05-01T09:00:40.941Z",
       "updatedAt": "2026-05-01T09:00:42.274Z",
@@ -43,6 +45,7 @@
       "entryUrl": "https://zzshu.com/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:58:56.893Z",
       "createdAt": "2026-05-01T08:58:55.675Z",
       "updatedAt": "2026-05-01T08:58:56.893Z",
@@ -60,6 +63,7 @@
       "entryUrl": "https://pay.ldxp.cn/shop/282D9KDL",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:56:01.776Z",
       "createdAt": "2026-05-01T08:56:00.441Z",
       "updatedAt": "2026-05-01T08:56:01.776Z",
@@ -77,6 +81,7 @@
       "entryUrl": "https://bei-bei.shop/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:54:36.844Z",
       "createdAt": "2026-05-01T08:54:32.376Z",
       "updatedAt": "2026-05-01T08:54:36.844Z",
@@ -94,6 +99,7 @@
       "entryUrl": "https://www.aixiamo.com/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:51:18.712Z",
       "createdAt": "2026-05-01T08:51:17.741Z",
       "updatedAt": "2026-05-01T08:51:18.712Z",
@@ -111,6 +117,7 @@
       "entryUrl": "https://tehuio.com/?from=1",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:50:14.257Z",
       "createdAt": "2026-05-01T08:50:13.036Z",
       "updatedAt": "2026-05-01T08:50:14.257Z",
@@ -128,6 +135,7 @@
       "entryUrl": "https://pay.ldxp.cn/shop/321",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "",
       "createdAt": "2026-05-01T08:49:29.010Z",
       "updatedAt": "2026-05-01T08:49:29.010Z",
@@ -145,6 +153,7 @@
       "entryUrl": "https://gpthub.ciyuanapi.ai/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:46:56.710Z",
       "createdAt": "2026-05-01T08:46:54.954Z",
       "updatedAt": "2026-05-01T08:46:56.710Z",
@@ -162,6 +171,7 @@
       "entryUrl": "https://shop.nobrisk.com/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:45:59.920Z",
       "createdAt": "2026-05-01T08:45:57.274Z",
       "updatedAt": "2026-05-01T08:45:59.920Z",
@@ -179,6 +189,7 @@
       "entryUrl": "https://pay.ldxp.cn/shop/aistore?u_atoken=69d65b48-cea8-a96c-4d4f-1452855d73dc&u_asig=de51781617756557529673943e",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:40:34.880Z",
       "createdAt": "2026-05-01T08:40:33.305Z",
       "updatedAt": "2026-05-01T08:40:34.880Z",
@@ -196,6 +207,7 @@
       "entryUrl": "https://www.xiaosen.shop/?aff=FZTCXVFU",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:38:03.618Z",
       "createdAt": "2026-05-01T08:38:01.035Z",
       "updatedAt": "2026-05-01T08:38:03.618Z",
@@ -213,6 +225,7 @@
       "entryUrl": "https://pay.ldxp.cn/shop/MEDDEX4V",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:31:57.698Z",
       "createdAt": "2026-05-01T08:30:02.852Z",
       "updatedAt": "2026-05-01T08:31:57.698Z",
@@ -230,9 +243,10 @@
       "entryUrl": "https://pay.ldxp.cn/shop/C1IDCH40",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": false,
       "lastRunAt": "2026-04-27T13:20:18.390Z",
       "createdAt": "2026-04-25T12:16:47.915Z",
-      "updatedAt": "2026-04-27T13:20:18.390Z",
+      "updatedAt": "2026-05-02T07:07:41.189Z",
       "verificationMethod": "NONE",
       "verificationPrompt": "",
       "waitSelector": "body",
@@ -247,6 +261,7 @@
       "entryUrl": "https://makerich.club/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:02:02.753Z",
       "createdAt": "2026-04-25T06:42:33.550Z",
       "updatedAt": "2026-05-01T08:02:02.753Z",
@@ -264,6 +279,7 @@
       "entryUrl": "https://catcard.uk/",
       "crawlMode": "AUTO",
       "enabled": true,
+      "visible": true,
       "lastRunAt": "2026-05-01T08:27:43.243Z",
       "createdAt": "2026-04-25T06:34:43.363Z",
       "updatedAt": "2026-05-01T08:27:43.243Z",
@@ -9468,6 +9484,7 @@
       ]
     }
   ],
+  "crawlBatch": null,
   "published": {
     "shops": [
       {
@@ -9476,6 +9493,7 @@
         "name": "ai-member",
         "url": "https://www.ai-member.icu/",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T09:02:41.095Z",
         "productCount": 15,
         "inStockCount": 14,
@@ -9498,6 +9516,7 @@
         "name": "吱吱鼠卡网",
         "url": "https://zzshu.com/",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:59:39.462Z",
         "productCount": 3,
         "inStockCount": 3,
@@ -9518,6 +9537,7 @@
         "name": "Ai2You智友社",
         "url": "https://pay.ldxp.cn/shop/282D9KDL",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:57:04.161Z",
         "productCount": 19,
         "inStockCount": 5,
@@ -9538,6 +9558,7 @@
         "name": "bei-bei",
         "url": "https://bei-bei.shop/",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:55:33.161Z",
         "productCount": 6,
         "inStockCount": 4,
@@ -9557,6 +9578,7 @@
         "name": "aixiamo",
         "url": "https://www.aixiamo.com/",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:51:56.276Z",
         "productCount": 5,
         "inStockCount": 1,
@@ -9577,6 +9599,7 @@
         "name": "tehuio",
         "url": "https://tehuio.com/?from=1",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:50:51.196Z",
         "productCount": 5,
         "inStockCount": 2,
@@ -9595,6 +9618,7 @@
         "name": "gpthub",
         "url": "https://gpthub.ciyuanapi.ai/",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:48:04.546Z",
         "productCount": 10,
         "inStockCount": 7,
@@ -9617,6 +9641,7 @@
         "name": "nobrisk",
         "url": "https://shop.nobrisk.com/",
         "status": "RISK",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:46:33.872Z",
         "productCount": 5,
         "inStockCount": 0,
@@ -9638,6 +9663,7 @@
         "name": "aistore",
         "url": "https://pay.ldxp.cn/shop/aistore?u_atoken=69d65b48-cea8-a96c-4d4f-1452855d73dc&u_asig=de51781617756557529673943e",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:42:42.497Z",
         "productCount": 19,
         "inStockCount": 5,
@@ -9658,6 +9684,7 @@
         "name": "xiaosen",
         "url": "https://www.xiaosen.shop/?aff=FZTCXVFU",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:39:02.880Z",
         "productCount": 7,
         "inStockCount": 3,
@@ -9678,6 +9705,7 @@
         "name": "AI HOME",
         "url": "https://pay.ldxp.cn/shop/MEDDEX4V",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-05-01T08:34:01.414Z",
         "productCount": 19,
         "inStockCount": 5,
@@ -9698,6 +9726,7 @@
         "name": "猫咔",
         "url": "https://catcard.uk/",
         "status": "OPEN",
+        "currentVersion": 1,
         "lastCrawledAt": "2026-05-01T08:29:25.723Z",
         "productCount": 24,
         "inStockCount": 7,
@@ -9721,6 +9750,7 @@
         "name": "创富俱乐部",
         "url": "https://makerich.club/",
         "status": "OPEN",
+        "currentVersion": 2,
         "lastCrawledAt": "2026-05-01T08:03:16.467Z",
         "productCount": 22,
         "inStockCount": 4,
@@ -9742,6 +9772,7 @@
         "name": "鸡哥AI代充(自营)",
         "url": "https://pay.ldxp.cn/shop/C1IDCH40",
         "status": "OPEN",
+        "currentVersion": 0,
         "lastCrawledAt": "2026-04-27T13:39:32.667Z",
         "productCount": 141,
         "inStockCount": 73,
@@ -30140,6 +30171,7 @@
       {
         "shopId": "shop_src_1b6f2b1c",
         "crawlTaskId": "task_68182882",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T09:02:41.094Z",
         "summary": "AI-MEMBER发卡网购物页面，包含ChatGPT、Claude、Gemini、Grok、CODEX API以及邮箱等商品。",
@@ -30166,6 +30198,7 @@
       {
         "shopId": "shop_src_7ae4037b",
         "crawlTaskId": "task_27011d6f",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:59:39.462Z",
         "summary": "吱吱鼠卡网购物页面，展示了三个在售商品：GPT Plus月卡(¥118)、Gemini 3.1pro成品号(¥15)、Claude Pro代充(¥111)。公告提示GPT PRO产品已下架暂停销售，但GPT Plus月卡未受影响。",
@@ -30180,6 +30213,7 @@
       {
         "shopId": "shop_src_af365a50",
         "crawlTaskId": "task_83f41790",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:57:04.161Z",
         "summary": "页面来自链动小铺，店铺名称为AI HOME，共列出18种商品，包括ChatGPT和Claude相关产品，部分商品有质保，部分缺货。",
@@ -30210,6 +30244,7 @@
       {
         "shopId": "shop_src_8942ba69",
         "crawlTaskId": "task_3dbdee34",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:55:33.161Z",
         "summary": "贝贝商店主营AI工具充值账号，当前页面展示6个商品，含2个售罄，其余在售。",
@@ -30227,6 +30262,7 @@
       {
         "shopId": "shop_src_f604c61e",
         "crawlTaskId": "task_5a8b4033",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:51:56.276Z",
         "summary": "页面共展示5个商品，其中4个已售罄，1个在售（Gemini Pro一年成品）。所有商品均为自动发货，支持订单查询。",
@@ -30243,6 +30279,7 @@
       {
         "shopId": "shop_src_30a3e2c5",
         "crawlTaskId": "task_81064e2d",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:50:51.196Z",
         "summary": "页面展示了6个ChatGPT相关商品，其中3个已售罄，3个在售。",
@@ -30259,6 +30296,7 @@
       {
         "shopId": "shop_src_9452e7a1",
         "crawlTaskId": "task_c41d2a59",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:48:04.546Z",
         "summary": "GPTHub官网提供多种AI服务充值商品，包括ChatGPT、Gemini、Claude、Grok等，支持微信支付，部分商品缺货或库存紧张。",
@@ -30280,6 +30318,7 @@
       {
         "shopId": "shop_src_adb5b440",
         "crawlTaskId": "task_aa897f1b",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:46:33.872Z",
         "summary": "页面共识别5个在售商品，包含ChatGPT、Gemini、Claude、Grok等AI工具类商品，库存状态包括售罄和即将售罄，所有商品均为数字卡密/账号类产品，无虚拟卡和AppleID商品。",
@@ -30296,6 +30335,7 @@
       {
         "shopId": "shop_src_c5bb52f5",
         "crawlTaskId": "task_3290e3ce",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:42:42.497Z",
         "summary": "AI HOME的小店售有18种商品，包括ChatGPT和Claude相关产品，价格范围2.8元至1331元，部分缺货或库存少量，提供多种商品规格和质保选项。",
@@ -30326,6 +30366,7 @@
       {
         "shopId": "shop_src_ef63242b",
         "crawlTaskId": "task_6f17d0ef",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:39:02.880Z",
         "summary": "首页展示了7个精选商品，包括ChatGPT Plus/Pro、Gemini Pro、Gmail老号、GPT普号、SuperGrok等，部分商品已售罄。",
@@ -30344,6 +30385,7 @@
       {
         "shopId": "shop_src_8b7c2939",
         "crawlTaskId": "task_a5b965b1",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:34:01.413Z",
         "summary": "AI HOME小店共有18种商品，涵盖GPT和Claude等分类，部分商品有质保，部分缺货。",
@@ -30374,6 +30416,7 @@
       {
         "shopId": "shop_src_7ba51843",
         "crawlTaskId": "task_6c409a1d",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:29:25.722Z",
         "summary": "页面共识别16个在售商品，包括GPT Plus直充、Gemini成品号、Gmail邮箱、Grok成品号、短信服务等。部分商品已售罄。",
@@ -30394,6 +30437,7 @@
       {
         "shopId": "shop_src_7ba51843",
         "crawlTaskId": "task_ee1ac48b",
+        "version": 0,
         "snapshotDate": "2026-04-25",
         "capturedAt": "2026-04-25T06:36:40.206Z",
         "summary": "猫咔-24小时自动发货平台，提供Google Gemini、OpenAI GPT、短信服务、API中转站、Grok、抽奖专用等多种数字商品。",
@@ -30422,6 +30466,7 @@
       {
         "shopId": "shop_src_74a11226",
         "crawlTaskId": "task_8523fd25",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:03:16.466Z",
         "summary": "抓取页面为AI创富俱乐部商品列表，包含11个商品，涵盖ChatGPT、Grok、Google、Gemini等类别。",
@@ -30444,6 +30489,7 @@
       {
         "shopId": "shop_src_74a11226",
         "crawlTaskId": "task_17ac6fed",
+        "version": 0,
         "snapshotDate": "2026-04-26",
         "capturedAt": "2026-04-26T10:26:30.991Z",
         "summary": "抓取页面为AI创富俱乐部，展示10个商品，涵盖ChatGPT、Grok、Google、Gemini等，部分商品库存为0。",
@@ -30465,6 +30511,7 @@
       {
         "shopId": "shop_src_74a11226",
         "crawlTaskId": "task_6b7a016e",
+        "version": 0,
         "snapshotDate": "2026-04-25",
         "capturedAt": "2026-04-25T06:43:43.532Z",
         "summary": "页面包含10个在售AI账号/充值商品，部分商品无库存。",
@@ -30486,6 +30533,7 @@
       {
         "shopId": "shop_src_37758749",
         "crawlTaskId": "task_cf9b260d",
+        "version": 0,
         "snapshotDate": "2026-04-27",
         "capturedAt": "2026-04-27T13:39:32.667Z",
         "summary": "鸡哥AI代充小店, 共79种商品, 涵盖ChatGPT Plus/Pro、Claude、Gemini、Google账号、Apple礼品卡、虚拟卡等, 部分商品有质保标签。",
@@ -30639,6 +30687,7 @@
     "shopDiffs": [
       {
         "shopId": "shop_src_1b6f2b1c",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T09:02:41.094Z",
         "changes": [
@@ -30737,6 +30786,7 @@
       },
       {
         "shopId": "shop_src_7ae4037b",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:59:39.462Z",
         "changes": [
@@ -30763,6 +30813,7 @@
       },
       {
         "shopId": "shop_src_af365a50",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:57:04.161Z",
         "changes": [
@@ -30885,6 +30936,7 @@
       },
       {
         "shopId": "shop_src_8942ba69",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:55:33.161Z",
         "changes": [
@@ -30929,6 +30981,7 @@
       },
       {
         "shopId": "shop_src_f604c61e",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:51:56.276Z",
         "changes": [
@@ -30967,6 +31020,7 @@
       },
       {
         "shopId": "shop_src_30a3e2c5",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:50:51.196Z",
         "changes": [
@@ -31005,6 +31059,7 @@
       },
       {
         "shopId": "shop_src_9452e7a1",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:48:04.546Z",
         "changes": [
@@ -31073,6 +31128,7 @@
       },
       {
         "shopId": "shop_src_adb5b440",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:46:33.872Z",
         "changes": [
@@ -31111,6 +31167,7 @@
       },
       {
         "shopId": "shop_src_c5bb52f5",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:42:42.497Z",
         "changes": [
@@ -31233,6 +31290,7 @@
       },
       {
         "shopId": "shop_src_ef63242b",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:39:02.880Z",
         "changes": [
@@ -31283,6 +31341,7 @@
       },
       {
         "shopId": "shop_src_8b7c2939",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:34:01.413Z",
         "changes": [
@@ -31405,6 +31464,7 @@
       },
       {
         "shopId": "shop_src_7ba51843",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:29:25.722Z",
         "changes": [
@@ -31551,6 +31611,7 @@
       },
       {
         "shopId": "shop_src_7ba51843",
+        "version": 0,
         "snapshotDate": "2026-04-25",
         "capturedAt": "2026-04-25T06:36:40.206Z",
         "changes": [
@@ -31661,6 +31722,7 @@
       },
       {
         "shopId": "shop_src_74a11226",
+        "version": 0,
         "snapshotDate": "2026-05-01",
         "capturedAt": "2026-05-01T08:03:16.466Z",
         "changes": [
@@ -31777,6 +31839,7 @@
       },
       {
         "shopId": "shop_src_74a11226",
+        "version": 0,
         "snapshotDate": "2026-04-26",
         "capturedAt": "2026-04-26T10:26:30.991Z",
         "changes": [
@@ -31873,6 +31936,7 @@
       },
       {
         "shopId": "shop_src_74a11226",
+        "version": 0,
         "snapshotDate": "2026-04-25",
         "capturedAt": "2026-04-25T06:43:43.532Z",
         "changes": [
@@ -31941,6 +32005,7 @@
       },
       {
         "shopId": "shop_src_37758749",
+        "version": 0,
         "snapshotDate": "2026-04-27",
         "capturedAt": "2026-04-27T13:39:32.667Z",
         "changes": [
@@ -32794,6 +32859,6 @@
         "summary": "新增 141 项"
       }
     ],
-    "publishedAt": "2026-05-01T09:02:41.094Z"
+    "publishedAt": "2026-05-02T07:07:41.189Z"
   }
 }

@@ -5,6 +5,7 @@
     "name": "aistore",
     "url": "https://pay.ldxp.cn/shop/aistore?u_atoken=69d65b48-cea8-a96c-4d4f-1452855d73dc&u_asig=de51781617756557529673943e",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:42:42.497Z",
     "productCount": 19,
     "inStockCount": 5,
@@ -1260,6 +1261,7 @@
     {
       "shopId": "shop_src_c5bb52f5",
       "crawlTaskId": "task_3290e3ce",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:42:42.497Z",
       "summary": "AI HOME的小店售有18种商品，包括ChatGPT和Claude相关产品，价格范围2.8元至1331元，部分缺货或库存少量，提供多种商品规格和质保选项。",
@@ -1291,6 +1293,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_c5bb52f5",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:42:42.497Z",
       "changes": [
@@ -1412,5 +1415,5 @@
       "summary": "新增 19 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

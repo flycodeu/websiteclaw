@@ -396,7 +396,8 @@ function buildShopSummary(
   shopId: string,
   shopProducts: PublishedShopProduct[],
   recentChangeCount: number,
-  runCount: number
+  runCount: number,
+  currentVersion: number
 ) {
   const activeProducts = shopProducts;
   const visibleProducts = activeProducts.filter((item) => item.current.isDetected);
@@ -413,6 +414,7 @@ function buildShopSummary(
     name: source.sourceName,
     url: source.sourceUrl,
     status: buildShopStatus(shopProducts),
+    currentVersion,
     lastCrawledAt: nowIso(),
     productCount: activeProducts.length,
     inStockCount,
@@ -441,6 +443,51 @@ function upsertShopProducts(items: PublishedShopProduct[], shopId: string, nextP
   return [...nextProducts, ...items.filter((item) => item.shopId !== shopId)];
 }
 
+function markBatchSourceCompleted(
+  batch: PlatformState["crawlBatch"],
+  sourceId: string
+): PlatformState["crawlBatch"] {
+  if (!batch || !batch.sourceIds.includes(sourceId)) {
+    return batch;
+  }
+
+  const completedSourceIds = dedupe([...batch.completedSourceIds, sourceId]);
+  const nextIndex = batch.sourceIds.findIndex((item) => !completedSourceIds.includes(item));
+
+  if (nextIndex === -1) {
+    return null;
+  }
+
+  return {
+    ...batch,
+    completedSourceIds,
+    currentIndex: nextIndex,
+    currentSourceId: batch.sourceIds[nextIndex],
+    currentTaskId: undefined,
+    updatedAt: nowIso(),
+    finishedAt: undefined
+  };
+}
+
+function cancelBatchIfSourceAffected(
+  batch: PlatformState["crawlBatch"],
+  sourceIds: string[]
+): PlatformState["crawlBatch"] {
+  if (!batch || sourceIds.length === 0) {
+    return batch;
+  }
+
+  return sourceIds.some((sourceId) => batch.sourceIds.includes(sourceId) || batch.currentSourceId === sourceId) ? null : batch;
+}
+
+function cancelBatchIfTaskAffected(batch: PlatformState["crawlBatch"], tasks: Array<{ batchId?: string }>): PlatformState["crawlBatch"] {
+  if (!batch || tasks.length === 0) {
+    return batch;
+  }
+
+  return tasks.some((task) => task.batchId === batch.batchId) ? null : batch;
+}
+
 export async function createSource(payload: NewSourcePayload) {
   const sourceName = payload.sourceName?.trim();
   const sourceUrl = payload.sourceUrl?.trim();
@@ -458,6 +505,7 @@ export async function createSource(payload: NewSourcePayload) {
     entryUrl: payload.entryUrl?.trim() || sourceUrl,
     crawlMode: payload.crawlMode ?? "AUTO",
     enabled: payload.enabled ?? true,
+    visible: payload.visible ?? true,
     lastRunAt: "",
     createdAt: now,
     updatedAt: now,
@@ -475,6 +523,39 @@ export async function createSource(payload: NewSourcePayload) {
   });
 
   return source;
+}
+
+export async function updateSourceVisibility(sourceId: string, visible: boolean) {
+  const normalizedSourceId = sourceId?.trim();
+
+  if (!normalizedSourceId) {
+    throw new Error("数据源不存在");
+  }
+
+  const state = await getPlatformState();
+  const source = state.sources.find((item) => item.sourceId === normalizedSourceId);
+
+  if (!source) {
+    throw new Error("数据源不存在");
+  }
+
+  const updatedAt = nowIso();
+  const nextSource: DataSource = {
+    ...source,
+    visible,
+    updatedAt
+  };
+
+  await savePlatformState({
+    ...state,
+    sources: state.sources.map((item) => (item.sourceId === normalizedSourceId ? nextSource : item)),
+    published: {
+      ...state.published,
+      publishedAt: updatedAt
+    }
+  });
+
+  return nextSource;
 }
 
 export async function deleteSource(sourceId: string) {
@@ -506,6 +587,7 @@ export async function deleteSource(sourceId: string) {
     sources: state.sources.filter((item) => item.sourceId !== normalizedSourceId),
     tasks: state.tasks.filter((item) => item.sourceId !== normalizedSourceId),
     reviews: state.reviews.filter((item) => item.sourceId !== normalizedSourceId),
+    crawlBatch: cancelBatchIfSourceAffected(state.crawlBatch, [normalizedSourceId]),
     published: {
       ...state.published,
       shops: state.published.shops.filter((item) => item.sourceId !== normalizedSourceId),
@@ -558,6 +640,7 @@ export async function clearTasksByStatus(status: TaskStatus) {
   const nextState: PlatformState = {
     ...state,
     tasks: state.tasks.filter((task) => task.status !== status),
+    crawlBatch: cancelBatchIfTaskAffected(state.crawlBatch, tasksToClear),
     reviews: nextReviews
   };
 
@@ -662,6 +745,7 @@ export async function publishReview(reviewId: string) {
   const snapshot: ShopSnapshot = {
     shopId,
     crawlTaskId: review.taskId,
+    version: Math.max(review.crawlVersion ?? existingShop?.currentVersion ?? 0, 0),
     snapshotDate: review.snapshotDate,
     capturedAt: diffCapturedAt,
     summary: review.summary,
@@ -671,7 +755,16 @@ export async function publishReview(reviewId: string) {
   };
   const previousSnapshots = state.published.shopSnapshots.filter((item) => item.shopId === shopId);
   const nextSnapshots = trimSnapshotsForShop(shopId, [snapshot, ...previousSnapshots]);
-  const nextShop = buildShopSummary(source, shopId, nextMergedProducts.activeProducts, changes.length, nextSnapshots.length);
+  const nextRunCount = Math.max(existingShop?.runCount ?? 0, 0) + 1;
+  const currentVersion = Math.max(review.crawlVersion ?? existingShop?.currentVersion ?? nextRunCount - 1, 0);
+  const nextShop = buildShopSummary(
+    source,
+    shopId,
+    nextMergedProducts.activeProducts,
+    changes.length,
+    nextRunCount,
+    currentVersion
+  );
   const diffChanges =
     existingShop && existingShop.status !== nextShop.status
       ? [
@@ -684,6 +777,7 @@ export async function publishReview(reviewId: string) {
       : changes;
   const diff: ShopDiff = {
     shopId,
+    version: currentVersion,
     snapshotDate: review.snapshotDate,
     capturedAt: diffCapturedAt,
     changes: diffChanges,
@@ -705,6 +799,15 @@ export async function publishReview(reviewId: string) {
     publishedAt: diffCapturedAt
   };
 
+  const nextBatch =
+    review.batchId && state.crawlBatch?.batchId === review.batchId
+      ? markBatchSourceCompleted(state.crawlBatch, review.sourceId)
+      : state.crawlBatch;
+  const hasNextInBatch = Boolean(
+    review.batchId &&
+      nextBatch?.batchId === review.batchId &&
+      nextBatch.sourceIds.some((sourceId) => !nextBatch.completedSourceIds.includes(sourceId))
+  );
   const nextState: PlatformState = {
     ...state,
     reviews: state.reviews.map((item) =>
@@ -715,6 +818,7 @@ export async function publishReview(reviewId: string) {
           }
         : item
     ),
+    crawlBatch: nextBatch,
     tasks: state.tasks.map((item) =>
       item.reviewId === reviewId
         ? {
@@ -735,6 +839,9 @@ export async function publishReview(reviewId: string) {
   return {
     reviewId,
     shopId,
-    publishedAt: diffCapturedAt
+    publishedAt: diffCapturedAt,
+    batchId: review.batchId,
+    crawlVersion: currentVersion,
+    hasNextInBatch
   };
 }

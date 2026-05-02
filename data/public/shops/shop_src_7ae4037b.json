@@ -5,6 +5,7 @@
     "name": "吱吱鼠卡网",
     "url": "https://zzshu.com/",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:59:39.462Z",
     "productCount": 3,
     "inStockCount": 3,
@@ -220,6 +221,7 @@
     {
       "shopId": "shop_src_7ae4037b",
       "crawlTaskId": "task_27011d6f",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:59:39.462Z",
       "summary": "吱吱鼠卡网购物页面，展示了三个在售商品：GPT Plus月卡(¥118)、Gemini 3.1pro成品号(¥15)、Claude Pro代充(¥111)。公告提示GPT PRO产品已下架暂停销售，但GPT Plus月卡未受影响。",
@@ -235,6 +237,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_7ae4037b",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:59:39.462Z",
       "changes": [
@@ -260,5 +263,5 @@
       "summary": "新增 3 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

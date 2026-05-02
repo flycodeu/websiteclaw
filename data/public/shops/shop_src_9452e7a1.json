@@ -5,6 +5,7 @@
     "name": "gpthub",
     "url": "https://gpthub.ciyuanapi.ai/",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:48:04.546Z",
     "productCount": 10,
     "inStockCount": 7,
@@ -677,6 +678,7 @@
     {
       "shopId": "shop_src_9452e7a1",
       "crawlTaskId": "task_c41d2a59",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:48:04.546Z",
       "summary": "GPTHub官网提供多种AI服务充值商品，包括ChatGPT、Gemini、Claude、Grok等，支持微信支付，部分商品缺货或库存紧张。",
@@ -699,6 +701,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_9452e7a1",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:48:04.546Z",
       "changes": [
@@ -766,5 +769,5 @@
       "summary": "新增 10 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

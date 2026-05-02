@@ -5,6 +5,7 @@
     "name": "aixiamo",
     "url": "https://www.aixiamo.com/",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:51:56.276Z",
     "productCount": 5,
     "inStockCount": 1,
@@ -350,6 +351,7 @@
     {
       "shopId": "shop_src_f604c61e",
       "crawlTaskId": "task_5a8b4033",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:51:56.276Z",
       "summary": "页面共展示5个商品，其中4个已售罄，1个在售（Gemini Pro一年成品）。所有商品均为自动发货，支持订单查询。",
@@ -367,6 +369,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_f604c61e",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:51:56.276Z",
       "changes": [
@@ -404,5 +407,5 @@
       "summary": "新增 5 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

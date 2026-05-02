@@ -1,6 +1,5 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { unstable_cache } from "next/cache";
 import type {
   PublishedDiffFeed,
   PublishedMeta,
@@ -109,65 +108,22 @@ export function getPublicApiCacheHeaders() {
   };
 }
 
-const readPublishedMeta = unstable_cache(
-  async () => {
-    return readJsonFile<PublishedMeta>(await getPublicDataFilePath(PUBLIC_META_FILENAME), createEmptyMeta());
-  },
-  ["published-meta"],
-  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
-);
-
-const readPublishedShopIndex = unstable_cache(
-  async () => {
-    return readJsonFile<PublishedShopIndex>(await getPublicDataFilePath(PUBLIC_SHOPS_FILENAME), createEmptyShopIndex());
-  },
-  ["published-shop-index"],
-  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
-);
-
-const readPublishedProductCatalog = unstable_cache(
-  async () => {
-    return readJsonFile<PublishedProductCatalog>(
-      await getPublicDataFilePath(PUBLIC_PRODUCTS_FILENAME),
-      createEmptyProductCatalog()
-    );
-  },
-  ["published-product-catalog"],
-  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
-);
-
-const readPublishedDiffFeed = unstable_cache(
-  async () => {
-    return readJsonFile<PublishedDiffFeed>(await getPublicDataFilePath(PUBLIC_DIFFS_FILENAME), createEmptyDiffFeed());
-  },
-  ["published-diff-feed"],
-  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
-);
-
-const readPublishedShopDetail = unstable_cache(
-  async (shopId: string) => {
-    return readJsonFile<PublishedShopDetail | null>(await getPublicShopDetailPath(shopId), null);
-  },
-  ["published-shop-detail"],
-  { revalidate: PUBLIC_DATA_REVALIDATE_SECONDS }
-);
-
 export async function getPublishedMeta() {
-  return readPublishedMeta();
+  return readJsonFile<PublishedMeta>(await getPublicDataFilePath(PUBLIC_META_FILENAME), createEmptyMeta());
 }
 
 export async function getPublishedShopIndex() {
-  return readPublishedShopIndex();
+  return readJsonFile<PublishedShopIndex>(await getPublicDataFilePath(PUBLIC_SHOPS_FILENAME), createEmptyShopIndex());
 }
 
 export async function getPublishedProductCatalog() {
-  return readPublishedProductCatalog();
+  return readJsonFile<PublishedProductCatalog>(await getPublicDataFilePath(PUBLIC_PRODUCTS_FILENAME), createEmptyProductCatalog());
 }
 
 export async function getPublishedDiffFeed() {
-  return readPublishedDiffFeed();
+  return readJsonFile<PublishedDiffFeed>(await getPublicDataFilePath(PUBLIC_DIFFS_FILENAME), createEmptyDiffFeed());
 }
 
 export async function getPublishedShopDetail(shopId: string) {
-  return readPublishedShopDetail(shopId);
+  return readJsonFile<PublishedShopDetail | null>(await getPublicShopDetailPath(shopId), null);
 }

@@ -5,6 +5,7 @@
     "name": "xiaosen",
     "url": "https://www.xiaosen.shop/?aff=FZTCXVFU",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:39:02.880Z",
     "productCount": 7,
     "inStockCount": 3,
@@ -480,6 +481,7 @@
     {
       "shopId": "shop_src_ef63242b",
       "crawlTaskId": "task_6f17d0ef",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:39:02.880Z",
       "summary": "首页展示了7个精选商品，包括ChatGPT Plus/Pro、Gemini Pro、Gmail老号、GPT普号、SuperGrok等，部分商品已售罄。",
@@ -499,6 +501,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_ef63242b",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:39:02.880Z",
       "changes": [
@@ -548,5 +551,5 @@
       "summary": "新增 7 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

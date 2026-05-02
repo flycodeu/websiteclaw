@@ -10,6 +10,7 @@ import {
   AiSettings,
   AiUsageSummary,
   ContinueTaskPayload,
+  CrawlBatchState,
   CrawlRequestPayload,
   CrawlTask,
   DataSource,
@@ -22,6 +23,7 @@ import {
   StockStatus,
   VerificationMethod
 } from "@shop-claw/shared/types";
+import { publishReview } from "@shop-claw/shared/workflow";
 import { readAiSettingsFromEnv } from "@/lib/ai-config";
 import type { BrowserCrawlResult, CapturedProductCard } from "@/lib/playwright-crawler";
 import {
@@ -1013,6 +1015,121 @@ function replaceTaskInState(state: PlatformState, nextTask: CrawlTask) {
   };
 }
 
+function isFinalTaskStatus(status: CrawlTask["status"]) {
+  return status === "PUBLISHED" || status === "FAILED";
+}
+
+function inferNextCrawlVersion(state: PlatformState) {
+  const maxPublishedVersion = state.published.shops.reduce(
+    (current, shop) => Math.max(current, Number.isFinite(shop.currentVersion) ? shop.currentVersion : -1),
+    -1
+  );
+  const maxTaskVersion = state.tasks.reduce(
+    (current, task) => Math.max(current, typeof task.crawlVersion === "number" ? task.crawlVersion : -1),
+    -1
+  );
+  const maxReviewVersion = state.reviews.reduce(
+    (current, review) => Math.max(current, typeof review.crawlVersion === "number" ? review.crawlVersion : -1),
+    -1
+  );
+  const maxBatchVersion = state.crawlBatch?.version ?? -1;
+
+  return Math.max(maxPublishedVersion, maxTaskVersion, maxReviewVersion, maxBatchVersion, -1) + 1;
+}
+
+function buildPendingTask(
+  source: DataSource,
+  options: {
+    createdAt?: string;
+    batchId?: string;
+    batchIndex?: number;
+    crawlVersion: number;
+  }
+): CrawlTask {
+  const createdAt = options.createdAt ?? nowIso();
+
+  return {
+    id: createId("task"),
+    sourceId: source.sourceId,
+    sourceName: source.sourceName,
+    batchId: options.batchId,
+    batchIndex: options.batchIndex,
+    crawlVersion: options.crawlVersion,
+    status: "PENDING",
+    startedAt: createdAt,
+    updatedAt: createdAt,
+    logSummary: "任务已创建，等待浏览器抓取。",
+    nextAction: "准备启动浏览器",
+    rawUrl: source.entryUrl || source.sourceUrl,
+    currentUrl: source.entryUrl || source.sourceUrl,
+    rawFragments: [],
+    timeline: [
+      {
+        at: createdAt,
+        title: "任务创建",
+        detail: "已加入抓取队列。"
+      }
+    ],
+    requiresVerification: false,
+    verificationMethod: source.verificationMethod,
+    verificationPrompt: source.verificationPrompt,
+    sessionId: `session_${randomUUID().slice(0, 8)}`,
+    artifacts: {}
+  };
+}
+
+function withSourceRunTimestamp(state: PlatformState, sourceId: string, timestamp: string) {
+  return state.sources.map((item) =>
+    item.sourceId === sourceId ? { ...item, lastRunAt: timestamp, updatedAt: timestamp } : item
+  );
+}
+
+function resolveSourcesForBatch(state: PlatformState, sourceIds: string[]) {
+  const normalizedSourceIds = [...new Set(sourceIds.map((item) => item?.trim()).filter(Boolean))];
+
+  if (normalizedSourceIds.length === 0) {
+    throw new Error("请至少选择一个数据源");
+  }
+
+  return normalizedSourceIds.map((sourceId) => {
+    const source = state.sources.find((item) => item.sourceId === sourceId);
+
+    if (!source) {
+      throw new Error(`数据源不存在：${sourceId}`);
+    }
+
+    if (!source.enabled) {
+      throw new Error(`数据源已停用：${source.sourceName}`);
+    }
+
+    return source;
+  });
+}
+
+function buildBatchState(
+  batchId: string,
+  version: number,
+  sourceIds: string[],
+  task: CrawlTask,
+  timestamp: string
+): CrawlBatchState {
+  return {
+    batchId,
+    version,
+    sourceIds,
+    completedSourceIds: [],
+    currentIndex: 0,
+    currentSourceId: task.sourceId,
+    currentTaskId: task.id,
+    startedAt: timestamp,
+    updatedAt: timestamp
+  };
+}
+
+function getNextBatchSourceId(batch: CrawlBatchState | null | undefined) {
+  return batch?.sourceIds.find((sourceId) => !batch.completedSourceIds.includes(sourceId));
+}
+
 interface CaptureProcessingOptions {
   payload?: ContinueTaskPayload;
   fromManualVerification?: boolean;
@@ -1166,6 +1283,8 @@ async function processCaptureResult(
     taskId: workingTask.id,
     sourceId: source.sourceId,
     sourceName: source.sourceName,
+    batchId: workingTask.batchId,
+    crawlVersion: workingTask.crawlVersion,
     status: "REVIEWING",
     snapshotDate: nowIso().slice(0, 10),
     summary: analysis.summary,
@@ -1295,50 +1414,81 @@ async function runTaskPipeline(
 
 export async function createAndRunTask(payload: CrawlRequestPayload) {
   const state = await getPlatformState();
-  const source = state.sources.find((item) => item.sourceId === payload.sourceId);
-
-  if (!source) {
-    throw new Error("数据源不存在");
-  }
-
-  if (!source.enabled) {
-    throw new Error("该数据源已停用");
-  }
-
+  const requestedSourceIds = [...new Set((payload.sourceIds ?? []).map((item) => item?.trim()).filter(Boolean))];
+  const shouldStartBatch = Boolean(payload.startBatch || requestedSourceIds.length > 1);
   const createdAt = nowIso();
-  const task: CrawlTask = {
-    id: createId("task"),
-    sourceId: source.sourceId,
-    sourceName: source.sourceName,
-    status: "PENDING",
-    startedAt: createdAt,
-    updatedAt: createdAt,
-    logSummary: "任务已创建，等待浏览器抓取。",
-    nextAction: "准备启动浏览器",
-    rawUrl: source.entryUrl || source.sourceUrl,
-    currentUrl: source.entryUrl || source.sourceUrl,
-    rawFragments: [],
-    timeline: [
-      {
-        at: createdAt,
-        title: "任务创建",
-        detail: "已加入抓取队列。"
-      }
-    ],
-    requiresVerification: false,
-    verificationMethod: source.verificationMethod,
-    verificationPrompt: source.verificationPrompt,
-    sessionId: `session_${randomUUID().slice(0, 8)}`,
-    artifacts: {}
-  };
+  const crawlVersion = inferNextCrawlVersion(state);
+  let source: DataSource;
+  let task: CrawlTask;
+  let preparedState: PlatformState;
 
-  const preparedState: PlatformState = {
-    ...state,
-    tasks: [task, ...state.tasks],
-    sources: state.sources.map((item) =>
-      item.sourceId === source.sourceId ? { ...item, lastRunAt: createdAt, updatedAt: createdAt } : item
-    )
-  };
+  if (shouldStartBatch) {
+    if (state.crawlBatch) {
+      throw new Error("当前已有进行中的批量抓取，请先完成当前批次。");
+    }
+
+    const inflightTasks = state.tasks.filter((item) => !isFinalTaskStatus(item.status));
+
+    if (inflightTasks.length > 0) {
+      throw new Error("当前仍有未完成任务，请先处理后再启动批量抓取。");
+    }
+
+    const sources = resolveSourcesForBatch(
+      state,
+      requestedSourceIds.length > 0 ? requestedSourceIds : payload.sourceId ? [payload.sourceId] : []
+    );
+    const batchId = createId("batch");
+    source = sources[0];
+    task = buildPendingTask(source, {
+      createdAt,
+      batchId,
+      batchIndex: 0,
+      crawlVersion
+    });
+    preparedState = {
+      ...state,
+      tasks: [task, ...state.tasks],
+      sources: withSourceRunTimestamp(state, source.sourceId, createdAt),
+      crawlBatch: buildBatchState(
+        batchId,
+        crawlVersion,
+        sources.map((item) => item.sourceId),
+        task,
+        createdAt
+      )
+    };
+  } else {
+    if (state.crawlBatch) {
+      throw new Error("当前存在进行中的批量抓取，请先完成该批次。");
+    }
+
+    const sourceId = payload.sourceId?.trim() || requestedSourceIds[0];
+
+    if (!sourceId) {
+      throw new Error("数据源不存在");
+    }
+
+    const resolvedSource = state.sources.find((item) => item.sourceId === sourceId);
+
+    if (!resolvedSource) {
+      throw new Error("数据源不存在");
+    }
+
+    if (!resolvedSource.enabled) {
+      throw new Error("该数据源已停用");
+    }
+
+    source = resolvedSource;
+    task = buildPendingTask(source, {
+      createdAt,
+      crawlVersion
+    });
+    preparedState = {
+      ...state,
+      tasks: [task, ...state.tasks],
+      sources: withSourceRunTimestamp(state, source.sourceId, createdAt)
+    };
+  }
 
   await savePlatformState(preparedState);
   const pipelineResult = await runTaskPipeline(preparedState, task, source);
@@ -1588,4 +1738,83 @@ export async function continueTask(taskId: string, payload: ContinueTaskPayload)
   const pipelineResult = await runTaskPipeline(stateWithTask, updatedTask, source, payload);
   await savePlatformState(pipelineResult.state);
   return pipelineResult.task;
+}
+
+export async function publishReviewAndContinue(reviewId: string) {
+  const publishResult = await publishReview(reviewId);
+
+  if (!publishResult.batchId || !publishResult.hasNextInBatch) {
+    return {
+      ...publishResult,
+      batchCompleted: true,
+      nextTask: null as CrawlTask | null
+    };
+  }
+
+  const state = await getPlatformState();
+  const batch = state.crawlBatch;
+
+  if (!batch || batch.batchId !== publishResult.batchId) {
+    return {
+      ...publishResult,
+      batchCompleted: true,
+      nextTask: null as CrawlTask | null
+    };
+  }
+
+  const inflightTasks = state.tasks.filter((item) => !isFinalTaskStatus(item.status));
+
+  if (inflightTasks.length > 0) {
+    throw new Error("当前仍有未完成任务，暂时不能继续下一站。");
+  }
+
+  const nextSourceId = getNextBatchSourceId(batch);
+
+  if (!nextSourceId) {
+    return {
+      ...publishResult,
+      batchCompleted: true,
+      nextTask: null as CrawlTask | null
+    };
+  }
+
+  const source = state.sources.find((item) => item.sourceId === nextSourceId);
+
+  if (!source) {
+    throw new Error("下一站数据源不存在，当前批次已中断。");
+  }
+
+  if (!source.enabled) {
+    throw new Error(`下一站数据源“${source.sourceName}”已停用，当前批次已中断。`);
+  }
+
+  const createdAt = nowIso();
+  const nextTask = buildPendingTask(source, {
+    createdAt,
+    batchId: batch.batchId,
+    batchIndex: batch.completedSourceIds.length,
+    crawlVersion: batch.version
+  });
+  const preparedState: PlatformState = {
+    ...state,
+    tasks: [nextTask, ...state.tasks],
+    sources: withSourceRunTimestamp(state, source.sourceId, createdAt),
+    crawlBatch: {
+      ...batch,
+      currentIndex: batch.completedSourceIds.length,
+      currentSourceId: source.sourceId,
+      currentTaskId: nextTask.id,
+      updatedAt: createdAt
+    }
+  };
+
+  await savePlatformState(preparedState);
+  const pipelineResult = await runTaskPipeline(preparedState, nextTask, source);
+  await savePlatformState(pipelineResult.state);
+
+  return {
+    ...publishResult,
+    batchCompleted: false,
+    nextTask: pipelineResult.task
+  };
 }

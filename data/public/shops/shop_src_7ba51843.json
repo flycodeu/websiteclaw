@@ -5,6 +5,7 @@
     "name": "猫咔",
     "url": "https://catcard.uk/",
     "status": "OPEN",
+    "currentVersion": 1,
     "lastCrawledAt": "2026-05-01T08:29:25.723Z",
     "productCount": 24,
     "inStockCount": 7,
@@ -1955,6 +1956,7 @@
     {
       "shopId": "shop_src_7ba51843",
       "crawlTaskId": "task_6c409a1d",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:29:25.722Z",
       "summary": "页面共识别16个在售商品，包括GPT Plus直充、Gemini成品号、Gmail邮箱、Grok成品号、短信服务等。部分商品已售罄。",
@@ -1975,6 +1977,7 @@
     {
       "shopId": "shop_src_7ba51843",
       "crawlTaskId": "task_ee1ac48b",
+      "version": 0,
       "snapshotDate": "2026-04-25",
       "capturedAt": "2026-04-25T06:36:40.206Z",
       "summary": "猫咔-24小时自动发货平台，提供Google Gemini、OpenAI GPT、短信服务、API中转站、Grok、抽奖专用等多种数字商品。",
@@ -2004,6 +2007,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_7ba51843",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:29:25.722Z",
       "changes": [
@@ -2150,6 +2154,7 @@
     },
     {
       "shopId": "shop_src_7ba51843",
+      "version": 0,
       "snapshotDate": "2026-04-25",
       "capturedAt": "2026-04-25T06:36:40.206Z",
       "changes": [
@@ -2259,5 +2264,5 @@
       "summary": "新增 17 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

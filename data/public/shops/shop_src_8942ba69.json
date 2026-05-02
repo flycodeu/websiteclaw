@@ -5,6 +5,7 @@
     "name": "bei-bei",
     "url": "https://bei-bei.shop/",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:55:33.161Z",
     "productCount": 6,
     "inStockCount": 4,
@@ -414,6 +415,7 @@
     {
       "shopId": "shop_src_8942ba69",
       "crawlTaskId": "task_3dbdee34",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:55:33.161Z",
       "summary": "贝贝商店主营AI工具充值账号，当前页面展示6个商品，含2个售罄，其余在售。",
@@ -432,6 +434,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_8942ba69",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:55:33.161Z",
       "changes": [
@@ -475,5 +478,5 @@
       "summary": "新增 6 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

@@ -5,6 +5,7 @@
     "name": "Ai2You智友社",
     "url": "https://pay.ldxp.cn/shop/282D9KDL",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:57:04.161Z",
     "productCount": 19,
     "inStockCount": 5,
@@ -1260,6 +1261,7 @@
     {
       "shopId": "shop_src_af365a50",
       "crawlTaskId": "task_83f41790",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:57:04.161Z",
       "summary": "页面来自链动小铺，店铺名称为AI HOME，共列出18种商品，包括ChatGPT和Claude相关产品，部分商品有质保，部分缺货。",
@@ -1291,6 +1293,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_af365a50",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:57:04.161Z",
       "changes": [
@@ -1412,5 +1415,5 @@
       "summary": "新增 19 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

@@ -5,6 +5,7 @@
     "name": "nobrisk",
     "url": "https://shop.nobrisk.com/",
     "status": "RISK",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:46:33.872Z",
     "productCount": 5,
     "inStockCount": 0,
@@ -351,6 +352,7 @@
     {
       "shopId": "shop_src_adb5b440",
       "crawlTaskId": "task_aa897f1b",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:46:33.872Z",
       "summary": "页面共识别5个在售商品，包含ChatGPT、Gemini、Claude、Grok等AI工具类商品，库存状态包括售罄和即将售罄，所有商品均为数字卡密/账号类产品，无虚拟卡和AppleID商品。",
@@ -368,6 +370,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_adb5b440",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:46:33.872Z",
       "changes": [
@@ -405,5 +408,5 @@
       "summary": "新增 5 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

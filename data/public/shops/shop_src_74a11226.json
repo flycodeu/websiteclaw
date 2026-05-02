@@ -5,6 +5,7 @@
     "name": "创富俱乐部",
     "url": "https://makerich.club/",
     "status": "OPEN",
+    "currentVersion": 2,
     "lastCrawledAt": "2026-05-01T08:03:16.467Z",
     "productCount": 22,
     "inStockCount": 4,
@@ -1961,6 +1962,7 @@
     {
       "shopId": "shop_src_74a11226",
       "crawlTaskId": "task_8523fd25",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:03:16.466Z",
       "summary": "抓取页面为AI创富俱乐部商品列表，包含11个商品，涵盖ChatGPT、Grok、Google、Gemini等类别。",
@@ -1983,6 +1985,7 @@
     {
       "shopId": "shop_src_74a11226",
       "crawlTaskId": "task_17ac6fed",
+      "version": 0,
       "snapshotDate": "2026-04-26",
       "capturedAt": "2026-04-26T10:26:30.991Z",
       "summary": "抓取页面为AI创富俱乐部，展示10个商品，涵盖ChatGPT、Grok、Google、Gemini等，部分商品库存为0。",
@@ -2004,6 +2007,7 @@
     {
       "shopId": "shop_src_74a11226",
       "crawlTaskId": "task_6b7a016e",
+      "version": 0,
       "snapshotDate": "2026-04-25",
       "capturedAt": "2026-04-25T06:43:43.532Z",
       "summary": "页面包含10个在售AI账号/充值商品，部分商品无库存。",
@@ -2026,6 +2030,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_74a11226",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:03:16.466Z",
       "changes": [
@@ -2142,6 +2147,7 @@
     },
     {
       "shopId": "shop_src_74a11226",
+      "version": 0,
       "snapshotDate": "2026-04-26",
       "capturedAt": "2026-04-26T10:26:30.991Z",
       "changes": [
@@ -2238,6 +2244,7 @@
     },
     {
       "shopId": "shop_src_74a11226",
+      "version": 0,
       "snapshotDate": "2026-04-25",
       "capturedAt": "2026-04-25T06:43:43.532Z",
       "changes": [
@@ -2305,5 +2312,5 @@
       "summary": "新增 10 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

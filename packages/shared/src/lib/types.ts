@@ -130,6 +130,7 @@ export interface ShopSummary {
   name: string;
   url: string;
   status: ShopStatus;
+  currentVersion: number;
   lastCrawledAt: string;
   productCount: number;
   inStockCount: number;
@@ -144,6 +145,7 @@ export interface ShopSummary {
 export interface ShopSnapshot {
   shopId: string;
   crawlTaskId?: string;
+  version: number;
   snapshotDate: string;
   capturedAt: string;
   summary: string;
@@ -167,6 +169,7 @@ export interface ShopChange {
 
 export interface ShopDiff {
   shopId: string;
+  version: number;
   snapshotDate: string;
   capturedAt: string;
   changes: ShopChange[];
@@ -286,6 +289,7 @@ export interface DataSource {
   entryUrl: string;
   crawlMode: CrawlMode;
   enabled: boolean;
+  visible: boolean;
   lastRunAt: string;
   createdAt: string;
   updatedAt: string;
@@ -314,6 +318,9 @@ export interface CrawlTask {
   id: string;
   sourceId: string;
   sourceName: string;
+  batchId?: string;
+  batchIndex?: number;
+  crawlVersion?: number;
   status: TaskStatus;
   startedAt: string;
   updatedAt: string;
@@ -341,6 +348,8 @@ export interface ReviewRecord {
   taskId: string;
   sourceId: string;
   sourceName: string;
+  batchId?: string;
+  crawlVersion?: number;
   status: ReviewStatus;
   snapshotDate: string;
   summary: string;
@@ -361,12 +370,26 @@ export interface PublishedData {
   publishedAt: string;
 }
 
+export interface CrawlBatchState {
+  batchId: string;
+  version: number;
+  sourceIds: string[];
+  completedSourceIds: string[];
+  currentIndex: number;
+  currentSourceId?: string;
+  currentTaskId?: string;
+  startedAt: string;
+  updatedAt: string;
+  finishedAt?: string;
+}
+
 export interface PlatformState {
   version: number;
   updatedAt: string;
   sources: DataSource[];
   tasks: CrawlTask[];
   reviews: ReviewRecord[];
+  crawlBatch: CrawlBatchState | null;
   published: PublishedData;
 }
 
@@ -394,6 +417,7 @@ export interface NewSourcePayload {
   entryUrl?: string;
   crawlMode?: CrawlMode;
   enabled?: boolean;
+  visible?: boolean;
   verificationMethod?: VerificationMethod;
   verificationPrompt?: string;
   waitSelector?: string;
@@ -403,7 +427,9 @@ export interface NewSourcePayload {
 }
 
 export interface CrawlRequestPayload {
-  sourceId: string;
+  sourceId?: string;
+  sourceIds?: string[];
+  startBatch?: boolean;
 }
 
 export interface ContinueTaskPayload {

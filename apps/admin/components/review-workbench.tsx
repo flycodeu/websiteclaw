@@ -161,6 +161,31 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
     });
   }
 
+  function handlePublishAndContinue() {
+    setStatusText("");
+
+    startTransition(async () => {
+      try {
+        const saveResponse = await fetch(`/api/review/${review.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(buildPayload())
+        });
+        await readMessage(saveResponse);
+
+        const publishResponse = await fetch(`/api/review/${review.id}/publish-next`, {
+          method: "POST"
+        });
+
+        setStatusText(await readMessage(publishResponse));
+        router.push("/tasks");
+        router.refresh();
+      } catch (error) {
+        setStatusText(error instanceof Error ? error.message : "发布并继续下一站失败");
+      }
+    });
+  }
+
   return (
     <div className="space-y-6">
       {statusText ? (
@@ -175,7 +200,10 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
             <div>
               <div className="text-sm uppercase tracking-[0.18em] text-slate-500">抓取片段</div>
               <h2 className="mt-2 font-serif text-3xl text-[#18222c]">{review.sourceName}</h2>
-              <p className="mt-2 text-sm text-slate-600">{formatDateOnlyLabel(review.snapshotDate)}</p>
+              <p className="mt-2 text-sm text-slate-600">
+                {formatDateOnlyLabel(review.snapshotDate)}
+                {typeof review.crawlVersion === "number" ? ` · 版本 V${review.crawlVersion}` : ""}
+              </p>
             </div>
             <div className="rounded-full border border-[#d8cfbf] bg-white/88 px-4 py-2 text-sm text-slate-600">
               {reviewStatusLabels[review.status]}
@@ -439,6 +467,16 @@ export function ReviewWorkbench({ review }: ReviewWorkbenchProps) {
             >
               {pending ? "发布中..." : "发布公开数据"}
             </button>
+            {review.batchId ? (
+              <button
+                type="button"
+                onClick={handlePublishAndContinue}
+                disabled={pending}
+                className="rounded-full bg-[#18222c] px-4 py-3 text-sm font-medium text-white shadow-[0_12px_24px_rgba(24,34,44,0.18)] disabled:opacity-60"
+              >
+                {pending ? "处理中..." : "发布并继续下一站"}
+              </button>
+            ) : null}
           </div>
         </section>
       </div>

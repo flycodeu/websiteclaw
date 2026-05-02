@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import {
   AiUsageSummary,
+  CrawlBatchState,
   CrawlTask,
   DataSource,
   PlatformState,
@@ -178,6 +179,7 @@ function createEmptyPlatformState(): PlatformState {
     sources: [],
     tasks: [],
     reviews: [],
+    crawlBatch: null,
     published: createEmptyPublishedData(now)
   };
 }
@@ -194,6 +196,7 @@ function normalizeSource(
     entryUrl: source.entryUrl ?? source.sourceUrl,
     crawlMode: source.crawlMode ?? "AUTO",
     enabled: source.enabled ?? true,
+    visible: source.visible ?? true,
     lastRunAt: source.lastRunAt ?? "",
     createdAt: source.createdAt ?? now,
     updatedAt: source.updatedAt ?? now,
@@ -217,6 +220,9 @@ function normalizeTask(
     id: task.id,
     sourceId: task.sourceId,
     sourceName: task.sourceName,
+    batchId: task.batchId?.trim() || undefined,
+    batchIndex: typeof task.batchIndex === "number" ? Math.max(task.batchIndex, 0) : undefined,
+    crawlVersion: typeof task.crawlVersion === "number" ? Math.max(task.crawlVersion, 0) : undefined,
     status: task.status,
     startedAt: task.startedAt,
     updatedAt: task.updatedAt,
@@ -237,6 +243,25 @@ function normalizeTask(
     pageState: task.pageState,
     artifacts: task.artifacts ?? {},
     aiUsage: task.aiUsage ? normalizeAiUsage(task.aiUsage) : undefined
+  };
+}
+
+function normalizeBatch(batch: Partial<CrawlBatchState> | null | undefined): CrawlBatchState | null {
+  if (!batch?.batchId?.trim()) {
+    return null;
+  }
+
+  return {
+    batchId: batch.batchId.trim(),
+    version: Math.max(Number(batch.version ?? 0), 0),
+    sourceIds: [...new Set((batch.sourceIds ?? []).map((item) => item?.trim()).filter(Boolean))],
+    completedSourceIds: [...new Set((batch.completedSourceIds ?? []).map((item) => item?.trim()).filter(Boolean))],
+    currentIndex: Math.max(Number(batch.currentIndex ?? 0), 0),
+    currentSourceId: batch.currentSourceId?.trim() || undefined,
+    currentTaskId: batch.currentTaskId?.trim() || undefined,
+    startedAt: batch.startedAt ?? nowIso(),
+    updatedAt: batch.updatedAt ?? nowIso(),
+    finishedAt: batch.finishedAt?.trim() || undefined
   };
 }
 
@@ -380,6 +405,7 @@ function normalizeSnapshot(item: Partial<ShopSnapshot>): ShopSnapshot {
   return {
     shopId: item.shopId?.trim() || "",
     crawlTaskId: item.crawlTaskId,
+    version: Math.max(Number(item.version ?? 0), 0),
     snapshotDate: item.snapshotDate ?? nowIso().slice(0, 10),
     capturedAt: item.capturedAt ?? nowIso(),
     summary: item.summary?.trim() || "",
@@ -392,6 +418,7 @@ function normalizeSnapshot(item: Partial<ShopSnapshot>): ShopSnapshot {
 function normalizeDiff(item: Partial<ShopDiff>): ShopDiff {
   return {
     shopId: item.shopId?.trim() || "",
+    version: Math.max(Number(item.version ?? 0), 0),
     snapshotDate: item.snapshotDate ?? nowIso().slice(0, 10),
     capturedAt: item.capturedAt ?? nowIso(),
     changes: item.changes ?? [],
@@ -402,6 +429,8 @@ function normalizeDiff(item: Partial<ShopDiff>): ShopDiff {
 function normalizeReview(item: ReviewRecord): ReviewRecord {
   return {
     ...item,
+    batchId: item.batchId?.trim() || undefined,
+    crawlVersion: typeof item.crawlVersion === "number" ? Math.max(item.crawlVersion, 0) : undefined,
     summary: item.summary ?? "",
     products: (item.products ?? []).map((product) => normalizeProductItem(product)),
     previousDiff: item.previousDiff ?? [],
@@ -419,6 +448,7 @@ function normalizePublished(state: Partial<PublishedData> & { snapshots?: ShopSn
       name: shop.name,
       url: shop.url,
       status: normalizeShopStatus(shop.status),
+      currentVersion: Math.max(Number(shop.currentVersion ?? Number(shop.runCount ?? 0) - 1), 0),
       lastCrawledAt: shop.lastCrawledAt ?? "",
       productCount: Number(shop.productCount ?? 0),
       inStockCount: Number(shop.inStockCount ?? 0),
@@ -439,24 +469,49 @@ function normalizePublished(state: Partial<PublishedData> & { snapshots?: ShopSn
 
 function normalizeState(state: PlatformState): PlatformState {
   const fallback = createEmptyPlatformState();
+  const normalizedSources = (state.sources ?? []).map((source) =>
+    normalizeSource(source as Partial<DataSource> & Pick<DataSource, "sourceId" | "sourceName" | "sourceUrl">)
+  );
+  const normalizedTasks = (state.tasks ?? []).map((task) =>
+    normalizeTask(
+      task as Partial<CrawlTask> &
+        Pick<
+          CrawlTask,
+          "id" | "sourceId" | "sourceName" | "status" | "startedAt" | "updatedAt" | "logSummary" | "nextAction" | "rawUrl"
+        >
+    )
+  );
+  const normalizedReviews = (state.reviews ?? []).map((review) => normalizeReview(review));
+  const normalizedPublished = normalizePublished(state.published ?? fallback.published);
+  const publishedTaskCountBySourceId = normalizedTasks.reduce((map, task) => {
+    if (task.status !== "PUBLISHED") {
+      return map;
+    }
+
+    map.set(task.sourceId, (map.get(task.sourceId) ?? 0) + 1);
+    return map;
+  }, new Map<string, number>());
+  const patchedPublished = {
+    ...normalizedPublished,
+    shops: normalizedPublished.shops.map((shop) => {
+      const inferredRunCount = Math.max(shop.runCount, publishedTaskCountBySourceId.get(shop.sourceId) ?? 0);
+
+      return {
+        ...shop,
+        runCount: inferredRunCount,
+        currentVersion: Math.max(shop.currentVersion, inferredRunCount > 0 ? inferredRunCount - 1 : 0)
+      };
+    })
+  };
 
   return {
     version: state.version ?? fallback.version,
     updatedAt: state.updatedAt ?? fallback.updatedAt,
-    sources: (state.sources ?? []).map((source) =>
-      normalizeSource(source as Partial<DataSource> & Pick<DataSource, "sourceId" | "sourceName" | "sourceUrl">)
-    ),
-    tasks: (state.tasks ?? []).map((task) =>
-      normalizeTask(
-        task as Partial<CrawlTask> &
-          Pick<
-            CrawlTask,
-            "id" | "sourceId" | "sourceName" | "status" | "startedAt" | "updatedAt" | "logSummary" | "nextAction" | "rawUrl"
-          >
-      )
-    ),
-    reviews: (state.reviews ?? []).map((review) => normalizeReview(review)),
-    published: normalizePublished(state.published ?? fallback.published)
+    sources: normalizedSources,
+    tasks: normalizedTasks,
+    reviews: normalizedReviews,
+    crawlBatch: normalizeBatch(state.crawlBatch),
+    published: patchedPublished
   };
 }
 
@@ -560,6 +615,34 @@ function buildPublishedShopDetail(
     recentSnapshots: published.shopSnapshots.filter((item) => item.shopId === shop.shopId).slice(0, HISTORY_LIMIT),
     recentDiffs: sortDiffsDescending(published.shopDiffs.filter((item) => item.shopId === shop.shopId)).slice(0, HISTORY_LIMIT),
     publishedAt: published.publishedAt
+  };
+}
+
+function filterPublishedDataBySourceVisibility(published: PublishedData, sources?: DataSource[]) {
+  if (!sources || sources.length === 0) {
+    return published;
+  }
+
+  const hiddenSourceIds = new Set(sources.filter((source) => source.visible === false).map((source) => source.sourceId));
+
+  if (hiddenSourceIds.size === 0) {
+    return published;
+  }
+
+  const shops = published.shops.filter((shop) => !hiddenSourceIds.has(shop.sourceId));
+  const shopIds = new Set(shops.map((shop) => shop.shopId));
+
+  return {
+    ...published,
+    shops,
+    shopProducts: published.shopProducts.filter(
+      (product) => !hiddenSourceIds.has(product.sourceId) && shopIds.has(product.shopId)
+    ),
+    archivedShopProducts: published.archivedShopProducts.filter(
+      (product) => !hiddenSourceIds.has(product.sourceId) && shopIds.has(product.shopId)
+    ),
+    shopSnapshots: published.shopSnapshots.filter((snapshot) => shopIds.has(snapshot.shopId)),
+    shopDiffs: published.shopDiffs.filter((diff) => shopIds.has(diff.shopId))
   };
 }
 
@@ -740,9 +823,10 @@ async function readPublishedDataPayload(fallback: PublishedData) {
   };
 }
 
-async function writePublishedData(published: PublishedData) {
+async function writePublishedData(published: PublishedData, sources?: DataSource[]) {
   const normalized = normalizePublished(published);
-  const meta = buildPublishedMeta(normalized);
+  const publicPublished = filterPublishedDataBySourceVisibility(normalized, sources);
+  const meta = buildPublishedMeta(publicPublished);
   const detailsDirectory = await getPublicShopDetailsDirectory();
   const publishedDataFile = await getPublishedDataFile();
   const publishedMetaFile = await getPublishedMetaFile();
@@ -750,21 +834,21 @@ async function writePublishedData(published: PublishedData) {
   const publishedDiffsFile = await getPublishedDiffsFile();
   const publishedShopsFile = await getPublishedShopsFile();
 
-  await writeJsonFile(publishedDataFile, normalized);
+  await writeJsonFile(publishedDataFile, publicPublished);
   await writeJsonFile(publishedMetaFile, meta);
-  await writeJsonFile(publishedShopsFile, buildPublishedShopIndex(normalized, meta));
-  await writeJsonFile(publishedProductsFile, buildPublishedProductCatalog(normalized, meta));
-  await writeJsonFile(publishedDiffsFile, buildPublishedDiffFeed(normalized));
+  await writeJsonFile(publishedShopsFile, buildPublishedShopIndex(publicPublished, meta));
+  await writeJsonFile(publishedProductsFile, buildPublishedProductCatalog(publicPublished, meta));
+  await writeJsonFile(publishedDiffsFile, buildPublishedDiffFeed(publicPublished));
   await fs.rm(detailsDirectory, { recursive: true, force: true });
   await fs.mkdir(detailsDirectory, { recursive: true });
 
   await Promise.all(
-    normalized.shops.map((shop) =>
-      writeJsonFile(path.join(detailsDirectory, `${shop.shopId}.json`), buildPublishedShopDetail(shop, normalized))
+    publicPublished.shops.map((shop) =>
+      writeJsonFile(path.join(detailsDirectory, `${shop.shopId}.json`), buildPublishedShopDetail(shop, publicPublished))
     )
   );
 
-  return normalized;
+  return publicPublished;
 }
 
 export async function getPlatformState() {
@@ -784,7 +868,7 @@ export async function savePlatformState(nextState: PlatformState) {
   });
 
   await fs.writeFile(filePath, `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
-  await writePublishedData(normalized.published);
+  await writePublishedData(normalized.published, normalized.sources);
   return normalized;
 }
 

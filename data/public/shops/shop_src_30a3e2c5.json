@@ -5,6 +5,7 @@
     "name": "tehuio",
     "url": "https://tehuio.com/?from=1",
     "status": "OPEN",
+    "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:50:51.196Z",
     "productCount": 5,
     "inStockCount": 2,
@@ -348,6 +349,7 @@
     {
       "shopId": "shop_src_30a3e2c5",
       "crawlTaskId": "task_81064e2d",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:50:51.196Z",
       "summary": "页面展示了6个ChatGPT相关商品，其中3个已售罄，3个在售。",
@@ -365,6 +367,7 @@
   "recentDiffs": [
     {
       "shopId": "shop_src_30a3e2c5",
+      "version": 0,
       "snapshotDate": "2026-05-01",
       "capturedAt": "2026-05-01T08:50:51.196Z",
       "changes": [
@@ -402,5 +405,5 @@
       "summary": "新增 5 项"
     }
   ],
-  "publishedAt": "2026-05-01T09:02:41.094Z"
+  "publishedAt": "2026-05-02T07:07:41.189Z"
 }

@@ -6,17 +6,21 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
   const state = await getPlatformState();
-  const visibleProducts = state.published.shopProducts.filter((item) => item.current.isDetected);
+  const hiddenSourceIds = new Set(state.sources.filter((source) => source.visible === false).map((source) => source.sourceId));
+  const publicShops = state.published.shops.filter((shop) => !hiddenSourceIds.has(shop.sourceId));
+  const visibleProducts = state.published.shopProducts.filter(
+    (item) => item.current.isDetected && !hiddenSourceIds.has(item.sourceId)
+  );
   const lowStockCount = visibleProducts.filter((item) => item.current.stockStatus === "LOW_STOCK").length;
   const pendingValidation = state.tasks.filter((task) => task.status === "WAITING_HUMAN");
   const pendingReview = state.tasks.filter((task) => task.status === "REVIEWING");
   const latestSources = state.sources.slice(0, 4);
-  const latestDiffs = state.published.shopDiffs.slice(0, 4);
+  const latestDiffs = state.published.shopDiffs.filter((diff) => publicShops.some((shop) => shop.shopId === diff.shopId)).slice(0, 4);
   const publishedAtLabel = state.published.publishedAt ? formatDateLabel(state.published.publishedAt) : "暂无发布记录";
   const dashboardMetrics = [
     {
       label: "已发布站点",
-      value: `${state.published.shops.length}`.padStart(2, "0"),
+      value: `${publicShops.length}`.padStart(2, "0"),
       detail: `${state.sources.filter((source) => source.enabled).length} 个站点启用中`,
       tone: "bg-[linear-gradient(180deg,#faf4ea_0%,#ffffff_100%)]"
     },
@@ -127,7 +131,7 @@ export default async function AdminDashboardPage() {
           <div className="mt-6 grid gap-3">
             <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
               <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">公开站点</div>
-              <div className="mt-2 text-2xl font-semibold text-[#18222c]">{state.published.shops.length}</div>
+              <div className="mt-2 text-2xl font-semibold text-[#18222c]">{publicShops.length}</div>
             </div>
             <div className="rounded-[22px] border border-[#d8cfbf] bg-white/88 p-4">
               <div className="text-[11px] uppercase tracking-[0.16em] text-[#566271]">公开商品</div>
