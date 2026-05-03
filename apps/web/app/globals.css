@@ -4,11 +4,12 @@
 
 :root {
   color-scheme: light;
-  --ink: #1c232c;
-  --muted: #5f645f;
-  --paper-soft: #f8f1e7;
-  --line-soft: rgba(209, 193, 170, 0.72);
-  --line-strong: rgba(194, 180, 158, 0.84);
+  --ink: #09090b;
+  --muted: #71717a;
+  --paper-soft: #f4f4f5;
+  --line-soft: #e4e4e7;
+  --line-strong: #d4d4d8;
+  --bg-color: #fafafa;
 }
 
 html {
@@ -21,10 +22,7 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at top left, rgba(241, 196, 105, 0.16), transparent 24%),
-    radial-gradient(circle at 88% 10%, rgba(31, 61, 49, 0.10), transparent 28%),
-    linear-gradient(180deg, #f4ebdd 0%, #ede1cf 42%, #e6ddcb 100%);
+  background-color: var(--bg-color);
   color: var(--ink);
 }
 
@@ -33,12 +31,10 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
-  background-size: 100% 36px, 36px 100%;
-  opacity: 0.18;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.66), transparent 92%);
+  background-image: radial-gradient(#d4d4d8 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+  z-index: -1;
 }
 
 * {
@@ -48,6 +44,7 @@ body::before {
 a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 input,
@@ -60,7 +57,7 @@ textarea {
 }
 
 ::selection {
-  background: rgba(214, 173, 66, 0.28);
+  background: rgba(9, 9, 11, 0.1);
 }
 
 @keyframes rise-in {
@@ -68,7 +65,6 @@ textarea {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
