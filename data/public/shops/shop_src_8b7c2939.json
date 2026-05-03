@@ -4,6 +4,7 @@
     "sourceId": "src_8b7c2939",
     "name": "AI HOME",
     "url": "https://pay.ldxp.cn/shop/MEDDEX4V",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:34:01.414Z",
@@ -1415,5 +1416,5 @@
       "summary": "新增 19 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

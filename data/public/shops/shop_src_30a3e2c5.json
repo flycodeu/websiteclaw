@@ -4,6 +4,7 @@
     "sourceId": "src_30a3e2c5",
     "name": "tehuio",
     "url": "https://tehuio.com/?from=1",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:50:51.196Z",
@@ -405,5 +406,5 @@
       "summary": "新增 5 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

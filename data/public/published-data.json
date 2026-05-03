@@ -1,10 +1,34 @@
 {
   "shops": [
     {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "name": "RN自动发货商店",
+      "url": "https://auto-psi-ten.vercel.app/",
+      "merchantType": "SMALL_SHOP",
+      "status": "OPEN",
+      "currentVersion": 3,
+      "lastCrawledAt": "2026-05-03T10:52:06.470Z",
+      "productCount": 9,
+      "inStockCount": 3,
+      "lowStockCount": 0,
+      "outOfStockCount": 6,
+      "lowestPrice": 6.6,
+      "categories": [
+        "CHATGPT",
+        "GEMINI",
+        "GOOGLE_ACCOUNT",
+        "GROK"
+      ],
+      "recentChangeCount": 9,
+      "runCount": 1
+    },
+    {
       "shopId": "shop_src_1b6f2b1c",
       "sourceId": "src_1b6f2b1c",
       "name": "ai-member",
       "url": "https://www.ai-member.icu/",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T09:02:41.095Z",
@@ -28,6 +52,7 @@
       "sourceId": "src_7ae4037b",
       "name": "吱吱鼠卡网",
       "url": "https://zzshu.com/",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:59:39.462Z",
@@ -49,6 +74,7 @@
       "sourceId": "src_af365a50",
       "name": "Ai2You智友社",
       "url": "https://pay.ldxp.cn/shop/282D9KDL",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:57:04.161Z",
@@ -70,6 +96,7 @@
       "sourceId": "src_8942ba69",
       "name": "bei-bei",
       "url": "https://bei-bei.shop/",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:55:33.161Z",
@@ -90,6 +117,7 @@
       "sourceId": "src_f604c61e",
       "name": "aixiamo",
       "url": "https://www.aixiamo.com/",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:51:56.276Z",
@@ -111,6 +139,7 @@
       "sourceId": "src_30a3e2c5",
       "name": "tehuio",
       "url": "https://tehuio.com/?from=1",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:50:51.196Z",
@@ -130,6 +159,7 @@
       "sourceId": "src_9452e7a1",
       "name": "gpthub",
       "url": "https://gpthub.ciyuanapi.ai/",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:48:04.546Z",
@@ -153,6 +183,7 @@
       "sourceId": "src_adb5b440",
       "name": "nobrisk",
       "url": "https://shop.nobrisk.com/",
+      "merchantType": "SMALL_SHOP",
       "status": "RISK",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:46:33.872Z",
@@ -175,6 +206,7 @@
       "sourceId": "src_c5bb52f5",
       "name": "aistore",
       "url": "https://pay.ldxp.cn/shop/aistore?u_atoken=69d65b48-cea8-a96c-4d4f-1452855d73dc&u_asig=de51781617756557529673943e",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:42:42.497Z",
@@ -196,6 +228,7 @@
       "sourceId": "src_ef63242b",
       "name": "xiaosen",
       "url": "https://www.xiaosen.shop/?aff=FZTCXVFU",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:39:02.880Z",
@@ -217,6 +250,7 @@
       "sourceId": "src_8b7c2939",
       "name": "AI HOME",
       "url": "https://pay.ldxp.cn/shop/MEDDEX4V",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 0,
       "lastCrawledAt": "2026-05-01T08:34:01.414Z",
@@ -238,6 +272,7 @@
       "sourceId": "src_7ba51843",
       "name": "猫咔",
       "url": "https://catcard.uk/",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 1,
       "lastCrawledAt": "2026-05-01T08:29:25.723Z",
@@ -262,6 +297,7 @@
       "sourceId": "src_74a11226",
       "name": "创富俱乐部",
       "url": "https://makerich.club/",
+      "merchantType": "SMALL_SHOP",
       "status": "OPEN",
       "currentVersion": 2,
       "lastCrawledAt": "2026-05-01T08:03:16.467Z",
@@ -281,6 +317,591 @@
     }
   ],
   "shopProducts": [
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "CHATGPT__PLUS_年卡",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_年卡",
+      "current": {
+        "productKey": "CHATGPT__PLUS_年卡",
+        "rawName": "chatgpt plus 年卡",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_年卡",
+        "price": 295,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "暂时缺货",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "chatgpt plus 年卡",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "CHATGPT__PLUS_年卡",
+          "rawName": "chatgpt plus 年卡",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_年卡",
+          "price": 295,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "暂时缺货",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "chatgpt plus 年卡"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 295,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 295,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 295,
+        "highestPrice": 295,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "CHATGPT__PLUS月卡会员直冲",
+      "category": "CHATGPT",
+      "specLabel": "PLUS月卡会员直冲",
+      "current": {
+        "productKey": "CHATGPT__PLUS月卡会员直冲",
+        "rawName": "gpt plus月卡会员直冲",
+        "category": "CHATGPT",
+        "specLabel": "PLUS月卡会员直冲",
+        "price": 55,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "暂时缺货",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "gpt plus月卡会员直冲",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "CHATGPT__PLUS月卡会员直冲",
+          "rawName": "gpt plus月卡会员直冲",
+          "category": "CHATGPT",
+          "specLabel": "PLUS月卡会员直冲",
+          "price": 55,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "暂时缺货",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "gpt plus月卡会员直冲"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 55,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 55,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 55,
+        "highestPrice": 55,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "CHATGPT__PRO月卡",
+      "category": "CHATGPT",
+      "specLabel": "PRO月卡",
+      "current": {
+        "productKey": "CHATGPT__PRO月卡",
+        "rawName": "gpt pro月卡",
+        "category": "CHATGPT",
+        "specLabel": "PRO月卡",
+        "price": 185,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "暂时缺货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "gpt pro月卡",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "CHATGPT__PRO月卡",
+          "rawName": "gpt pro月卡",
+          "category": "CHATGPT",
+          "specLabel": "PRO月卡",
+          "price": 185,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "暂时缺货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "gpt pro月卡"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 185,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 185,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 185,
+        "highestPrice": 185,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "GEMINI__PRO_三个月链接",
+      "category": "GEMINI",
+      "specLabel": "PRO_三个月链接",
+      "current": {
+        "productKey": "GEMINI__PRO_三个月链接",
+        "rawName": "Gemini pro 三个月链接",
+        "category": "GEMINI",
+        "specLabel": "PRO_三个月链接",
+        "price": 18.99,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存 51",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Gemini pro 三个月链接",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "GEMINI__PRO_三个月链接",
+          "rawName": "Gemini pro 三个月链接",
+          "category": "GEMINI",
+          "specLabel": "PRO_三个月链接",
+          "price": 18.99,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 51",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "Gemini pro 三个月链接"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 18.99,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 18.99,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 18.99,
+        "highestPrice": 18.99,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "GEMINI__PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+      "category": "GEMINI",
+      "specLabel": "PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+      "current": {
+        "productKey": "GEMINI__PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+        "rawName": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.）",
+        "category": "GEMINI",
+        "specLabel": "PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+        "price": 35,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存 5",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.）",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "GEMINI__PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+          "rawName": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.）",
+          "category": "GEMINI",
+          "specLabel": "PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 5",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 35,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 35,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 35,
+        "highestPrice": 35,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "GEMINI__PRO一年订阅卡密_PIXEL",
+      "category": "GEMINI",
+      "specLabel": "PRO一年订阅卡密_PIXEL",
+      "current": {
+        "productKey": "GEMINI__PRO一年订阅卡密_PIXEL",
+        "rawName": "Gemini pro一年订阅卡密（pixel）",
+        "category": "GEMINI",
+        "specLabel": "PRO一年订阅卡密_PIXEL",
+        "price": 15,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存 20",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Gemini pro一年订阅卡密（pixel）",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "GEMINI__PRO一年订阅卡密_PIXEL",
+          "rawName": "Gemini pro一年订阅卡密（pixel）",
+          "category": "GEMINI",
+          "specLabel": "PRO一年订阅卡密_PIXEL",
+          "price": 15,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存 20",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "Gemini pro一年订阅卡密（pixel）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 15,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 15,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 15,
+        "highestPrice": 15,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "GEMINI__ULTRA_家庭母号_家庭席位",
+      "category": "GEMINI",
+      "specLabel": "ULTRA_家庭母号_家庭席位",
+      "current": {
+        "productKey": "GEMINI__ULTRA_家庭母号_家庭席位",
+        "rawName": "gemini ultra 家庭母号/家庭席位",
+        "category": "GEMINI",
+        "specLabel": "ULTRA_家庭母号_家庭席位",
+        "price": 138,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "暂时缺货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "gemini ultra 家庭母号/家庭席位",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "GEMINI__ULTRA_家庭母号_家庭席位",
+          "rawName": "gemini ultra 家庭母号/家庭席位",
+          "category": "GEMINI",
+          "specLabel": "ULTRA_家庭母号_家庭席位",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "暂时缺货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "gemini ultra 家庭母号/家庭席位"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 138,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 138,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 138,
+        "highestPrice": 138,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "GOOGLE_ACCOUNT__美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+      "category": "GOOGLE_ACCOUNT",
+      "specLabel": "美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+      "current": {
+        "productKey": "GOOGLE_ACCOUNT__美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+        "rawName": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿）",
+        "category": "GOOGLE_ACCOUNT",
+        "specLabel": "美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+        "price": 6.6,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "暂时缺货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿）",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "GOOGLE_ACCOUNT__美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+          "rawName": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿）",
+          "category": "GOOGLE_ACCOUNT",
+          "specLabel": "美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+          "price": 6.6,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "暂时缺货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 6.6,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 6.6,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 6.6,
+        "highestPrice": 6.6,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
+    {
+      "shopId": "shop_src_3511912c",
+      "sourceId": "src_3511912c",
+      "productKey": "GROK__SUPER_一年成品",
+      "category": "GROK",
+      "specLabel": "SUPER_一年成品",
+      "current": {
+        "productKey": "GROK__SUPER_一年成品",
+        "rawName": "super grok一年成品",
+        "category": "GROK",
+        "specLabel": "SUPER_一年成品",
+        "price": 360,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "暂时缺货",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "super grok一年成品",
+        "updatedAt": "2026-05-03T10:52:05.347Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_3511912c",
+          "sourceId": "src_3511912c",
+          "productKey": "GROK__SUPER_一年成品",
+          "rawName": "super grok一年成品",
+          "category": "GROK",
+          "specLabel": "SUPER_一年成品",
+          "price": 360,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "暂时缺货",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_d39f4c62",
+          "reviewId": "review_62a84372",
+          "sourceLine": "super grok一年成品"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 360,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T10:52:05.347Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 360,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 360,
+        "highestPrice": 360,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T10:52:05.347Z"
+    },
     {
       "shopId": "shop_src_1b6f2b1c",
       "sourceId": "src_1b6f2b1c",
@@ -11492,6 +12113,27 @@
   "archivedShopProducts": [],
   "shopSnapshots": [
     {
+      "shopId": "shop_src_3511912c",
+      "crawlTaskId": "task_d39f4c62",
+      "version": 3,
+      "snapshotDate": "2026-05-03",
+      "capturedAt": "2026-05-03T10:52:06.469Z",
+      "summary": "RN自动发货商店，精选数字商品，自动发货。当前共上架9件商品，其中3件可立即购买，其余暂时缺货。",
+      "conclusion": "页面展示了9个商品，包括Gemini、GPT、Gmail、Grok分类。部分商品有库存，部分缺货。质保情况各商品不同，需注意。",
+      "productCount": 9,
+      "productKeys": [
+        "GEMINI__PRO一年订阅卡密_PIXEL",
+        "GEMINI__PRO_三个月链接",
+        "GEMINI__PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+        "GEMINI__ULTRA_家庭母号_家庭席位",
+        "CHATGPT__PLUS月卡会员直冲",
+        "CHATGPT__PLUS_年卡",
+        "CHATGPT__PRO月卡",
+        "GOOGLE_ACCOUNT__美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+        "GROK__SUPER_一年成品"
+      ]
+    },
+    {
       "shopId": "shop_src_1b6f2b1c",
       "crawlTaskId": "task_68182882",
       "version": 0,
@@ -11855,6 +12497,69 @@
     }
   ],
   "shopDiffs": [
+    {
+      "shopId": "shop_src_3511912c",
+      "version": 3,
+      "snapshotDate": "2026-05-03",
+      "capturedAt": "2026-05-03T10:52:06.469Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_年卡",
+          "productLabel": "chatgpt plus 年卡",
+          "note": "chatgpt plus 年卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS月卡会员直冲",
+          "productLabel": "gpt plus月卡会员直冲",
+          "note": "gpt plus月卡会员直冲 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO月卡",
+          "productLabel": "gpt pro月卡",
+          "note": "gpt pro月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_三个月链接",
+          "productLabel": "Gemini pro 三个月链接",
+          "note": "Gemini pro 三个月链接 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+          "productLabel": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.）",
+          "note": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO一年订阅卡密_PIXEL",
+          "productLabel": "Gemini pro一年订阅卡密（pixel）",
+          "note": "Gemini pro一年订阅卡密（pixel） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__ULTRA_家庭母号_家庭席位",
+          "productLabel": "gemini ultra 家庭母号/家庭席位",
+          "note": "gemini ultra 家庭母号/家庭席位 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GOOGLE_ACCOUNT__美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+          "productLabel": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿）",
+          "note": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_一年成品",
+          "productLabel": "super grok一年成品",
+          "note": "super grok一年成品 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 9 项"
+    },
     {
       "shopId": "shop_src_1b6f2b1c",
       "version": 0,
@@ -13174,5 +13879,5 @@
       "summary": "新增 10 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

@@ -4,6 +4,7 @@
     "sourceId": "src_9452e7a1",
     "name": "gpthub",
     "url": "https://gpthub.ciyuanapi.ai/",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:48:04.546Z",
@@ -769,5 +770,5 @@
       "summary": "新增 10 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

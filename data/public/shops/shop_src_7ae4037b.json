@@ -4,6 +4,7 @@
     "sourceId": "src_7ae4037b",
     "name": "吱吱鼠卡网",
     "url": "https://zzshu.com/",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:59:39.462Z",
@@ -263,5 +264,5 @@
       "summary": "新增 3 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

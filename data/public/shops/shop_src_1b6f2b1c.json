@@ -4,6 +4,7 @@
     "sourceId": "src_1b6f2b1c",
     "name": "ai-member",
     "url": "https://www.ai-member.icu/",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T09:02:41.095Z",
@@ -1129,5 +1130,5 @@
       "summary": "新增 15 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

@@ -4,6 +4,7 @@
     "sourceId": "src_ef63242b",
     "name": "xiaosen",
     "url": "https://www.xiaosen.shop/?aff=FZTCXVFU",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:39:02.880Z",
@@ -551,5 +552,5 @@
       "summary": "新增 7 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

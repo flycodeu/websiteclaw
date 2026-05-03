@@ -4,6 +4,7 @@
     "sourceId": "src_74a11226",
     "name": "创富俱乐部",
     "url": "https://makerich.club/",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 2,
     "lastCrawledAt": "2026-05-01T08:03:16.467Z",
@@ -2312,5 +2313,5 @@
       "summary": "新增 10 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

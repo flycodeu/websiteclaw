@@ -4,6 +4,7 @@
     "sourceId": "src_af365a50",
     "name": "Ai2You智友社",
     "url": "https://pay.ldxp.cn/shop/282D9KDL",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:57:04.161Z",
@@ -1415,5 +1416,5 @@
       "summary": "新增 19 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

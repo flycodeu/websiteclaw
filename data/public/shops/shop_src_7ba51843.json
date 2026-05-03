@@ -4,6 +4,7 @@
     "sourceId": "src_7ba51843",
     "name": "猫咔",
     "url": "https://catcard.uk/",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 1,
     "lastCrawledAt": "2026-05-01T08:29:25.723Z",
@@ -2264,5 +2265,5 @@
       "summary": "新增 17 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

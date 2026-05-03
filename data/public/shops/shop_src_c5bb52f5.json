@@ -4,6 +4,7 @@
     "sourceId": "src_c5bb52f5",
     "name": "aistore",
     "url": "https://pay.ldxp.cn/shop/aistore?u_atoken=69d65b48-cea8-a96c-4d4f-1452855d73dc&u_asig=de51781617756557529673943e",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:42:42.497Z",
@@ -1415,5 +1416,5 @@
       "summary": "新增 19 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

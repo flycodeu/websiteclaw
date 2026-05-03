@@ -253,7 +253,7 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
             <div className="fixed inset-0 z-[100] bg-transparent px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8" onClick={() => setActiveId(null)}>
               <div className="flex h-full items-center justify-center">
                 <aside
-                  className="relative flex h-full max-h-full w-full max-w-6xl flex-col overflow-hidden rounded-[1.9rem] border border-zinc-200 bg-white shadow-[0_28px_90px_rgba(15,23,42,0.16)] sm:h-auto sm:max-h-full sm:rounded-[2rem]"
+                  className="relative flex h-full max-h-full w-full max-w-[1500px] flex-col overflow-hidden rounded-[1.9rem] border border-zinc-200 bg-white shadow-[0_28px_90px_rgba(15,23,42,0.16)] sm:h-auto sm:max-h-full sm:rounded-[2rem]"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="border-b border-zinc-100 bg-white px-5 py-5 sm:px-8 sm:py-7">
@@ -354,7 +354,7 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
                               当前筛选条件下没有商品记录。
                             </div>
                           ) : (
-                            <div className="mt-4 grid gap-5 md:grid-cols-2">
+                            <div className="mt-4 grid gap-4 md:grid-cols-2">
                               {visibleProducts.map((product) => (
                                 <ProductPanel key={product.productKey} product={product} />
                               ))}
@@ -417,37 +417,36 @@ function ProductPanel({ product }: { product: PublishedShopProductPreview }) {
   const priceLabel = product.current.price > 0 ? `¥${product.current.price}` : "--";
 
   return (
-    <article className={`relative overflow-hidden rounded-[1.5rem] border p-5 shadow-[0_12px_28px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(15,23,42,0.08)] ${tone.card}`}>
-      <div className={`pointer-events-none absolute inset-x-0 top-0 h-20 ${tone.glow}`} />
-      <div className="relative flex flex-col gap-4">
-        <div className="flex flex-wrap gap-2">
+    <article className={`relative overflow-hidden rounded-[1.35rem] border p-4 shadow-[0_10px_24px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(15,23,42,0.08)] ${tone.card}`}>
+      <div className={`pointer-events-none absolute inset-x-0 top-0 h-14 ${tone.glow}`} />
+      <div className="relative flex flex-col gap-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex min-w-0 flex-wrap gap-2">
             <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-0.5 text-[10px] uppercase tracking-widest text-zinc-500 font-medium">
               {productCategoryLabels[product.category]}
             </span>
             <span className={`rounded-full border px-2 py-0.5 text-[10px] font-medium ${tone.stockBadge}`}>
               {product.current.isDetected ? stockStatusLabels[product.current.stockStatus] : `缺席 ${product.missingStreak} 次`}
             </span>
+          </div>
+          <div className={`shrink-0 font-mono text-[1.2rem] font-semibold tracking-tight sm:text-[1.45rem] ${tone.price}`}>{priceLabel}</div>
         </div>
 
         <div className="min-w-0">
-          <h3 className={`break-words text-base font-semibold leading-relaxed sm:text-lg ${tone.title}`}>{product.current.rawName}</h3>
-          <div className={`mt-1.5 text-sm font-medium ${tone.meta}`}>{product.specLabel || "未标注规格"}</div>
+          <h3 className={`break-words text-[15px] font-semibold leading-6 sm:text-base ${tone.title}`}>{product.current.rawName}</h3>
+          <div className={`mt-1 text-sm font-medium ${tone.meta}`}>{product.specLabel || "未标注规格"}</div>
         </div>
 
-        <div className="flex items-end justify-between gap-3">
-          <div className={`font-mono text-[1.45rem] font-semibold tracking-tight sm:text-[1.85rem] ${tone.price}`}>{priceLabel}</div>
-          <div className="text-right text-xs font-medium text-zinc-400">价格样本 {product.priceSampleCount}</div>
+        <div className="flex flex-wrap items-center gap-2">
+          <MiniTag label={productStatusLabels[product.current.status]} />
+          <MiniTag label={formatWarrantyLabel(product.current.warrantySupported)} />
+          <MiniTag label={`样本 ${product.priceSampleCount}`} />
+          {product.priceTrend.previousPrice !== null ? <MiniTag label={formatTrend(product)} /> : null}
         </div>
-      </div>
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        <MiniTag label={productStatusLabels[product.current.status]} />
-        <MiniTag label={formatWarrantyLabel(product.current.warrantySupported)} />
-        {product.priceTrend.previousPrice !== null ? <MiniTag label={formatTrend(product)} /> : null}
-      </div>
-
-      <div className={`mt-5 rounded-2xl border p-3.5 text-sm leading-relaxed ${tone.surface}`}>
-        {product.current.inventoryText || "未提供库存说明"}
+        <div className={`rounded-[1rem] border px-3.5 py-3 text-sm leading-6 ${tone.surface}`}>
+          {product.current.inventoryText || "未提供库存说明"}
+        </div>
       </div>
     </article>
   );

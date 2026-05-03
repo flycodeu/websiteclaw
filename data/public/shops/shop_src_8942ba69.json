@@ -4,6 +4,7 @@
     "sourceId": "src_8942ba69",
     "name": "bei-bei",
     "url": "https://bei-bei.shop/",
+    "merchantType": "SMALL_SHOP",
     "status": "OPEN",
     "currentVersion": 0,
     "lastCrawledAt": "2026-05-01T08:55:33.161Z",
@@ -478,5 +479,5 @@
       "summary": "新增 6 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }

@@ -1,6 +1,69 @@
 {
   "items": [
     {
+      "shopId": "shop_src_3511912c",
+      "version": 3,
+      "snapshotDate": "2026-05-03",
+      "capturedAt": "2026-05-03T10:52:06.469Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_年卡",
+          "productLabel": "chatgpt plus 年卡",
+          "note": "chatgpt plus 年卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS月卡会员直冲",
+          "productLabel": "gpt plus月卡会员直冲",
+          "note": "gpt plus月卡会员直冲 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO月卡",
+          "productLabel": "gpt pro月卡",
+          "note": "gpt pro月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_三个月链接",
+          "productLabel": "Gemini pro 三个月链接",
+          "note": "Gemini pro 三个月链接 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO_PIXEL一年会员成品号_2_4年老邮箱_美区_PRO_到手需要踢设备_手机设备不踢_绑定辅助邮箱_更改2FA即可_7天后改密_不踢设备不质保",
+          "productLabel": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.）",
+          "note": "Gemini Pro-pixel一年会员成品号【2-4年老邮箱】 美区- gemini pro -到手需要踢设备-手机设备不踢-绑定辅助邮箱-更改2fa即可.7天后改密）（不踢设备不质保.） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__PRO一年订阅卡密_PIXEL",
+          "productLabel": "Gemini pro一年订阅卡密（pixel）",
+          "note": "Gemini pro一年订阅卡密（pixel） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__ULTRA_家庭母号_家庭席位",
+          "productLabel": "gemini ultra 家庭母号/家庭席位",
+          "note": "gemini ultra 家庭母号/家庭席位 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GOOGLE_ACCOUNT__美区2022_2024年_邮箱_包GCP_适合做PIEXL_挖矿",
+          "productLabel": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿）",
+          "note": "美区2022--2024年gmail邮箱【包GCP】（适合做piexl、挖矿） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_一年成品",
+          "productLabel": "super grok一年成品",
+          "note": "super grok一年成品 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 9 项"
+    },
+    {
       "shopId": "shop_src_1b6f2b1c",
       "version": 0,
       "snapshotDate": "2026-05-01",
@@ -1319,5 +1382,5 @@
       "summary": "新增 17 项"
     }
   ],
-  "publishedAt": "2026-05-02T07:07:41.189Z"
+  "publishedAt": "2026-05-03T10:52:06.469Z"
 }
