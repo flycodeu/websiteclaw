@@ -414,6 +414,7 @@ function buildShopSummary(
     sourceId: source.sourceId,
     name: source.sourceName,
     url: source.sourceUrl,
+    merchantType: source.merchantType,
     status: buildShopStatus(shopProducts),
     currentVersion,
     lastCrawledAt: nowIso(),
@@ -504,6 +505,7 @@ export async function createSource(payload: NewSourcePayload) {
     sourceName,
     sourceUrl,
     entryUrl: payload.entryUrl?.trim() || sourceUrl,
+    merchantType: payload.merchantType ?? "SMALL_SHOP",
     crawlMode: payload.crawlMode ?? "AUTO",
     enabled: payload.enabled ?? true,
     visible: payload.visible ?? true,
@@ -587,6 +589,7 @@ export async function updateSource(sourceId: string, payload: UpdateSourcePayloa
     sourceName,
     sourceUrl,
     entryUrl,
+    merchantType: payload.merchantType ?? source.merchantType,
     crawlMode: payload.crawlMode ?? source.crawlMode,
     enabled: payload.enabled ?? source.enabled,
     visible: payload.visible ?? source.visible,
@@ -609,7 +612,8 @@ export async function updateSource(sourceId: string, payload: UpdateSourcePayloa
           ? {
               ...shop,
               name: nextSource.sourceName,
-              url: nextSource.sourceUrl
+              url: nextSource.sourceUrl,
+              merchantType: nextSource.merchantType
             }
           : shop
       ),

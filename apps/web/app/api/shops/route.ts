@@ -1,5 +1,5 @@
 import { withTraceId } from "@shop-claw/shared/response";
-import { productCategoryLabels } from "@shop-claw/shared/labels";
+import { merchantTypeLabels, productCategoryLabels } from "@shop-claw/shared/labels";
 import { getPublishedShopIndex } from "@/lib/published-data";
 
 export const runtime = "nodejs";
@@ -9,6 +9,7 @@ export async function GET(request: Request) {
   const { shops, publishedAt, meta } = await getPublishedShopIndex();
   const { searchParams } = new URL(request.url);
   const keyword = searchParams.get("keyword")?.toLowerCase();
+  const merchantType = searchParams.get("merchantType");
   const status = searchParams.get("status");
   const sort = searchParams.get("sort");
 
@@ -20,9 +21,11 @@ export async function GET(request: Request) {
         shop.categories.some(
           (category) =>
             category.toLowerCase().includes(keyword) || productCategoryLabels[category].toLowerCase().includes(keyword)
-        );
+        ) ||
+        merchantTypeLabels[shop.merchantType].toLowerCase().includes(keyword);
+      const merchantTypeMatched = !merchantType || merchantType === "ALL" || shop.merchantType === merchantType;
       const statusMatched = !status || status === "ALL" || shop.status === status;
-      return keywordMatched && statusMatched;
+      return keywordMatched && merchantTypeMatched && statusMatched;
     })
     .sort((a, b) => {
       if (sort === "price") {

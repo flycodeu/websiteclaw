@@ -6,6 +6,7 @@ import {
   CrawlTask,
   DataSource,
   PlatformState,
+  MerchantType,
   ProductCategory,
   ProductItem,
   ProductObservation,
@@ -194,6 +195,7 @@ function normalizeSource(
     sourceName: source.sourceName,
     sourceUrl: source.sourceUrl,
     entryUrl: source.entryUrl ?? source.sourceUrl,
+    merchantType: normalizeMerchantType(source.merchantType),
     crawlMode: source.crawlMode ?? "AUTO",
     enabled: source.enabled ?? true,
     visible: source.visible ?? true,
@@ -207,6 +209,10 @@ function normalizeSource(
     blockAssets: source.blockAssets ?? true,
     requestHeaders: source.requestHeaders ?? []
   };
+}
+
+function normalizeMerchantType(value: unknown): MerchantType {
+  return value === "TOP_UP" || value === "SMALL_SHOP" ? value : "SMALL_SHOP";
 }
 
 function normalizeTask(
@@ -447,6 +453,7 @@ function normalizePublished(state: Partial<PublishedData> & { snapshots?: ShopSn
       sourceId: shop.sourceId,
       name: shop.name,
       url: shop.url,
+      merchantType: normalizeMerchantType(shop.merchantType),
       status: normalizeShopStatus(shop.status),
       currentVersion: Math.max(Number(shop.currentVersion ?? Number(shop.runCount ?? 0) - 1), 0),
       lastCrawledAt: shop.lastCrawledAt ?? "",

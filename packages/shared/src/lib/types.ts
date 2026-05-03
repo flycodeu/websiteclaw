@@ -33,6 +33,7 @@ export type ProductCategory =
   | "APPLE_ACCOUNT"
   | "OTHER";
 export type AiProvider = "openai-compatible" | "deepseek-compatible";
+export type MerchantType = "SMALL_SHOP" | "TOP_UP";
 
 export interface AiUsageSummary {
   provider: AiProvider;
@@ -129,6 +130,7 @@ export interface ShopSummary {
   sourceId: string;
   name: string;
   url: string;
+  merchantType: MerchantType;
   status: ShopStatus;
   currentVersion: number;
   lastCrawledAt: string;
@@ -287,6 +289,7 @@ export interface DataSource {
   sourceName: string;
   sourceUrl: string;
   entryUrl: string;
+  merchantType: MerchantType;
   crawlMode: CrawlMode;
   enabled: boolean;
   visible: boolean;
@@ -415,6 +418,7 @@ export interface NewSourcePayload {
   sourceName: string;
   sourceUrl: string;
   entryUrl?: string;
+  merchantType?: MerchantType;
   crawlMode?: CrawlMode;
   enabled?: boolean;
   visible?: boolean;
@@ -430,6 +434,7 @@ export interface UpdateSourcePayload {
   sourceName?: string;
   sourceUrl?: string;
   entryUrl?: string;
+  merchantType?: MerchantType;
   crawlMode?: CrawlMode;
   enabled?: boolean;
   visible?: boolean;

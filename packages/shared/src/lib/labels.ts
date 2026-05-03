@@ -1,6 +1,7 @@
 import {
   ChangeType,
   CrawlMode,
+  MerchantType,
   ProductCategory,
   ProductStatus,
   ReviewStatus,
@@ -76,6 +77,11 @@ export const productCategoryLabels: Record<ProductCategory, string> = {
   VIRTUAL_CARD: "虚拟卡",
   APPLE_ACCOUNT: "苹果账号",
   OTHER: "其他"
+};
+
+export const merchantTypeLabels: Record<MerchantType, string> = {
+  SMALL_SHOP: "小铺",
+  TOP_UP: "代充"
 };
 
 export function formatBooleanLabel(value: boolean) {

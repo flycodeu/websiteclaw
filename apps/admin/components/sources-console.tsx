@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Globe2, Pencil, Play, Plus, Search, ShieldCheck, Sparkles, Trash2, X } from "lucide-react";
-import { CrawlBatchState, CrawlMode, DataSource, ShopSummary, VerificationMethod } from "@shop-claw/shared/types";
-import { formatDateLabel } from "@shop-claw/shared/labels";
+import { CrawlBatchState, CrawlMode, DataSource, MerchantType, ShopSummary, VerificationMethod } from "@shop-claw/shared/types";
+import { formatDateLabel, merchantTypeLabels } from "@shop-claw/shared/labels";
 
 interface SourcesConsoleProps {
   sources: DataSource[];
@@ -16,6 +16,7 @@ interface SourceFormState {
   sourceName: string;
   sourceUrl: string;
   entryUrl: string;
+  merchantType: MerchantType;
   crawlMode: CrawlMode;
   verificationMethod: VerificationMethod;
   verificationPrompt: string;
@@ -30,6 +31,7 @@ const emptySourceForm: SourceFormState = {
   sourceName: "",
   sourceUrl: "",
   entryUrl: "",
+  merchantType: "SMALL_SHOP",
   crawlMode: "AUTO",
   verificationMethod: "NONE",
   verificationPrompt: "",
@@ -58,6 +60,7 @@ function buildSourceForm(source?: DataSource | null): SourceFormState {
     sourceName: source.sourceName,
     sourceUrl: source.sourceUrl,
     entryUrl: source.entryUrl,
+    merchantType: source.merchantType,
     crawlMode: source.crawlMode,
     verificationMethod: source.verificationMethod,
     verificationPrompt: source.verificationPrompt,
@@ -376,6 +379,7 @@ export function SourcesConsole({ sources, publishedShops, crawlBatch }: SourcesC
                   </div>
 
                   <div className="flex shrink-0 flex-col gap-2">
+                    <InfoTag label={merchantTypeLabels[source.merchantType]} />
                     <InfoTag label={source.enabled ? "启用中" : "已停用"} tone={source.enabled ? "success" : "muted"} />
                     <InfoTag label={source.visible ? "展示中" : "已隐藏"} tone={source.visible ? "default" : "muted"} />
                   </div>
@@ -384,6 +388,7 @@ export function SourcesConsole({ sources, publishedShops, crawlBatch }: SourcesC
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
                   <MetaTile label="最近时间" value={lastRunLabel} />
                   <MetaTile label="当前版本" value={versionLabel} />
+                  <MetaTile label="商铺分类" value={merchantTypeLabels[source.merchantType]} />
                   <MetaTile label="是否展示" value={source.visible ? "是" : "否"} />
                   <MetaTile label="是否启用" value={source.enabled ? "是" : "否"} />
                 </div>
@@ -483,10 +488,11 @@ function SourceDialog({
         className="fixed inset-0 z-40 bg-[#18222c]/14 backdrop-blur-[2px]"
       />
 
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" onClick={onClose}>
         <section
           role="dialog"
           aria-modal="true"
+          onClick={(event) => event.stopPropagation()}
           className="flex max-h-[90vh] w-full max-w-[1040px] flex-col overflow-hidden rounded-[34px] border border-[#d8cfbf] bg-[linear-gradient(180deg,#fbf7f0_0%,#f5eee2_62%,#edf4e7_100%)] shadow-[0_24px_80px_rgba(24,34,44,0.18)]"
         >
           <div className="flex items-start justify-between gap-4 border-b border-[#e2d8c9] px-5 py-5 sm:px-6">
@@ -550,6 +556,18 @@ function SourceDialog({
                   className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
                   placeholder="body"
                 />
+              </label>
+
+              <label className="grid gap-2 text-sm text-slate-700">
+                商铺分类
+                <select
+                  value={form.merchantType}
+                  onChange={(event) => onChange((current) => ({ ...current, merchantType: event.target.value as MerchantType }))}
+                  className="rounded-2xl border border-[#d8cfbf] bg-white px-4 py-3 outline-none transition focus:border-[#4f7259]"
+                >
+                  <option value="SMALL_SHOP">小铺</option>
+                  <option value="TOP_UP">代充</option>
+                </select>
               </label>
 
               <label className="grid gap-2 text-sm text-slate-700">
