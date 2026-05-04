@@ -4,6 +4,10 @@ package-lock.json
 dist
 .vercel
 coverage
+.env
+.env.*
+!.env.example
+!.env*.example
 *.log
 *.local
 *.tsbuildinfo
