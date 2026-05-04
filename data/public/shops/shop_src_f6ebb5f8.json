@@ -1,0 +1,194 @@
+{
+  "shop": {
+    "shopId": "shop_src_f6ebb5f8",
+    "sourceId": "src_f6ebb5f8",
+    "name": "咔咔",
+    "url": "https://pay.ldxp.cn/shop/D92VW084",
+    "merchantType": "SMALL_SHOP",
+    "status": "OPEN",
+    "currentVersion": 22,
+    "lastCrawledAt": "2026-05-04T01:12:31.349Z",
+    "productCount": 2,
+    "inStockCount": 1,
+    "lowStockCount": 0,
+    "outOfStockCount": 1,
+    "lowestPrice": 13,
+    "categories": [
+      "CHATGPT"
+    ],
+    "recentChangeCount": 2,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_f6ebb5f8",
+      "sourceId": "src_f6ebb5f8",
+      "productKey": "CHATGPT__PULS_成品号_24H质保_限时特惠",
+      "category": "CHATGPT",
+      "specLabel": "PULS_成品号_24H质保_限时特惠",
+      "current": {
+        "productKey": "CHATGPT__PULS_成品号_24H质保_限时特惠",
+        "rawName": "GPT puls 成品号 24h质保（限时特惠！！！）",
+        "category": "CHATGPT",
+        "specLabel": "PULS_成品号_24H质保_限时特惠",
+        "price": 13,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存一般",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.95,
+        "sourceLine": "GPT puls 成品号 24h质保（限时特惠！！！）",
+        "updatedAt": "2026-05-04T01:12:31.182Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f6ebb5f8",
+          "sourceId": "src_f6ebb5f8",
+          "productKey": "CHATGPT__PULS_成品号_24H质保_限时特惠",
+          "rawName": "GPT puls 成品号 24h质保（限时特惠！！！）",
+          "category": "CHATGPT",
+          "specLabel": "PULS_成品号_24H质保_限时特惠",
+          "price": 13,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存一般",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:12:31.182Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_2112e419",
+          "reviewId": "review_1832000d",
+          "sourceLine": "GPT puls 成品号 24h质保（限时特惠！！！）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 13,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:12:31.182Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 13,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 13,
+        "highestPrice": 13,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:12:31.182Z"
+    },
+    {
+      "shopId": "shop_src_f6ebb5f8",
+      "sourceId": "src_f6ebb5f8",
+      "productKey": "CHATGPT__PULS_成品号_质保15天_限时特惠",
+      "category": "CHATGPT",
+      "specLabel": "PULS_成品号_质保15天_限时特惠",
+      "current": {
+        "productKey": "CHATGPT__PULS_成品号_质保15天_限时特惠",
+        "rawName": "GPT puls 成品号 质保15天（限时特惠！！！）",
+        "category": "CHATGPT",
+        "specLabel": "PULS_成品号_质保15天_限时特惠",
+        "price": 55,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.95,
+        "sourceLine": "GPT puls 成品号 质保15天（限时特惠！！！）",
+        "updatedAt": "2026-05-04T01:12:31.182Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f6ebb5f8",
+          "sourceId": "src_f6ebb5f8",
+          "productKey": "CHATGPT__PULS_成品号_质保15天_限时特惠",
+          "rawName": "GPT puls 成品号 质保15天（限时特惠！！！）",
+          "category": "CHATGPT",
+          "specLabel": "PULS_成品号_质保15天_限时特惠",
+          "price": 55,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:12:31.182Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_2112e419",
+          "reviewId": "review_1832000d",
+          "sourceLine": "GPT puls 成品号 质保15天（限时特惠！！！）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 55,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:12:31.182Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 55,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 55,
+        "highestPrice": 55,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:12:31.182Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_f6ebb5f8",
+      "crawlTaskId": "task_2112e419",
+      "version": 22,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:12:31.348Z",
+      "summary": "页面为咔咔的小店，销售ChatGPT Plus成品号，共3个商品。其中两个有明确价格，一个无价格（预售），一个缺货，一个库存一般。所有商品均标注质保。",
+      "conclusion": "商品均属于CHATGPT分类，第二个商品未标价格，可能为预售状态。",
+      "productCount": 2,
+      "productKeys": [
+        "CHATGPT__PULS_成品号_质保15天_限时特惠",
+        "CHATGPT__PULS_成品号_24H质保_限时特惠"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_f6ebb5f8",
+      "version": 22,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:12:31.348Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PULS_成品号_24H质保_限时特惠",
+          "productLabel": "GPT puls 成品号 24h质保（限时特惠！！！）",
+          "note": "GPT puls 成品号 24h质保（限时特惠！！！） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PULS_成品号_质保15天_限时特惠",
+          "productLabel": "GPT puls 成品号 质保15天（限时特惠！！！）",
+          "note": "GPT puls 成品号 质保15天（限时特惠！！！） 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 2 项"
+    }
+  ],
+  "publishedAt": "2026-05-04T01:15:49.554Z"
+}

@@ -1,0 +1,122 @@
+{
+  "shop": {
+    "shopId": "shop_src_ab8cf938",
+    "sourceId": "src_ab8cf938",
+    "name": "泰隆咕咕咕",
+    "url": "https://pay.ldxp.cn/shop/RACXT0J2",
+    "merchantType": "SMALL_SHOP",
+    "status": "OPEN",
+    "currentVersion": 21,
+    "lastCrawledAt": "2026-05-04T01:10:43.797Z",
+    "productCount": 1,
+    "inStockCount": 1,
+    "lowStockCount": 0,
+    "outOfStockCount": 0,
+    "lowestPrice": 35,
+    "categories": [
+      "CHATGPT"
+    ],
+    "recentChangeCount": 1,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_ab8cf938",
+      "sourceId": "src_ab8cf938",
+      "productKey": "CHATGPT__PLUS",
+      "category": "CHATGPT",
+      "specLabel": "PLUS",
+      "current": {
+        "productKey": "CHATGPT__PLUS",
+        "rawName": "GPT Plus",
+        "category": "CHATGPT",
+        "specLabel": "PLUS",
+        "price": 35,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "GPT Plus ¥35 库存充足",
+        "updatedAt": "2026-05-04T01:10:42.625Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_ab8cf938",
+          "sourceId": "src_ab8cf938",
+          "productKey": "CHATGPT__PLUS",
+          "rawName": "GPT Plus",
+          "category": "CHATGPT",
+          "specLabel": "PLUS",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:10:42.625Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_6fb3e83f",
+          "reviewId": "review_ff995f15",
+          "sourceLine": "GPT Plus ¥35 库存充足"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 35,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:10:42.625Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 35,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 35,
+        "highestPrice": 35,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:10:42.625Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_ab8cf938",
+      "crawlTaskId": "task_6fb3e83f",
+      "version": 21,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:10:43.796Z",
+      "summary": "页面为泰隆咕咕咕的小店，当前在售商品为GPT Plus，价格35元，库存充足，分类为CHATGPT。",
+      "conclusion": "页面仅有一个商品，信息完整，可正常输出。",
+      "productCount": 1,
+      "productKeys": [
+        "CHATGPT__PLUS"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_ab8cf938",
+      "version": 21,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:10:43.796Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS",
+          "productLabel": "GPT Plus",
+          "note": "GPT Plus 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 1 项"
+    }
+  ],
+  "publishedAt": "2026-05-04T01:15:49.554Z"
+}

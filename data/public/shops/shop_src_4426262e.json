@@ -1,0 +1,411 @@
+{
+  "shop": {
+    "shopId": "shop_src_4426262e",
+    "sourceId": "src_4426262e",
+    "name": "小猫GPT源头",
+    "url": "https://pay.ldxp.cn/shop/1D0LD6BR",
+    "merchantType": "SMALL_SHOP",
+    "status": "OPEN",
+    "currentVersion": 23,
+    "lastCrawledAt": "2026-05-04T01:14:06.604Z",
+    "productCount": 5,
+    "inStockCount": 2,
+    "lowStockCount": 1,
+    "outOfStockCount": 2,
+    "lowestPrice": 0.5,
+    "categories": [
+      "CHATGPT",
+      "GROK"
+    ],
+    "recentChangeCount": 5,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_4426262e",
+      "sourceId": "src_4426262e",
+      "productKey": "CHATGPT__福利_PLUS成品",
+      "category": "CHATGPT",
+      "specLabel": "福利_PLUS成品",
+      "current": {
+        "productKey": "CHATGPT__福利_PLUS成品",
+        "rawName": "福利GPTplus成品",
+        "category": "CHATGPT",
+        "specLabel": "福利_PLUS成品",
+        "price": 0.5,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "福利GPTplus成品 ¥0.5 缺货",
+        "updatedAt": "2026-05-04T01:14:06.433Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_4426262e",
+          "sourceId": "src_4426262e",
+          "productKey": "CHATGPT__福利_PLUS成品",
+          "rawName": "福利GPTplus成品",
+          "category": "CHATGPT",
+          "specLabel": "福利_PLUS成品",
+          "price": 0.5,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_64e8f9da",
+          "reviewId": "review_805b8f5d",
+          "sourceLine": "福利GPTplus成品 ¥0.5 缺货"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 0.5,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 0.5,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 0.5,
+        "highestPrice": 0.5,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:14:06.433Z"
+    },
+    {
+      "shopId": "shop_src_4426262e",
+      "sourceId": "src_4426262e",
+      "productKey": "CHATGPT__PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+      "current": {
+        "productKey": "CHATGPT__PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+        "rawName": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+        "price": 12.6,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！） ￥12.6 库存充足",
+        "updatedAt": "2026-05-04T01:14:06.433Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_4426262e",
+          "sourceId": "src_4426262e",
+          "productKey": "CHATGPT__PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+          "rawName": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+          "price": 12.6,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_64e8f9da",
+          "reviewId": "review_805b8f5d",
+          "sourceLine": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！） ￥12.6 库存充足"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 12.6,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 12.6,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 12.6,
+        "highestPrice": 12.6,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:14:06.433Z"
+    },
+    {
+      "shopId": "shop_src_4426262e",
+      "sourceId": "src_4426262e",
+      "productKey": "CHATGPT__PLUS成品账号_质保首登",
+      "category": "CHATGPT",
+      "specLabel": "PLUS成品账号_质保首登",
+      "current": {
+        "productKey": "CHATGPT__PLUS成品账号_质保首登",
+        "rawName": "GPT plus成品账号 质保首登",
+        "category": "CHATGPT",
+        "specLabel": "PLUS成品账号_质保首登",
+        "price": 6.8,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "GPT plus成品账号 质保首登 ¥6.8 缺货",
+        "updatedAt": "2026-05-04T01:14:06.433Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_4426262e",
+          "sourceId": "src_4426262e",
+          "productKey": "CHATGPT__PLUS成品账号_质保首登",
+          "rawName": "GPT plus成品账号 质保首登",
+          "category": "CHATGPT",
+          "specLabel": "PLUS成品账号_质保首登",
+          "price": 6.8,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_64e8f9da",
+          "reviewId": "review_805b8f5d",
+          "sourceLine": "GPT plus成品账号 质保首登 ¥6.8 缺货"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 6.8,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 6.8,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 6.8,
+        "highestPrice": 6.8,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:14:06.433Z"
+    },
+    {
+      "shopId": "shop_src_4426262e",
+      "sourceId": "src_4426262e",
+      "productKey": "CHATGPT__PLUS充值",
+      "category": "CHATGPT",
+      "specLabel": "PLUS充值",
+      "current": {
+        "productKey": "CHATGPT__PLUS充值",
+        "rawName": "gptplus充值",
+        "category": "CHATGPT",
+        "specLabel": "PLUS充值",
+        "price": 25,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存一般",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "gptplus充值 ¥25 库存一般",
+        "updatedAt": "2026-05-04T01:14:06.433Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_4426262e",
+          "sourceId": "src_4426262e",
+          "productKey": "CHATGPT__PLUS充值",
+          "rawName": "gptplus充值",
+          "category": "CHATGPT",
+          "specLabel": "PLUS充值",
+          "price": 25,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存一般",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_64e8f9da",
+          "reviewId": "review_805b8f5d",
+          "sourceLine": "gptplus充值 ¥25 库存一般"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 25,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 25,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 25,
+        "highestPrice": 25,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:14:06.433Z"
+    },
+    {
+      "shopId": "shop_src_4426262e",
+      "sourceId": "src_4426262e",
+      "productKey": "GROK__SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+      "category": "GROK",
+      "specLabel": "SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+      "current": {
+        "productKey": "GROK__SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+        "rawName": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登",
+        "category": "GROK",
+        "specLabel": "SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+        "price": 8,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存一般",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登 ￥8 ￥29 库存一般",
+        "updatedAt": "2026-05-04T01:14:06.433Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_4426262e",
+          "sourceId": "src_4426262e",
+          "productKey": "GROK__SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+          "rawName": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登",
+          "category": "GROK",
+          "specLabel": "SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+          "price": 8,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存一般",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_64e8f9da",
+          "reviewId": "review_805b8f5d",
+          "sourceLine": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登 ￥8 ￥29 库存一般"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 8,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:14:06.433Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 8,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 8,
+        "highestPrice": 8,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:14:06.433Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_4426262e",
+      "crawlTaskId": "task_64e8f9da",
+      "version": 23,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:14:06.603Z",
+      "summary": "商品列表包含5个商品，涵盖CHATGPT、GROK类别，部分商品缺货。",
+      "conclusion": "已提取全部5个商品。",
+      "productCount": 5,
+      "productKeys": [
+        "GROK__SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+        "CHATGPT__PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+        "CHATGPT__PLUS充值",
+        "CHATGPT__福利_PLUS成品",
+        "CHATGPT__PLUS成品账号_质保首登"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_4426262e",
+      "version": 23,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:14:06.603Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__福利_PLUS成品",
+          "productLabel": "福利GPTplus成品",
+          "note": "福利GPTplus成品 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+          "productLabel": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！）",
+          "note": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS成品账号_质保首登",
+          "productLabel": "GPT plus成品账号 质保首登",
+          "note": "GPT plus成品账号 质保首登 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS充值",
+          "productLabel": "gptplus充值",
+          "note": "gptplus充值 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+          "productLabel": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登",
+          "note": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 5 项"
+    }
+  ],
+  "publishedAt": "2026-05-04T01:15:49.554Z"
+}

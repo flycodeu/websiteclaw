@@ -1,6 +1,138 @@
 {
   "items": [
     {
+      "shopId": "shop_src_c4fa540a",
+      "version": 24,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:15:49.554Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_土区自助卡密",
+          "productLabel": "ChatGPT Plus 土区自助卡密",
+          "note": "ChatGPT Plus 土区自助卡密 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS自助卡密_特价渠道",
+          "productLabel": "ChatGPT Plus自助卡密（特价渠道）",
+          "note": "ChatGPT Plus自助卡密（特价渠道） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS自助卡密_IOS土区质保",
+          "productLabel": "ChatGPT Plus自助卡密（IOS土区质保）",
+          "note": "ChatGPT Plus自助卡密（IOS土区质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__IOS土区质保_应急独享通道",
+          "productLabel": "ChatGPT（ios土区质保）-应急独享通道",
+          "note": "ChatGPT（ios土区质保）-应急独享通道 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO直充月卡",
+          "productLabel": "Claude Pro直充月卡",
+          "note": "Claude Pro直充月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+          "productLabel": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP)",
+          "note": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER直充月卡",
+          "productLabel": "Grok Super直充月卡",
+          "note": "Grok Super直充月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_成品号_1个月_质保20天",
+          "productLabel": "Super Grok 成品号-1个月（质保20天）",
+          "note": "Super Grok 成品号-1个月（质保20天） 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 8 项"
+    },
+    {
+      "shopId": "shop_src_4426262e",
+      "version": 23,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:14:06.603Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__福利_PLUS成品",
+          "productLabel": "福利GPTplus成品",
+          "note": "福利GPTplus成品 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_月卡_成品号_2026_05_04_01_00_27_最新上架_保首登",
+          "productLabel": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！）",
+          "note": "ChatGPT - Plus 月卡 成品号（2026-05-04 01:00:27 最新上架 保首登！） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS成品账号_质保首登",
+          "productLabel": "GPT plus成品账号 质保首登",
+          "note": "GPT plus成品账号 质保首登 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS充值",
+          "productLabel": "gptplus充值",
+          "note": "gptplus充值 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+          "productLabel": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登",
+          "note": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 5 项"
+    },
+    {
+      "shopId": "shop_src_f6ebb5f8",
+      "version": 22,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:12:31.348Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PULS_成品号_24H质保_限时特惠",
+          "productLabel": "GPT puls 成品号 24h质保（限时特惠！！！）",
+          "note": "GPT puls 成品号 24h质保（限时特惠！！！） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PULS_成品号_质保15天_限时特惠",
+          "productLabel": "GPT puls 成品号 质保15天（限时特惠！！！）",
+          "note": "GPT puls 成品号 质保15天（限时特惠！！！） 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 2 项"
+    },
+    {
+      "shopId": "shop_src_ab8cf938",
+      "version": 21,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:10:43.796Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS",
+          "productLabel": "GPT Plus",
+          "note": "GPT Plus 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 1 项"
+    },
+    {
       "shopId": "shop_src_73e6025c",
       "version": 20,
       "snapshotDate": "2026-05-04",
@@ -2827,5 +2959,5 @@
       "summary": "新增 17 项"
     }
   ],
-  "publishedAt": "2026-05-04T01:04:12.260Z"
+  "publishedAt": "2026-05-04T01:15:49.554Z"
 }

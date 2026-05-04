@@ -1,6 +1,90 @@
 {
   "shops": [
     {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "name": "Aisou智充",
+      "url": "https://aisou.pro/",
+      "merchantType": "SMALL_SHOP",
+      "status": "OPEN",
+      "currentVersion": 24,
+      "lastCrawledAt": "2026-05-04T01:15:49.554Z",
+      "productCount": 8,
+      "inStockCount": 8,
+      "lowStockCount": 0,
+      "outOfStockCount": 0,
+      "lowestPrice": 20,
+      "categories": [
+        "CHATGPT",
+        "CLAUDE",
+        "GEMINI",
+        "GROK"
+      ],
+      "recentChangeCount": 8,
+      "runCount": 1
+    },
+    {
+      "shopId": "shop_src_4426262e",
+      "sourceId": "src_4426262e",
+      "name": "小猫GPT源头",
+      "url": "https://pay.ldxp.cn/shop/1D0LD6BR",
+      "merchantType": "SMALL_SHOP",
+      "status": "OPEN",
+      "currentVersion": 23,
+      "lastCrawledAt": "2026-05-04T01:14:06.604Z",
+      "productCount": 5,
+      "inStockCount": 2,
+      "lowStockCount": 1,
+      "outOfStockCount": 2,
+      "lowestPrice": 0.5,
+      "categories": [
+        "CHATGPT",
+        "GROK"
+      ],
+      "recentChangeCount": 5,
+      "runCount": 1
+    },
+    {
+      "shopId": "shop_src_f6ebb5f8",
+      "sourceId": "src_f6ebb5f8",
+      "name": "咔咔",
+      "url": "https://pay.ldxp.cn/shop/D92VW084",
+      "merchantType": "SMALL_SHOP",
+      "status": "OPEN",
+      "currentVersion": 22,
+      "lastCrawledAt": "2026-05-04T01:12:31.349Z",
+      "productCount": 2,
+      "inStockCount": 1,
+      "lowStockCount": 0,
+      "outOfStockCount": 1,
+      "lowestPrice": 13,
+      "categories": [
+        "CHATGPT"
+      ],
+      "recentChangeCount": 2,
+      "runCount": 1
+    },
+    {
+      "shopId": "shop_src_ab8cf938",
+      "sourceId": "src_ab8cf938",
+      "name": "泰隆咕咕咕",
+      "url": "https://pay.ldxp.cn/shop/RACXT0J2",
+      "merchantType": "SMALL_SHOP",
+      "status": "OPEN",
+      "currentVersion": 21,
+      "lastCrawledAt": "2026-05-04T01:10:43.797Z",
+      "productCount": 1,
+      "inStockCount": 1,
+      "lowStockCount": 0,
+      "outOfStockCount": 0,
+      "lowestPrice": 35,
+      "categories": [
+        "CHATGPT"
+      ],
+      "recentChangeCount": 1,
+      "runCount": 1
+    },
+    {
       "shopId": "shop_src_73e6025c",
       "sourceId": "src_73e6025c",
       "name": "拼拼工坊",
@@ -386,18 +470,18 @@
       "runCount": 1
     }
   ],
-  "publishedAt": "2026-05-04T01:04:12.260Z",
+  "publishedAt": "2026-05-04T01:15:49.554Z",
   "meta": {
-    "publishedAt": "2026-05-04T01:04:12.260Z",
-    "shopCount": 17,
-    "liveProductCount": 289,
+    "publishedAt": "2026-05-04T01:15:49.554Z",
+    "shopCount": 21,
+    "liveProductCount": 305,
     "archivedProductCount": 2,
     "categoryCount": 6,
     "categories": [
       "CHATGPT",
       "CLAUDE",
-      "GROK",
       "GEMINI",
+      "GROK",
       "OTHER",
       "GOOGLE_ACCOUNT"
     ]

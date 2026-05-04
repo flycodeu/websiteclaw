@@ -1,0 +1,629 @@
+{
+  "shop": {
+    "shopId": "shop_src_c4fa540a",
+    "sourceId": "src_c4fa540a",
+    "name": "Aisou智充",
+    "url": "https://aisou.pro/",
+    "merchantType": "SMALL_SHOP",
+    "status": "OPEN",
+    "currentVersion": 24,
+    "lastCrawledAt": "2026-05-04T01:15:49.554Z",
+    "productCount": 8,
+    "inStockCount": 8,
+    "lowStockCount": 0,
+    "outOfStockCount": 0,
+    "lowestPrice": 20,
+    "categories": [
+      "CHATGPT",
+      "CLAUDE",
+      "GEMINI",
+      "GROK"
+    ],
+    "recentChangeCount": 8,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "CHATGPT__PLUS_土区自助卡密",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_土区自助卡密",
+      "current": {
+        "productKey": "CHATGPT__PLUS_土区自助卡密",
+        "rawName": "ChatGPT Plus 土区自助卡密",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_土区自助卡密",
+        "price": 99,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：17",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Plus 土区自助卡密",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "CHATGPT__PLUS_土区自助卡密",
+          "rawName": "ChatGPT Plus 土区自助卡密",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_土区自助卡密",
+          "price": 99,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：17",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "ChatGPT Plus 土区自助卡密"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 99,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 99,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 99,
+        "highestPrice": 99,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    },
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "CHATGPT__PLUS自助卡密_特价渠道",
+      "category": "CHATGPT",
+      "specLabel": "PLUS自助卡密_特价渠道",
+      "current": {
+        "productKey": "CHATGPT__PLUS自助卡密_特价渠道",
+        "rawName": "ChatGPT Plus自助卡密（特价渠道）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS自助卡密_特价渠道",
+        "price": 35,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：17",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Plus自助卡密（特价渠道）",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "CHATGPT__PLUS自助卡密_特价渠道",
+          "rawName": "ChatGPT Plus自助卡密（特价渠道）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS自助卡密_特价渠道",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：17",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "ChatGPT Plus自助卡密（特价渠道）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 35,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 35,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 35,
+        "highestPrice": 35,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    },
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "CHATGPT__PLUS自助卡密_IOS土区质保",
+      "category": "CHATGPT",
+      "specLabel": "PLUS自助卡密_IOS土区质保",
+      "current": {
+        "productKey": "CHATGPT__PLUS自助卡密_IOS土区质保",
+        "rawName": "ChatGPT Plus自助卡密（IOS土区质保）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS自助卡密_IOS土区质保",
+        "price": 101,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：17",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Plus自助卡密（IOS土区质保）",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "CHATGPT__PLUS自助卡密_IOS土区质保",
+          "rawName": "ChatGPT Plus自助卡密（IOS土区质保）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS自助卡密_IOS土区质保",
+          "price": 101,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：17",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "ChatGPT Plus自助卡密（IOS土区质保）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 101,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 101,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 101,
+        "highestPrice": 101,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    },
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "CHATGPT__IOS土区质保_应急独享通道",
+      "category": "CHATGPT",
+      "specLabel": "IOS土区质保_应急独享通道",
+      "current": {
+        "productKey": "CHATGPT__IOS土区质保_应急独享通道",
+        "rawName": "ChatGPT（ios土区质保）-应急独享通道",
+        "category": "CHATGPT",
+        "specLabel": "IOS土区质保_应急独享通道",
+        "price": 110,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：1",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT（ios土区质保）-应急独享通道",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "CHATGPT__IOS土区质保_应急独享通道",
+          "rawName": "ChatGPT（ios土区质保）-应急独享通道",
+          "category": "CHATGPT",
+          "specLabel": "IOS土区质保_应急独享通道",
+          "price": 110,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：1",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "ChatGPT（ios土区质保）-应急独享通道"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 110,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 110,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 110,
+        "highestPrice": 110,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    },
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "CLAUDE__PRO直充月卡",
+      "category": "CLAUDE",
+      "specLabel": "PRO直充月卡",
+      "current": {
+        "productKey": "CLAUDE__PRO直充月卡",
+        "rawName": "Claude Pro直充月卡",
+        "category": "CLAUDE",
+        "specLabel": "PRO直充月卡",
+        "price": 105,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：15",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Claude Pro直充月卡",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "CLAUDE__PRO直充月卡",
+          "rawName": "Claude Pro直充月卡",
+          "category": "CLAUDE",
+          "specLabel": "PRO直充月卡",
+          "price": 105,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：15",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "Claude Pro直充月卡"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 105,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 105,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 105,
+        "highestPrice": 105,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    },
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "GEMINI__3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+      "category": "GEMINI",
+      "specLabel": "3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+      "current": {
+        "productKey": "GEMINI__3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+        "rawName": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP)",
+        "category": "GEMINI",
+        "specLabel": "3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+        "price": 20,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：一般",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP)",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "GEMINI__3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+          "rawName": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP)",
+          "category": "GEMINI",
+          "specLabel": "3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+          "price": 20,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：一般",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP)"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 20,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 20,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 20,
+        "highestPrice": 20,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    },
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "GROK__SUPER直充月卡",
+      "category": "GROK",
+      "specLabel": "SUPER直充月卡",
+      "current": {
+        "productKey": "GROK__SUPER直充月卡",
+        "rawName": "Grok Super直充月卡",
+        "category": "GROK",
+        "specLabel": "SUPER直充月卡",
+        "price": 82,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：1",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Grok Super直充月卡",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "GROK__SUPER直充月卡",
+          "rawName": "Grok Super直充月卡",
+          "category": "GROK",
+          "specLabel": "SUPER直充月卡",
+          "price": 82,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：1",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "Grok Super直充月卡"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 82,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 82,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 82,
+        "highestPrice": 82,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    },
+    {
+      "shopId": "shop_src_c4fa540a",
+      "sourceId": "src_c4fa540a",
+      "productKey": "GROK__SUPER_成品号_1个月_质保20天",
+      "category": "GROK",
+      "specLabel": "SUPER_成品号_1个月_质保20天",
+      "current": {
+        "productKey": "GROK__SUPER_成品号_1个月_质保20天",
+        "rawName": "Super Grok 成品号-1个月（质保20天）",
+        "category": "GROK",
+        "specLabel": "SUPER_成品号_1个月_质保20天",
+        "price": 50,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：一般",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Super Grok 成品号-1个月（质保20天）",
+        "updatedAt": "2026-05-04T01:15:49.388Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c4fa540a",
+          "sourceId": "src_c4fa540a",
+          "productKey": "GROK__SUPER_成品号_1个月_质保20天",
+          "rawName": "Super Grok 成品号-1个月（质保20天）",
+          "category": "GROK",
+          "specLabel": "SUPER_成品号_1个月_质保20天",
+          "price": 50,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：一般",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_e32abe8f",
+          "reviewId": "review_7a4fdcbd",
+          "sourceLine": "Super Grok 成品号-1个月（质保20天）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 50,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:15:49.388Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 50,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 50,
+        "highestPrice": 50,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:15:49.388Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_c4fa540a",
+      "crawlTaskId": "task_e32abe8f",
+      "version": 24,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:15:49.554Z",
+      "summary": "页面为Aisou智充的购物页面，共展示8个AI会员充值商品，涵盖ChatGPT Plus、Super Grok、Gemini、Claude Pro、Grok Super等类型，价格从¥20到¥110不等，部分商品标注质保。",
+      "conclusion": "页面商品信息完整，均为在售自动发货商品，无异常项。",
+      "productCount": 8,
+      "productKeys": [
+        "CHATGPT__PLUS自助卡密_特价渠道",
+        "CHATGPT__PLUS自助卡密_IOS土区质保",
+        "CHATGPT__IOS土区质保_应急独享通道",
+        "CHATGPT__PLUS_土区自助卡密",
+        "GROK__SUPER_成品号_1个月_质保20天",
+        "GEMINI__3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+        "CLAUDE__PRO直充月卡",
+        "GROK__SUPER直充月卡"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_c4fa540a",
+      "version": 24,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:15:49.554Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_土区自助卡密",
+          "productLabel": "ChatGPT Plus 土区自助卡密",
+          "note": "ChatGPT Plus 土区自助卡密 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS自助卡密_特价渠道",
+          "productLabel": "ChatGPT Plus自助卡密（特价渠道）",
+          "note": "ChatGPT Plus自助卡密（特价渠道） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS自助卡密_IOS土区质保",
+          "productLabel": "ChatGPT Plus自助卡密（IOS土区质保）",
+          "note": "ChatGPT Plus自助卡密（IOS土区质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__IOS土区质保_应急独享通道",
+          "productLabel": "ChatGPT（ios土区质保）-应急独享通道",
+          "note": "ChatGPT（ios土区质保）-应急独享通道 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO直充月卡",
+          "productLabel": "Claude Pro直充月卡",
+          "note": "Claude Pro直充月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_1PRO_12个月PIXEL成品号_26年随机地区账号包GCP",
+          "productLabel": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP)",
+          "note": "Gemini 3.1pro 12个月pixel成品号 (26年随机地区账号包GCP) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER直充月卡",
+          "productLabel": "Grok Super直充月卡",
+          "note": "Grok Super直充月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_成品号_1个月_质保20天",
+          "productLabel": "Super Grok 成品号-1个月（质保20天）",
+          "note": "Super Grok 成品号-1个月（质保20天） 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 8 项"
+    }
+  ],
+  "publishedAt": "2026-05-04T01:15:49.554Z"
+}
