@@ -1,6 +1,6 @@
 {
-  "version": 355,
-  "updatedAt": "2026-05-04T01:32:44.396Z",
+  "version": 362,
+  "updatedAt": "2026-05-04T01:35:09.054Z",
   "sources": [
     {
       "sourceId": "src_55ae1c73",
@@ -49,9 +49,9 @@
       "crawlMode": "AUTO",
       "enabled": true,
       "visible": true,
-      "lastRunAt": "2026-05-04T01:17:22.743Z",
+      "lastRunAt": "2026-05-04T01:35:01.801Z",
       "createdAt": "2026-05-04T01:17:20.919Z",
-      "updatedAt": "2026-05-04T01:17:22.743Z",
+      "updatedAt": "2026-05-04T01:35:01.801Z",
       "verificationMethod": "NONE",
       "verificationPrompt": "",
       "waitSelector": "body",
@@ -182,9 +182,9 @@
       "crawlMode": "AUTO",
       "enabled": true,
       "visible": true,
-      "lastRunAt": "2026-05-04T01:02:41.080Z",
+      "lastRunAt": "2026-05-04T01:34:35.477Z",
       "createdAt": "2026-05-01T09:13:13.355Z",
-      "updatedAt": "2026-05-04T01:02:41.080Z",
+      "updatedAt": "2026-05-04T01:34:35.477Z",
       "verificationMethod": "NONE",
       "verificationPrompt": "",
       "waitSelector": "body",
@@ -479,6 +479,77 @@
     }
   ],
   "tasks": [
+    {
+      "id": "task_68a19f7d",
+      "sourceId": "src_a07394c9",
+      "sourceName": "kennygmail",
+      "crawlVersion": 27,
+      "status": "PUBLISHED",
+      "startedAt": "2026-05-04T01:35:01.801Z",
+      "updatedAt": "2026-05-04T01:35:09.038Z",
+      "finishedAt": "2026-05-04T01:35:09.038Z",
+      "logSummary": "结果已写入公开数据。",
+      "nextAction": "等待下一次抓取。",
+      "rawUrl": "https://car.kennygmail.com/",
+      "currentUrl": "https://car.kennygmail.com/",
+      "rawFragments": [],
+      "timeline": [
+        {
+          "at": "2026-05-04T01:35:01.801Z",
+          "title": "任务创建",
+          "detail": "已加入抓取队列。"
+        },
+        {
+          "at": "2026-05-04T01:35:01.882Z",
+          "title": "开始抓取",
+          "detail": "已进入浏览器抓取流程。"
+        },
+        {
+          "at": "2026-05-04T01:35:05.272Z",
+          "title": "进入校对",
+          "detail": "未识别到可信商品，等待人工补充。"
+        },
+        {
+          "at": "2026-05-04T01:35:08.899Z",
+          "title": "保存校对草稿",
+          "detail": "商品结构已更新。"
+        },
+        {
+          "at": "2026-05-04T01:35:09.038Z",
+          "title": "发布完成",
+          "detail": "公开数据已更新。"
+        }
+      ],
+      "reviewId": "review_404cca11",
+      "requiresVerification": false,
+      "verificationMethod": "NONE",
+      "verificationPrompt": "",
+      "sessionId": "session_6b425935",
+      "pageState": "COLLECTED",
+      "artifacts": {
+        "htmlPath": "data/runtime/tasks/task_68a19f7d/page.html",
+        "textPath": "data/runtime/tasks/task_68a19f7d/visible.txt",
+        "screenshotPath": "data/runtime/tasks/task_68a19f7d/page.png",
+        "storageStatePath": "data/runtime/tasks/task_68a19f7d/storage-state.json"
+      },
+      "aiUsage": {
+        "provider": "deepseek-compatible",
+        "providerLabel": "环境变量 / DeepSeek",
+        "model": "deepseek-v4-flash",
+        "callCount": 0,
+        "promptTokens": 0,
+        "completionTokens": 0,
+        "totalTokens": 0,
+        "promptCacheHitTokens": 0,
+        "promptCacheMissTokens": 0,
+        "estimatedCost": 0,
+        "currency": "CNY",
+        "inputPricePerMillion": 1,
+        "outputPricePerMillion": 2,
+        "cacheHitInputPricePerMillion": 0.2,
+        "updatedAt": "2026-05-04T01:35:05.272Z"
+      }
+    },
     {
       "id": "task_34cb0b86",
       "sourceId": "src_55ae1c73",
@@ -4178,6 +4249,25 @@
     }
   ],
   "reviews": [
+    {
+      "id": "review_404cca11",
+      "taskId": "task_68a19f7d",
+      "sourceId": "src_a07394c9",
+      "sourceName": "kennygmail",
+      "crawlVersion": 27,
+      "status": "PUBLISHED",
+      "snapshotDate": "2026-05-04",
+      "summary": "当前页面有效文本不足，未生成商品草稿。",
+      "rawFragments": [],
+      "products": [],
+      "previousDiff": [],
+      "modelLabel": "deepseek-v4-flash",
+      "conclusion": "请在校对页手动补充商品，或检查 AI 配置后重新抓取。",
+      "flags": [
+        "页面有效文本不足",
+        "建议启动人工验证工作区，验证完成后自动继续，或补充人工整理页面文本"
+      ]
+    },
     {
       "id": "review_2da8050c",
       "taskId": "task_34cb0b86",
@@ -18715,6 +18805,24 @@
   "crawlBatch": null,
   "published": {
     "shops": [
+      {
+        "shopId": "shop_src_a07394c9",
+        "sourceId": "src_a07394c9",
+        "name": "kennygmail",
+        "url": "https://car.kennygmail.com/",
+        "merchantType": "SMALL_SHOP",
+        "status": "RISK",
+        "currentVersion": 27,
+        "lastCrawledAt": "2026-05-04T01:35:09.038Z",
+        "productCount": 0,
+        "inStockCount": 0,
+        "lowStockCount": 0,
+        "outOfStockCount": 0,
+        "lowestPrice": 0,
+        "categories": [],
+        "recentChangeCount": 0,
+        "runCount": 1
+      },
       {
         "shopId": "shop_src_55ae1c73",
         "sourceId": "src_55ae1c73",
@@ -57786,6 +57894,17 @@
     ],
     "shopSnapshots": [
       {
+        "shopId": "shop_src_a07394c9",
+        "crawlTaskId": "task_68a19f7d",
+        "version": 27,
+        "snapshotDate": "2026-05-04",
+        "capturedAt": "2026-05-04T01:35:09.038Z",
+        "summary": "当前页面有效文本不足，未生成商品草稿。",
+        "conclusion": "请在校对页手动补充商品，或检查 AI 配置后重新抓取。",
+        "productCount": 0,
+        "productKeys": []
+      },
+      {
         "shopId": "shop_src_55ae1c73",
         "crawlTaskId": "task_34cb0b86",
         "version": 26,
@@ -58820,6 +58939,14 @@
       }
     ],
     "shopDiffs": [
+      {
+        "shopId": "shop_src_a07394c9",
+        "version": 27,
+        "snapshotDate": "2026-05-04",
+        "capturedAt": "2026-05-04T01:35:09.038Z",
+        "changes": [],
+        "summary": "本次抓取未发现明显变动。"
+      },
       {
         "shopId": "shop_src_55ae1c73",
         "version": 26,
@@ -63126,6 +63253,6 @@
         "summary": "新增 141 项"
       }
     ],
-    "publishedAt": "2026-05-04T01:32:44.368Z"
+    "publishedAt": "2026-05-04T01:35:09.038Z"
   }
 }

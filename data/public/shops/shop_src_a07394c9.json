@@ -1,13 +1,13 @@
 {
   "shop": {
-    "shopId": "shop_src_cfb67677",
-    "sourceId": "src_cfb67677",
-    "name": "web3chirou",
-    "url": "https://web3chirou.com/",
+    "shopId": "shop_src_a07394c9",
+    "sourceId": "src_a07394c9",
+    "name": "kennygmail",
+    "url": "https://car.kennygmail.com/",
     "merchantType": "SMALL_SHOP",
     "status": "RISK",
-    "currentVersion": 19,
-    "lastCrawledAt": "2026-05-04T01:03:18.182Z",
+    "currentVersion": 27,
+    "lastCrawledAt": "2026-05-04T01:35:09.038Z",
     "productCount": 0,
     "inStockCount": 0,
     "lowStockCount": 0,
@@ -20,12 +20,12 @@
   "products": [],
   "recentSnapshots": [
     {
-      "shopId": "shop_src_cfb67677",
-      "crawlTaskId": "task_2bfcefa0",
-      "version": 19,
+      "shopId": "shop_src_a07394c9",
+      "crawlTaskId": "task_68a19f7d",
+      "version": 27,
       "snapshotDate": "2026-05-04",
-      "capturedAt": "2026-05-04T01:03:18.182Z",
-      "summary": "已抓取页面内容，但未识别到可信商品。",
+      "capturedAt": "2026-05-04T01:35:09.038Z",
+      "summary": "当前页面有效文本不足，未生成商品草稿。",
       "conclusion": "请在校对页手动补充商品，或检查 AI 配置后重新抓取。",
       "productCount": 0,
       "productKeys": []
@@ -33,10 +33,10 @@
   ],
   "recentDiffs": [
     {
-      "shopId": "shop_src_cfb67677",
-      "version": 19,
+      "shopId": "shop_src_a07394c9",
+      "version": 27,
       "snapshotDate": "2026-05-04",
-      "capturedAt": "2026-05-04T01:03:18.182Z",
+      "capturedAt": "2026-05-04T01:35:09.038Z",
       "changes": [],
       "summary": "本次抓取未发现明显变动。"
     }

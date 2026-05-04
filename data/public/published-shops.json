@@ -1,6 +1,24 @@
 {
   "shops": [
     {
+      "shopId": "shop_src_a07394c9",
+      "sourceId": "src_a07394c9",
+      "name": "kennygmail",
+      "url": "https://car.kennygmail.com/",
+      "merchantType": "SMALL_SHOP",
+      "status": "RISK",
+      "currentVersion": 27,
+      "lastCrawledAt": "2026-05-04T01:35:09.038Z",
+      "productCount": 0,
+      "inStockCount": 0,
+      "lowStockCount": 0,
+      "outOfStockCount": 0,
+      "lowestPrice": 0,
+      "categories": [],
+      "recentChangeCount": 0,
+      "runCount": 1
+    },
+    {
       "shopId": "shop_src_55ae1c73",
       "sourceId": "src_55ae1c73",
       "name": "cc-cat",
@@ -517,10 +535,10 @@
       "runCount": 1
     }
   ],
-  "publishedAt": "2026-05-04T01:32:44.368Z",
+  "publishedAt": "2026-05-04T01:35:09.038Z",
   "meta": {
-    "publishedAt": "2026-05-04T01:32:44.368Z",
-    "shopCount": 23,
+    "publishedAt": "2026-05-04T01:35:09.038Z",
+    "shopCount": 24,
     "liveProductCount": 384,
     "archivedProductCount": 2,
     "categoryCount": 8,
