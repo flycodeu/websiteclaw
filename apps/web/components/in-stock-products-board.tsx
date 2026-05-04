@@ -28,6 +28,7 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
   const [loadMode, setLoadMode] = useState<LoadMode>("idle");
   const [error, setError] = useState("");
   const hydratedRef = useRef(false);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const deferredKeyword = useDeferredValue(keyword);
 
   function handleAvailabilityChange(nextAvailability: ProductAvailabilityFilter) {
@@ -120,6 +121,31 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
       setError(fetchError instanceof Error ? fetchError.message : "更多商品加载失败");
     }
   }
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !page.nextCursor) {
+      return;
+    }
+
+    const node = loadMoreRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting || loadMode !== "idle") {
+          return;
+        }
+
+        void handleLoadMore();
+      },
+      {
+        rootMargin: "280px 0px"
+      }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [page.nextCursor, loadMode, availability, activeCategory, deferredKeyword, minPrice, maxPrice]);
 
   const isLoading = loadMode === "replace";
   const isAppending = loadMode === "append";
@@ -220,7 +246,7 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
       </section>
 
       {page.nextCursor ? (
-        <div className="flex justify-center pt-4">
+        <div ref={loadMoreRef} className="flex flex-col items-center gap-4 pt-4">
           <button
             type="button"
             onClick={handleLoadMore}
@@ -230,8 +256,11 @@ export function ProductListBoard({ initialPage }: ProductListBoardProps) {
             {isAppending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}
             {isAppending ? "正在加载" : "继续加载更多"}
           </button>
+          <div className="text-xs text-zinc-400">滚动到底部时也会自动加载下一页</div>
         </div>
       ) : null}
+
+      <FooterGithubLink />
     </div>
   );
 }
@@ -444,6 +473,22 @@ function LoadingCurtain() {
         正在刷新商品列表
       </div>
     </div>
+  );
+}
+
+function FooterGithubLink() {
+  return (
+    <footer className="border-t border-zinc-200/80 pt-6 text-center">
+      <a
+        href="https://github.com/flycodeu/websiteclaw"
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900"
+      >
+        GitHub
+        <ArrowUpRight className="h-4 w-4" />
+      </a>
+    </footer>
   );
 }
 

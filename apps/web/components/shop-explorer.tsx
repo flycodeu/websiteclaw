@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowUpRight, LoaderCircle, Search, X } from "lucide-react";
 import {
@@ -19,59 +19,146 @@ import {
   PublishedShopProductPreview,
   ShopSummary
 } from "@shop-claw/shared/types";
+import { ShopFeedPage } from "@/lib/shop-feed";
 
 interface ShopExplorerProps {
-  shops: ShopSummary[];
+  initialPage: ShopFeedPage;
 }
 
-export function ShopExplorer({ shops }: ShopExplorerProps) {
+type LoadMode = "idle" | "replace" | "append";
+
+export function ShopExplorer({ initialPage }: ShopExplorerProps) {
   const [keyword, setKeyword] = useState("");
   const [merchantType, setMerchantType] = useState<"ALL" | ShopSummary["merchantType"]>("ALL");
   const [status, setStatus] = useState<"ALL" | ShopSummary["status"]>("ALL");
   const [sortBy, setSortBy] = useState<"updated" | "price">("updated");
+  const [page, setPage] = useState(initialPage);
+  const [loadMode, setLoadMode] = useState<LoadMode>("idle");
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<"ALL" | ProductCategory>("ALL");
   const [detailsByShop, setDetailsByShop] = useState<Record<string, PublicShopDetail>>({});
   const [detailError, setDetailError] = useState("");
   const [portalReady, setPortalReady] = useState(false);
+  const [listError, setListError] = useState("");
+  const hydratedRef = useRef(false);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
-  const filteredShops = [...shops]
-    .filter((shop) => {
-      const text = keyword.trim().toLowerCase();
-      const keywordMatched =
-        !text ||
-        shop.name.toLowerCase().includes(text) ||
-        shop.categories.some(
-          (category) =>
-            category.toLowerCase().includes(text) || productCategoryLabels[category].toLowerCase().includes(text)
-        ) ||
-        merchantTypeLabels[shop.merchantType].toLowerCase().includes(text);
-      const merchantTypeMatched = merchantType === "ALL" || shop.merchantType === merchantType;
-      const statusMatched = status === "ALL" || shop.status === status;
-      return keywordMatched && merchantTypeMatched && statusMatched;
-    })
-    .sort((left, right) => {
-      if (sortBy === "price") {
-        if (left.lowestPrice === 0) {
-          return 1;
-        }
-
-        if (right.lowestPrice === 0) {
-          return -1;
-        }
-
-        return left.lowestPrice - right.lowestPrice;
-      }
-
-      return Date.parse(right.lastCrawledAt) - Date.parse(left.lastCrawledAt);
-    });
-
-  const activeShop = activeId ? shops.find((shop) => shop.shopId === activeId) ?? null : null;
+  const filteredShops = page.items;
+  const activeShop = activeId ? page.items.find((shop) => shop.shopId === activeId) ?? null : null;
   const activeDetail = activeId ? detailsByShop[activeId] ?? null : null;
   const loadingDetail = Boolean(activeId && !activeDetail && !detailError);
   const visibleProducts =
     activeDetail?.products.filter((product) => activeCategory === "ALL" || product.category === activeCategory) ?? [];
   const activeCategories = activeDetail?.categories ?? [];
+  const isLoading = loadMode === "replace";
+  const isAppending = loadMode === "append";
+
+  useEffect(() => {
+    if (!hydratedRef.current) {
+      hydratedRef.current = true;
+      return;
+    }
+
+    const controller = new AbortController();
+
+    async function refreshPage() {
+      setLoadMode("replace");
+      setListError("");
+
+      try {
+        const response = await fetch(buildShopsUrl({ keyword, merchantType, status, sortBy }), {
+          signal: controller.signal,
+          cache: "no-store"
+        });
+        const payload = (await response.json()) as ApiResponse<ShopFeedPage>;
+
+        if (!response.ok || payload.code !== 0 || !payload.data) {
+          throw new Error(payload.message || "店铺列表加载失败");
+        }
+
+        startTransition(() => {
+          setPage(payload.data);
+          setLoadMode("idle");
+        });
+      } catch (fetchError) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setLoadMode("idle");
+        setListError(fetchError instanceof Error ? fetchError.message : "店铺列表加载失败");
+      }
+    }
+
+    void refreshPage();
+
+    return () => controller.abort();
+  }, [keyword, merchantType, status, sortBy]);
+
+  async function handleLoadMore() {
+    if (!page.nextCursor || loadMode !== "idle") {
+      return;
+    }
+
+    setLoadMode("append");
+    setListError("");
+
+    try {
+      const response = await fetch(
+        buildShopsUrl({
+          keyword,
+          merchantType,
+          status,
+          sortBy,
+          cursor: page.nextCursor
+        }),
+        {
+          cache: "no-store"
+        }
+      );
+      const payload = (await response.json()) as ApiResponse<ShopFeedPage>;
+
+      if (!response.ok || payload.code !== 0 || !payload.data) {
+        throw new Error(payload.message || "更多店铺加载失败");
+      }
+
+      startTransition(() => {
+        setPage((current) => ({
+          ...payload.data,
+          items: [...current.items, ...payload.data.items]
+        }));
+        setLoadMode("idle");
+      });
+    } catch (fetchError) {
+      setLoadMode("idle");
+      setListError(fetchError instanceof Error ? fetchError.message : "更多店铺加载失败");
+    }
+  }
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !page.nextCursor) {
+      return;
+    }
+
+    const node = loadMoreRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting || loadMode !== "idle") {
+          return;
+        }
+
+        void handleLoadMore();
+      },
+      {
+        rootMargin: "280px 0px"
+      }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [page.nextCursor, loadMode, keyword, merchantType, status, sortBy]);
 
   useEffect(() => {
     if (!activeId || detailsByShop[activeId]) {
@@ -197,6 +284,10 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
         </div>
       </section>
 
+      {listError ? (
+        <section className="rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-600">{listError}</section>
+      ) : null}
+
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {filteredShops.map((shop) => (
           <button
@@ -247,6 +338,29 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
           </div>
         ) : null}
       </section>
+
+      {isLoading ? (
+        <div className="rounded-2xl border border-zinc-200 bg-white/70 px-5 py-4 text-sm text-zinc-500 shadow-sm">
+          正在刷新店铺列表
+        </div>
+      ) : null}
+
+      {page.nextCursor ? (
+        <div ref={loadMoreRef} className="flex flex-col items-center gap-4 pt-2">
+          <button
+            type="button"
+            onClick={() => void handleLoadMore()}
+            disabled={isAppending}
+            className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-2.5 text-sm font-medium text-zinc-700 shadow-sm transition hover:bg-zinc-50 hover:text-zinc-900 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isAppending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}
+            {isAppending ? "正在加载" : "继续加载更多"}
+          </button>
+          <div className="text-xs text-zinc-400">滚动到底部时也会自动加载下一页</div>
+        </div>
+      ) : null}
+
+      <FooterGithubLink />
 
       {portalReady && activeShop
         ? createPortal(
@@ -372,6 +486,61 @@ export function ShopExplorer({ shops }: ShopExplorerProps) {
         : null}
     </div>
   );
+}
+
+function FooterGithubLink() {
+  return (
+    <footer className="border-t border-zinc-200/80 pt-6 text-center">
+      <a
+        href="https://github.com/flycodeu/websiteclaw"
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900"
+      >
+        GitHub
+        <ArrowUpRight className="h-4 w-4" />
+      </a>
+    </footer>
+  );
+}
+
+function buildShopsUrl({
+  keyword,
+  merchantType,
+  status,
+  sortBy,
+  cursor
+}: {
+  keyword: string;
+  merchantType: "ALL" | ShopSummary["merchantType"];
+  status: "ALL" | ShopSummary["status"];
+  sortBy: "updated" | "price";
+  cursor?: string | null;
+}) {
+  const search = new URLSearchParams();
+
+  if (keyword.trim()) {
+    search.set("keyword", keyword.trim());
+  }
+
+  if (merchantType !== "ALL") {
+    search.set("merchantType", merchantType);
+  }
+
+  if (status !== "ALL") {
+    search.set("status", status);
+  }
+
+  if (sortBy !== "updated") {
+    search.set("sort", sortBy);
+  }
+
+  if (cursor) {
+    search.set("cursor", cursor);
+  }
+
+  search.set("limit", "24");
+  return `/api/shops?${search.toString()}`;
 }
 
 function CompactTile({ label, value }: { label: string; value: string }) {

@@ -1,4 +1,4 @@
-import { productCategoryLabels } from "@shop-claw/shared/labels";
+import { merchantTypeLabels, productCategoryLabels } from "@shop-claw/shared/labels";
 import { PublishedMeta, PublishedShopIndex, ShopSummary } from "@shop-claw/shared/types";
 
 const DEFAULT_LIMIT = 24;
@@ -18,11 +18,13 @@ interface ShopFeedOptions {
   limit?: number;
   sort?: string | null;
   status?: string | null;
+  merchantType?: string | null;
 }
 
 export function getShopFeedItems(index: PublishedShopIndex, options: ShopFeedOptions = {}) {
   const keyword = normalizeText(options.keyword);
   const activeStatus = readStatusFilter(options.status);
+  const activeMerchantType = readMerchantTypeFilter(options.merchantType);
   const sortBy = readSortFilter(options.sort);
 
   return index.shops
@@ -33,9 +35,11 @@ export function getShopFeedItems(index: PublishedShopIndex, options: ShopFeedOpt
         shop.categories.some(
           (category) =>
             category.toLowerCase().includes(keyword) || productCategoryLabels[category].toLowerCase().includes(keyword)
-        );
+        ) ||
+        merchantTypeLabels[shop.merchantType].toLowerCase().includes(keyword);
       const statusMatched = !activeStatus || shop.status === activeStatus;
-      return keywordMatched && statusMatched;
+      const merchantTypeMatched = !activeMerchantType || shop.merchantType === activeMerchantType;
+      return keywordMatched && statusMatched && merchantTypeMatched;
     })
     .sort((left, right) => {
       if (sortBy === "price") {
@@ -96,6 +100,14 @@ function readSortFilter(value: string | null | undefined) {
 
 function readStatusFilter(value: string | null | undefined) {
   if (value === "OPEN" || value === "RISK" || value === "CLOSED") {
+    return value;
+  }
+
+  return null;
+}
+
+function readMerchantTypeFilter(value: string | null | undefined) {
+  if (value === "SMALL_SHOP" || value === "TOP_UP") {
     return value;
   }
 

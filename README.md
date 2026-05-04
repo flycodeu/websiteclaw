@@ -1,90 +1,82 @@
-# 商铺监控平台
+# Website Claw
 
-一个 monorepo，分成抓取后台和公开前台两部分：
+商铺监控与公开展示平台，包含：
 
-- `apps/admin`：站点录入、浏览器抓取、人工验证、商品校对、公开发布
-- `apps/web`：面向用户的公开监控界面
-- `packages/shared`：类型、状态存储、发布流程、通用标签和响应包装
+- `apps/admin`：管理端，负责站点录入、抓取、人工验证、商品校对、发布
+- `apps/web`：用户端，负责展示公开店铺和商品信息
+- `packages/shared`：共享类型、状态存储、发布流程、标签与响应工具
 
-## 当前架构
+## 核心能力
 
-- 抓取和发布发生在本地或后台运行环境
-- 发布后会生成一组静态公开数据文件
-- `apps/web` 只读取这些静态文件，不负责写入
-- 这适合部署到 Vercel，因为 Vercel 只做只读展示
+- 录入抓取站点并维护商铺分类
+- 浏览器抓取商品、价格、库存和可见文本
+- 支持验证码、登录态、人工继续验证
+- 商品校对后发布为公开静态数据
+- 用户端支持店铺列表、商品列表、按条件筛选
+- 用户端支持“加载更多”按钮和滚动自动加载
 
-重点说明：
+## 商铺分类
 
-- 不建议把“抓取结果写本地 JSON”这件事直接放到 Vercel 运行时
-- 当前方案是“本地生成公开产物，再部署或同步到 Vercel”
+平台内置两种商铺类型：
 
-## 商品生命周期规则
+- `小铺`
+- `代充`
 
-- 每个商品按 `productKey` 作为同店唯一标识
-- 同一商品价格变化时，不新建商品，只更新当前版本
-- 每个商品保留最近 10 次观测历史
-- 每个商品会派生价格历史摘要和最近一次涨跌方向
-- 如果同店同商品连续 1 到 2 次抓取不到：
-  - 仍保留在公开列表
-  - 状态会变成离线/缺席
-- 如果同店同商品连续第 3 次抓取不到：
-  - 自动从公开列表删除
-  - 转入归档历史
-- 如果归档商品后续再次抓到：
-  - 会恢复到公开列表
-  - 历史记录继续沿用
+管理端录入站点时默认是 `小铺`，可手动切换成 `代充`。  
+用户端店铺列表和店铺详情会展示当前商铺类型。
+
+## 项目结构
+
+```text
+apps/
+  admin/   管理端
+  web/     用户端
+packages/
+  shared/  共享逻辑
+data/
+  platform-state.json   内部状态
+  public/               公开静态产物
+  runtime/tasks/        抓取运行时文件
+```
+
+## 数据流
+
+1. 在管理端新增抓取站点
+2. 发起抓取
+3. 如命中验证码或登录，进入人工验证
+4. 抓取完成后生成商品初稿
+5. 在管理端校对商品结构
+6. 发布为公开数据
+7. 用户端读取 `data/public/` 产物进行展示
 
 ## 公开数据文件
 
-发布后会在 `data/public/` 下生成这些文件：
+发布后会生成：
 
-- `published-data.json`：完整公开发布态，供内部程序读取
-- `published-meta.json`：发布时间、店铺数、商品数、分类统计
-- `published-shops.json`：店铺摘要列表
-- `published-products.json`：轻量商品索引，不带完整历史
-- `published-diffs.json`：最近发布差异列表
-- `shops/<shopId>.json`：单店详情、商品历史、快照和差异
-
-## 前端读取策略
-
-### `apps/web`
-
-- 首页：
-  - 首屏只读轻量商品索引
-  - 搜索、分类、价格过滤走服务端 API 分页
-- 店铺页：
-  - 首屏只加载店铺摘要
-  - 点击店铺后再按需读取 `shops/<shopId>.json`
-
-这样做的目的：
-
-- 降低首屏传输体积
-- 避免在浏览器里一次性处理全量历史数据
-- 减少在 Vercel 上的页面切换卡顿
-
-## 数据文件说明
-
-- 内部状态：`data/platform-state.json`
-- 公开数据：`data/public/*`
-- 抓取运行态：`data/runtime/tasks/<taskId>/`
+- `data/public/published-data.json`
+- `data/public/published-meta.json`
+- `data/public/published-shops.json`
+- `data/public/published-products.json`
+- `data/public/published-diffs.json`
+- `data/public/shops/<shopId>.json`
 
 说明：
 
-- `platform-state.json` 保存源站、任务、校对记录和完整发布态
-- `data/public/` 只保存前台读取所需的静态产物
-- `data/runtime/` 保存抓取过程中的 HTML、文本、截图、storageState 等运行文件
+- `published-data.json` 是完整公开态
+- `published-shops.json` 是店铺摘要列表
+- `published-products.json` 是商品轻量索引
+- `shops/<shopId>.json` 是单店详情
 
-## 工作流
+## 商品生命周期
 
-1. 在管理端新增站点
-2. 发起抓取
-3. 如果命中验证码、登录或验证页，进入人工验证流程
-4. 抓取完成后生成商品初稿
-5. 在校对页确认分类、规格、价格、库存和质保
-6. 发布到公开数据
-7. 将最新静态产物部署或同步到 Vercel
+- 同店商品按 `productKey` 唯一识别
+- 价格变化时更新商品，不重复新建
+- 保留最近 10 次历史观测
+- 连续 1 到 2 次抓取不到时，商品仍保留但会进入离线/缺席状态
+- 连续第 3 次抓取不到时，自动从公开列表移除并转入归档
+- 后续再次抓到时，可恢复到公开列表
 
-## 运行
+## 本地运行
 
 安装依赖：
 
@@ -98,7 +90,7 @@ npm install
 npm run dev:admin
 ```
 
-启动公开前端：
+启动用户端：
 
 ```bash
 npm run dev:web
@@ -118,36 +110,56 @@ npm run build
 
 ## 环境变量
 
-管理端参考 `apps/admin/.env.example`：
+管理端参考 `apps/admin/.env.example`，常见变量包括：
 
-- 登录鉴权：`ADMIN_ALLOWED_EMAILS`、`ADMIN_SESSION_SECRET`
-- AI：`AI_ENABLED`、`AI_PROVIDER`、`AI_BASE_URL`、`AI_API_KEY`、`AI_MODEL`
-- AI 推理和计费：`AI_TEMPERATURE`、`AI_THINKING_ENABLED`、`AI_REASONING_EFFORT`
-- AI 成本：`AI_PRICE_CURRENCY`、`AI_INPUT_PRICE_PER_MILLION`、`AI_OUTPUT_PRICE_PER_MILLION`、`AI_CACHE_HIT_INPUT_PRICE_PER_MILLION`
-- 系统提示词：`AI_SYSTEM_PROMPT`
+- `ADMIN_ALLOWED_EMAILS`
+- `ADMIN_SESSION_SECRET`
+- `AI_ENABLED`
+- `AI_PROVIDER`
+- `AI_BASE_URL`
+- `AI_API_KEY`
+- `AI_MODEL`
+- `AI_TEMPERATURE`
+- `AI_THINKING_ENABLED`
+- `AI_REASONING_EFFORT`
+- `AI_PRICE_CURRENCY`
+- `AI_INPUT_PRICE_PER_MILLION`
+- `AI_OUTPUT_PRICE_PER_MILLION`
+- `AI_CACHE_HIT_INPUT_PRICE_PER_MILLION`
+- `AI_SYSTEM_PROMPT`
 
 ## 部署建议
 
-### 推荐方式
+推荐：
 
-- 抓取后台运行在本地服务器、云主机或你自己的长期进程环境
-- 公开前端部署到 Vercel
-- 每次发布后，把 `data/public/` 的静态产物一起部署或同步
+- 抓取后台运行在本地服务器、云主机或长期在线环境
+- 用户端部署到 Vercel
+- 每次发布后同步 `data/public/` 产物
 
-### 不推荐方式
+不推荐：
 
-- 在 Vercel Serverless/Edge 里直接执行抓取并写本地 JSON
+- 直接在 Vercel Serverless / Edge 环境里执行抓取并写本地 JSON
 
 原因：
 
-- Vercel 运行时文件系统不是可靠持久化存储
-- 多实例下本地文件不会天然一致
-- 运行时写入不适合当前这套抓取发布模型
+- 文件系统不是稳定持久化存储
+- 多实例下本地文件无法天然一致
+- 不适合当前这套“抓取 -> 校对 -> 发布静态产物”的工作流
 
-## 已完成的关键改造
+## 用户端说明
 
-- 商品连续 3 次缺失后自动删除
-- 商品价格变化只更新当前版本并保留历史
-- 发布时生成多份静态公开产物
-- 前端改成轻索引首屏 + 单店详情按需加载
-- 用户端界面重做并减少切换卡顿
+当前用户端包含两个主界面：
+
+- 首页商品列表
+- 店铺列表页
+
+这两个页面都支持：
+
+- 筛选与搜索
+- “继续加载更多”按钮
+- 滚动到底部自动加载下一页
+- 页面底部 GitHub 链接
+
+项目地址：
+
+- https://github.com/flycodeu/websiteclaw
