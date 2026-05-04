@@ -1,6 +1,53 @@
 {
   "shops": [
     {
+      "shopId": "shop_src_55ae1c73",
+      "sourceId": "src_55ae1c73",
+      "name": "cc-cat",
+      "url": "https://ccdawang.win/products",
+      "merchantType": "SMALL_SHOP",
+      "status": "RISK",
+      "currentVersion": 26,
+      "lastCrawledAt": "2026-05-04T01:32:44.368Z",
+      "productCount": 5,
+      "inStockCount": 0,
+      "lowStockCount": 0,
+      "outOfStockCount": 5,
+      "lowestPrice": 3.66,
+      "categories": [
+        "CHATGPT",
+        "OTHER"
+      ],
+      "recentChangeCount": 5,
+      "runCount": 1
+    },
+    {
+      "shopId": "shop_src_510d0026",
+      "sourceId": "src_510d0026",
+      "name": "Tora-雪诺AI源头分销小铺",
+      "url": "https://pay.ldxp.cn/shop/Tora",
+      "merchantType": "SMALL_SHOP",
+      "status": "OPEN",
+      "currentVersion": 25,
+      "lastCrawledAt": "2026-05-04T01:31:03.961Z",
+      "productCount": 74,
+      "inStockCount": 47,
+      "lowStockCount": 19,
+      "outOfStockCount": 8,
+      "lowestPrice": 0.28,
+      "categories": [
+        "CHATGPT",
+        "CLAUDE",
+        "GEMINI",
+        "GROK",
+        "OTHER",
+        "PERPLEXITY",
+        "VIRTUAL_CARD"
+      ],
+      "recentChangeCount": 74,
+      "runCount": 1
+    },
+    {
       "shopId": "shop_src_c4fa540a",
       "sourceId": "src_c4fa540a",
       "name": "Aisou智充",
@@ -470,19 +517,21 @@
       "runCount": 1
     }
   ],
-  "publishedAt": "2026-05-04T01:15:49.554Z",
+  "publishedAt": "2026-05-04T01:32:44.368Z",
   "meta": {
-    "publishedAt": "2026-05-04T01:15:49.554Z",
-    "shopCount": 21,
-    "liveProductCount": 305,
+    "publishedAt": "2026-05-04T01:32:44.368Z",
+    "shopCount": 23,
+    "liveProductCount": 384,
     "archivedProductCount": 2,
-    "categoryCount": 6,
+    "categoryCount": 8,
     "categories": [
       "CHATGPT",
+      "OTHER",
       "CLAUDE",
       "GEMINI",
       "GROK",
-      "OTHER",
+      "PERPLEXITY",
+      "VIRTUAL_CARD",
       "GOOGLE_ACCOUNT"
     ]
   }

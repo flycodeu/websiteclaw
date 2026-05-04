@@ -1,15 +1,17 @@
 {
-  "publishedAt": "2026-05-04T01:15:49.554Z",
-  "shopCount": 21,
-  "liveProductCount": 305,
+  "publishedAt": "2026-05-04T01:32:44.368Z",
+  "shopCount": 23,
+  "liveProductCount": 384,
   "archivedProductCount": 2,
-  "categoryCount": 6,
+  "categoryCount": 8,
   "categories": [
     "CHATGPT",
+    "OTHER",
     "CLAUDE",
     "GEMINI",
     "GROK",
-    "OTHER",
+    "PERPLEXITY",
+    "VIRTUAL_CARD",
     "GOOGLE_ACCOUNT"
   ]
 }

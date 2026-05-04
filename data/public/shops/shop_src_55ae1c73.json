@@ -1,0 +1,411 @@
+{
+  "shop": {
+    "shopId": "shop_src_55ae1c73",
+    "sourceId": "src_55ae1c73",
+    "name": "cc-cat",
+    "url": "https://ccdawang.win/products",
+    "merchantType": "SMALL_SHOP",
+    "status": "RISK",
+    "currentVersion": 26,
+    "lastCrawledAt": "2026-05-04T01:32:44.368Z",
+    "productCount": 5,
+    "inStockCount": 0,
+    "lowStockCount": 0,
+    "outOfStockCount": 5,
+    "lowestPrice": 3.66,
+    "categories": [
+      "CHATGPT",
+      "OTHER"
+    ],
+    "recentChangeCount": 5,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_55ae1c73",
+      "sourceId": "src_55ae1c73",
+      "productKey": "CHATGPT__新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+      "category": "CHATGPT",
+      "specLabel": "新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+      "current": {
+        "productKey": "CHATGPT__新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+        "rawName": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队",
+        "category": "CHATGPT",
+        "specLabel": "新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+        "price": 138,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队",
+        "updatedAt": "2026-05-04T01:32:44.201Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_55ae1c73",
+          "sourceId": "src_55ae1c73",
+          "productKey": "CHATGPT__新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+          "rawName": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队",
+          "category": "CHATGPT",
+          "specLabel": "新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_34cb0b86",
+          "reviewId": "review_2da8050c",
+          "sourceLine": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 138,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 138,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 138,
+        "highestPrice": 138,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:32:44.201Z"
+    },
+    {
+      "shopId": "shop_src_55ae1c73",
+      "sourceId": "src_55ae1c73",
+      "productKey": "CHATGPT__PRO_200刀的_在维护",
+      "category": "CHATGPT",
+      "specLabel": "PRO_200刀的_在维护",
+      "current": {
+        "productKey": "CHATGPT__PRO_200刀的_在维护",
+        "rawName": "gpt pro 200刀的 在维护",
+        "category": "CHATGPT",
+        "specLabel": "PRO_200刀的_在维护",
+        "price": 220,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "gpt pro 200刀的 在维护",
+        "updatedAt": "2026-05-04T01:32:44.201Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_55ae1c73",
+          "sourceId": "src_55ae1c73",
+          "productKey": "CHATGPT__PRO_200刀的_在维护",
+          "rawName": "gpt pro 200刀的 在维护",
+          "category": "CHATGPT",
+          "specLabel": "PRO_200刀的_在维护",
+          "price": 220,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_34cb0b86",
+          "reviewId": "review_2da8050c",
+          "sourceLine": "gpt pro 200刀的 在维护"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 220,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 220,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 220,
+        "highestPrice": 220,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:32:44.201Z"
+    },
+    {
+      "shopId": "shop_src_55ae1c73",
+      "sourceId": "src_55ae1c73",
+      "productKey": "OTHER__谷歌普号_国家_美国_老号",
+      "category": "OTHER",
+      "specLabel": "谷歌普号_国家_美国_老号",
+      "current": {
+        "productKey": "OTHER__谷歌普号_国家_美国_老号",
+        "rawName": "谷歌普号 国家：美国 老号",
+        "category": "OTHER",
+        "specLabel": "谷歌普号_国家_美国_老号",
+        "price": 4.55,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "谷歌普号 国家：美国 老号",
+        "updatedAt": "2026-05-04T01:32:44.201Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_55ae1c73",
+          "sourceId": "src_55ae1c73",
+          "productKey": "OTHER__谷歌普号_国家_美国_老号",
+          "rawName": "谷歌普号 国家：美国 老号",
+          "category": "OTHER",
+          "specLabel": "谷歌普号_国家_美国_老号",
+          "price": 4.55,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_34cb0b86",
+          "reviewId": "review_2da8050c",
+          "sourceLine": "谷歌普号 国家：美国 老号"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 4.55,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 4.55,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 4.55,
+        "highestPrice": 4.55,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:32:44.201Z"
+    },
+    {
+      "shopId": "shop_src_55ae1c73",
+      "sourceId": "src_55ae1c73",
+      "productKey": "OTHER__谷歌普号_国家_随机_老号稳定",
+      "category": "OTHER",
+      "specLabel": "谷歌普号_国家_随机_老号稳定",
+      "current": {
+        "productKey": "OTHER__谷歌普号_国家_随机_老号稳定",
+        "rawName": "谷歌普号 国家：随机 老号稳定",
+        "category": "OTHER",
+        "specLabel": "谷歌普号_国家_随机_老号稳定",
+        "price": 3.66,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "谷歌普号 国家：随机 老号稳定",
+        "updatedAt": "2026-05-04T01:32:44.201Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_55ae1c73",
+          "sourceId": "src_55ae1c73",
+          "productKey": "OTHER__谷歌普号_国家_随机_老号稳定",
+          "rawName": "谷歌普号 国家：随机 老号稳定",
+          "category": "OTHER",
+          "specLabel": "谷歌普号_国家_随机_老号稳定",
+          "price": 3.66,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_34cb0b86",
+          "reviewId": "review_2da8050c",
+          "sourceLine": "谷歌普号 国家：随机 老号稳定"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 3.66,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 3.66,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 3.66,
+        "highestPrice": 3.66,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:32:44.201Z"
+    },
+    {
+      "shopId": "shop_src_55ae1c73",
+      "sourceId": "src_55ae1c73",
+      "productKey": "OTHER__新渠道GTP_PLUS_CDK_一个月",
+      "category": "OTHER",
+      "specLabel": "新渠道GTP_PLUS_CDK_一个月",
+      "current": {
+        "productKey": "OTHER__新渠道GTP_PLUS_CDK_一个月",
+        "rawName": "新渠道gtp plus cdk 一个月",
+        "category": "OTHER",
+        "specLabel": "新渠道GTP_PLUS_CDK_一个月",
+        "price": 25.5,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "售罄",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "新渠道gtp plus cdk 一个月",
+        "updatedAt": "2026-05-04T01:32:44.201Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_55ae1c73",
+          "sourceId": "src_55ae1c73",
+          "productKey": "OTHER__新渠道GTP_PLUS_CDK_一个月",
+          "rawName": "新渠道gtp plus cdk 一个月",
+          "category": "OTHER",
+          "specLabel": "新渠道GTP_PLUS_CDK_一个月",
+          "price": 25.5,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "售罄",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_34cb0b86",
+          "reviewId": "review_2da8050c",
+          "sourceLine": "新渠道gtp plus cdk 一个月"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 25.5,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:32:44.201Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 25.5,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 25.5,
+        "highestPrice": 25.5,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:32:44.201Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_55ae1c73",
+      "crawlTaskId": "task_34cb0b86",
+      "version": 26,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:32:44.368Z",
+      "summary": "商品中心页面共列出5件商品，均为GPT和GOOGLE_ACCOUNT类别，所有商品均显示为售罄状态。",
+      "conclusion": "当前页面无在售库存商品，消费者无法购买。",
+      "productCount": 5,
+      "productKeys": [
+        "CHATGPT__新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+        "OTHER__新渠道GTP_PLUS_CDK_一个月",
+        "CHATGPT__PRO_200刀的_在维护",
+        "OTHER__谷歌普号_国家_美国_老号",
+        "OTHER__谷歌普号_国家_随机_老号稳定"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_55ae1c73",
+      "version": 26,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:32:44.368Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+          "productLabel": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队",
+          "note": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_200刀的_在维护",
+          "productLabel": "gpt pro 200刀的 在维护",
+          "note": "gpt pro 200刀的 在维护 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__谷歌普号_国家_美国_老号",
+          "productLabel": "谷歌普号 国家：美国 老号",
+          "note": "谷歌普号 国家：美国 老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__谷歌普号_国家_随机_老号稳定",
+          "productLabel": "谷歌普号 国家：随机 老号稳定",
+          "note": "谷歌普号 国家：随机 老号稳定 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__新渠道GTP_PLUS_CDK_一个月",
+          "productLabel": "新渠道gtp plus cdk 一个月",
+          "note": "新渠道gtp plus cdk 一个月 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 5 项"
+    }
+  ],
+  "publishedAt": "2026-05-04T01:32:44.368Z"
+}

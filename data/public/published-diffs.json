@@ -1,6 +1,498 @@
 {
   "items": [
     {
+      "shopId": "shop_src_55ae1c73",
+      "version": 26,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:32:44.368Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__新渠道_PRO_X5_一百刀版本_秒冲不需要排队",
+          "productLabel": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队",
+          "note": "新渠道gpt pro-x5 一百刀版本 秒冲不需要排队 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_200刀的_在维护",
+          "productLabel": "gpt pro 200刀的 在维护",
+          "note": "gpt pro 200刀的 在维护 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__谷歌普号_国家_美国_老号",
+          "productLabel": "谷歌普号 国家：美国 老号",
+          "note": "谷歌普号 国家：美国 老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__谷歌普号_国家_随机_老号稳定",
+          "productLabel": "谷歌普号 国家：随机 老号稳定",
+          "note": "谷歌普号 国家：随机 老号稳定 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__新渠道GTP_PLUS_CDK_一个月",
+          "productLabel": "新渠道gtp plus cdk 一个月",
+          "note": "新渠道gtp plus cdk 一个月 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 5 项"
+    },
+    {
+      "shopId": "shop_src_510d0026",
+      "version": 25,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:31:03.959Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡",
+          "productLabel": "「菲律宾直充官方」ChatGPT PRO 5x 充值 ｜ 100美元",
+          "note": "「菲律宾直充官方」ChatGPT PRO 5x 充值 ｜ 100美元 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__激活码",
+          "productLabel": "【渠道一】GPT-Team / Business 高质量激活码（质保3天）",
+          "note": "【渠道一】GPT-Team / Business 高质量激活码（质保3天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__成品号",
+          "productLabel": "长效【微软邮箱交付】GPT账号（白号）普通号｜账号密码直登｜gpt专用｜高权重家宽｜独享号",
+          "note": "长效【微软邮箱交付】GPT账号（白号）普通号｜账号密码直登｜gpt专用｜高权重家宽｜独享号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__100美刀_PRO5X",
+          "productLabel": "ChatGPT 100美刀 Pro5x 月卡（正规充值）",
+          "note": "ChatGPT 100美刀 Pro5x 月卡（正规充值） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡成品号",
+          "productLabel": "ChatGPT Plus月卡 成品号（质保30天）",
+          "note": "ChatGPT Plus月卡 成品号（质保30天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__次卡",
+          "productLabel": "GPT Cyber认证【Persona认证】",
+          "note": "GPT Cyber认证【Persona认证】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__卡密直充",
+          "productLabel": "GPT Plus 卡密直充 谷歌渠道(非PayPal和GoPay)",
+          "note": "GPT Plus 卡密直充 谷歌渠道(非PayPal和GoPay) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__TEAM_手工直拉_无质保",
+          "productLabel": "GPT TEAM 手工直拉 无质保",
+          "note": "GPT TEAM 手工直拉 无质保 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__1000刀",
+          "productLabel": "claude 1000刀兑换码Claude opus 4.6 opus 4.7 满血版 1000 刀 额度",
+          "note": "claude 1000刀兑换码Claude opus 4.6 opus 4.7 满血版 1000 刀 额度 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__200刀",
+          "productLabel": "claude 200刀兑换码Claude opus 4.6 opus 4.7 满血版 200 刀 额度",
+          "note": "claude 200刀兑换码Claude opus 4.6 opus 4.7 满血版 200 刀 额度 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__20X",
+          "productLabel": "claude 20x 礼品卡",
+          "note": "claude 20x 礼品卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__5X",
+          "productLabel": "claude 5x 礼品卡",
+          "note": "claude 5x 礼品卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PERSONA_人脸验证KYC",
+          "productLabel": "Claude Persona 人脸验证KYC",
+          "note": "Claude Persona 人脸验证KYC 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__PRO",
+          "productLabel": "Claude Pro ios直充",
+          "note": "Claude Pro ios直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__普通账号_微软邮箱_美国IP注册",
+          "productLabel": "Claude普通账号（微软邮箱，美国ip注册）",
+          "note": "Claude普通账号（微软邮箱，美国ip注册） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__注册_实体手机号接码_仅限_接码_其他勿拍",
+          "productLabel": "Claude注册 实体手机号接码（仅限Claude接码，其他勿拍）",
+          "note": "Claude注册 实体手机号接码（仅限Claude接码，其他勿拍） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__12个月_PIXEL",
+          "productLabel": "【包GCP反重力可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "【包GCP反重力可用】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__12个月",
+          "productLabel": "【不包其他】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号）",
+          "note": "【不包其他】Gemini Pro 12个月 Pixel 成品号 （美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__质保_ULTRA家庭组席位_可用反重力",
+          "productLabel": "【质保】Ultra家庭组席位 可用反重力",
+          "note": "【质保】Ultra家庭组席位 可用反重力 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__3_1PRO_12个月",
+          "productLabel": "Gemini 3.1pro 12个月pixel成品号需要绑定手机（美区22-24年账号）",
+          "note": "Gemini 3.1pro 12个月pixel成品号需要绑定手机（美区22-24年账号） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__1年",
+          "productLabel": "Gemini Pro 1年差绑卡号【pixel渠道 美区22-24年老号】",
+          "note": "Gemini Pro 1年差绑卡号【pixel渠道 美区22-24年老号】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__一年",
+          "productLabel": "Gemini pro一年CDK充值 包绑卡 1次 （充值无叠加 有会员不能充值）",
+          "note": "Gemini pro一年CDK充值 包绑卡 1次 （充值无叠加 有会员不能充值） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__ULTRA企业版成品号_FLOW专属",
+          "productLabel": "Ultra企业版成品号 flow专属",
+          "note": "Ultra企业版成品号 flow专属 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__三天",
+          "productLabel": "Grok SuperGrok 独享账号 三天升级试用号",
+          "note": "Grok SuperGrok 独享账号 三天升级试用号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__普号_直登成品_域名邮箱_只保首登",
+          "productLabel": "GROK【普号|直登成品｜域名邮箱】只保首登",
+          "note": "GROK【普号|直登成品｜域名邮箱】只保首登 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__半月",
+          "productLabel": "grok【heavy】-半月卡！！【绝版5.6-5.8到期】保2天！",
+          "note": "grok【heavy】-半月卡！！【绝版5.6-5.8到期】保2天！ 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__360天",
+          "productLabel": "grok【super｜年卡】360天！【绝版2027年4月到期】！【保网页首登】",
+          "note": "grok【super｜年卡】360天！【绝版2027年4月到期】！【保网页首登】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_体验卡_三天号_直登成品_域名邮箱_只保_网页_首登",
+          "productLabel": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登",
+          "note": "GROK【super｜体验卡｜三天号|直登成品｜域名邮箱】只保【网页】首登 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__HEAVY年订阅成品号",
+          "productLabel": "Heavy年订阅成品号",
+          "note": "Heavy年订阅成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__10到15天",
+          "productLabel": "SuperGrok 独享账号 10到15天会员 质保5天",
+          "note": "SuperGrok 独享账号 10到15天会员 质保5天 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__一月",
+          "productLabel": "SuperGrok 独享账号 一月会员 质保5天 新渠道",
+          "note": "SuperGrok 独享账号 一月会员 质保5天 新渠道 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__SUPER_月卡IOS直充",
+          "productLabel": "SuperGrok月卡iOS直充",
+          "note": "SuperGrok月卡iOS直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__1个月",
+          "productLabel": "【格陵兰+299】1个月【6位短号】",
+          "note": "【格陵兰+299】1个月【6位短号】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__美国_1_1_2年_精养老号",
+          "productLabel": "【美国+1】1~2年 精养老号",
+          "note": "【美国+1】1~2年 精养老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__美国_1_2_3年_精养老号",
+          "productLabel": "【美国+1】2~3年 精养老号",
+          "note": "【美国+1】2~3年 精养老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__7_12个月",
+          "productLabel": "【美国+1】7~12个月 精品账号",
+          "note": "【美国+1】7~12个月 精品账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__注册时间随机",
+          "productLabel": "【随机国家4A👑5A连号】注册时间随机",
+          "note": "【随机国家4A👑5A连号】注册时间随机 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__印度_91_1_3年_精养老号",
+          "productLabel": "【印度+91】1~3年 精养老号",
+          "note": "【印度+91】1~3年 精养老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__印度_91_4_6年_精养老号",
+          "productLabel": "【印度+91】4~6年 精养老号",
+          "note": "【印度+91】4~6年 精养老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__100刀不限时_CODEX_PLUS号池_非TEAM_FREE",
+          "productLabel": "100刀不限时 Codex Plus号池 非team free",
+          "note": "100刀不限时 Codex Plus号池 非team free 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__200美刀",
+          "productLabel": "200美刀正规充值（非零购）",
+          "note": "200美刀正规充值（非零购） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__加拿大_1_精养账号6_10个月",
+          "productLabel": "加拿大(+1)精养账号6-10个月",
+          "note": "加拿大(+1)精养账号6-10个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__缅甸_95_精养账号1_4年老号",
+          "productLabel": "缅甸(+95)精养账号1-4年老号",
+          "note": "缅甸(+95)精养账号1-4年老号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__缅甸_95_精养账号1个月",
+          "productLabel": "缅甸(+95)精养账号1个月",
+          "note": "缅甸(+95)精养账号1个月 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__随机国家TG账号_新号_精选无限制国家_手机电脑通用_API格式",
+          "productLabel": "随机国家TG账号|新号|精选无限制国家|手机电脑通用|API格式",
+          "note": "随机国家TG账号|新号|精选无限制国家|手机电脑通用|API格式 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__微软学生13个月成品账号_MICROSOFT_365_PREMIUM",
+          "productLabel": "微软学生13个月成品账号（Microsoft 365 Premium）",
+          "note": "微软学生13个月成品账号（Microsoft 365 Premium） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__长期接码网页号",
+          "productLabel": "长期接码网页号",
+          "note": "长期接码网页号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CODEX_API_100刀不限时_非FREE号池",
+          "productLabel": "CODEX API 100刀不限时 非Free号池",
+          "note": "CODEX API 100刀不限时 非Free号池 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CODEX_API_10刀不限时_非FREE号池",
+          "productLabel": "CODEX API 10刀不限时 非Free号池",
+          "note": "CODEX API 10刀不限时 非Free号池 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CODEX_API_200刀不限时_非FREE号池",
+          "productLabel": "CODEX API 200刀不限时 非Free号池",
+          "note": "CODEX API 200刀不限时 非Free号池 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CODEX_API_20刀不限时_非FREE号池",
+          "productLabel": "CODEX API 20刀不限时 非Free号池",
+          "note": "CODEX API 20刀不限时 非Free号池 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CODEX_API_50刀不限时_非FREE号池",
+          "productLabel": "CODEX API 50刀不限时 非Free号池",
+          "note": "CODEX API 50刀不限时 非Free号池 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CURSOR_PRO_成品号",
+          "productLabel": "Cursor Pro 成品号",
+          "note": "Cursor Pro 成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CURSOR_PRO成品号_质保",
+          "productLabel": "Cursor pro成品号（质保）",
+          "note": "Cursor pro成品号（质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CURSOR_PRO教育优惠一年",
+          "productLabel": "cursor pro教育优惠一年",
+          "note": "cursor pro教育优惠一年 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__CURSOR_ULTRA_成品号",
+          "productLabel": "Cursor Ultra 成品号",
+          "note": "Cursor Ultra 成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__自定义价格",
+          "productLabel": "Discord装扮 - 自定义价格",
+          "note": "Discord装扮 - 自定义价格 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GOOGLE验证_美国手机号_两个月内可重复接码_购买前务必看介绍",
+          "productLabel": "Google验证 美国手机号（两个月内可重复接码）（购买前务必看介绍）",
+          "note": "Google验证 美国手机号（两个月内可重复接码）（购买前务必看介绍） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GV全新号",
+          "productLabel": "GV全新号",
+          "note": "GV全新号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GV永久号_2个号码",
+          "productLabel": "GV永久号 2个号码",
+          "note": "GV永久号 2个号码 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__GV永久号_3个号码",
+          "productLabel": "GV永久号 3个号码",
+          "note": "GV永久号 3个号码 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__1000刀额度",
+          "productLabel": "KiroSwitch API中转API 1000刀额度 可用opus模型 openclaw可用",
+          "note": "KiroSwitch API中转API 1000刀额度 可用opus模型 openclaw可用 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__100刀额度",
+          "productLabel": "KiroSwitch API中转API 100刀额度 可用opus模型 openclaw可用",
+          "note": "KiroSwitch API中转API 100刀额度 可用opus模型 openclaw可用 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__500刀额度",
+          "productLabel": "KiroSwitch API中转API 500刀额度 可用opus模型 openclaw可用",
+          "note": "KiroSwitch API中转API 500刀额度 可用opus模型 openclaw可用 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__天卡",
+          "productLabel": "Kiroswitch无限续杯软件卡密(天卡）无法使用opus模型-每天1个550额度账号",
+          "note": "Kiroswitch无限续杯软件卡密(天卡）无法使用opus模型-每天1个550额度账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__月卡",
+          "productLabel": "Kiroswitch无限续杯软件卡密(月卡）无法使用opus模型，每天1个550额度账号",
+          "note": "Kiroswitch无限续杯软件卡密(月卡）无法使用opus模型，每天1个550额度账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__周卡",
+          "productLabel": "Kiroswitch无限续杯软件卡密(周卡）无法使用opus模型，每天1个550额度账号",
+          "note": "Kiroswitch无限续杯软件卡密(周卡）无法使用opus模型，每天1个550额度账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__30刀",
+          "productLabel": "MIdjourney 30刀 代充",
+          "note": "MIdjourney 30刀 代充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__60刀",
+          "productLabel": "MIdjourney 60刀 代充",
+          "note": "MIdjourney 60刀 代充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__OUTLOOK_令牌长效_已绑辅邮_已授权OAUTH2_IMAP_GRAPH",
+          "productLabel": "Outlook-令牌长效-已绑辅邮(已授权oauth2，IMAP GRAPH)",
+          "note": "Outlook-令牌长效-已绑辅邮(已授权oauth2，IMAP GRAPH) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__95刀",
+          "productLabel": "Runway 95刀美元直充",
+          "note": "Runway 95刀美元直充 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__X_PREMIUM",
+          "productLabel": "X Premium",
+          "note": "X Premium 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "PERPLEXITY__一年",
+          "productLabel": "【渠道二】Perplexity 一年兑换码（卖出不退不换，小白勿买，不要屯，失效不退）",
+          "note": "【渠道二】Perplexity 一年兑换码（卖出不退不换，小白勿买，不要屯，失效不退） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "VIRTUAL_CARD__0刀",
+          "productLabel": "虚拟信用卡VISA 0刀虚拟卡 485954(购买密钥后 前往 http://card.988.chat/ 进行兑卡)",
+          "note": "虚拟信用卡VISA 0刀虚拟卡 485954(购买密钥后 前往 http://card.988.chat/ 进行兑卡) 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 74 项"
+    },
+    {
       "shopId": "shop_src_c4fa540a",
       "version": 24,
       "snapshotDate": "2026-05-04",
@@ -2959,5 +3451,5 @@
       "summary": "新增 17 项"
     }
   ],
-  "publishedAt": "2026-05-04T01:15:49.554Z"
+  "publishedAt": "2026-05-04T01:32:44.368Z"
 }
