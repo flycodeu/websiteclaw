@@ -6,22 +6,1192 @@
     "url": "https://pay.ldxp.cn/shop/MEDDEX4V",
     "merchantType": "SMALL_SHOP",
     "status": "OPEN",
-    "currentVersion": 0,
-    "lastCrawledAt": "2026-05-01T08:34:01.414Z",
-    "productCount": 19,
-    "inStockCount": 5,
-    "lowStockCount": 3,
-    "outOfStockCount": 11,
-    "lowestPrice": 2.8,
+    "currentVersion": 7,
+    "lastCrawledAt": "2026-05-03T11:04:45.602Z",
+    "productCount": 37,
+    "inStockCount": 10,
+    "lowStockCount": 8,
+    "outOfStockCount": 19,
+    "lowestPrice": 15,
     "categories": [
       "CHATGPT",
       "CLAUDE",
       "OTHER"
     ],
-    "recentChangeCount": 19,
-    "runCount": 1
+    "recentChangeCount": 26,
+    "runCount": 2
   },
   "products": [
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+      "category": "CHATGPT",
+      "specLabel": "正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+      "current": {
+        "productKey": "CHATGPT__正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+        "rawName": "【正价充值】ChatGPT Plus 正规20刀充值 全程质保【自动充值】",
+        "category": "CHATGPT",
+        "specLabel": "正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+        "price": 10000,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "剩余33件",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "【正价充值】ChatGPT Plus 正规20刀充值 全程质保【自动充值】 ¥10000 剩余33件",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+          "rawName": "【正价充值】ChatGPT Plus 正规20刀充值 全程质保【自动充值】",
+          "category": "CHATGPT",
+          "specLabel": "正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+          "price": 10000,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "剩余33件",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "【正价充值】ChatGPT Plus 正规20刀充值 全程质保【自动充值】 ¥10000 剩余33件"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 10000,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 10000,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 10000,
+        "highestPrice": 10000,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__质保30天_PLUS_成品号",
+      "category": "CHATGPT",
+      "specLabel": "质保30天_PLUS_成品号",
+      "current": {
+        "productKey": "CHATGPT__质保30天_PLUS_成品号",
+        "rawName": "【质保30天】GPT Plus 成品号",
+        "category": "CHATGPT",
+        "specLabel": "质保30天_PLUS_成品号",
+        "price": 80,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存少量",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "【质保30天】GPT Plus 成品号 ¥80 库存少量",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__质保30天_PLUS_成品号",
+          "rawName": "【质保30天】GPT Plus 成品号",
+          "category": "CHATGPT",
+          "specLabel": "质保30天_PLUS_成品号",
+          "price": 80,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存少量",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "【质保30天】GPT Plus 成品号 ¥80 库存少量"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 80,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 80,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 80,
+        "highestPrice": 80,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS_一个月_土区订阅_全程质保",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_一个月_土区订阅_全程质保",
+      "current": {
+        "productKey": "CHATGPT__PLUS_一个月_土区订阅_全程质保",
+        "rawName": "ChatGPT Plus 一个月（土区订阅，全程质保）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_一个月_土区订阅_全程质保",
+        "price": 130,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存一般",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "ChatGPT Plus 一个月（土区订阅，全程质保） ¥130 库存一般",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_一个月_土区订阅_全程质保",
+          "rawName": "ChatGPT Plus 一个月（土区订阅，全程质保）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_一个月_土区订阅_全程质保",
+          "price": 130,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存一般",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "ChatGPT Plus 一个月（土区订阅，全程质保） ¥130 库存一般"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 130,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 130,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 130,
+        "highestPrice": 130,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__土区自助卡_密尊享保障版_含封号包赔",
+      "category": "CHATGPT",
+      "specLabel": "土区自助卡_密尊享保障版_含封号包赔",
+      "current": {
+        "productKey": "CHATGPT__土区自助卡_密尊享保障版_含封号包赔",
+        "rawName": "ChatGPT土区自助卡 密尊享保障版（含封号包赔）",
+        "category": "CHATGPT",
+        "specLabel": "土区自助卡_密尊享保障版_含封号包赔",
+        "price": 130,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存一般",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "ChatGPT土区自助卡 密尊享保障版（含封号包赔） ¥130 库存一般",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__土区自助卡_密尊享保障版_含封号包赔",
+          "rawName": "ChatGPT土区自助卡 密尊享保障版（含封号包赔）",
+          "category": "CHATGPT",
+          "specLabel": "土区自助卡_密尊享保障版_含封号包赔",
+          "price": 130,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存一般",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "ChatGPT土区自助卡 密尊享保障版（含封号包赔） ¥130 库存一般"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 130,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 130,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 130,
+        "highestPrice": 130,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS_成品号",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_成品号",
+      "current": {
+        "productKey": "CHATGPT__PLUS_成品号",
+        "rawName": "GPT Plus 成品号",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_成品号",
+        "price": 15,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "GPT Plus 成品号 ¥15 库存充足",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_成品号",
+          "rawName": "GPT Plus 成品号",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_成品号",
+          "price": 15,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus 成品号 ¥15 库存充足"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 15,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 15,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 15,
+        "highestPrice": 15,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS_成品号一个月_质保15天",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_成品号一个月_质保15天",
+      "current": {
+        "productKey": "CHATGPT__PLUS_成品号一个月_质保15天",
+        "rawName": "GPT Plus 成品号一个月（质保15天）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_成品号一个月_质保15天",
+        "price": 50,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "GPT Plus 成品号一个月（质保15天） ¥50 库存充足",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_成品号一个月_质保15天",
+          "rawName": "GPT Plus 成品号一个月（质保15天）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_成品号一个月_质保15天",
+          "price": 50,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus 成品号一个月（质保15天） ¥50 库存充足"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 50,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 50,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 50,
+        "highestPrice": 50,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS_CDK自助_新号渠道",
+      "category": "CHATGPT",
+      "specLabel": "PLUS_CDK自助_新号渠道",
+      "current": {
+        "productKey": "CHATGPT__PLUS_CDK自助_新号渠道",
+        "rawName": "GPT Plus CDK自助（新号渠道）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS_CDK自助_新号渠道",
+        "price": 30,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "GPT Plus CDK自助（新号渠道） ¥30 库存充足",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_CDK自助_新号渠道",
+          "rawName": "GPT Plus CDK自助（新号渠道）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_CDK自助_新号渠道",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus CDK自助（新号渠道） ¥30 库存充足"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 30,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 30,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 30,
+        "highestPrice": 30,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS成品号_月付_质保10天",
+      "category": "CHATGPT",
+      "specLabel": "PLUS成品号_月付_质保10天",
+      "current": {
+        "productKey": "CHATGPT__PLUS成品号_月付_质保10天",
+        "rawName": "GPT Plus成品号(月付/质保10天)",
+        "category": "CHATGPT",
+        "specLabel": "PLUS成品号_月付_质保10天",
+        "price": 40,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存少量",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "GPT Plus成品号(月付/质保10天) ¥40 库存少量",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS成品号_月付_质保10天",
+          "rawName": "GPT Plus成品号(月付/质保10天)",
+          "category": "CHATGPT",
+          "specLabel": "PLUS成品号_月付_质保10天",
+          "price": 40,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存少量",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus成品号(月付/质保10天) ¥40 库存少量"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 40,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 40,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 40,
+        "highestPrice": 40,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS土区IOS官方直充月卡_质保不掉订阅版",
+      "category": "CHATGPT",
+      "specLabel": "PLUS土区IOS官方直充月卡_质保不掉订阅版",
+      "current": {
+        "productKey": "CHATGPT__PLUS土区IOS官方直充月卡_质保不掉订阅版",
+        "rawName": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS土区IOS官方直充月卡_质保不掉订阅版",
+        "price": 140,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存一般",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版） ¥140 库存一般",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS土区IOS官方直充月卡_质保不掉订阅版",
+          "rawName": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS土区IOS官方直充月卡_质保不掉订阅版",
+          "price": 140,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存一般",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版） ¥140 库存一般"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 140,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 140,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 140,
+        "highestPrice": 140,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__CODEX_PLUS土区正价月卡充值",
+      "category": "CHATGPT",
+      "specLabel": "CODEX_PLUS土区正价月卡充值",
+      "current": {
+        "productKey": "CHATGPT__CODEX_PLUS土区正价月卡充值",
+        "rawName": "gpt/codex plus土区正价月卡充值",
+        "category": "CHATGPT",
+        "specLabel": "CODEX_PLUS土区正价月卡充值",
+        "price": 135,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存少量",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "gpt/codex plus土区正价月卡充值 ¥135 库存少量",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__CODEX_PLUS土区正价月卡充值",
+          "rawName": "gpt/codex plus土区正价月卡充值",
+          "category": "CHATGPT",
+          "specLabel": "CODEX_PLUS土区正价月卡充值",
+          "price": 135,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存少量",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "gpt/codex plus土区正价月卡充值 ¥135 库存少量"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 135,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 135,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 135,
+        "highestPrice": 135,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__认证KYC",
+      "category": "CHATGPT",
+      "specLabel": "认证KYC",
+      "current": {
+        "productKey": "CHATGPT__认证KYC",
+        "rawName": "Gpt认证Kyc",
+        "category": "CHATGPT",
+        "specLabel": "认证KYC",
+        "price": 100,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存少量",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "Gpt认证Kyc ¥100 库存少量",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__认证KYC",
+          "rawName": "Gpt认证Kyc",
+          "category": "CHATGPT",
+          "specLabel": "认证KYC",
+          "price": 100,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存少量",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Gpt认证Kyc ¥100 库存少量"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 100,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 100,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 100,
+        "highestPrice": 100,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS一个月_质保",
+      "category": "CHATGPT",
+      "specLabel": "PLUS一个月_质保",
+      "current": {
+        "productKey": "CHATGPT__PLUS一个月_质保",
+        "rawName": "plus一个月（质保）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS一个月_质保",
+        "price": 80,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "plus一个月（质保）",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS一个月_质保",
+          "rawName": "plus一个月（质保）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS一个月_质保",
+          "price": 80,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "plus一个月（质保）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 80,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 80,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 80,
+        "highestPrice": 80,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CHATGPT__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+      "category": "CHATGPT",
+      "specLabel": "PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+      "current": {
+        "productKey": "CHATGPT__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+        "rawName": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）",
+        "category": "CHATGPT",
+        "specLabel": "PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+        "price": 30,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+          "rawName": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 30,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 30,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 30,
+        "highestPrice": 30,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CLAUDE__无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+      "category": "CLAUDE",
+      "specLabel": "无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+      "current": {
+        "productKey": "CLAUDE__无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+        "rawName": "【无质保】claude max x20 $200 成品 已解决跳kyc验证问题",
+        "category": "CLAUDE",
+        "specLabel": "无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+        "price": 400,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "剩余501件",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "【无质保】claude max x20 $200 成品 已解决跳kyc验证问题 ¥400 剩余501件",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+          "rawName": "【无质保】claude max x20 $200 成品 已解决跳kyc验证问题",
+          "category": "CLAUDE",
+          "specLabel": "无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+          "price": 400,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "剩余501件",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "【无质保】claude max x20 $200 成品 已解决跳kyc验证问题 ¥400 剩余501件"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 400,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 400,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 400,
+        "highestPrice": 400,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CLAUDE__无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+      "category": "CLAUDE",
+      "specLabel": "无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+      "current": {
+        "productKey": "CLAUDE__无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+        "rawName": "【无质保】claude max x5 官方套餐 已解决跳kyc验证问题",
+        "category": "CLAUDE",
+        "specLabel": "无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+        "price": 320,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "剩余527件",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "【无质保】claude max x5 官方套餐 已解决跳kyc验证问题 ¥320 剩余527件",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+          "rawName": "【无质保】claude max x5 官方套餐 已解决跳kyc验证问题",
+          "category": "CLAUDE",
+          "specLabel": "无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+          "price": 320,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "剩余527件",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "【无质保】claude max x5 官方套餐 已解决跳kyc验证问题 ¥320 剩余527件"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 320,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 320,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 320,
+        "highestPrice": 320,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "CLAUDE__实名认证KYC",
+      "category": "CLAUDE",
+      "specLabel": "实名认证KYC",
+      "current": {
+        "productKey": "CLAUDE__实名认证KYC",
+        "rawName": "Claude 实名认证KYC",
+        "category": "CLAUDE",
+        "specLabel": "实名认证KYC",
+        "price": 100,
+        "currency": "CNY",
+        "stockStatus": "LOW_STOCK",
+        "status": "LOW_STOCK",
+        "inventoryText": "库存少量",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "Claude 实名认证KYC ¥100 库存少量",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__实名认证KYC",
+          "rawName": "Claude 实名认证KYC",
+          "category": "CLAUDE",
+          "specLabel": "实名认证KYC",
+          "price": 100,
+          "currency": "CNY",
+          "stockStatus": "LOW_STOCK",
+          "status": "LOW_STOCK",
+          "inventoryText": "库存少量",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Claude 实名认证KYC ¥100 库存少量"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 100,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 100,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 100,
+        "highestPrice": 100,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "OTHER__PLUS一个月_质保",
+      "category": "OTHER",
+      "specLabel": "PLUS一个月_质保",
+      "current": {
+        "productKey": "OTHER__PLUS一个月_质保",
+        "rawName": "plus一个月（质保）",
+        "category": "OTHER",
+        "specLabel": "PLUS一个月_质保",
+        "price": 80,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "plus一个月（质保） ¥80 库存充足",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "OTHER__PLUS一个月_质保",
+          "rawName": "plus一个月（质保）",
+          "category": "OTHER",
+          "specLabel": "PLUS一个月_质保",
+          "price": 80,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "plus一个月（质保） ¥80 库存充足"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 80,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 80,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 80,
+        "highestPrice": 80,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
+    {
+      "shopId": "shop_src_8b7c2939",
+      "sourceId": "src_8b7c2939",
+      "productKey": "OTHER__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+      "category": "OTHER",
+      "specLabel": "PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+      "current": {
+        "productKey": "OTHER__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+        "rawName": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）",
+        "category": "OTHER",
+        "specLabel": "PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+        "price": 30,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存充足",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.98,
+        "sourceLine": "plus一个月独享号（成品号）（源头海外渠道）（质保一天） ¥30 库存充足",
+        "updatedAt": "2026-05-03T11:04:45.474Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "OTHER__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+          "rawName": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）",
+          "category": "OTHER",
+          "specLabel": "PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存充足",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "plus一个月独享号（成品号）（源头海外渠道）（质保一天） ¥30 库存充足"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 30,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T11:04:45.474Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 30,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 30,
+        "highestPrice": 30,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T11:04:45.474Z"
+    },
     {
       "shopId": "shop_src_8b7c2939",
       "sourceId": "src_8b7c2939",
@@ -37,14 +1207,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "[普号] ChatGPT 长效微软邮箱 ¥2.8 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__普号_长效微软邮箱",
+          "rawName": "[普号] ChatGPT 长效微软邮箱",
+          "category": "CHATGPT",
+          "specLabel": "普号_长效微软邮箱",
+          "price": 2.8,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "[普号] ChatGPT 长效微软邮箱 ¥2.8 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -84,8 +1274,9 @@
         "highestPrice": 2.8,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -102,14 +1293,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Plus 成品号（封号免费补一次号） ¥30 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_成品号_封号免费补一次号",
+          "rawName": "GPT Plus 成品号（封号免费补一次号）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_成品号_封号免费补一次号",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus 成品号（封号免费补一次号） ¥30 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -149,8 +1360,9 @@
         "highestPrice": 30,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -167,14 +1379,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": true,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Plus 成品号（试用会员成品，质保10天） ¥35 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_成品号_试用会员成品_质保10天",
+          "rawName": "GPT Plus 成品号（试用会员成品，质保10天）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_成品号_试用会员成品_质保10天",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": true,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus 成品号（试用会员成品，质保10天） ¥35 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -214,8 +1446,9 @@
         "highestPrice": 35,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -232,14 +1465,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": true,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Plus 成品号（质保48小时） ¥17 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_成品号_质保48小时",
+          "rawName": "GPT Plus 成品号（质保48小时）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_成品号_质保48小时",
+          "price": 17,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": true,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus 成品号（质保48小时） ¥17 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -279,8 +1532,9 @@
         "highestPrice": 17,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -297,14 +1551,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Plus CDK自助(秒冲渠道) ¥50 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_CDK自助_秒冲渠道",
+          "rawName": "GPT Plus CDK自助(秒冲渠道)",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_CDK自助_秒冲渠道",
+          "price": 50,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus CDK自助(秒冲渠道) ¥50 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -344,8 +1618,9 @@
         "highestPrice": 50,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -362,14 +1637,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": true,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Plus成品号（质保1天） ¥15 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS成品号_质保1天",
+          "rawName": "GPT Plus成品号（质保1天）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS成品号_质保1天",
+          "price": 15,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": true,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus成品号（质保1天） ¥15 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -409,8 +1704,9 @@
         "highestPrice": 15,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -425,16 +1721,36 @@
         "specLabel": "PLUS年费_渠道二",
         "price": 308,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存充足",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Plus年费（渠道二） ¥308 库存充足",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS年费_渠道二",
+          "rawName": "GPT Plus年费（渠道二）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS年费_渠道二",
+          "price": 308,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Plus年费（渠道二） ¥308 库存充足"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -474,8 +1790,9 @@
         "highestPrice": 308,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -490,16 +1807,36 @@
         "specLabel": "PRO_20X_渠道八",
         "price": 1331,
         "currency": "CNY",
-        "stockStatus": "LOW_STOCK",
-        "status": "LOW_STOCK",
-        "inventoryText": "库存少量",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Pro 20x （渠道八） ¥1331 库存少量",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PRO_20X_渠道八",
+          "rawName": "GPT Pro 20x （渠道八）",
+          "category": "CHATGPT",
+          "specLabel": "PRO_20X_渠道八",
+          "price": 1331,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Pro 20x （渠道八） ¥1331 库存少量"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -539,8 +1876,9 @@
         "highestPrice": 1331,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -557,14 +1895,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Pro 20x（91秒冲渠道）（无质保） ¥250 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PRO_20X_91秒冲渠道_无质保",
+          "rawName": "GPT Pro 20x（91秒冲渠道）（无质保）",
+          "category": "CHATGPT",
+          "specLabel": "PRO_20X_91秒冲渠道_无质保",
+          "price": 250,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Pro 20x（91秒冲渠道）（无质保） ¥250 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -604,8 +1962,9 @@
         "highestPrice": 250,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -622,14 +1981,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "GPT Pro 5x（91秒冲渠道）（无质保） ¥160 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PRO_5X_91秒冲渠道_无质保",
+          "rawName": "GPT Pro 5x（91秒冲渠道）（无质保）",
+          "category": "CHATGPT",
+          "specLabel": "PRO_5X_91秒冲渠道_无质保",
+          "price": 160,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "GPT Pro 5x（91秒冲渠道）（无质保） ¥160 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -669,8 +2048,9 @@
         "highestPrice": 160,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -687,14 +2067,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": true,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "Plus 成品账号（质保7天）",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CHATGPT__PLUS_成品账号_质保7天",
+          "rawName": "Plus 成品账号（质保7天）",
+          "category": "CHATGPT",
+          "specLabel": "PLUS_成品账号_质保7天",
+          "price": 25,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": true,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Plus 成品账号（质保7天）"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -734,8 +2134,9 @@
         "highestPrice": 25,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -750,16 +2151,36 @@
         "specLabel": "无质保_MAX_20X_成品号_已解决跳KYC验证问题",
         "price": 320,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存充足",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "（无质保）claude max 20x 成品号 已解决跳kyc验证问题 ¥320 库存充足",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__无质保_MAX_20X_成品号_已解决跳KYC验证问题",
+          "rawName": "（无质保）claude max 20x 成品号 已解决跳kyc验证问题",
+          "category": "CLAUDE",
+          "specLabel": "无质保_MAX_20X_成品号_已解决跳KYC验证问题",
+          "price": 320,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "（无质保）claude max 20x 成品号 已解决跳kyc验证问题 ¥320 库存充足"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -799,8 +2220,9 @@
         "highestPrice": 320,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -815,16 +2237,36 @@
         "specLabel": "PERSONA_人脸验证KYC",
         "price": 94.5,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存充足",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "Claude Persona 人脸验证KYC ¥94.5 库存充足",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__PERSONA_人脸验证KYC",
+          "rawName": "Claude Persona 人脸验证KYC",
+          "category": "CLAUDE",
+          "specLabel": "PERSONA_人脸验证KYC",
+          "price": 94.5,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Claude Persona 人脸验证KYC ¥94.5 库存充足"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -864,8 +2306,9 @@
         "highestPrice": 94.5,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -880,16 +2323,36 @@
         "specLabel": "PRO_礼品卡_一个月",
         "price": 155,
         "currency": "CNY",
-        "stockStatus": "LOW_STOCK",
-        "status": "LOW_STOCK",
-        "inventoryText": "库存少量",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "Claude Pro 礼品卡 一个月 ¥155 库存少量",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__PRO_礼品卡_一个月",
+          "rawName": "Claude Pro 礼品卡 一个月",
+          "category": "CLAUDE",
+          "specLabel": "PRO_礼品卡_一个月",
+          "price": 155,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Claude Pro 礼品卡 一个月 ¥155 库存少量"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -929,8 +2392,9 @@
         "highestPrice": 155,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -945,16 +2409,36 @@
         "specLabel": "PRO_尼区直充",
         "price": 130,
         "currency": "CNY",
-        "stockStatus": "LOW_STOCK",
-        "status": "LOW_STOCK",
-        "inventoryText": "库存少量",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "Claude Pro 尼区直充 ¥130 库存少量",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__PRO_尼区直充",
+          "rawName": "Claude Pro 尼区直充",
+          "category": "CLAUDE",
+          "specLabel": "PRO_尼区直充",
+          "price": 130,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Claude Pro 尼区直充 ¥130 库存少量"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -994,8 +2478,9 @@
         "highestPrice": 130,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -1010,16 +2495,36 @@
         "specLabel": "PRO_IOS直充",
         "price": 132.3,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存充足",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "Claude Pro ios直充 ¥132.3 库存充足",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__PRO_IOS直充",
+          "rawName": "Claude Pro ios直充",
+          "category": "CLAUDE",
+          "specLabel": "PRO_IOS直充",
+          "price": 132.3,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Claude Pro ios直充 ¥132.3 库存充足"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -1059,8 +2564,9 @@
         "highestPrice": 132.3,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -1077,14 +2583,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "Claude Pro卡密 ¥135 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__PRO卡密",
+          "rawName": "Claude Pro卡密",
+          "category": "CLAUDE",
+          "specLabel": "PRO卡密",
+          "price": 135,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Claude Pro卡密 ¥135 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -1124,8 +2650,9 @@
         "highestPrice": 135,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -1140,16 +2667,36 @@
         "specLabel": "注册_实体手机号接码",
         "price": 10.5,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存充足",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "Claude注册 实体手机号接码 ¥10.5 库存充足",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "CLAUDE__注册_实体手机号接码",
+          "rawName": "Claude注册 实体手机号接码",
+          "category": "CLAUDE",
+          "specLabel": "注册_实体手机号接码",
+          "price": 10.5,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Claude注册 实体手机号接码 ¥10.5 库存充足"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -1189,8 +2736,9 @@
         "highestPrice": 10.5,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     },
     {
       "shopId": "shop_src_8b7c2939",
@@ -1207,14 +2755,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "缺货",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": true,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.98,
         "sourceLine": "Plus 成品账号（质保7天） ¥25 缺货",
-        "updatedAt": "2026-05-01T08:34:01.323Z"
+        "updatedAt": "2026-05-03T11:04:45.601Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_8b7c2939",
+          "sourceId": "src_8b7c2939",
+          "productKey": "OTHER__PLUS_成品账号_质保7天",
+          "rawName": "Plus 成品账号（质保7天）",
+          "category": "OTHER",
+          "specLabel": "PLUS_成品账号_质保7天",
+          "price": 25,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": true,
+          "isDetected": false,
+          "capturedAt": "2026-05-03T11:04:45.601Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_6d5c77ab",
+          "reviewId": "review_059a3d67",
+          "sourceLine": "Plus 成品账号（质保7天） ¥25 缺货"
+        },
         {
           "shopId": "shop_src_8b7c2939",
           "sourceId": "src_8b7c2939",
@@ -1254,11 +2822,42 @@
         "highestPrice": 25,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:34:01.323Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:34:01.323Z",
+      "lastMissingAt": "2026-05-03T11:04:45.601Z"
     }
   ],
   "recentSnapshots": [
+    {
+      "shopId": "shop_src_8b7c2939",
+      "crawlTaskId": "task_6d5c77ab",
+      "version": 7,
+      "snapshotDate": "2026-05-03",
+      "capturedAt": "2026-05-03T11:04:45.601Z",
+      "summary": "AI HOME的店铺共展示17个在售商品，主要提供ChatGPT和Claude相关产品，包括成品号、充值、认证服务等，部分商品标注质保信息，价格从15元到10000元不等。",
+      "conclusion": "商品列表已根据页面可见文本完整提取，质保信息依据名称中是否包含'质保'或'无质保'关键字判断。",
+      "productCount": 18,
+      "productKeys": [
+        "CLAUDE__无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+        "CLAUDE__无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+        "CLAUDE__实名认证KYC",
+        "CHATGPT__PLUS_CDK自助_新号渠道",
+        "CHATGPT__PLUS_成品号",
+        "OTHER__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+        "CHATGPT__PLUS成品号_月付_质保10天",
+        "CHATGPT__PLUS_成品号一个月_质保15天",
+        "OTHER__PLUS一个月_质保",
+        "CHATGPT__质保30天_PLUS_成品号",
+        "CHATGPT__正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+        "CHATGPT__PLUS_一个月_土区订阅_全程质保",
+        "CHATGPT__土区自助卡_密尊享保障版_含封号包赔",
+        "CHATGPT__CODEX_PLUS土区正价月卡充值",
+        "CHATGPT__PLUS土区IOS官方直充月卡_质保不掉订阅版",
+        "CHATGPT__认证KYC",
+        "CHATGPT__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+        "CHATGPT__PLUS一个月_质保"
+      ]
+    },
     {
       "shopId": "shop_src_8b7c2939",
       "crawlTaskId": "task_a5b965b1",
@@ -1292,6 +2891,187 @@
     }
   ],
   "recentDiffs": [
+    {
+      "shopId": "shop_src_8b7c2939",
+      "version": 7,
+      "snapshotDate": "2026-05-03",
+      "capturedAt": "2026-05-03T11:04:45.601Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__正价充值_PLUS_正规20刀充值_全程质保_自动充值",
+          "productLabel": "【正价充值】ChatGPT Plus 正规20刀充值 全程质保【自动充值】",
+          "note": "【正价充值】ChatGPT Plus 正规20刀充值 全程质保【自动充值】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__质保30天_PLUS_成品号",
+          "productLabel": "【质保30天】GPT Plus 成品号",
+          "note": "【质保30天】GPT Plus 成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_一个月_土区订阅_全程质保",
+          "productLabel": "ChatGPT Plus 一个月（土区订阅，全程质保）",
+          "note": "ChatGPT Plus 一个月（土区订阅，全程质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__土区自助卡_密尊享保障版_含封号包赔",
+          "productLabel": "ChatGPT土区自助卡 密尊享保障版（含封号包赔）",
+          "note": "ChatGPT土区自助卡 密尊享保障版（含封号包赔） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_成品号",
+          "productLabel": "GPT Plus 成品号",
+          "note": "GPT Plus 成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_成品号一个月_质保15天",
+          "productLabel": "GPT Plus 成品号一个月（质保15天）",
+          "note": "GPT Plus 成品号一个月（质保15天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS_CDK自助_新号渠道",
+          "productLabel": "GPT Plus CDK自助（新号渠道）",
+          "note": "GPT Plus CDK自助（新号渠道） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS成品号_月付_质保10天",
+          "productLabel": "GPT Plus成品号(月付/质保10天)",
+          "note": "GPT Plus成品号(月付/质保10天) 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS土区IOS官方直充月卡_质保不掉订阅版",
+          "productLabel": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版）",
+          "note": "GPT Plus土区iOS官方直充月卡（质保不掉订阅版） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__CODEX_PLUS土区正价月卡充值",
+          "productLabel": "gpt/codex plus土区正价月卡充值",
+          "note": "gpt/codex plus土区正价月卡充值 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__认证KYC",
+          "productLabel": "Gpt认证Kyc",
+          "note": "Gpt认证Kyc 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS一个月_质保",
+          "productLabel": "plus一个月（质保）",
+          "note": "plus一个月（质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+          "productLabel": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）",
+          "note": "plus一个月独享号（成品号）（源头海外渠道）（质保一天） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__无质保_MAX_X20_200_成品_已解决跳KYC验证问题",
+          "productLabel": "【无质保】claude max x20 $200 成品 已解决跳kyc验证问题",
+          "note": "【无质保】claude max x20 $200 成品 已解决跳kyc验证问题 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__无质保_MAX_X5_官方套餐_已解决跳KYC验证问题",
+          "productLabel": "【无质保】claude max x5 官方套餐 已解决跳kyc验证问题",
+          "note": "【无质保】claude max x5 官方套餐 已解决跳kyc验证问题 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__实名认证KYC",
+          "productLabel": "Claude 实名认证KYC",
+          "note": "Claude 实名认证KYC 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__PLUS一个月_质保",
+          "productLabel": "plus一个月（质保）",
+          "note": "plus一个月（质保） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__PLUS一个月独享号_成品号_源头海外渠道_质保一天",
+          "productLabel": "plus一个月独享号（成品号）（源头海外渠道）（质保一天）",
+          "note": "plus一个月独享号（成品号）（源头海外渠道）（质保一天） 已进入当前商品列表。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CHATGPT__PLUS年费_渠道二",
+          "productLabel": "GPT Plus年费（渠道二）",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "GPT Plus年费（渠道二） 库存状态由 有货 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CHATGPT__PRO_20X_渠道八",
+          "productLabel": "GPT Pro 20x （渠道八）",
+          "oldStockStatus": "LOW_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "GPT Pro 20x （渠道八） 库存状态由 库存紧张 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CLAUDE__无质保_MAX_20X_成品号_已解决跳KYC验证问题",
+          "productLabel": "（无质保）claude max 20x 成品号 已解决跳kyc验证问题",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "（无质保）claude max 20x 成品号 已解决跳kyc验证问题 库存状态由 有货 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CLAUDE__PERSONA_人脸验证KYC",
+          "productLabel": "Claude Persona 人脸验证KYC",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "Claude Persona 人脸验证KYC 库存状态由 有货 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CLAUDE__PRO_礼品卡_一个月",
+          "productLabel": "Claude Pro 礼品卡 一个月",
+          "oldStockStatus": "LOW_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "Claude Pro 礼品卡 一个月 库存状态由 库存紧张 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CLAUDE__PRO_尼区直充",
+          "productLabel": "Claude Pro 尼区直充",
+          "oldStockStatus": "LOW_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "Claude Pro 尼区直充 库存状态由 库存紧张 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CLAUDE__PRO_IOS直充",
+          "productLabel": "Claude Pro ios直充",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "Claude Pro ios直充 库存状态由 有货 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CLAUDE__注册_实体手机号接码",
+          "productLabel": "Claude注册 实体手机号接码",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "Claude注册 实体手机号接码 库存状态由 有货 变更为 无货。"
+        }
+      ],
+      "summary": "新增 18 项，库存变化 8 项"
+    },
     {
       "shopId": "shop_src_8b7c2939",
       "version": 0,
@@ -1416,5 +3196,5 @@
       "summary": "新增 19 项"
     }
   ],
-  "publishedAt": "2026-05-03T10:52:06.469Z"
+  "publishedAt": "2026-05-04T01:04:12.260Z"
 }

@@ -1,0 +1,268 @@
+{
+  "shop": {
+    "shopId": "shop_src_73e6025c",
+    "sourceId": "src_73e6025c",
+    "name": "拼拼工坊",
+    "url": "https://ipinpin.store/",
+    "merchantType": "SMALL_SHOP",
+    "status": "OPEN",
+    "currentVersion": 20,
+    "lastCrawledAt": "2026-05-04T01:04:12.261Z",
+    "productCount": 3,
+    "inStockCount": 3,
+    "lowStockCount": 0,
+    "outOfStockCount": 0,
+    "lowestPrice": 135,
+    "categories": [
+      "CHATGPT",
+      "CLAUDE",
+      "GROK"
+    ],
+    "recentChangeCount": 3,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_73e6025c",
+      "sourceId": "src_73e6025c",
+      "productKey": "CHATGPT__标准订阅",
+      "category": "CHATGPT",
+      "specLabel": "标准订阅",
+      "current": {
+        "productKey": "CHATGPT__标准订阅",
+        "rawName": "ChatGPT Plus",
+        "category": "CHATGPT",
+        "specLabel": "标准订阅",
+        "price": 158,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "有货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "ChatGPT Plus",
+        "updatedAt": "2026-05-04T01:04:12.116Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_73e6025c",
+          "sourceId": "src_73e6025c",
+          "productKey": "CHATGPT__标准订阅",
+          "rawName": "ChatGPT Plus",
+          "category": "CHATGPT",
+          "specLabel": "标准订阅",
+          "price": 158,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "有货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:04:12.116Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_be867550",
+          "reviewId": "review_371a9b78",
+          "sourceLine": "ChatGPT Plus"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 158,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:04:12.116Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 158,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 158,
+        "highestPrice": 158,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:04:12.116Z"
+    },
+    {
+      "shopId": "shop_src_73e6025c",
+      "sourceId": "src_73e6025c",
+      "productKey": "CLAUDE__标准订阅",
+      "category": "CLAUDE",
+      "specLabel": "标准订阅",
+      "current": {
+        "productKey": "CLAUDE__标准订阅",
+        "rawName": "Claude Pro",
+        "category": "CLAUDE",
+        "specLabel": "标准订阅",
+        "price": 135,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "有货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Claude Pro",
+        "updatedAt": "2026-05-04T01:04:12.116Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_73e6025c",
+          "sourceId": "src_73e6025c",
+          "productKey": "CLAUDE__标准订阅",
+          "rawName": "Claude Pro",
+          "category": "CLAUDE",
+          "specLabel": "标准订阅",
+          "price": 135,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "有货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:04:12.116Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_be867550",
+          "reviewId": "review_371a9b78",
+          "sourceLine": "Claude Pro"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 135,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:04:12.116Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 135,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 135,
+        "highestPrice": 135,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:04:12.116Z"
+    },
+    {
+      "shopId": "shop_src_73e6025c",
+      "sourceId": "src_73e6025c",
+      "productKey": "GROK__标准订阅",
+      "category": "GROK",
+      "specLabel": "标准订阅",
+      "current": {
+        "productKey": "GROK__标准订阅",
+        "rawName": "Grok SuperGrok",
+        "category": "GROK",
+        "specLabel": "标准订阅",
+        "price": 145,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "有货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Grok SuperGrok",
+        "updatedAt": "2026-05-04T01:04:12.116Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_73e6025c",
+          "sourceId": "src_73e6025c",
+          "productKey": "GROK__标准订阅",
+          "rawName": "Grok SuperGrok",
+          "category": "GROK",
+          "specLabel": "标准订阅",
+          "price": 145,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "有货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:04:12.116Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_be867550",
+          "reviewId": "review_371a9b78",
+          "sourceLine": "Grok SuperGrok"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 145,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:04:12.116Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 145,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 145,
+        "highestPrice": 145,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:04:12.116Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_73e6025c",
+      "crawlTaskId": "task_be867550",
+      "version": 20,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:04:12.260Z",
+      "summary": "页面展示了标准订阅下的三个AI订阅商品：ChatGPT Plus、Grok SuperGrok、Claude Pro，价格分别为¥158/月、¥145/月、¥135/月。活动订阅面板未显示具体商品。",
+      "conclusion": "商品信息完整，无异常。",
+      "productCount": 3,
+      "productKeys": [
+        "CHATGPT__标准订阅",
+        "GROK__标准订阅",
+        "CLAUDE__标准订阅"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_73e6025c",
+      "version": 20,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:04:12.260Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__标准订阅",
+          "productLabel": "ChatGPT Plus",
+          "note": "ChatGPT Plus 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__标准订阅",
+          "productLabel": "Claude Pro",
+          "note": "Claude Pro 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__标准订阅",
+          "productLabel": "Grok SuperGrok",
+          "note": "Grok SuperGrok 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 3 项"
+    }
+  ],
+  "publishedAt": "2026-05-04T01:04:12.260Z"
+}

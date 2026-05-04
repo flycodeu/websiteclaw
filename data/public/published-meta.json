@@ -1,15 +1,15 @@
 {
-  "publishedAt": "2026-05-03T10:52:06.469Z",
-  "shopCount": 14,
-  "liveProductCount": 168,
-  "archivedProductCount": 0,
+  "publishedAt": "2026-05-04T01:04:12.260Z",
+  "shopCount": 17,
+  "liveProductCount": 289,
+  "archivedProductCount": 2,
   "categoryCount": 6,
   "categories": [
     "CHATGPT",
-    "GEMINI",
-    "GOOGLE_ACCOUNT",
-    "GROK",
     "CLAUDE",
-    "OTHER"
+    "GROK",
+    "GEMINI",
+    "OTHER",
+    "GOOGLE_ACCOUNT"
   ]
 }

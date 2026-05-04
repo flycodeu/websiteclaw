@@ -6,22 +6,347 @@
     "url": "https://zzshu.com/",
     "merchantType": "SMALL_SHOP",
     "status": "OPEN",
-    "currentVersion": 0,
-    "lastCrawledAt": "2026-05-01T08:59:39.462Z",
-    "productCount": 3,
+    "currentVersion": 17,
+    "lastCrawledAt": "2026-05-04T01:01:19.321Z",
+    "productCount": 8,
     "inStockCount": 3,
     "lowStockCount": 0,
-    "outOfStockCount": 0,
+    "outOfStockCount": 5,
     "lowestPrice": 15,
     "categories": [
       "CHATGPT",
       "CLAUDE",
       "GEMINI"
     ],
-    "recentChangeCount": 3,
-    "runCount": 1
+    "recentChangeCount": 8,
+    "runCount": 2
   },
   "products": [
+    {
+      "shopId": "shop_src_7ae4037b",
+      "sourceId": "src_7ae4037b",
+      "productKey": "CHATGPT__购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用",
+      "category": "CHATGPT",
+      "specLabel": "购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用",
+      "current": {
+        "productKey": "CHATGPT__购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用",
+        "rawName": "【购买前看介绍渠道91】GPT PLUS 直冲卡密 稳定性未知 散户别买【无质保-1小时内使用】",
+        "category": "CHATGPT",
+        "specLabel": "购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用",
+        "price": 35,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：97",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【购买前看介绍渠道91】GPT PLUS 直冲卡密 稳定性未知 散户别买【无质保-1小时内使用】",
+        "updatedAt": "2026-05-04T01:01:19.187Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "CHATGPT__购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用",
+          "rawName": "【购买前看介绍渠道91】GPT PLUS 直冲卡密 稳定性未知 散户别买【无质保-1小时内使用】",
+          "category": "CHATGPT",
+          "specLabel": "购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：97",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "【购买前看介绍渠道91】GPT PLUS 直冲卡密 稳定性未知 散户别买【无质保-1小时内使用】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 35,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 35,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 35,
+        "highestPrice": 35,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:01:19.187Z"
+    },
+    {
+      "shopId": "shop_src_7ae4037b",
+      "sourceId": "src_7ae4037b",
+      "productKey": "CHATGPT__IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+      "category": "CHATGPT",
+      "specLabel": "IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+      "current": {
+        "productKey": "CHATGPT__IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+        "rawName": "【IOS-98渠道】GPT Plus土区官方直充月卡【保证正规充值其他无质保】",
+        "category": "CHATGPT",
+        "specLabel": "IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+        "price": 118,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：10",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【IOS-98渠道】GPT Plus土区官方直充月卡【保证正规充值其他无质保】",
+        "updatedAt": "2026-05-04T01:01:19.187Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "CHATGPT__IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+          "rawName": "【IOS-98渠道】GPT Plus土区官方直充月卡【保证正规充值其他无质保】",
+          "category": "CHATGPT",
+          "specLabel": "IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+          "price": 118,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：10",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "【IOS-98渠道】GPT Plus土区官方直充月卡【保证正规充值其他无质保】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 118,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 118,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 118,
+        "highestPrice": 118,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:01:19.187Z"
+    },
+    {
+      "shopId": "shop_src_7ae4037b",
+      "sourceId": "src_7ae4037b",
+      "productKey": "CHATGPT__IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+      "category": "CHATGPT",
+      "specLabel": "IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+      "current": {
+        "productKey": "CHATGPT__IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+        "rawName": "【IOS-99渠道】GPT Plus土区官方直充月卡【质保政策看介绍】",
+        "category": "CHATGPT",
+        "specLabel": "IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+        "price": 128,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【IOS-99渠道】GPT Plus土区官方直充月卡【质保政策看介绍】",
+        "updatedAt": "2026-05-04T01:01:19.187Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "CHATGPT__IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+          "rawName": "【IOS-99渠道】GPT Plus土区官方直充月卡【质保政策看介绍】",
+          "category": "CHATGPT",
+          "specLabel": "IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+          "price": 128,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "【IOS-99渠道】GPT Plus土区官方直充月卡【质保政策看介绍】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 128,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 128,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 128,
+        "highestPrice": 128,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:01:19.187Z"
+    },
+    {
+      "shopId": "shop_src_7ae4037b",
+      "sourceId": "src_7ae4037b",
+      "productKey": "CLAUDE__一个月",
+      "category": "CLAUDE",
+      "specLabel": "一个月",
+      "current": {
+        "productKey": "CLAUDE__一个月",
+        "rawName": "【IOS渠道】Claude Pro代充一个月【质保查看详情】",
+        "category": "CLAUDE",
+        "specLabel": "一个月",
+        "price": 111,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【IOS渠道】Claude Pro代充一个月【质保查看详情】",
+        "updatedAt": "2026-05-04T01:01:19.187Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "CLAUDE__一个月",
+          "rawName": "【IOS渠道】Claude Pro代充一个月【质保查看详情】",
+          "category": "CLAUDE",
+          "specLabel": "一个月",
+          "price": 111,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "【IOS渠道】Claude Pro代充一个月【质保查看详情】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 111,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 111,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 111,
+        "highestPrice": 111,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:01:19.187Z"
+    },
+    {
+      "shopId": "shop_src_7ae4037b",
+      "sourceId": "src_7ae4037b",
+      "productKey": "GEMINI__12个月",
+      "category": "GEMINI",
+      "specLabel": "12个月",
+      "current": {
+        "productKey": "GEMINI__12个月",
+        "rawName": "Gemini 3.1pro 12个月pixel成品号 随机地区",
+        "category": "GEMINI",
+        "specLabel": "12个月",
+        "price": 15,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：10",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "Gemini 3.1pro 12个月pixel成品号 随机地区",
+        "updatedAt": "2026-05-04T01:01:19.187Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "GEMINI__12个月",
+          "rawName": "Gemini 3.1pro 12个月pixel成品号 随机地区",
+          "category": "GEMINI",
+          "specLabel": "12个月",
+          "price": 15,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：10",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "Gemini 3.1pro 12个月pixel成品号 随机地区"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 15,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T01:01:19.187Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 15,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 15,
+        "highestPrice": 15,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T01:01:19.187Z"
+    },
     {
       "shopId": "shop_src_7ae4037b",
       "sourceId": "src_7ae4037b",
@@ -35,16 +360,36 @@
         "specLabel": "IOS渠道_PLUS土区官方直充月卡_保证正规充值可看邮件_其他无质保",
         "price": 118,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：18",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.95,
         "sourceLine": "【IOS渠道】GPT Plus土区官方直充月卡（保证正规充值可看邮件 其他无质保）",
-        "updatedAt": "2026-05-01T08:59:39.369Z"
+        "updatedAt": "2026-05-04T01:01:19.320Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "CHATGPT__IOS渠道_PLUS土区官方直充月卡_保证正规充值可看邮件_其他无质保",
+          "rawName": "【IOS渠道】GPT Plus土区官方直充月卡（保证正规充值可看邮件 其他无质保）",
+          "category": "CHATGPT",
+          "specLabel": "IOS渠道_PLUS土区官方直充月卡_保证正规充值可看邮件_其他无质保",
+          "price": 118,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T01:01:19.320Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "【IOS渠道】GPT Plus土区官方直充月卡（保证正规充值可看邮件 其他无质保）"
+        },
         {
           "shopId": "shop_src_7ae4037b",
           "sourceId": "src_7ae4037b",
@@ -84,8 +429,9 @@
         "highestPrice": 118,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:59:39.369Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:59:39.369Z",
+      "lastMissingAt": "2026-05-04T01:01:19.320Z"
     },
     {
       "shopId": "shop_src_7ae4037b",
@@ -100,16 +446,36 @@
         "specLabel": "代充一个月",
         "price": 111,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：4",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": true,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.8,
         "sourceLine": "【IOS渠道】Claude Pro代充一个月【质保查看详情】",
-        "updatedAt": "2026-05-01T08:59:39.369Z"
+        "updatedAt": "2026-05-04T01:01:19.320Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "CLAUDE__代充一个月",
+          "rawName": "【IOS渠道】Claude Pro代充一个月【质保查看详情】",
+          "category": "CLAUDE",
+          "specLabel": "代充一个月",
+          "price": 111,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": true,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T01:01:19.320Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "【IOS渠道】Claude Pro代充一个月【质保查看详情】"
+        },
         {
           "shopId": "shop_src_7ae4037b",
           "sourceId": "src_7ae4037b",
@@ -149,8 +515,9 @@
         "highestPrice": 111,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:59:39.369Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:59:39.369Z",
+      "lastMissingAt": "2026-05-04T01:01:19.320Z"
     },
     {
       "shopId": "shop_src_7ae4037b",
@@ -165,16 +532,36 @@
         "specLabel": "12个月PIXEL成品号_随机地区",
         "price": 15,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：14",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.95,
         "sourceLine": "Gemini 3.1pro 12个月pixel成品号 随机地区",
-        "updatedAt": "2026-05-01T08:59:39.369Z"
+        "updatedAt": "2026-05-04T01:01:19.320Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_7ae4037b",
+          "sourceId": "src_7ae4037b",
+          "productKey": "GEMINI__12个月PIXEL成品号_随机地区",
+          "rawName": "Gemini 3.1pro 12个月pixel成品号 随机地区",
+          "category": "GEMINI",
+          "specLabel": "12个月PIXEL成品号_随机地区",
+          "price": 15,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T01:01:19.320Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_20733201",
+          "reviewId": "review_7e2ebb6b",
+          "sourceLine": "Gemini 3.1pro 12个月pixel成品号 随机地区"
+        },
         {
           "shopId": "shop_src_7ae4037b",
           "sourceId": "src_7ae4037b",
@@ -214,11 +601,29 @@
         "highestPrice": 15,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:59:39.369Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:59:39.369Z",
+      "lastMissingAt": "2026-05-04T01:01:19.320Z"
     }
   ],
   "recentSnapshots": [
+    {
+      "shopId": "shop_src_7ae4037b",
+      "crawlTaskId": "task_20733201",
+      "version": 17,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:01:19.320Z",
+      "summary": "该页面为吱吱鼠卡网购物页面，展示了5个在售/售罄商品，包含ChatGPT、Claude、Gemini类产品。",
+      "conclusion": "正常展示，未发现异常。",
+      "productCount": 5,
+      "productKeys": [
+        "CHATGPT__IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+        "CHATGPT__IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+        "GEMINI__12个月",
+        "CLAUDE__一个月",
+        "CHATGPT__购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用"
+      ]
+    },
     {
       "shopId": "shop_src_7ae4037b",
       "crawlTaskId": "task_27011d6f",
@@ -236,6 +641,69 @@
     }
   ],
   "recentDiffs": [
+    {
+      "shopId": "shop_src_7ae4037b",
+      "version": 17,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T01:01:19.320Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__购买前看介绍渠道91_PLUS_直冲卡密_稳定性未知_散户别买_无质保_1小时内使用",
+          "productLabel": "【购买前看介绍渠道91】GPT PLUS 直冲卡密 稳定性未知 散户别买【无质保-1小时内使用】",
+          "note": "【购买前看介绍渠道91】GPT PLUS 直冲卡密 稳定性未知 散户别买【无质保-1小时内使用】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__IOS_98渠道_PLUS土区官方直充月卡_保证正规充值其他无质保",
+          "productLabel": "【IOS-98渠道】GPT Plus土区官方直充月卡【保证正规充值其他无质保】",
+          "note": "【IOS-98渠道】GPT Plus土区官方直充月卡【保证正规充值其他无质保】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__IOS_99渠道_PLUS土区官方直充月卡_质保政策看介绍",
+          "productLabel": "【IOS-99渠道】GPT Plus土区官方直充月卡【质保政策看介绍】",
+          "note": "【IOS-99渠道】GPT Plus土区官方直充月卡【质保政策看介绍】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__一个月",
+          "productLabel": "【IOS渠道】Claude Pro代充一个月【质保查看详情】",
+          "note": "【IOS渠道】Claude Pro代充一个月【质保查看详情】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__12个月",
+          "productLabel": "Gemini 3.1pro 12个月pixel成品号 随机地区",
+          "note": "Gemini 3.1pro 12个月pixel成品号 随机地区 已进入当前商品列表。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CHATGPT__IOS渠道_PLUS土区官方直充月卡_保证正规充值可看邮件_其他无质保",
+          "productLabel": "【IOS渠道】GPT Plus土区官方直充月卡（保证正规充值可看邮件 其他无质保）",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "【IOS渠道】GPT Plus土区官方直充月卡（保证正规充值可看邮件 其他无质保） 库存状态由 有货 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CLAUDE__代充一个月",
+          "productLabel": "【IOS渠道】Claude Pro代充一个月【质保查看详情】",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "【IOS渠道】Claude Pro代充一个月【质保查看详情】 库存状态由 有货 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "GEMINI__12个月PIXEL成品号_随机地区",
+          "productLabel": "Gemini 3.1pro 12个月pixel成品号 随机地区",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "Gemini 3.1pro 12个月pixel成品号 随机地区 库存状态由 有货 变更为 无货。"
+        }
+      ],
+      "summary": "新增 5 项，库存变化 3 项"
+    },
     {
       "shopId": "shop_src_7ae4037b",
       "version": 0,
@@ -264,5 +732,5 @@
       "summary": "新增 3 项"
     }
   ],
-  "publishedAt": "2026-05-03T10:52:06.469Z"
+  "publishedAt": "2026-05-04T01:04:12.260Z"
 }

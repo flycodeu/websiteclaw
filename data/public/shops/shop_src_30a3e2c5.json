@@ -6,20 +6,345 @@
     "url": "https://tehuio.com/?from=1",
     "merchantType": "SMALL_SHOP",
     "status": "OPEN",
-    "currentVersion": 0,
-    "lastCrawledAt": "2026-05-01T08:50:51.196Z",
-    "productCount": 5,
-    "inStockCount": 2,
+    "currentVersion": 13,
+    "lastCrawledAt": "2026-05-04T00:55:38.280Z",
+    "productCount": 10,
+    "inStockCount": 4,
     "lowStockCount": 0,
-    "outOfStockCount": 3,
+    "outOfStockCount": 6,
     "lowestPrice": 24,
     "categories": [
       "CHATGPT"
     ],
-    "recentChangeCount": 5,
-    "runCount": 1
+    "recentChangeCount": 7,
+    "runCount": 2
   },
   "products": [
+    {
+      "shopId": "shop_src_30a3e2c5",
+      "sourceId": "src_30a3e2c5",
+      "productKey": "CHATGPT__秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+      "category": "CHATGPT",
+      "specLabel": "秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+      "current": {
+        "productKey": "CHATGPT__秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+        "rawName": "【秒冲】GPT续费一个月卡密（IOS 内购渠道）已绑定购买凭证，囤货少时间【不可囤】",
+        "category": "CHATGPT",
+        "specLabel": "秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+        "price": 110,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：2",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "【秒冲】GPT续费一个月卡密（IOS 内购渠道）已绑定购买凭证，囤货少时间【不可囤】",
+        "updatedAt": "2026-05-04T00:55:37.119Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+          "rawName": "【秒冲】GPT续费一个月卡密（IOS 内购渠道）已绑定购买凭证，囤货少时间【不可囤】",
+          "category": "CHATGPT",
+          "specLabel": "秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+          "price": 110,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：2",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "【秒冲】GPT续费一个月卡密（IOS 内购渠道）已绑定购买凭证，囤货少时间【不可囤】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 110,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 110,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 110,
+        "highestPrice": 110,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:55:37.119Z"
+    },
+    {
+      "shopId": "shop_src_30a3e2c5",
+      "sourceId": "src_30a3e2c5",
+      "productKey": "CHATGPT__100刀CODEX_API中转额度",
+      "category": "CHATGPT",
+      "specLabel": "100刀CODEX_API中转额度",
+      "current": {
+        "productKey": "CHATGPT__100刀CODEX_API中转额度",
+        "rawName": "100刀Codex API中转额度",
+        "category": "CHATGPT",
+        "specLabel": "100刀CODEX_API中转额度",
+        "price": 24,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：32",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "100刀Codex API中转额度",
+        "updatedAt": "2026-05-04T00:55:37.119Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__100刀CODEX_API中转额度",
+          "rawName": "100刀Codex API中转额度",
+          "category": "CHATGPT",
+          "specLabel": "100刀CODEX_API中转额度",
+          "price": 24,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：32",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "100刀Codex API中转额度"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 24,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 24,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 24,
+        "highestPrice": 24,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:55:37.119Z"
+    },
+    {
+      "shopId": "shop_src_30a3e2c5",
+      "sourceId": "src_30a3e2c5",
+      "productKey": "CHATGPT__1个月_PLUS_成品账号_质保首登",
+      "category": "CHATGPT",
+      "specLabel": "1个月_PLUS_成品账号_质保首登",
+      "current": {
+        "productKey": "CHATGPT__1个月_PLUS_成品账号_质保首登",
+        "rawName": "1个月GPT Plus 成品账号（质保首登）",
+        "category": "CHATGPT",
+        "specLabel": "1个月_PLUS_成品账号_质保首登",
+        "price": 30,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "1个月GPT Plus 成品账号（质保首登）",
+        "updatedAt": "2026-05-04T00:55:37.119Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__1个月_PLUS_成品账号_质保首登",
+          "rawName": "1个月GPT Plus 成品账号（质保首登）",
+          "category": "CHATGPT",
+          "specLabel": "1个月_PLUS_成品账号_质保首登",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "1个月GPT Plus 成品账号（质保首登）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 30,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 30,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 30,
+        "highestPrice": 30,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:55:37.119Z"
+    },
+    {
+      "shopId": "shop_src_30a3e2c5",
+      "sourceId": "src_30a3e2c5",
+      "productKey": "CHATGPT__PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+      "category": "CHATGPT",
+      "specLabel": "PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+      "current": {
+        "productKey": "CHATGPT__PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+        "rawName": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可",
+        "category": "CHATGPT",
+        "specLabel": "PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+        "price": 780,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：90",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可",
+        "updatedAt": "2026-05-04T00:55:37.119Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+          "rawName": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可",
+          "category": "CHATGPT",
+          "specLabel": "PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+          "price": 780,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：90",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 780,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 780,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 780,
+        "highestPrice": 780,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:55:37.119Z"
+    },
+    {
+      "shopId": "shop_src_30a3e2c5",
+      "sourceId": "src_30a3e2c5",
+      "productKey": "CHATGPT__续费一个月卡密_IOS_内购渠道_可囤",
+      "category": "CHATGPT",
+      "specLabel": "续费一个月卡密_IOS_内购渠道_可囤",
+      "current": {
+        "productKey": "CHATGPT__续费一个月卡密_IOS_内购渠道_可囤",
+        "rawName": "GPT续费一个月卡密（IOS 内购渠道）【可囤】",
+        "category": "CHATGPT",
+        "specLabel": "续费一个月卡密_IOS_内购渠道_可囤",
+        "price": 105,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：18",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 0.9,
+        "sourceLine": "GPT续费一个月卡密（IOS 内购渠道）【可囤】",
+        "updatedAt": "2026-05-04T00:55:37.119Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__续费一个月卡密_IOS_内购渠道_可囤",
+          "rawName": "GPT续费一个月卡密（IOS 内购渠道）【可囤】",
+          "category": "CHATGPT",
+          "specLabel": "续费一个月卡密_IOS_内购渠道_可囤",
+          "price": 105,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：18",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "GPT续费一个月卡密（IOS 内购渠道）【可囤】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 105,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:55:37.119Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 105,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 105,
+        "highestPrice": 105,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:55:37.119Z"
+    },
     {
       "shopId": "shop_src_30a3e2c5",
       "sourceId": "src_30a3e2c5",
@@ -33,16 +358,36 @@
         "specLabel": "100刀",
         "price": 24,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：43",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "100刀Codex API中转额度",
-        "updatedAt": "2026-05-01T08:50:51.111Z"
+        "updatedAt": "2026-05-04T00:55:38.279Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__100刀",
+          "rawName": "100刀Codex API中转额度",
+          "category": "CHATGPT",
+          "specLabel": "100刀",
+          "price": 24,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:55:38.279Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "100刀Codex API中转额度"
+        },
         {
           "shopId": "shop_src_30a3e2c5",
           "sourceId": "src_30a3e2c5",
@@ -82,8 +427,9 @@
         "highestPrice": 24,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:50:51.111Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:50:51.111Z",
+      "lastMissingAt": "2026-05-04T00:55:38.279Z"
     },
     {
       "shopId": "shop_src_30a3e2c5",
@@ -100,14 +446,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": true,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "1个月GPT Plus 成品账号（质保首登）",
-        "updatedAt": "2026-05-01T08:50:51.111Z"
+        "updatedAt": "2026-05-04T00:55:38.279Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__1个月",
+          "rawName": "1个月GPT Plus 成品账号（质保首登）",
+          "category": "CHATGPT",
+          "specLabel": "1个月",
+          "price": 30,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": true,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:55:38.279Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "1个月GPT Plus 成品账号（质保首登）"
+        },
         {
           "shopId": "shop_src_30a3e2c5",
           "sourceId": "src_30a3e2c5",
@@ -147,8 +513,9 @@
         "highestPrice": 30,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:50:51.111Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:50:51.111Z",
+      "lastMissingAt": "2026-05-04T00:55:38.279Z"
     },
     {
       "shopId": "shop_src_30a3e2c5",
@@ -165,14 +532,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "GPT Pro 100刀自助卡密 5x （没质保）",
-        "updatedAt": "2026-05-01T08:50:51.111Z"
+        "updatedAt": "2026-05-04T00:55:38.279Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__100刀_5X",
+          "rawName": "GPT Pro 100刀自助卡密 5x （没质保）",
+          "category": "CHATGPT",
+          "specLabel": "100刀_5X",
+          "price": 188,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:55:38.279Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "GPT Pro 100刀自助卡密 5x （没质保）"
+        },
         {
           "shopId": "shop_src_30a3e2c5",
           "sourceId": "src_30a3e2c5",
@@ -212,8 +599,9 @@
         "highestPrice": 188,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:50:51.111Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:50:51.111Z",
+      "lastMissingAt": "2026-05-04T00:55:38.279Z"
     },
     {
       "shopId": "shop_src_30a3e2c5",
@@ -228,16 +616,36 @@
         "specLabel": "1个月_5X_20X版本",
         "price": 780,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：95",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可",
-        "updatedAt": "2026-05-01T08:50:51.111Z"
+        "updatedAt": "2026-05-04T00:55:38.280Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__1个月_5X_20X版本",
+          "rawName": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可",
+          "category": "CHATGPT",
+          "specLabel": "1个月_5X_20X版本",
+          "price": 780,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:55:38.280Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可"
+        },
         {
           "shopId": "shop_src_30a3e2c5",
           "sourceId": "src_30a3e2c5",
@@ -277,8 +685,9 @@
         "highestPrice": 780,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:50:51.111Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:50:51.111Z",
+      "lastMissingAt": "2026-05-04T00:55:38.280Z"
     },
     {
       "shopId": "shop_src_30a3e2c5",
@@ -295,14 +704,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": false,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.9,
         "sourceLine": "GPT Pro 自助卡密 1个月（没质保）200刀版本",
-        "updatedAt": "2026-05-01T08:50:51.111Z"
+        "updatedAt": "2026-05-04T00:55:38.280Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_30a3e2c5",
+          "sourceId": "src_30a3e2c5",
+          "productKey": "CHATGPT__1个月_200刀",
+          "rawName": "GPT Pro 自助卡密 1个月（没质保）200刀版本",
+          "category": "CHATGPT",
+          "specLabel": "1个月_200刀",
+          "price": 298,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": false,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:55:38.280Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_70444ae0",
+          "reviewId": "review_fb32ae20",
+          "sourceLine": "GPT Pro 自助卡密 1个月（没质保）200刀版本"
+        },
         {
           "shopId": "shop_src_30a3e2c5",
           "sourceId": "src_30a3e2c5",
@@ -342,11 +771,29 @@
         "highestPrice": 298,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:50:51.111Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:50:51.111Z",
+      "lastMissingAt": "2026-05-04T00:55:38.280Z"
     }
   ],
   "recentSnapshots": [
+    {
+      "shopId": "shop_src_30a3e2c5",
+      "crawlTaskId": "task_70444ae0",
+      "version": 13,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T00:55:38.279Z",
+      "summary": "页面为tehuio.com的购物页面，当前展示ChatGPT业务分类下的5个商品，其中1个已售罄，其余有库存。包含GPT Plus成品账号、GPT续费卡密、GPT Pro代开、Codex API额度等商品。",
+      "conclusion": "共提取5个商品，均为ChatGPT相关，价格从24元到780元不等。",
+      "productCount": 5,
+      "productKeys": [
+        "CHATGPT__1个月_PLUS_成品账号_质保首登",
+        "CHATGPT__续费一个月卡密_IOS_内购渠道_可囤",
+        "CHATGPT__秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+        "CHATGPT__PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+        "CHATGPT__100刀CODEX_API中转额度"
+      ]
+    },
     {
       "shopId": "shop_src_30a3e2c5",
       "crawlTaskId": "task_81064e2d",
@@ -366,6 +813,61 @@
     }
   ],
   "recentDiffs": [
+    {
+      "shopId": "shop_src_30a3e2c5",
+      "version": 13,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T00:55:38.279Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__秒冲_续费一个月卡密_IOS_内购渠道_已绑定购买凭证_囤货少时间_不可囤",
+          "productLabel": "【秒冲】GPT续费一个月卡密（IOS 内购渠道）已绑定购买凭证，囤货少时间【不可囤】",
+          "note": "【秒冲】GPT续费一个月卡密（IOS 内购渠道）已绑定购买凭证，囤货少时间【不可囤】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__100刀CODEX_API中转额度",
+          "productLabel": "100刀Codex API中转额度",
+          "note": "100刀Codex API中转额度 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__1个月_PLUS_成品账号_质保首登",
+          "productLabel": "1个月GPT Plus 成品账号（质保首登）",
+          "note": "1个月GPT Plus 成品账号（质保首登） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_代开_续费_1个月_正价代开_5X_和_20X_版本均可",
+          "productLabel": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可",
+          "note": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__续费一个月卡密_IOS_内购渠道_可囤",
+          "productLabel": "GPT续费一个月卡密（IOS 内购渠道）【可囤】",
+          "note": "GPT续费一个月卡密（IOS 内购渠道）【可囤】 已进入当前商品列表。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CHATGPT__100刀",
+          "productLabel": "100刀Codex API中转额度",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "100刀Codex API中转额度 库存状态由 有货 变更为 无货。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "CHATGPT__1个月_5X_20X版本",
+          "productLabel": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "GPT Pro 代开/续费 1个月（正价代开）5x 和 20x 版本均可 库存状态由 有货 变更为 无货。"
+        }
+      ],
+      "summary": "新增 5 项，库存变化 2 项"
+    },
     {
       "shopId": "shop_src_30a3e2c5",
       "version": 0,
@@ -406,5 +908,5 @@
       "summary": "新增 5 项"
     }
   ],
-  "publishedAt": "2026-05-03T10:52:06.469Z"
+  "publishedAt": "2026-05-04T01:04:12.260Z"
 }

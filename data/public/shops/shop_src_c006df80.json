@@ -1,0 +1,991 @@
+{
+  "shop": {
+    "shopId": "shop_src_c006df80",
+    "sourceId": "src_c006df80",
+    "name": "AI店铺",
+    "url": "https://pay.ldxp.cn/shop/321",
+    "merchantType": "SMALL_SHOP",
+    "status": "OPEN",
+    "currentVersion": 12,
+    "lastCrawledAt": "2026-05-03T12:18:40.656Z",
+    "productCount": 13,
+    "inStockCount": 8,
+    "lowStockCount": 0,
+    "outOfStockCount": 5,
+    "lowestPrice": 0.5,
+    "categories": [
+      "CHATGPT",
+      "CLAUDE",
+      "GEMINI",
+      "GOOGLE_ACCOUNT",
+      "GROK",
+      "OTHER"
+    ],
+    "recentChangeCount": 13,
+    "runCount": 1
+  },
+  "products": [
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "CHATGPT__美区",
+      "category": "CHATGPT",
+      "specLabel": "美区",
+      "current": {
+        "productKey": "CHATGPT__美区",
+        "rawName": "【美区 注册GPT最佳选择】2020--2024年gmail邮箱",
+        "category": "CHATGPT",
+        "specLabel": "美区",
+        "price": 10,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存一般",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "【美区 注册GPT最佳选择】2020--2024年gmail邮箱",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "CHATGPT__美区",
+          "rawName": "【美区 注册GPT最佳选择】2020--2024年gmail邮箱",
+          "category": "CHATGPT",
+          "specLabel": "美区",
+          "price": 10,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存一般",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "【美区 注册GPT最佳选择】2020--2024年gmail邮箱"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 10,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 10,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 10,
+        "highestPrice": 10,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "CHATGPT__美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+      "category": "CHATGPT",
+      "specLabel": "美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+      "current": {
+        "productKey": "CHATGPT__美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+        "rawName": "美国卡【486699】美国卡 GPT系列暂时不能过 其他业务自测",
+        "category": "CHATGPT",
+        "specLabel": "美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+        "price": 4,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "美国卡【486699】美国卡 GPT系列暂时不能过 其他业务自测",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "CHATGPT__美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+          "rawName": "美国卡【486699】美国卡 GPT系列暂时不能过 其他业务自测",
+          "category": "CHATGPT",
+          "specLabel": "美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+          "price": 4,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "美国卡【486699】美国卡 GPT系列暂时不能过 其他业务自测"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 4,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 4,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 4,
+        "highestPrice": 4,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "CHATGPT__微软邮箱长效_注册GPT_GEMINI等必备",
+      "category": "CHATGPT",
+      "specLabel": "微软邮箱长效_注册GPT_GEMINI等必备",
+      "current": {
+        "productKey": "CHATGPT__微软邮箱长效_注册GPT_GEMINI等必备",
+        "rawName": "微软邮箱长效-注册GPT/Gemini等必备",
+        "category": "CHATGPT",
+        "specLabel": "微软邮箱长效_注册GPT_GEMINI等必备",
+        "price": 0.5,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "剩余69件",
+        "warrantySupported": false,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "微软邮箱长效-注册GPT/Gemini等必备",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "CHATGPT__微软邮箱长效_注册GPT_GEMINI等必备",
+          "rawName": "微软邮箱长效-注册GPT/Gemini等必备",
+          "category": "CHATGPT",
+          "specLabel": "微软邮箱长效_注册GPT_GEMINI等必备",
+          "price": 0.5,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "剩余69件",
+          "warrantySupported": false,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "微软邮箱长效-注册GPT/Gemini等必备"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 0.5,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 0.5,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 0.5,
+        "highestPrice": 0.5,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "CHATGPT__月卡",
+      "category": "CHATGPT",
+      "specLabel": "月卡",
+      "current": {
+        "productKey": "CHATGPT__月卡",
+        "rawName": "GPT Plus官方IOS直冲月卡【手动充值，直接联系客服】",
+        "category": "CHATGPT",
+        "specLabel": "月卡",
+        "price": 138,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "GPT Plus官方IOS直冲月卡【手动充值，直接联系客服】",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "CHATGPT__月卡",
+          "rawName": "GPT Plus官方IOS直冲月卡【手动充值，直接联系客服】",
+          "category": "CHATGPT",
+          "specLabel": "月卡",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "GPT Plus官方IOS直冲月卡【手动充值，直接联系客服】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 138,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 138,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 138,
+        "highestPrice": 138,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "CLAUDE__月卡",
+      "category": "CLAUDE",
+      "specLabel": "月卡",
+      "current": {
+        "productKey": "CLAUDE__月卡",
+        "rawName": "Claude Pro 直充月卡【正规尼区ios充值】",
+        "category": "CLAUDE",
+        "specLabel": "月卡",
+        "price": 142,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存一般",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "Claude Pro 直充月卡【正规尼区ios充值】",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "CLAUDE__月卡",
+          "rawName": "Claude Pro 直充月卡【正规尼区ios充值】",
+          "category": "CLAUDE",
+          "specLabel": "月卡",
+          "price": 142,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存一般",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "Claude Pro 直充月卡【正规尼区ios充值】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 142,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 142,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 142,
+        "highestPrice": 142,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "CLAUDE__一个月",
+      "category": "CLAUDE",
+      "specLabel": "一个月",
+      "current": {
+        "productKey": "CLAUDE__一个月",
+        "rawName": "Claude Pro代充一个月【正规尼区ios充值】",
+        "category": "CLAUDE",
+        "specLabel": "一个月",
+        "price": 135,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "Claude Pro代充一个月【正规尼区ios充值】",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "CLAUDE__一个月",
+          "rawName": "Claude Pro代充一个月【正规尼区ios充值】",
+          "category": "CLAUDE",
+          "specLabel": "一个月",
+          "price": 135,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "Claude Pro代充一个月【正规尼区ios充值】"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 135,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 135,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 135,
+        "highestPrice": 135,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "CLAUDE__普号_微软邮箱",
+      "category": "CLAUDE",
+      "specLabel": "普号_微软邮箱",
+      "current": {
+        "productKey": "CLAUDE__普号_微软邮箱",
+        "rawName": "Claude普号（微软邮箱）",
+        "category": "CLAUDE",
+        "specLabel": "普号_微软邮箱",
+        "price": 20,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存一般",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "Claude普号（微软邮箱）",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "CLAUDE__普号_微软邮箱",
+          "rawName": "Claude普号（微软邮箱）",
+          "category": "CLAUDE",
+          "specLabel": "普号_微软邮箱",
+          "price": 20,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存一般",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "Claude普号（微软邮箱）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 20,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 20,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 20,
+        "highestPrice": 20,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "GEMINI__美区_12个月",
+      "category": "GEMINI",
+      "specLabel": "美区_12个月",
+      "current": {
+        "productKey": "GEMINI__美区_12个月",
+        "rawName": "【美区23-24年账号】Gemini Pro 12个月pixel成品号",
+        "category": "GEMINI",
+        "specLabel": "美区_12个月",
+        "price": 32.5,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存一般",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "【美区23-24年账号】Gemini Pro 12个月pixel成品号",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "GEMINI__美区_12个月",
+          "rawName": "【美区23-24年账号】Gemini Pro 12个月pixel成品号",
+          "category": "GEMINI",
+          "specLabel": "美区_12个月",
+          "price": 32.5,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存一般",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "【美区23-24年账号】Gemini Pro 12个月pixel成品号"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 32.5,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 32.5,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 32.5,
+        "highestPrice": 32.5,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "GEMINI__随机地区",
+      "category": "GEMINI",
+      "specLabel": "随机地区",
+      "current": {
+        "productKey": "GEMINI__随机地区",
+        "rawName": "【随机地区】Gemini一年Pro会员",
+        "category": "GEMINI",
+        "specLabel": "随机地区",
+        "price": 35,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "【随机地区】Gemini一年Pro会员",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "GEMINI__随机地区",
+          "rawName": "【随机地区】Gemini一年Pro会员",
+          "category": "GEMINI",
+          "specLabel": "随机地区",
+          "price": 35,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "【随机地区】Gemini一年Pro会员"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 35,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 35,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 35,
+        "highestPrice": 35,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "GOOGLE_ACCOUNT__英区",
+      "category": "GOOGLE_ACCOUNT",
+      "specLabel": "英区",
+      "current": {
+        "productKey": "GOOGLE_ACCOUNT__英区",
+        "rawName": "【英区】2020--2024年gmail邮箱",
+        "category": "GOOGLE_ACCOUNT",
+        "specLabel": "英区",
+        "price": 13,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存少量",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "【英区】2020--2024年gmail邮箱",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "GOOGLE_ACCOUNT__英区",
+          "rawName": "【英区】2020--2024年gmail邮箱",
+          "category": "GOOGLE_ACCOUNT",
+          "specLabel": "英区",
+          "price": 13,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存少量",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "【英区】2020--2024年gmail邮箱"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 13,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 13,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 13,
+        "highestPrice": 13,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "GROK__30刀",
+      "category": "GROK",
+      "specLabel": "30刀",
+      "current": {
+        "productKey": "GROK__30刀",
+        "rawName": "Super Grok成品号（30刀）",
+        "category": "GROK",
+        "specLabel": "30刀",
+        "price": 78,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "缺货",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "Super Grok成品号（30刀）",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "GROK__30刀",
+          "rawName": "Super Grok成品号（30刀）",
+          "category": "GROK",
+          "specLabel": "30刀",
+          "price": 78,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "缺货",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "Super Grok成品号（30刀）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 78,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 78,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 78,
+        "highestPrice": 78,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "OTHER__美国_1",
+      "category": "OTHER",
+      "specLabel": "美国_1",
+      "current": {
+        "productKey": "OTHER__美国_1",
+        "rawName": "【美国+1】 ⭐推荐 TG账号",
+        "category": "OTHER",
+        "specLabel": "美国_1",
+        "price": 9,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "剩余5件",
+        "warrantySupported": true,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "【美国+1】 ⭐推荐 TG账号",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "OTHER__美国_1",
+          "rawName": "【美国+1】 ⭐推荐 TG账号",
+          "category": "OTHER",
+          "specLabel": "美国_1",
+          "price": 9,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "剩余5件",
+          "warrantySupported": true,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "【美国+1】 ⭐推荐 TG账号"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 9,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 9,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 9,
+        "highestPrice": 9,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    },
+    {
+      "shopId": "shop_src_c006df80",
+      "sourceId": "src_c006df80",
+      "productKey": "OTHER__随机地区",
+      "category": "OTHER",
+      "specLabel": "随机地区",
+      "current": {
+        "productKey": "OTHER__随机地区",
+        "rawName": "【随机地区】2020--2024年谷歌邮箱",
+        "category": "OTHER",
+        "specLabel": "随机地区",
+        "price": 7.9,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存少量",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "【随机地区】2020--2024年谷歌邮箱",
+        "updatedAt": "2026-05-03T12:18:40.515Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_c006df80",
+          "sourceId": "src_c006df80",
+          "productKey": "OTHER__随机地区",
+          "rawName": "【随机地区】2020--2024年谷歌邮箱",
+          "category": "OTHER",
+          "specLabel": "随机地区",
+          "price": 7.9,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存少量",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03",
+          "crawlTaskId": "task_b7e17936",
+          "reviewId": "review_7ceca613",
+          "sourceLine": "【随机地区】2020--2024年谷歌邮箱"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 7.9,
+          "currency": "CNY",
+          "capturedAt": "2026-05-03T12:18:40.515Z",
+          "snapshotDate": "2026-05-03"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 7.9,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 7.9,
+        "highestPrice": 7.9,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-03T12:18:40.515Z"
+    }
+  ],
+  "recentSnapshots": [
+    {
+      "shopId": "shop_src_c006df80",
+      "crawlTaskId": "task_b7e17936",
+      "version": 12,
+      "snapshotDate": "2026-05-03",
+      "capturedAt": "2026-05-03T12:18:40.656Z",
+      "summary": "AI杂货铺商品页面，包含GPT会员充值、邮箱账号、Claude自助充值、Gemini会员成品号、其他AI账号、虚拟卡、TG账号，共13个商品。",
+      "conclusion": "部分商品缺货，库存状态不一。",
+      "productCount": 13,
+      "productKeys": [
+        "CHATGPT__月卡",
+        "CHATGPT__美区",
+        "GOOGLE_ACCOUNT__英区",
+        "CLAUDE__普号_微软邮箱",
+        "OTHER__随机地区",
+        "CHATGPT__微软邮箱长效_注册GPT_GEMINI等必备",
+        "CLAUDE__月卡",
+        "CLAUDE__一个月",
+        "GEMINI__美区_12个月",
+        "GEMINI__随机地区",
+        "GROK__30刀",
+        "CHATGPT__美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+        "OTHER__美国_1"
+      ]
+    }
+  ],
+  "recentDiffs": [
+    {
+      "shopId": "shop_src_c006df80",
+      "version": 12,
+      "snapshotDate": "2026-05-03",
+      "capturedAt": "2026-05-03T12:18:40.656Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__美区",
+          "productLabel": "【美区 注册GPT最佳选择】2020--2024年gmail邮箱",
+          "note": "【美区 注册GPT最佳选择】2020--2024年gmail邮箱 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__美国卡_486699_美国卡_GPT系列暂时不能过_其他业务自测",
+          "productLabel": "美国卡【486699】美国卡 GPT系列暂时不能过 其他业务自测",
+          "note": "美国卡【486699】美国卡 GPT系列暂时不能过 其他业务自测 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__微软邮箱长效_注册GPT_GEMINI等必备",
+          "productLabel": "微软邮箱长效-注册GPT/Gemini等必备",
+          "note": "微软邮箱长效-注册GPT/Gemini等必备 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__月卡",
+          "productLabel": "GPT Plus官方IOS直冲月卡【手动充值，直接联系客服】",
+          "note": "GPT Plus官方IOS直冲月卡【手动充值，直接联系客服】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__月卡",
+          "productLabel": "Claude Pro 直充月卡【正规尼区ios充值】",
+          "note": "Claude Pro 直充月卡【正规尼区ios充值】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__一个月",
+          "productLabel": "Claude Pro代充一个月【正规尼区ios充值】",
+          "note": "Claude Pro代充一个月【正规尼区ios充值】 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CLAUDE__普号_微软邮箱",
+          "productLabel": "Claude普号（微软邮箱）",
+          "note": "Claude普号（微软邮箱） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__美区_12个月",
+          "productLabel": "【美区23-24年账号】Gemini Pro 12个月pixel成品号",
+          "note": "【美区23-24年账号】Gemini Pro 12个月pixel成品号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__随机地区",
+          "productLabel": "【随机地区】Gemini一年Pro会员",
+          "note": "【随机地区】Gemini一年Pro会员 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GOOGLE_ACCOUNT__英区",
+          "productLabel": "【英区】2020--2024年gmail邮箱",
+          "note": "【英区】2020--2024年gmail邮箱 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GROK__30刀",
+          "productLabel": "Super Grok成品号（30刀）",
+          "note": "Super Grok成品号（30刀） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__美国_1",
+          "productLabel": "【美国+1】 ⭐推荐 TG账号",
+          "note": "【美国+1】 ⭐推荐 TG账号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "OTHER__随机地区",
+          "productLabel": "【随机地区】2020--2024年谷歌邮箱",
+          "note": "【随机地区】2020--2024年谷歌邮箱 已进入当前商品列表。"
+        }
+      ],
+      "summary": "新增 13 项"
+    }
+  ],
+  "publishedAt": "2026-05-04T01:04:12.260Z"
+}

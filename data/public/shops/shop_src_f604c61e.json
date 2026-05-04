@@ -6,22 +6,412 @@
     "url": "https://www.aixiamo.com/",
     "merchantType": "SMALL_SHOP",
     "status": "OPEN",
-    "currentVersion": 0,
-    "lastCrawledAt": "2026-05-01T08:51:56.276Z",
-    "productCount": 5,
-    "inStockCount": 1,
+    "currentVersion": 14,
+    "lastCrawledAt": "2026-05-04T00:56:48.167Z",
+    "productCount": 11,
+    "inStockCount": 2,
     "lowStockCount": 0,
-    "outOfStockCount": 4,
+    "outOfStockCount": 9,
     "lowestPrice": 48.9,
     "categories": [
       "CHATGPT",
       "GEMINI",
       "OTHER"
     ],
-    "recentChangeCount": 5,
-    "runCount": 1
+    "recentChangeCount": 7,
+    "runCount": 2
   },
   "products": [
+    {
+      "shopId": "shop_src_f604c61e",
+      "sourceId": "src_f604c61e",
+      "productKey": "CHATGPT__IOS_官方订阅_APPLE区",
+      "category": "CHATGPT",
+      "specLabel": "IOS_官方订阅_APPLE区",
+      "current": {
+        "productKey": "CHATGPT__IOS_官方订阅_APPLE区",
+        "rawName": "ChatGPT Plus iOS 官方订阅（Apple 土区）",
+        "category": "CHATGPT",
+        "specLabel": "IOS_官方订阅_APPLE区",
+        "price": 148,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：88 已售：86",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "ChatGPT Plus iOS 官方订阅（Apple 土区）",
+        "updatedAt": "2026-05-04T00:56:48.040Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__IOS_官方订阅_APPLE区",
+          "rawName": "ChatGPT Plus iOS 官方订阅（Apple 土区）",
+          "category": "CHATGPT",
+          "specLabel": "IOS_官方订阅_APPLE区",
+          "price": 148,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：88 已售：86",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "ChatGPT Plus iOS 官方订阅（Apple 土区）"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 148,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 148,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 148,
+        "highestPrice": 148,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:56:48.040Z"
+    },
+    {
+      "shopId": "shop_src_f604c61e",
+      "sourceId": "src_f604c61e",
+      "productKey": "CHATGPT__CHATGPT_PLUS",
+      "category": "CHATGPT",
+      "specLabel": "CHATGPT_PLUS",
+      "current": {
+        "productKey": "CHATGPT__CHATGPT_PLUS",
+        "rawName": "ChatGPT PLUS（20美金档位）充值到号",
+        "category": "CHATGPT",
+        "specLabel": "CHATGPT_PLUS",
+        "price": 48.9,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0 已售：2278",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "ChatGPT PLUS（20美金档位）充值到号",
+        "updatedAt": "2026-05-04T00:56:48.040Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__CHATGPT_PLUS",
+          "rawName": "ChatGPT PLUS（20美金档位）充值到号",
+          "category": "CHATGPT",
+          "specLabel": "CHATGPT_PLUS",
+          "price": 48.9,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0 已售：2278",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "ChatGPT PLUS（20美金档位）充值到号"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 48.9,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 48.9,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 48.9,
+        "highestPrice": 48.9,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:56:48.040Z"
+    },
+    {
+      "shopId": "shop_src_f604c61e",
+      "sourceId": "src_f604c61e",
+      "productKey": "CHATGPT__PRO_高额版_20X",
+      "category": "CHATGPT",
+      "specLabel": "PRO_高额版_20X",
+      "current": {
+        "productKey": "CHATGPT__PRO_高额版_20X",
+        "rawName": "ChatGPT Pro 20x（200美金档位）月卡",
+        "category": "CHATGPT",
+        "specLabel": "PRO_高额版_20X",
+        "price": 433,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0 已售：416",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "ChatGPT Pro 20x（200美金档位）月卡",
+        "updatedAt": "2026-05-04T00:56:48.040Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__PRO_高额版_20X",
+          "rawName": "ChatGPT Pro 20x（200美金档位）月卡",
+          "category": "CHATGPT",
+          "specLabel": "PRO_高额版_20X",
+          "price": 433,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0 已售：416",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "ChatGPT Pro 20x（200美金档位）月卡"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 433,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 433,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 433,
+        "highestPrice": 433,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:56:48.040Z"
+    },
+    {
+      "shopId": "shop_src_f604c61e",
+      "sourceId": "src_f604c61e",
+      "productKey": "CHATGPT__PRO_进阶版_5X",
+      "category": "CHATGPT",
+      "specLabel": "PRO_进阶版_5X",
+      "current": {
+        "productKey": "CHATGPT__PRO_进阶版_5X",
+        "rawName": "ChatGPT Pro 5x（100美金档位）月卡",
+        "category": "CHATGPT",
+        "specLabel": "PRO_进阶版_5X",
+        "price": 299,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0 已售：368",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "ChatGPT Pro 5x（100美金档位）月卡",
+        "updatedAt": "2026-05-04T00:56:48.040Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__PRO_进阶版_5X",
+          "rawName": "ChatGPT Pro 5x（100美金档位）月卡",
+          "category": "CHATGPT",
+          "specLabel": "PRO_进阶版_5X",
+          "price": 299,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0 已售：368",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "ChatGPT Pro 5x（100美金档位）月卡"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 299,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 299,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 299,
+        "highestPrice": 299,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:56:48.040Z"
+    },
+    {
+      "shopId": "shop_src_f604c61e",
+      "sourceId": "src_f604c61e",
+      "productKey": "CHATGPT__API_服务",
+      "category": "CHATGPT",
+      "specLabel": "API_服务",
+      "current": {
+        "productKey": "CHATGPT__API_服务",
+        "rawName": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅",
+        "category": "CHATGPT",
+        "specLabel": "API_服务",
+        "price": 799,
+        "currency": "CNY",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "库存：0 已售：73",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅",
+        "updatedAt": "2026-05-04T00:56:48.040Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__API_服务",
+          "rawName": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅",
+          "category": "CHATGPT",
+          "specLabel": "API_服务",
+          "price": 799,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "库存：0 已售：73",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 799,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 799,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 799,
+        "highestPrice": 799,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:56:48.040Z"
+    },
+    {
+      "shopId": "shop_src_f604c61e",
+      "sourceId": "src_f604c61e",
+      "productKey": "GEMINI__GEMINI_会员",
+      "category": "GEMINI",
+      "specLabel": "GEMINI_会员",
+      "current": {
+        "productKey": "GEMINI__GEMINI_会员",
+        "rawName": "Gemini Pro一年成品",
+        "category": "GEMINI",
+        "specLabel": "GEMINI_会员",
+        "price": 138,
+        "currency": "CNY",
+        "stockStatus": "IN_STOCK",
+        "status": "ON_SALE",
+        "inventoryText": "库存：1 已售：38",
+        "warrantySupported": null,
+        "isDetected": true,
+        "confidence": 1,
+        "sourceLine": "Gemini Pro一年成品",
+        "updatedAt": "2026-05-04T00:56:48.040Z"
+      },
+      "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "GEMINI__GEMINI_会员",
+          "rawName": "Gemini Pro一年成品",
+          "category": "GEMINI",
+          "specLabel": "GEMINI_会员",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "IN_STOCK",
+          "status": "ON_SALE",
+          "inventoryText": "库存：1 已售：38",
+          "warrantySupported": null,
+          "isDetected": true,
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "Gemini Pro一年成品"
+        }
+      ],
+      "priceHistory": [
+        {
+          "price": 138,
+          "currency": "CNY",
+          "capturedAt": "2026-05-04T00:56:48.040Z",
+          "snapshotDate": "2026-05-04"
+        }
+      ],
+      "priceTrend": {
+        "direction": "UNKNOWN",
+        "previousPrice": null,
+        "currentPrice": 138,
+        "changeAmount": 0,
+        "changePercent": null,
+        "lowestPrice": 138,
+        "highestPrice": 138,
+        "sampleCount": 1
+      },
+      "missingStreak": 0,
+      "lastSeenAt": "2026-05-04T00:56:48.040Z"
+    },
     {
       "shopId": "shop_src_f604c61e",
       "sourceId": "src_f604c61e",
@@ -37,14 +427,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.95,
         "sourceLine": "ChatGPT PLUS（20美金档位）充值到号",
-        "updatedAt": "2026-05-01T08:51:56.160Z"
+        "updatedAt": "2026-05-04T00:56:48.166Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__20美金档位",
+          "rawName": "ChatGPT PLUS（20美金档位）充值到号",
+          "category": "CHATGPT",
+          "specLabel": "20美金档位",
+          "price": 48.9,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:56:48.166Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "ChatGPT PLUS（20美金档位）充值到号"
+        },
         {
           "shopId": "shop_src_f604c61e",
           "sourceId": "src_f604c61e",
@@ -84,8 +494,9 @@
         "highestPrice": 48.9,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:51:56.160Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:51:56.160Z",
+      "lastMissingAt": "2026-05-04T00:56:48.166Z"
     },
     {
       "shopId": "shop_src_f604c61e",
@@ -102,14 +513,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.95,
         "sourceLine": "ChatGPT Pro 20x（200美金档位）月卡",
-        "updatedAt": "2026-05-01T08:51:56.160Z"
+        "updatedAt": "2026-05-04T00:56:48.166Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__200美金档位",
+          "rawName": "ChatGPT Pro 20x（200美金档位）月卡",
+          "category": "CHATGPT",
+          "specLabel": "200美金档位",
+          "price": 433,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:56:48.166Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "ChatGPT Pro 20x（200美金档位）月卡"
+        },
         {
           "shopId": "shop_src_f604c61e",
           "sourceId": "src_f604c61e",
@@ -149,8 +580,9 @@
         "highestPrice": 433,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:51:56.160Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:51:56.160Z",
+      "lastMissingAt": "2026-05-04T00:56:48.166Z"
     },
     {
       "shopId": "shop_src_f604c61e",
@@ -167,14 +599,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.95,
         "sourceLine": "ChatGPT Pro 5x（100美金档位）月卡",
-        "updatedAt": "2026-05-01T08:51:56.160Z"
+        "updatedAt": "2026-05-04T00:56:48.166Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "CHATGPT__100美金档位",
+          "rawName": "ChatGPT Pro 5x（100美金档位）月卡",
+          "category": "CHATGPT",
+          "specLabel": "100美金档位",
+          "price": 299,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:56:48.166Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "ChatGPT Pro 5x（100美金档位）月卡"
+        },
         {
           "shopId": "shop_src_f604c61e",
           "sourceId": "src_f604c61e",
@@ -214,8 +666,9 @@
         "highestPrice": 299,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:51:56.160Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:51:56.160Z",
+      "lastMissingAt": "2026-05-04T00:56:48.166Z"
     },
     {
       "shopId": "shop_src_f604c61e",
@@ -230,16 +683,36 @@
         "specLabel": "一年期",
         "price": 138,
         "currency": "CNY",
-        "stockStatus": "IN_STOCK",
-        "status": "ON_SALE",
-        "inventoryText": "库存：1",
+        "stockStatus": "OUT_OF_STOCK",
+        "status": "OFFLINE",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.95,
         "sourceLine": "Gemini Pro一年成品",
-        "updatedAt": "2026-05-01T08:51:56.160Z"
+        "updatedAt": "2026-05-04T00:56:48.166Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "GEMINI__一年期",
+          "rawName": "Gemini Pro一年成品",
+          "category": "GEMINI",
+          "specLabel": "一年期",
+          "price": 138,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:56:48.166Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "Gemini Pro一年成品"
+        },
         {
           "shopId": "shop_src_f604c61e",
           "sourceId": "src_f604c61e",
@@ -279,8 +752,9 @@
         "highestPrice": 138,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:51:56.160Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:51:56.160Z",
+      "lastMissingAt": "2026-05-04T00:56:48.166Z"
     },
     {
       "shopId": "shop_src_f604c61e",
@@ -297,14 +771,34 @@
         "currency": "CNY",
         "stockStatus": "OUT_OF_STOCK",
         "status": "OFFLINE",
-        "inventoryText": "库存：0",
+        "inventoryText": "本次抓取未再次识别",
         "warrantySupported": null,
-        "isDetected": true,
+        "isDetected": false,
         "confidence": 0.95,
         "sourceLine": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅",
-        "updatedAt": "2026-05-01T08:51:56.160Z"
+        "updatedAt": "2026-05-04T00:56:48.166Z"
       },
       "history": [
+        {
+          "shopId": "shop_src_f604c61e",
+          "sourceId": "src_f604c61e",
+          "productKey": "OTHER__5000刀",
+          "rawName": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅",
+          "category": "OTHER",
+          "specLabel": "5000刀",
+          "price": 799,
+          "currency": "CNY",
+          "stockStatus": "OUT_OF_STOCK",
+          "status": "OFFLINE",
+          "inventoryText": "本次抓取未再次识别",
+          "warrantySupported": null,
+          "isDetected": false,
+          "capturedAt": "2026-05-04T00:56:48.166Z",
+          "snapshotDate": "2026-05-04",
+          "crawlTaskId": "task_0455c3f6",
+          "reviewId": "review_6adc083b",
+          "sourceLine": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅"
+        },
         {
           "shopId": "shop_src_f604c61e",
           "sourceId": "src_f604c61e",
@@ -344,11 +838,30 @@
         "highestPrice": 799,
         "sampleCount": 1
       },
-      "missingStreak": 0,
-      "lastSeenAt": "2026-05-01T08:51:56.160Z"
+      "missingStreak": 1,
+      "lastSeenAt": "2026-05-01T08:51:56.160Z",
+      "lastMissingAt": "2026-05-04T00:56:48.166Z"
     }
   ],
   "recentSnapshots": [
+    {
+      "shopId": "shop_src_f604c61e",
+      "crawlTaskId": "task_0455c3f6",
+      "version": 14,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T00:56:48.166Z",
+      "summary": "页面共有6个商品，其中4个售罄，2个在售（ChatGPT Plus iOS官方订阅和Gemini Pro一年成品）。",
+      "conclusion": "该页面为AI服务售卖平台，主要提供ChatGPT Plus/Pro和Gemini会员服务，目前多数商品已售罄，仅有少量库存。",
+      "productCount": 6,
+      "productKeys": [
+        "CHATGPT__CHATGPT_PLUS",
+        "CHATGPT__PRO_进阶版_5X",
+        "CHATGPT__IOS_官方订阅_APPLE区",
+        "CHATGPT__PRO_高额版_20X",
+        "CHATGPT__API_服务",
+        "GEMINI__GEMINI_会员"
+      ]
+    },
     {
       "shopId": "shop_src_f604c61e",
       "crawlTaskId": "task_5a8b4033",
@@ -368,6 +881,59 @@
     }
   ],
   "recentDiffs": [
+    {
+      "shopId": "shop_src_f604c61e",
+      "version": 14,
+      "snapshotDate": "2026-05-04",
+      "capturedAt": "2026-05-04T00:56:48.166Z",
+      "changes": [
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__IOS_官方订阅_APPLE区",
+          "productLabel": "ChatGPT Plus iOS 官方订阅（Apple 土区）",
+          "note": "ChatGPT Plus iOS 官方订阅（Apple 土区） 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__CHATGPT_PLUS",
+          "productLabel": "ChatGPT PLUS（20美金档位）充值到号",
+          "note": "ChatGPT PLUS（20美金档位）充值到号 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_高额版_20X",
+          "productLabel": "ChatGPT Pro 20x（200美金档位）月卡",
+          "note": "ChatGPT Pro 20x（200美金档位）月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__PRO_进阶版_5X",
+          "productLabel": "ChatGPT Pro 5x（100美金档位）月卡",
+          "note": "ChatGPT Pro 5x（100美金档位）月卡 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "CHATGPT__API_服务",
+          "productLabel": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅",
+          "note": "CODEX API 5000刀不限时高级 PRO号池+少量PLUS 非team订阅 已进入当前商品列表。"
+        },
+        {
+          "type": "PRODUCT_ADDED",
+          "productKey": "GEMINI__GEMINI_会员",
+          "productLabel": "Gemini Pro一年成品",
+          "note": "Gemini Pro一年成品 已进入当前商品列表。"
+        },
+        {
+          "type": "STOCK_CHANGED",
+          "productKey": "GEMINI__一年期",
+          "productLabel": "Gemini Pro一年成品",
+          "oldStockStatus": "IN_STOCK",
+          "newStockStatus": "OUT_OF_STOCK",
+          "note": "Gemini Pro一年成品 库存状态由 有货 变更为 无货。"
+        }
+      ],
+      "summary": "新增 6 项，库存变化 1 项"
+    },
     {
       "shopId": "shop_src_f604c61e",
       "version": 0,
@@ -408,5 +974,5 @@
       "summary": "新增 5 项"
     }
   ],
-  "publishedAt": "2026-05-03T10:52:06.469Z"
+  "publishedAt": "2026-05-04T01:04:12.260Z"
 }
